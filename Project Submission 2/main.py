@@ -1,3 +1,11 @@
-# Add the code required to run your chatbot here.
-# Do not rename this file. We will use main.py to run your chatbot
-# during the online evaluation.
+"""Starts the chatbot. Do not rename: the online evaluation runs this file."""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "additional_files"))
+
+from agent.__main__ import main  # noqa: E402
+
+if __name__ == "__main__":
+    main()

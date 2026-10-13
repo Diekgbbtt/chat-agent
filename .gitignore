@@ -7,8 +7,6 @@ dataset/
 kg_store/
 kg_store.partial/
 .pytest_cache/
-Project Submission */additional_files/
-Final Project Submission/additional_files/
 .ipynb_checkpoints/
 .vscode/
 .idea/

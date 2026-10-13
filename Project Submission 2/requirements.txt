@@ -1,0 +1,9 @@
+# Speakeasy client (not on PyPI; same commits as the Nuvolos environment)
+openapi @ git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python@daa32fba0a01fee9ddedfbb6b208dc70b5633523
+speakeasypy @ git+https://github.com/Alan-s-Speakeasy/Speakeasy-Python-Client-Library.git@4419d9c6563633b864eecee05db4b84c93f30a60
+
+# Knowledge graph
+pyoxigraph==0.5.11
+
+# Question understanding (fuzzy entity matching)
+rapidfuzz==3.14.6
