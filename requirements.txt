@@ -1,0 +1,4 @@
+rdflib>=7.0
+
+# speakeasypy is preinstalled on Nuvolos and is not on PyPI.
+# To run locally, install it from the source the course provides.
