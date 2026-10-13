@@ -1,0 +1,23 @@
+<http://www.wikidata.org/entity/Q47703> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather" .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56094> .
+<http://www.wikidata.org/entity/Q243556> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather" .
+<http://www.wikidata.org/entity/Q243556> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56094> .
+<http://www.wikidata.org/entity/Q56094> <http://www.w3.org/2000/01/rdf-schema#label> "Francis Ford Coppola" .
+<http://www.wikidata.org/entity/Q1425534> <http://www.w3.org/2000/01/rdf-schema#label> "The Atomic Cafe" .
+<http://www.wikidata.org/entity/Q1425534> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q1425534> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q455401> .
+<http://www.wikidata.org/entity/Q1425534> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q11613> .
+<http://www.wikidata.org/entity/Q1425534> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q294555> .
+<http://www.wikidata.org/entity/Q455401> <http://www.w3.org/2000/01/rdf-schema#label> "Lloyd Bentsen" .
+<http://www.wikidata.org/entity/Q11613> <http://www.w3.org/2000/01/rdf-schema#label> "Harry S. Truman" .
+<http://www.wikidata.org/entity/Q294555> <http://www.w3.org/2000/01/rdf-schema#label> "Paul Tibbets" .
+<http://www.wikidata.org/entity/Q20382729> <http://www.w3.org/2000/01/rdf-schema#label> "Arrival" .
+<http://www.wikidata.org/entity/Q20382729> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q20382729> <http://www.wikidata.org/prop/direct/P577> "2016-11-10"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q16635326> <http://www.w3.org/2000/01/rdf-schema#label> "Ex Machina" .
+<http://www.wikidata.org/entity/Q16635326> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q16635326> <http://ddis.ch/atai/tag> "suspenseful"@en .
+<http://www.wikidata.org/entity/Q16635326> <http://ddis.ch/atai/tag> "murder"@en .
+<http://www.wikidata.org/entity/Q16635326> <http://ddis.ch/atai/tag> "cruelty"@en .
+<http://www.wikidata.org/prop/direct/P57> <http://www.w3.org/2000/01/rdf-schema#label> "director"@en .

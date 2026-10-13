@@ -1,0 +1,171 @@
+<http://www.wikidata.org/prop/direct/P57> <http://www.w3.org/2000/01/rdf-schema#label> "director"@en .
+<http://www.wikidata.org/prop/direct/P58> <http://www.w3.org/2000/01/rdf-schema#label> "screenwriter"@en .
+<http://www.wikidata.org/prop/direct/P161> <http://www.w3.org/2000/01/rdf-schema#label> "cast member"@en .
+<http://www.wikidata.org/prop/direct/P495> <http://www.w3.org/2000/01/rdf-schema#label> "country of origin"@en .
+<http://www.wikidata.org/prop/direct/P577> <http://www.w3.org/2000/01/rdf-schema#label> "publication date"@en .
+<http://www.wikidata.org/prop/direct/P2142> <http://www.w3.org/2000/01/rdf-schema#label> "box office"@en .
+<http://www.wikidata.org/prop/direct/P345> <http://www.w3.org/2000/01/rdf-schema#label> "IMDb ID"@en .
+<http://www.wikidata.org/prop/direct/P31> <http://www.w3.org/2000/01/rdf-schema#label> "instance of"@en .
+<http://www.wikidata.org/prop/direct/P50> <http://www.w3.org/2000/01/rdf-schema#label> "author"@en .
+<http://www.wikidata.org/entity/Q56094> <http://www.w3.org/2000/01/rdf-schema#label> "Francis Ford Coppola" .
+<http://www.wikidata.org/entity/Q56094> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q193628> <http://www.w3.org/2000/01/rdf-schema#label> "Sofia Coppola" .
+<http://www.wikidata.org/entity/Q193628> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q53004> <http://www.w3.org/2000/01/rdf-schema#label> "Dario Argento" .
+<http://www.wikidata.org/entity/Q53004> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q315484> <http://www.w3.org/2000/01/rdf-schema#label> "Park Chan-wook" .
+<http://www.wikidata.org/entity/Q315484> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q29906055> <http://www.w3.org/2000/01/rdf-schema#label> "Jeong Seo-kyeong" .
+<http://www.wikidata.org/entity/Q29906055> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q312078> <http://www.w3.org/2000/01/rdf-schema#label> "Mario Puzo" .
+<http://www.wikidata.org/entity/Q312078> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q2263> <http://www.w3.org/2000/01/rdf-schema#label> "Tom Hanks" .
+<http://www.wikidata.org/entity/Q2263> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q900001> <http://www.w3.org/2000/01/rdf-schema#label> "Meg Ryan" .
+<http://www.wikidata.org/entity/Q900001> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q47703> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather" .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q706592> <http://www.w3.org/2000/01/rdf-schema#label> "The Cat o' Nine Tails" .
+<http://www.wikidata.org/entity/Q706592> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q20444585> <http://www.w3.org/2000/01/rdf-schema#label> "The Handmaiden" .
+<http://www.wikidata.org/entity/Q20444585> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.w3.org/2000/01/rdf-schema#label> "Interstellar" .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q1> <http://www.w3.org/2000/01/rdf-schema#label> "The Virgin Suicides" .
+<http://www.wikidata.org/entity/Q1> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q2> <http://www.w3.org/2000/01/rdf-schema#label> "Lost in Translation" .
+<http://www.wikidata.org/entity/Q2> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q3> <http://www.w3.org/2000/01/rdf-schema#label> "Marie Antoinette" .
+<http://www.wikidata.org/entity/Q3> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q10> <http://www.w3.org/2000/01/rdf-schema#label> "That Thing You Do!" .
+<http://www.wikidata.org/entity/Q10> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q11> <http://www.w3.org/2000/01/rdf-schema#label> "Big" .
+<http://www.wikidata.org/entity/Q11> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q12> <http://www.w3.org/2000/01/rdf-schema#label> "Cast Away" .
+<http://www.wikidata.org/entity/Q12> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q243556> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather" .
+<http://www.wikidata.org/entity/Q243556> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q7725634> .
+<http://www.wikidata.org/entity/Q243556> <http://www.wikidata.org/prop/direct/P50> <http://www.wikidata.org/entity/Q312078> .
+<http://www.wikidata.org/entity/Q3225260> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather" .
+<http://www.wikidata.org/entity/Q3225260> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q13593818> .
+<http://www.wikidata.org/entity/Q3225260> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56094> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56094> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P58> <http://www.wikidata.org/entity/Q312078> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P577> "1972-03-15"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P495> <http://www.wikidata.org/entity/Q30> .
+<http://www.wikidata.org/entity/Q706592> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q53004> .
+<http://www.wikidata.org/entity/Q20444585> <http://www.wikidata.org/prop/direct/P58> <http://www.wikidata.org/entity/Q315484> .
+<http://www.wikidata.org/entity/Q20444585> <http://www.wikidata.org/prop/direct/P58> <http://www.wikidata.org/entity/Q29906055> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P495> <http://www.wikidata.org/entity/Q30> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P495> <http://www.wikidata.org/entity/Q145> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P2142> "701729200"^^<http://www.w3.org/2001/XMLSchema#decimal> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P345> "tt0816692" .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P577> "2014-11-07"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P577> "2014-10-26"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q30> <http://www.w3.org/2000/01/rdf-schema#label> "United States" .
+<http://www.wikidata.org/entity/Q145> <http://www.w3.org/2000/01/rdf-schema#label> "United Kingdom" .
+<http://www.wikidata.org/entity/Q1> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q193628> .
+<http://www.wikidata.org/entity/Q1> <http://www.wikidata.org/prop/direct/P577> "1999-05-19"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q2> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q193628> .
+<http://www.wikidata.org/entity/Q2> <http://www.wikidata.org/prop/direct/P577> "2003-08-29"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q3> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q193628> .
+<http://www.wikidata.org/entity/Q3> <http://www.wikidata.org/prop/direct/P577> "2006-05-24"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q3> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q999999> .
+<http://www.wikidata.org/entity/Q3> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q900001> .
+<http://www.wikidata.org/entity/Q10> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q2263> .
+<http://www.wikidata.org/entity/Q10> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q2263> .
+<http://www.wikidata.org/entity/Q10> <http://www.wikidata.org/prop/direct/P577> "1996-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q11> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q2263> .
+<http://www.wikidata.org/entity/Q11> <http://www.wikidata.org/prop/direct/P577> "1988-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q12> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q2263> .
+<http://www.wikidata.org/entity/Q12> <http://www.wikidata.org/prop/direct/P577> "2000-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q11> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q900001> .
+<http://www.wikidata.org/entity/Q484048> <http://www.w3.org/2000/01/rdf-schema#label> "Amélie" .
+<http://www.wikidata.org/entity/Q484048> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q484048> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q295817> .
+<http://www.wikidata.org/entity/Q295817> <http://www.w3.org/2000/01/rdf-schema#label> "Jean-Pierre Jeunet" .
+<http://www.wikidata.org/entity/Q295817> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q788822> <http://www.w3.org/2000/01/rdf-schema#label> "Her" .
+<http://www.wikidata.org/entity/Q788822> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q788822> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q276564> .
+<http://www.wikidata.org/entity/Q276564> <http://www.w3.org/2000/01/rdf-schema#label> "Spike Jonze" .
+<http://www.wikidata.org/entity/Q276564> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q2263> <http://schema.org/description> "American actor and film producer (born 1956)" .
+<http://www.wikidata.org/entity/Q2263> <http://www.wikidata.org/prop/direct/P19> <http://www.wikidata.org/entity/Q49202> .
+<http://www.wikidata.org/entity/Q49202> <http://www.w3.org/2000/01/rdf-schema#label> "Concord" .
+<http://www.wikidata.org/entity/Q13417189> <http://schema.org/description> "2014 film directed by Christopher Nolan" .
+<http://www.wikidata.org/prop/direct/P19> <http://www.w3.org/2000/01/rdf-schema#label> "place of birth"@en .
+<http://www.wikidata.org/entity/Q103569> <http://www.w3.org/2000/01/rdf-schema#label> "Alien" .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q104814> <http://www.w3.org/2000/01/rdf-schema#label> "Aliens" .
+<http://www.wikidata.org/entity/Q104814> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q184843> <http://www.w3.org/2000/01/rdf-schema#label> "Blade Runner" .
+<http://www.wikidata.org/entity/Q184843> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q189505> <http://www.w3.org/2000/01/rdf-schema#label> "Jaws" .
+<http://www.wikidata.org/entity/Q189505> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q1046104> <http://www.w3.org/2000/01/rdf-schema#label> "Never Let Me Go" .
+<http://www.wikidata.org/entity/Q1046104> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q7730154> <http://www.w3.org/2000/01/rdf-schema#label> "The Director" .
+<http://www.wikidata.org/entity/Q7730154> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q56005> <http://www.w3.org/2000/01/rdf-schema#label> "Ridley Scott" .
+<http://www.wikidata.org/entity/Q56005> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q44437> <http://www.w3.org/2000/01/rdf-schema#label> "James Cameron" .
+<http://www.wikidata.org/entity/Q44437> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q8877> <http://www.w3.org/2000/01/rdf-schema#label> "Steven Spielberg" .
+<http://www.wikidata.org/entity/Q8877> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q1866328> <http://www.w3.org/2000/01/rdf-schema#label> "David Spielberg" .
+<http://www.wikidata.org/entity/Q1866328> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q4636> <http://www.w3.org/2000/01/rdf-schema#label> "Sigourney Weaver" .
+<http://www.wikidata.org/entity/Q4636> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q81328> <http://www.w3.org/2000/01/rdf-schema#label> "Harrison Ford" .
+<http://www.wikidata.org/entity/Q81328> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q959556> <http://www.w3.org/2000/01/rdf-schema#label> "Mark Romanek" .
+<http://www.wikidata.org/entity/Q959556> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q11424> <http://www.w3.org/2000/01/rdf-schema#label> "film" .
+<http://www.wikidata.org/entity/Q200092> <http://www.w3.org/2000/01/rdf-schema#label> "horror film" .
+<http://www.wikidata.org/entity/Q471839> <http://www.w3.org/2000/01/rdf-schema#label> "science fiction film" .
+<http://www.wikidata.org/entity/Q1294764> <http://www.w3.org/2000/01/rdf-schema#label> "executive producer" .
+<http://www.wikidata.org/entity/Q103916x> <http://www.w3.org/2000/01/rdf-schema#label> "Academy Award for Best Visual Effects" .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56005> .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q4636> .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P136> <http://www.wikidata.org/entity/Q200092> .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P136> <http://www.wikidata.org/entity/Q471839> .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P577> "1979-05-25"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P166> <http://www.wikidata.org/entity/Q103916x> .
+<http://www.wikidata.org/entity/Q104814> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q44437> .
+<http://www.wikidata.org/entity/Q104814> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q4636> .
+<http://www.wikidata.org/entity/Q184843> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56005> .
+<http://www.wikidata.org/entity/Q184843> <http://www.wikidata.org/prop/direct/P161> <http://www.wikidata.org/entity/Q81328> .
+<http://www.wikidata.org/entity/Q189505> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q8877> .
+<http://www.wikidata.org/entity/Q1046104> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q959556> .
+<http://www.wikidata.org/entity/Q56005> <http://www.wikidata.org/prop/direct/P106> <http://www.wikidata.org/entity/Q1294764> .
+<http://www.wikidata.org/entity/Q56005> <http://www.wikidata.org/prop/direct/P800> <http://www.wikidata.org/entity/Q103569> .
+<http://www.wikidata.org/entity/Q7730154> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q1866328> .
+<http://www.wikidata.org/prop/direct/P136> <http://www.w3.org/2000/01/rdf-schema#label> "genre"@en .
+<http://www.wikidata.org/prop/direct/P166> <http://www.w3.org/2000/01/rdf-schema#label> "award received"@en .
+<http://www.wikidata.org/prop/direct/P800> <http://www.w3.org/2000/01/rdf-schema#label> "notable work"@en .
+<http://www.wikidata.org/prop/direct/P106> <http://www.w3.org/2000/01/rdf-schema#label> "occupation"@en .
+<http://www.wikidata.org/entity/Q8877> <http://schema.org/description> "American filmmaker (born 1946)" .
+<http://www.wikidata.org/entity/Q8877> <http://www.wikidata.org/prop/direct/P106> <http://www.wikidata.org/entity/Q2526255> .
+<http://www.wikidata.org/entity/Q2526255> <http://www.w3.org/2000/01/rdf-schema#label> "film director" .
+<http://www.wikidata.org/entity/Q8877> <http://www.wikidata.org/prop/direct/P27> <http://www.wikidata.org/entity/Q30> .
+<http://www.wikidata.org/entity/Q578809> <http://www.w3.org/2000/01/rdf-schema#label> "Them!" .
+<http://www.wikidata.org/entity/Q578809> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q578809> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q1340094> .
+<http://www.wikidata.org/entity/Q1340094> <http://www.w3.org/2000/01/rdf-schema#label> "Gordon Douglas" .
+<http://www.wikidata.org/entity/Q1340094> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q945074> <http://www.w3.org/2000/01/rdf-schema#label> "Being There" .
+<http://www.wikidata.org/entity/Q945074> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q945074> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q470543> .
+<http://www.wikidata.org/entity/Q470543> <http://www.w3.org/2000/01/rdf-schema#label> "Hal Ashby" .
+<http://www.wikidata.org/entity/Q470543> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q847530> <http://www.w3.org/2000/01/rdf-schema#label> "Who Am I?" .
+<http://www.wikidata.org/entity/Q847530> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q847530> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q36970> .
+<http://www.wikidata.org/entity/Q36970> <http://www.w3.org/2000/01/rdf-schema#label> "Jackie Chan" .
+<http://www.wikidata.org/entity/Q36970> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q1059536> <http://www.w3.org/2000/01/rdf-schema#label> "The Other" .
+<http://www.wikidata.org/entity/Q1059536> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q1059536> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q1336185> .
+<http://www.wikidata.org/entity/Q1336185> <http://www.w3.org/2000/01/rdf-schema#label> "Robert Mulligan" .
+<http://www.wikidata.org/entity/Q1336185> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .

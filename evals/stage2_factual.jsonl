@@ -1,0 +1,48 @@
+{"id": "official-handmaiden-screenplay", "input": "Please answer this question with a factual approach: Who wrote the screenplay for 'The Handmaiden'?", "expected": ["Jeong Seo-kyeong", "Park Chan-wook"]}
+{"id": "official-interstellar-countries", "input": "Please answer this question with a factual approach: What are the countries of origin of 'Interstellar'?", "expected": ["United States", "United Kingdom"]}
+{"id": "official-manchester-release", "input": "Please answer this question with a factual approach: When did the movie 'Manchester by the Sea' come out?", "expected": ["2016-01-23"]}
+{"id": "official-coppola-earliest", "input": "Please answer this question with a factual approach: Which movie directed by 'Sofia Coppola' has the earliest release date?", "expected": ["The Virgin Suicides"]}
+{"id": "official-blood-awards", "input": "Please answer this question with a factual approach: Which awards did the movie 'There Will Be Blood' receive?", "expected": ["Academy Award for Best Actor", "Academy Award for Best Cinematography", "Amanda Award for Best Foreign Feature Film"]}
+{"id": "official-father-composer", "input": "Please answer this question: Who is the composer of 'The Father'?", "expected": ["Ludovico Einaudi"]}
+{"id": "official-irishman-imdb", "input": "What is the IMDb identifier of the movie 'The Irishman'?", "expected": ["tt1302006"]}
+{"id": "godfather-unquoted", "input": "Who directed The Godfather?", "expected": ["Francis Ford Coppola"]}
+{"id": "godfather-lowercase", "input": "who directed the godfather", "expected": ["Francis Ford Coppola"]}
+{"id": "godfather-typo", "input": "Who directed the Godfahter?", "expected": ["Francis Ford Coppola"]}
+{"id": "inception-lowercase", "input": "who directed inception", "expected": ["Christopher Nolan"]}
+{"id": "apostrophe-title", "input": "Who is the director of 'The Cat o' Nine Tails'?", "expected": ["Dario Argento"]}
+{"id": "matrix-cast", "input": "Who starred in The Matrix?", "expected": ["Keanu Reeves", "Laurence Fishburne", "Hugo Weaving"]}
+{"id": "ex-machina-genre", "input": "What is the genre of Ex Machina?", "expected": ["arthouse science fiction film", "drama film", "psychological thriller film", "science fiction film"]}
+{"id": "interstellar-box-office", "input": "What is the box office of Interstellar?", "expected": ["701729200"]}
+{"id": "parasite-language", "input": "What language is Parasite in?", "expected": ["Korean"]}
+{"id": "br2049-cinematographer", "input": "Who was the cinematographer of Blade Runner 2049?", "expected": ["Roger Deakins"]}
+{"id": "interstellar-filming", "input": "Where was Interstellar filmed?", "expected": ["Alberta", "Cheyenne Mountain", "Iceland", "Los Angeles"]}
+{"id": "ex-machina-tags", "input": "What tags does Ex Machina have?", "expected": ["cruelty", "murder", "suspenseful"]}
+{"id": "joker-mpa", "input": "What is the MPA rating of Joker?", "expected": ["The factual answer is: R"]}
+{"id": "pulp-fiction-producer", "input": "Who produced Pulp Fiction?", "expected": ["Lawrence Bender"]}
+{"id": "pulp-fiction-editor", "input": "Who edited Pulp Fiction?", "expected": ["Sally Menke"]}
+{"id": "toy-story-distributor", "input": "Which company distributed Toy Story?", "expected": ["Walt Disney Studios Motion Pictures"]}
+{"id": "toy-story-studio", "input": "What is the production company of Toy Story?", "expected": ["Pixar", "Walt Disney Pictures"]}
+{"id": "matrix-sequel", "input": "What is the sequel of The Matrix?", "expected": ["The Matrix Reloaded"]}
+{"id": "star-wars-composer", "input": "Who composed the music for Star Wars?", "expected": ["John Williams"]}
+{"id": "jurassic-park-based-on", "input": "What is Jurassic Park based on?", "expected": ["Jurassic Park"]}
+{"id": "budapest-costumes", "input": "Who was the costume designer of The Grand Budapest Hotel?", "expected": ["Milena Canonero"]}
+{"id": "parasite-nominated", "input": "What was Parasite nominated for?", "expected": ["Academy Award for Best Film Editing", "Academy Award for Best Production Design", "BAFTA Award for Best Direction"]}
+{"id": "godfather-country", "input": "Which country is The Godfather from?", "expected": ["Italy", "United States"]}
+{"id": "nolan-birthplace", "input": "Where was Christopher Nolan born?", "expected": ["London"]}
+{"id": "einaudi-occupation", "input": "What is the occupation of Ludovico Einaudi?", "expected": ["pianist"]}
+{"id": "park-citizenship", "input": "What is the nationality of Park Chan-wook?", "expected": ["South Korea"]}
+{"id": "nolan-films", "input": "Which movies did Christopher Nolan direct?", "expected": ["Inception", "Interstellar", "The Prestige", "Dunkirk", "Oppenheimer"]}
+{"id": "keanu-films", "input": "In which films did Keanu Reeves star?", "expected": ["The Matrix", "John Wick", "Speed"]}
+{"id": "park-wrote", "input": "Which movies did Park Chan-wook write?", "expected": ["The Handmaiden"]}
+{"id": "sciamma-count", "input": "How many movies has Céline Sciamma directed?", "expected": ["The factual answer is: 4"]}
+{"id": "nolan-latest", "input": "What is the latest film directed by Christopher Nolan?", "expected": ["Oppenheimer"]}
+{"id": "nolan-first", "input": "What was the first movie Christopher Nolan directed?", "expected": ["Following"]}
+{"id": "good-will-hunting-director", "input": "Who is the director of Good Will Hunting?", "expected": ["Gus Van Sant"]}
+{"id": "arrival-screenwriter", "input": "Who is the screenwriter of Arrival?", "expected": ["Eric Heisserer", "Ted Chiang"]}
+{"id": "inception-music", "input": "Who did the music in Inception?", "expected": ["Hans Zimmer"]}
+{"id": "fury-road-editor", "input": "Who edited Mad Max: Fury Road?", "expected": ["Margaret Sixel"]}
+{"id": "shawshank-year", "input": "What's the release year of The Shawshank Redemption?", "expected": ["The factual answer is: 1994"]}
+{"id": "jaws-polite", "input": "Can you tell me who directed Jaws?", "expected": ["Steven Spielberg"]}
+{"id": "nolan-spouse", "input": "Who is the spouse of Christopher Nolan?", "expected": ["Emma Thomas"]}
+{"id": "greeting", "input": "hello", "expected": ["not sure"]}
+{"id": "unknown-title", "input": "Who directed 'Qwzxv Plorbnik Unfilmable'?", "expected": ["not sure"]}

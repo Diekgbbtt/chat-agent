@@ -1,3 +1,43 @@
+## Development
+
+The code lives in one package, `agent/`. Each `Project Submission N/main.py` is a thin launcher generated from it. See `phases.md` for the roadmap.
+
+### Setup
+
+```bash
+python3 -m venv .venv            # or: uv venv .venv --seed
+.venv/bin/pip install -r requirements-local.txt
+```
+
+Credentials and paths come from environment variables. A `.env` file works too (it is git-ignored). The bot looks for it in the current directory, the project root, and the submission folder:
+
+```bash
+BOT_USERNAME='your_group_name'
+BOT_PASSWORD='your_password'
+GRAPH_PATH=/absolute/path/to/graph.nt     # default: dataset/graph.nt, then the Nuvolos mount
+# KG_STORE_PATH=/path/to/kg_store         # default: kg_store/ next to agent/
+```
+
+### Commands
+
+| Command | What it does |
+|---|---|
+| `python -m agent.build_store` | One-time conversion of `graph.nt` into the on-disk store (`kg_store/`). This also happens automatically on first start. |
+| `python -m agent` | Runs the Speakeasy bot. |
+| `python -m agent.cli "question"` | Answers one question without Speakeasy. Add `--debug` for the trace. With no question it starts an interactive chat. |
+| `python -m agent.eval [-v]` | Runs the regression cases in `evals/*.jsonl` and reports accuracy and latency. |
+| `python -m pytest -q` | Runs the unit tests (tiny sample graph, takes seconds). |
+| `python scripts/build_submission.py 2` | Fills `Project Submission 2/` (use `final` for the final one). |
+
+### Speakeasy quirks when testing by hand
+
+- Messages containing `@` never reach the bot.
+- Pasted multi-line text isn't sent.
+
+Test with one-line inputs. Graph labels are plain strings, so write `rdfs:label "The Godfather"` without `@en`.
+
+---
+
 ### Getting Started with Nuvolos
 
 Nuvolos will be used as the main development and execution environment for the ATAI project. Each group will have access to a shared Nuvolos environment where you can develop, run, and test your project throughout the semester.
