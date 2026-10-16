@@ -46,3 +46,463 @@
 {"id": "nolan-spouse", "input": "Who is the spouse of Christopher Nolan?", "expected": ["Emma Thomas"]}
 {"id": "greeting", "input": "hello", "expected": ["not sure"]}
 {"id": "unknown-title", "input": "Who directed 'Qwzxv Plorbnik Unfilmable'?", "expected": ["not sure"]}
+{"id": "ext-director-who-directed-the-pirates-in-an-adventure-with-sc", "input": "Who directed 'The Pirates! In an Adventure with Scientists!'?", "expected": ["Peter Lord"]}
+{"id": "ext-director-who-is-the-director-of-good-morning-vietnam", "input": "Who is the director of 'Good Morning, Vietnam'?", "expected": ["Barry Levinson"]}
+{"id": "ext-director-who-directed-gattaca", "input": "Who directed 'Gattaca'?", "expected": ["Andrew Niccol"]}
+{"id": "ext-director-who-is-the-director-of-mary-shelley-s-frankenste", "input": "Who is the director of 'Mary Shelley's Frankenstein'?", "expected": ["Kenneth Branagh"]}
+{"id": "ext-director-who-directed-johnny-belinda", "input": "Who directed 'Johnny Belinda'?", "expected": ["Jean Negulesco"]}
+{"id": "ext-director-who-is-the-director-of-loaded-guns", "input": "Who is the director of 'Loaded Guns'?", "expected": ["Fernando Di Leo"]}
+{"id": "ext-director-who-directed-star-trek-iii-the-search-for-spock", "input": "Who directed 'Star Trek III: The Search for Spock'?", "expected": ["Laanerd Nimoy"]}
+{"id": "ext-director-who-is-the-director-of-grand-canyon-trail", "input": "Who is the director of 'Grand Canyon Trail'?", "expected": ["William Witney"]}
+{"id": "ext-director-who-directed-see-you-up-there", "input": "Who directed 'See You Up There'?", "expected": ["Albert Dupontel"]}
+{"id": "ext-director-who-is-the-director-of-the-moon-is-blue", "input": "Who is the director of 'The Moon Is Blue'?", "expected": ["Otto Preminger"]}
+{"id": "ext-director-who-directed-mrs-brown-part-2", "input": "Who directed 'Mrs. Brown Part 2'?", "expected": ["John Madden"]}
+{"id": "ext-director-who-is-the-director-of-encounters-at-the-end-of-", "input": "Who is the director of 'Encounters at the End of the World'?", "expected": ["Werner Herzog"]}
+{"id": "ext-director-who-directed-sgt-pepper-s-lonely-hearts-club-ban", "input": "Who directed 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Michael Schultz"]}
+{"id": "ext-director-who-is-the-director-of-ah-the-beautiful-priestes", "input": "Who is the director of 'Ah! The Beautiful Priestesses of Bacchus'?", "expected": ["Jean Loubignac"]}
+{"id": "ext-director-who-directed-nairobi-half-life", "input": "Who directed 'Nairobi Half Life'?", "expected": ["David Gitonga"]}
+{"id": "ext-director-who-is-the-director-of-the-sea-inside", "input": "Who is the director of 'The Sea Inside'?", "expected": ["Ulojundro Amunábar"]}
+{"id": "ext-director-who-directed-the-beasts", "input": "Who directed 'The Beasts'?", "expected": ["Ridregi Saragayan"]}
+{"id": "ext-director-who-is-the-director-of-dick-tracy-meets-gruesome", "input": "Who is the director of 'Dick Tracy Meets Gruesome'?", "expected": ["John Rawlins"]}
+{"id": "ext-director-who-directed-mariana-mariana", "input": "Who directed 'Mariana, Mariana'?", "expected": ["Alberto Isaac"]}
+{"id": "ext-director-who-is-the-director-of-pumping-iron", "input": "Who is the director of 'Pumping Iron'?", "expected": ["George Butler"]}
+{"id": "ext-director-who-directed-tokyo-ga", "input": "Who directed 'Tokyo-Ga'?", "expected": ["Wim Wenders"]}
+{"id": "ext-director-who-is-the-director-of-city-that-never-sleeps", "input": "Who is the director of 'City That Never Sleeps'?", "expected": ["John H. Auer"]}
+{"id": "ext-director-who-directed-niagara-niagara", "input": "Who directed 'Niagara, Niagara'?", "expected": ["Bob Gosse"]}
+{"id": "ext-director-who-is-the-director-of-sink-or-swim", "input": "Who is the director of 'Sink or Swim'?", "expected": ["Gilles Lellouche"]}
+{"id": "ext-director-who-directed-lawrence-of-arabia", "input": "Who directed 'Lawrence of Arabia'?", "expected": ["David Lean"]}
+{"id": "ext-director-who-is-the-director-of-hibiscus-town", "input": "Who is the director of 'Hibiscus Town'?", "expected": ["Xua Jan"]}
+{"id": "ext-director-who-directed-floating-life", "input": "Who directed 'Floating Life'?", "expected": ["Clara Law"]}
+{"id": "ext-director-who-is-the-director-of-kung-pow-enter-the-fist", "input": "Who is the director of 'Kung Pow! Enter the Fist'?", "expected": ["Steve Oedekerk"]}
+{"id": "ext-director-who-directed-mysteries-of-lisbon", "input": "Who directed 'Mysteries of Lisbon'?", "expected": ["Raúl Ruiz"]}
+{"id": "ext-director-who-is-the-director-of-flight-of-the-eagle-ii", "input": "Who is the director of 'Flight of the Eagle II'?", "expected": ["Jan Troell"]}
+{"id": "ext-director-who-directed-as-i-open-my-eyes", "input": "Who directed 'As I Open My Eyes'?", "expected": ["Leyla Bouzid"]}
+{"id": "ext-director-who-is-the-director-of-the-story-of-boys-girls-2", "input": "Who is the director of 'The Story of Boys & Girls 2'?", "expected": ["Pupi Avati"]}
+{"id": "ext-director-who-directed-furious-7", "input": "Who directed 'Furious 7'?", "expected": ["Jomis Wun"]}
+{"id": "ext-director-who-is-the-director-of-i-m-not-there", "input": "Who is the director of 'I'm Not There'?", "expected": ["Todd Haynes"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-the-pirates-in-an-a", "input": "Who wrote the screenplay for 'The Pirates! In an Adventure with Scientists!'?", "expected": ["Gideon Defoe"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-good-morning-vietnam", "input": "Who is the screenwriter of 'Good Morning, Vietnam'?", "expected": ["Mitch Markowitz"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-gattaca", "input": "Who wrote the screenplay for 'Gattaca'?", "expected": ["Andrew Niccol"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-mary-shelley-s-franke", "input": "Who is the screenwriter of 'Mary Shelley's Frankenstein'?", "expected": ["Frank Darabont", "Steph Lady"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-johnny-belinda", "input": "Who wrote the screenplay for 'Johnny Belinda'?", "expected": ["Irma von Cube"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-loaded-guns", "input": "Who is the screenwriter of 'Loaded Guns'?", "expected": ["Fernando Di Leo"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-star-trek-iii-the-s", "input": "Who wrote the screenplay for 'Star Trek III: The Search for Spock'?", "expected": ["Harve Bennett", "Laanerd Nimoy"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-see-you-up-there", "input": "Who is the screenwriter of 'See You Up There'?", "expected": ["Albert Dupontel"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-the-moon-is-blue", "input": "Who wrote the screenplay for 'The Moon Is Blue'?", "expected": ["F. Hugh Herbert"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-mrs-brown-part-2", "input": "Who is the screenwriter of 'Mrs. Brown Part 2'?", "expected": ["Jeremy Brock"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-encounters-at-the-e", "input": "Who wrote the screenplay for 'Encounters at the End of the World'?", "expected": ["Werner Herzog"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-sgt-pepper-s-lonely-h", "input": "Who is the screenwriter of 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Michael Schultz"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-ah-the-beautiful-pr", "input": "Who wrote the screenplay for 'Ah! The Beautiful Priestesses of Bacchus'?", "expected": ["Jean Loubignac", "Robert Dhéry"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-nairobi-half-life", "input": "Who is the screenwriter of 'Nairobi Half Life'?", "expected": ["Billy Kahora"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-the-sea-inside", "input": "Who wrote the screenplay for 'The Sea Inside'?", "expected": ["Mutoo Gal", "Ulojundro Amunábar"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-the-beasts", "input": "Who is the screenwriter of 'The Beasts'?", "expected": ["Ridregi Saragayan"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-mariana-mariana", "input": "Who wrote the screenplay for 'Mariana, Mariana'?", "expected": ["Vicente Leñero"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-pumping-iron", "input": "Who is the screenwriter of 'Pumping Iron'?", "expected": ["Charles Gaines", "George Butler"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-tokyo-ga", "input": "Who wrote the screenplay for 'Tokyo-Ga'?", "expected": ["Wim Wenders"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-city-that-never-sleep", "input": "Who is the screenwriter of 'City That Never Sleeps'?", "expected": ["Steve Fisher"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-sink-or-swim", "input": "Who wrote the screenplay for 'Sink or Swim'?", "expected": ["Ahmed Hamidi", "Gilles Lellouche", "Julien Lambroschini"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-lawrence-of-arabia", "input": "Who is the screenwriter of 'Lawrence of Arabia'?", "expected": ["Michael Wilson", "Robert Bolt", "T. E. Lawrence"]}
+{"id": "ext-screenwriter-who-wrote-the-screenplay-for-hibiscus-town", "input": "Who wrote the screenplay for 'Hibiscus Town'?", "expected": ["Xua Jan", "Zhong Acheng"]}
+{"id": "ext-screenwriter-who-is-the-screenwriter-of-kung-pow-enter-the-fi", "input": "Who is the screenwriter of 'Kung Pow! Enter the Fist'?", "expected": ["Steve Oedekerk"]}
+{"id": "ext-cast-who-starred-in-grand-canyon-trail", "input": "Who starred in 'Grand Canyon Trail'?", "expected": ["Andy Devine", "Jummy Finluyson", "Roy Barcroft", "Roy Rogers"]}
+{"id": "ext-cast-who-is-in-the-cast-of-see-you-up-there", "input": "Who is in the cast of 'See You Up There'?", "expected": ["Albert Dupontel", "Frans Boyer", "Laurent Lafitte", "Mélanie Thierry", "Nahuel Pérez Biscayart", "Niels Arestrup", "Émulua Duqaunnu"]}
+{"id": "ext-cast-who-starred-in-mrs-brown-part-2", "input": "Who starred in 'Mrs. Brown Part 2'?", "expected": ["Georgie Glen"]}
+{"id": "ext-cast-who-is-in-the-cast-of-encounters-at-the-end-of-t", "input": "Who is in the cast of 'Encounters at the End of the World'?", "expected": ["Ashrita Fur", "Clive M. Oppenheimer", "Sam Bowser", "Werner Herzog"]}
+{"id": "ext-cast-who-starred-in-the-beasts", "input": "Who starred in 'The Beasts'?", "expected": ["Denis Ménochet", "Diego Anido", "Marina Foïs"]}
+{"id": "ext-cast-who-is-in-the-cast-of-dick-tracy-meets-gruesome", "input": "Who is in the cast of 'Dick Tracy Meets Gruesome'?", "expected": ["Boris Karloff", "Ralph Byrd"]}
+{"id": "ext-cast-who-starred-in-pumping-iron", "input": "Who starred in 'Pumping Iron'?", "expected": ["Arnold Schwarzenegger", "Franco Columbu", "Lou Ferrigno", "Mike Katz", "Roger Callard", "Serge Nubret"]}
+{"id": "ext-cast-who-is-in-the-cast-of-tokyo-ga", "input": "Who is in the cast of 'Tokyo-Ga'?", "expected": ["Chishū Ryū", "Chris Marker", "Werner Herzog", "Wim Wenders", "Yūharu Atsuta"]}
+{"id": "ext-cast-who-starred-in-hibiscus-town", "input": "Who starred in 'Hibiscus Town'?", "expected": ["Jueng Wun", "Liu Xiaoqing", "Xu Song-Zi", "Zhu Shi-Bin"]}
+{"id": "ext-cast-who-is-in-the-cast-of-floating-life", "input": "Who is in the cast of 'Floating Life'?", "expected": ["Annette Shun Wah", "Anthony Wong", "Cileo Arelind"]}
+{"id": "ext-cast-who-starred-in-kung-pow-enter-the-fist", "input": "Who starred in 'Kung Pow! Enter the Fist'?", "expected": ["Jennifer Tung", "Jimmy Wang Yu", "Steve Oedekerk"]}
+{"id": "ext-cast-who-is-in-the-cast-of-flight-of-the-eagle-ii", "input": "Who is in the cast of 'Flight of the Eagle II'?", "expected": ["Eva von Hanno"]}
+{"id": "ext-cast-who-starred-in-as-i-open-my-eyes", "input": "Who starred in 'As I Open My Eyes'?", "expected": ["Baya Medhaffar", "Ghalia Benali"]}
+{"id": "ext-cast-who-is-in-the-cast-of-the-story-of-boys-girls-2", "input": "Who is in the cast of 'The Story of Boys & Girls 2'?", "expected": ["Massimo Sarchielli"]}
+{"id": "ext-cast-who-starred-in-the-children-of-noisy-village", "input": "Who starred in 'The Children of Noisy Village'?", "expected": ["Anna Sahlene", "Catti Edfeldt"]}
+{"id": "ext-cast-who-is-in-the-cast-of-alien-killer", "input": "Who is in the cast of 'Alien Killer'?", "expected": ["Alessandra Canale", "Carolyn De Fonseca", "David Warbeck", "Giorgio Favretto", "John Ireland", "Laura Trotter", "Loris Loddi"]}
+{"id": "ext-cast-who-starred-in-salaam-bombay", "input": "Who starred in 'Salaam Bombay!'?", "expected": ["Nana Patekar", "Shafiq Syed"]}
+{"id": "ext-cast-who-is-in-the-cast-of-sg-aawaay-uuna-edge-of-the", "input": "Who is in the cast of 'SG̲aawaay Ḵʹuuna / Edge of the Knife'?", "expected": ["Delores Churchill", "Tyler York"]}
+{"id": "ext-cast-who-starred-in-denise-calls-up", "input": "Who starred in 'Denise Calls Up'?", "expected": ["Aida Turturro", "Alanna Ubach", "Dana Wheeler-Nicholson", "Hal Salwen", "Jean-Claude La Marre", "Liev Schreiber", "Sylviu Mulas", "Tom Dely"]}
+{"id": "ext-cast-who-is-in-the-cast-of-bride-of-the-orient", "input": "Who is in the cast of 'Bride of the Orient'?", "expected": ["Annamirl Bierbichler", "Günter Meisner", "Helen Vita", "Mathias Gnädinger", "Michael Gempart", "Werner Herzog", "Wolfram Berger"]}
+{"id": "ext-cast-who-starred-in-black-bread-reloaded", "input": "Who starred in 'Black Bread Reloaded'?", "expected": ["Sergi López"]}
+{"id": "ext-cast-who-is-in-the-cast-of-riff-raff", "input": "Who is in the cast of 'Riff-Raff'?", "expected": ["David Finch", "Emer McCourt", "George Moss", "Jim R. Coleman", "Peter Mullan", "Ricky Timlensin", "Robert Carlyle"]}
+{"id": "ext-cast-who-starred-in-perissodactylous-rastra-understan", "input": "Who starred in 'Perissodactylous Rastra Understand'?", "expected": ["Anita Pallenberg", "Joan Sims", "Maximiliano de la Cruz", "Merwin Mondesir"]}
+{"id": "ext-cast-who-is-in-the-cast-of-children-of-nature", "input": "Who is in the cast of 'Children of Nature'?", "expected": ["Bruno Ganz", "Gísli Halldórsson", "Margrét Ólafsdóttir", "Rúrik Haraldsson", "Sigríður Hagalín", "Tinna Gunnlaugsdóttir", "Ugoll Ólifssen"]}
+{"id": "ext-genre-what-is-the-genre-of-the-pirates-in-an-adventure", "input": "What is the genre of 'The Pirates! In an Adventure with Scientists!'?", "expected": ["adventure film", "comedy film", "film based on a novel", "pirate film", "swashbuckler film"]}
+{"id": "ext-genre-what-is-the-genre-of-good-morning-vietnam", "input": "What is the genre of 'Good Morning, Vietnam'?", "expected": ["comedy drama", "war film"]}
+{"id": "ext-genre-what-is-the-genre-of-gattaca", "input": "What is the genre of 'Gattaca'?", "expected": ["arthouse science fiction film", "biopunk", "drama film", "dystopian film", "science fiction film"]}
+{"id": "ext-genre-what-is-the-genre-of-mary-shelley-s-frankenstein", "input": "What is the genre of 'Mary Shelley's Frankenstein'?", "expected": ["drama film", "film based on a novel", "horror film", "romance film", "science fiction film"]}
+{"id": "ext-genre-what-is-the-genre-of-johnny-belinda", "input": "What is the genre of 'Johnny Belinda'?", "expected": ["drama film"]}
+{"id": "ext-genre-what-is-the-genre-of-loaded-guns", "input": "What is the genre of 'Loaded Guns'?", "expected": ["action film", "comedy film", "gangster film"]}
+{"id": "ext-genre-what-is-the-genre-of-star-trek-iii-the-search-fo", "input": "What is the genre of 'Star Trek III: The Search for Spock'?", "expected": ["action film", "adventure film", "science fiction film"]}
+{"id": "ext-genre-what-is-the-genre-of-grand-canyon-trail", "input": "What is the genre of 'Grand Canyon Trail'?", "expected": ["Western film"]}
+{"id": "ext-genre-what-is-the-genre-of-see-you-up-there", "input": "What is the genre of 'See You Up There'?", "expected": ["drama film"]}
+{"id": "ext-genre-what-is-the-genre-of-the-moon-is-blue", "input": "What is the genre of 'The Moon Is Blue'?", "expected": ["romantic comedy"]}
+{"id": "ext-genre-what-is-the-genre-of-mrs-brown-part-2", "input": "What is the genre of 'Mrs. Brown Part 2'?", "expected": ["biographical film"]}
+{"id": "ext-genre-what-is-the-genre-of-encounters-at-the-end-of-th", "input": "What is the genre of 'Encounters at the End of the World'?", "expected": ["documentary film"]}
+{"id": "ext-genre-what-is-the-genre-of-sgt-pepper-s-lonely-hearts-", "input": "What is the genre of 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["adventure film", "drama film", "musical film"]}
+{"id": "ext-genre-what-is-the-genre-of-ah-the-beautiful-priestesse", "input": "What is the genre of 'Ah! The Beautiful Priestesses of Bacchus'?", "expected": ["comedy film"]}
+{"id": "ext-genre-what-is-the-genre-of-nairobi-half-life", "input": "What is the genre of 'Nairobi Half Life'?", "expected": ["drama film"]}
+{"id": "ext-genre-what-is-the-genre-of-the-sea-inside", "input": "What is the genre of 'The Sea Inside'?", "expected": ["biographical film", "drama film"]}
+{"id": "ext-genre-what-is-the-genre-of-the-beasts", "input": "What is the genre of 'The Beasts'?", "expected": ["drama film", "thriller film"]}
+{"id": "ext-genre-what-is-the-genre-of-dick-tracy-meets-gruesome", "input": "What is the genre of 'Dick Tracy Meets Gruesome'?", "expected": ["crime film"]}
+{"id": "ext-genre-what-is-the-genre-of-mariana-mariana", "input": "What is the genre of 'Mariana, Mariana'?", "expected": ["drama film", "romance film"]}
+{"id": "ext-genre-what-is-the-genre-of-pumping-iron", "input": "What is the genre of 'Pumping Iron'?", "expected": ["documentary film", "sport film"]}
+{"id": "ext-genre-what-is-the-genre-of-tokyo-ga", "input": "What is the genre of 'Tokyo-Ga'?", "expected": ["documentary film"]}
+{"id": "ext-genre-what-is-the-genre-of-city-that-never-sleeps", "input": "What is the genre of 'City That Never Sleeps'?", "expected": ["crime film", "drama film", "film noir"]}
+{"id": "ext-release-when-did-the-movie-the-pirates-in-an-adventure-w", "input": "When did the movie 'The Pirates! In an Adventure with Scientists!' come out?", "expected": ["2012-03-28"]}
+{"id": "ext-release-when-did-the-movie-good-morning-vietnam-come-out", "input": "When did the movie 'Good Morning, Vietnam' come out?", "expected": ["1987-12-23"]}
+{"id": "ext-release-when-did-the-movie-gattaca-come-out", "input": "When did the movie 'Gattaca' come out?", "expected": ["1997-01-01"]}
+{"id": "ext-release-when-did-the-movie-mary-shelley-s-frankenstein-c", "input": "When did the movie 'Mary Shelley's Frankenstein' come out?", "expected": ["1994-01-01"]}
+{"id": "ext-release-when-did-the-movie-johnny-belinda-come-out", "input": "When did the movie 'Johnny Belinda' come out?", "expected": ["1948-01-01"]}
+{"id": "ext-release-when-did-the-movie-loaded-guns-come-out", "input": "When did the movie 'Loaded Guns' come out?", "expected": ["1975-01-18"]}
+{"id": "ext-release-when-did-the-movie-star-trek-iii-the-search-for-", "input": "When did the movie 'Star Trek III: The Search for Spock' come out?", "expected": ["1984-06-01"]}
+{"id": "ext-release-when-did-the-movie-grand-canyon-trail-come-out", "input": "When did the movie 'Grand Canyon Trail' come out?", "expected": ["1948-01-01"]}
+{"id": "ext-release-when-did-the-movie-see-you-up-there-come-out", "input": "When did the movie 'See You Up There' come out?", "expected": ["2017-01-01"]}
+{"id": "ext-release-when-did-the-movie-the-moon-is-blue-come-out", "input": "When did the movie 'The Moon Is Blue' come out?", "expected": ["1953-01-01"]}
+{"id": "ext-release-when-did-the-movie-mrs-brown-part-2-come-out", "input": "When did the movie 'Mrs. Brown Part 2' come out?", "expected": ["2000-04-25T00:00:00"]}
+{"id": "ext-release-when-did-the-movie-encounters-at-the-end-of-the-", "input": "When did the movie 'Encounters at the End of the World' come out?", "expected": ["2007-01-01"]}
+{"id": "ext-release-when-did-the-movie-sgt-pepper-s-lonely-hearts-cl", "input": "When did the movie 'Sgt. Pepper's Lonely Hearts Club Band' come out?", "expected": ["1978-01-01"]}
+{"id": "ext-release-when-did-the-movie-ah-the-beautiful-priestesses-", "input": "When did the movie 'Ah! The Beautiful Priestesses of Bacchus' come out?", "expected": ["1954-10-15"]}
+{"id": "ext-release-when-did-the-movie-nairobi-half-life-come-out", "input": "When did the movie 'Nairobi Half Life' come out?", "expected": ["2012-01-01"]}
+{"id": "ext-release-when-did-the-movie-the-sea-inside-come-out", "input": "When did the movie 'The Sea Inside' come out?", "expected": ["2004-01-01"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-the-pirates-", "input": "What are the countries of origin of 'The Pirates! In an Adventure with Scientists!'?", "expected": ["United Kingdom", "United States"]}
+{"id": "ext-country-which-country-is-good-morning-vietnam-from", "input": "Which country is 'Good Morning, Vietnam' from?", "expected": ["United States"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-gattaca", "input": "What are the countries of origin of 'Gattaca'?", "expected": ["United States"]}
+{"id": "ext-country-which-country-is-mary-shelley-s-frankenstein-fro", "input": "Which country is 'Mary Shelley's Frankenstein' from?", "expected": ["Japan", "United States"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-johnny-belin", "input": "What are the countries of origin of 'Johnny Belinda'?", "expected": ["United States"]}
+{"id": "ext-country-which-country-is-loaded-guns-from", "input": "Which country is 'Loaded Guns' from?", "expected": ["Italy"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-star-trek-ii", "input": "What are the countries of origin of 'Star Trek III: The Search for Spock'?", "expected": ["United States"]}
+{"id": "ext-country-which-country-is-grand-canyon-trail-from", "input": "Which country is 'Grand Canyon Trail' from?", "expected": ["United States"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-see-you-up-t", "input": "What are the countries of origin of 'See You Up There'?", "expected": ["France"]}
+{"id": "ext-country-which-country-is-the-moon-is-blue-from", "input": "Which country is 'The Moon Is Blue' from?", "expected": ["United States"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-mrs-brown-pa", "input": "What are the countries of origin of 'Mrs. Brown Part 2'?", "expected": ["United Kingdom"]}
+{"id": "ext-country-which-country-is-encounters-at-the-end-of-the-wo", "input": "Which country is 'Encounters at the End of the World' from?", "expected": ["United States"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-sgt-pepper-s", "input": "What are the countries of origin of 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["United States"]}
+{"id": "ext-country-which-country-is-ah-the-beautiful-priestesses-of", "input": "Which country is 'Ah! The Beautiful Priestesses of Bacchus' from?", "expected": ["France", "Italy"]}
+{"id": "ext-country-what-are-the-countries-of-origin-of-nairobi-half", "input": "What are the countries of origin of 'Nairobi Half Life'?", "expected": ["Germany", "Kenya"]}
+{"id": "ext-country-which-country-is-the-sea-inside-from", "input": "Which country is 'The Sea Inside' from?", "expected": ["Spain"]}
+{"id": "ext-award-which-awards-did-the-movie-good-morning-vietnam-", "input": "Which awards did the movie 'Good Morning, Vietnam' receive?", "expected": ["Golden Globe Award for Best Actor – Motion Picture Musical or Comedy"]}
+{"id": "ext-award-which-awards-did-the-movie-gattaca-receive", "input": "Which awards did the movie 'Gattaca' receive?", "expected": ["Sitges Film Festival Best Feature-Length Film award"]}
+{"id": "ext-award-which-awards-did-the-movie-johnny-belinda-receiv", "input": "Which awards did the movie 'Johnny Belinda' receive?", "expected": ["Academy Award for Best Actress"]}
+{"id": "ext-award-which-awards-did-the-movie-see-you-up-there-rece", "input": "Which awards did the movie 'See You Up There' receive?", "expected": ["César Award for Best Adaptation", "César Award for Best Cinematography", "César Award for Best Costume Design", "César Award for Best Director", "César Award for Best Production Design"]}
+{"id": "ext-award-which-awards-did-the-movie-the-sea-inside-receiv", "input": "Which awards did the movie 'The Sea Inside' receive?", "expected": ["Academy Award for Best International Feature Film", "European Film Award for Best Actor", "European Film Award for Best Director", "Grand Jury Prize of the Venice Film Festival"]}
+{"id": "ext-award-which-awards-did-the-movie-the-beasts-receive", "input": "Which awards did the movie 'The Beasts' receive?", "expected": ["César Award for Best Foreign Film", "Goya Award for Best Film", "Premio Feroz for Best Drama"]}
+{"id": "ext-award-which-awards-did-the-movie-mariana-mariana-recei", "input": "Which awards did the movie 'Mariana, Mariana' receive?", "expected": ["Ariel Award for Best Direction", "Ariel Award for Best Picture", "Ariel Award for Best Supporting Actress"]}
+{"id": "ext-award-which-awards-did-the-movie-lawrence-of-arabia-re", "input": "Which awards did the movie 'Lawrence of Arabia' receive?", "expected": ["Academy Award for Best Art Direction, Color", "Academy Award for Best Cinematography, Color", "Academy Award for Best Director", "Academy Award for Best Film Editing", "Academy Award for Best Original Score", "Academy Award for Best Picture", "Academy Award for Best Sound", "Silver nugget for the best foreign film"]}
+{"id": "ext-award-which-awards-did-the-movie-hibiscus-town-receive", "input": "Which awards did the movie 'Hibiscus Town' receive?", "expected": ["Golden Rooster Award for Best Picture", "Huabiao Award for Outstanding Film", "Hundred Flowers Award for Best Picture"]}
+{"id": "ext-award-which-awards-did-the-movie-mysteries-of-lisbon-r", "input": "Which awards did the movie 'Mysteries of Lisbon' receive?", "expected": ["Golden Globe (Portugal) for Best Film", "Louis Delluc Prize", "Prémio Autores"]}
+{"id": "ext-award-which-awards-did-the-movie-as-i-open-my-eyes-rec", "input": "Which awards did the movie 'As I Open My Eyes' receive?", "expected": ["Bayard d'or", "IFFR audience award"]}
+{"id": "ext-award-which-awards-did-the-movie-i-m-not-there-receive", "input": "Which awards did the movie 'I'm Not There' receive?", "expected": ["Grand Jury Prize of the Venice Film Festival"]}
+{"id": "ext-award-which-awards-did-the-movie-fuera-del-cielo-recei", "input": "Which awards did the movie 'Fuera del cielo' receive?", "expected": ["Ariel Award for Best Supporting Actress"]}
+{"id": "ext-award-which-awards-did-the-movie-sg-aawaay-uuna-edge-o", "input": "Which awards did the movie 'SG̲aawaay Ḵʹuuna / Edge of the Knife' receive?", "expected": ["Canada's Top Ten", "Vancouver Film Critics Circle Award for Best Actor in a Canadian Film", "Vancouver Film Critics Circle Award for Best British Columbia Film", "Vancouver Film Critics Circle Award for Best Canadian Film", "Vancouver Film Critics Circle Award for Best Director of a Canadian Film"]}
+{"id": "ext-award-which-awards-did-the-movie-the-vanishing-prairie", "input": "Which awards did the movie 'The Vanishing Prairie' receive?", "expected": ["Academy Award for Best Documentary Feature Film"]}
+{"id": "ext-award-which-awards-did-the-movie-black-bread-reloaded-", "input": "Which awards did the movie 'Black Bread Reloaded' receive?", "expected": ["Gaudí Award for Best Film in Catalan Language"]}
+{"id": "ext-nominated-what-was-the-pirates-in-an-adventure-with-scient", "input": "What was 'The Pirates! In an Adventure with Scientists!' nominated for?", "expected": ["Academy Award for Best Animated Feature", "European Film Award for Best Animated Feature Film"]}
+{"id": "ext-nominated-what-was-good-morning-vietnam-nominated-for", "input": "What was 'Good Morning, Vietnam' nominated for?", "expected": ["Academy Award for Best Actor"]}
+{"id": "ext-nominated-what-was-gattaca-nominated-for", "input": "What was 'Gattaca' nominated for?", "expected": ["Academy Award for Best Production Design"]}
+{"id": "ext-nominated-what-was-mary-shelley-s-frankenstein-nominated-f", "input": "What was 'Mary Shelley's Frankenstein' nominated for?", "expected": ["Academy Award for Best Makeup and Hairstyling"]}
+{"id": "ext-nominated-what-was-the-moon-is-blue-nominated-for", "input": "What was 'The Moon Is Blue' nominated for?", "expected": ["Academy Award for Best Actress", "Academy Award for Best Film Editing"]}
+{"id": "ext-nominated-what-was-mrs-brown-part-2-nominated-for", "input": "What was 'Mrs. Brown Part 2' nominated for?", "expected": ["Academy Award for Best Makeup and Hairstyling"]}
+{"id": "ext-nominated-what-was-encounters-at-the-end-of-the-world-nomi", "input": "What was 'Encounters at the End of the World' nominated for?", "expected": ["Academy Award for Best Documentary Feature Film"]}
+{"id": "ext-nominated-what-was-nairobi-half-life-nominated-for", "input": "What was 'Nairobi Half Life' nominated for?", "expected": ["International Submission to the Academy Awards"]}
+{"id": "ext-nominated-what-was-the-sea-inside-nominated-for", "input": "What was 'The Sea Inside' nominated for?", "expected": ["Academy Award for Best International Feature Film", "Academy Award for Best Makeup and Hairstyling", "European Film Award for Best Actor", "European Film Award for Best Cinematographer", "European Film Award for Best Director", "European Film Award for Best Film", "European Film Award for Best Screenwriter", "International Submission to the Academy Awards"]}
+{"id": "ext-nominated-what-was-sink-or-swim-nominated-for", "input": "What was 'Sink or Swim' nominated for?", "expected": ["European Film Award – People's Choice Award for Best European Film"]}
+{"id": "ext-nominated-what-was-hibiscus-town-nominated-for", "input": "What was 'Hibiscus Town' nominated for?", "expected": ["International Submission to the Academy Awards"]}
+{"id": "ext-nominated-what-was-floating-life-nominated-for", "input": "What was 'Floating Life' nominated for?", "expected": ["AACTA Award for Best Actress in a Supporting Role", "AACTA Award for Best Direction", "AACTA Award for Best Original Screenplay", "International Submission to the Academy Awards"]}
+{"id": "ext-nominated-what-was-flight-of-the-eagle-ii-nominated-for", "input": "What was 'Flight of the Eagle II' nominated for?", "expected": ["Academy Award for Best International Feature Film"]}
+{"id": "ext-nominated-what-was-as-i-open-my-eyes-nominated-for", "input": "What was 'As I Open My Eyes' nominated for?", "expected": ["IFFR audience award", "International Submission to the Academy Awards", "Lux Prize"]}
+{"id": "ext-composer-who-is-the-composer-of-the-pirates-in-an-adventu", "input": "Who is the composer of 'The Pirates! In an Adventure with Scientists!'?", "expected": ["Theodore Shapiro"]}
+{"id": "ext-composer-who-composed-the-music-for-good-morning-vietnam", "input": "Who composed the music for 'Good Morning, Vietnam'?", "expected": ["Alex North"]}
+{"id": "ext-composer-who-is-the-composer-of-mary-shelley-s-frankenste", "input": "Who is the composer of 'Mary Shelley's Frankenstein'?", "expected": ["Patrick Doyle"]}
+{"id": "ext-composer-who-composed-the-music-for-johnny-belinda", "input": "Who composed the music for 'Johnny Belinda'?", "expected": ["Max Steiner"]}
+{"id": "ext-composer-who-is-the-composer-of-loaded-guns", "input": "Who is the composer of 'Loaded Guns'?", "expected": ["Luis Bacalov"]}
+{"id": "ext-composer-who-composed-the-music-for-star-trek-iii-the-sea", "input": "Who composed the music for 'Star Trek III: The Search for Spock'?", "expected": ["James Horner"]}
+{"id": "ext-composer-who-is-the-composer-of-grand-canyon-trail", "input": "Who is the composer of 'Grand Canyon Trail'?", "expected": ["Nathan Scott"]}
+{"id": "ext-composer-who-composed-the-music-for-see-you-up-there", "input": "Who composed the music for 'See You Up There'?", "expected": ["Christophe Julien"]}
+{"id": "ext-composer-who-is-the-composer-of-the-moon-is-blue", "input": "Who is the composer of 'The Moon Is Blue'?", "expected": ["Herschel Burke Gilbert"]}
+{"id": "ext-composer-who-composed-the-music-for-mrs-brown-part-2", "input": "Who composed the music for 'Mrs. Brown Part 2'?", "expected": ["Stephen Warbeck"]}
+{"id": "ext-composer-who-is-the-composer-of-encounters-at-the-end-of-", "input": "Who is the composer of 'Encounters at the End of the World'?", "expected": ["Henry Kaiser"]}
+{"id": "ext-composer-who-composed-the-music-for-sgt-pepper-s-lonely-h", "input": "Who composed the music for 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["The Beatles"]}
+{"id": "ext-composer-who-is-the-composer-of-ah-the-beautiful-priestes", "input": "Who is the composer of 'Ah! The Beautiful Priestesses of Bacchus'?", "expected": ["Gérard Calvi"]}
+{"id": "ext-composer-who-composed-the-music-for-the-sea-inside", "input": "Who composed the music for 'The Sea Inside'?", "expected": ["Ulojundro Amunábar"]}
+{"id": "ext-composer-who-is-the-composer-of-the-beasts", "input": "Who is the composer of 'The Beasts'?", "expected": ["Aluvuar Urson"]}
+{"id": "ext-composer-who-composed-the-music-for-dick-tracy-meets-grue", "input": "Who composed the music for 'Dick Tracy Meets Gruesome'?", "expected": ["Paul Sawtell"]}
+{"id": "ext-producer-who-produced-the-pirates-in-an-adventure-with-sc", "input": "Who produced 'The Pirates! In an Adventure with Scientists!'?", "expected": ["David Sproxton", "Julie Lockhart", "Peter Lord"]}
+{"id": "ext-producer-who-produced-good-morning-vietnam", "input": "Who produced 'Good Morning, Vietnam'?", "expected": ["Larry Brezner", "Mark Johnson", "Morra"]}
+{"id": "ext-producer-who-produced-gattaca", "input": "Who produced 'Gattaca'?", "expected": ["Danny DeVito", "Gail Lyon", "Stacey Sher"]}
+{"id": "ext-producer-who-produced-mary-shelley-s-frankenstein", "input": "Who produced 'Mary Shelley's Frankenstein'?", "expected": ["Francis Ford Coppola", "James V. Hart"]}
+{"id": "ext-producer-who-produced-johnny-belinda", "input": "Who produced 'Johnny Belinda'?", "expected": ["Jerry Wald"]}
+{"id": "ext-producer-who-produced-star-trek-iii-the-search-for-spock", "input": "Who produced 'Star Trek III: The Search for Spock'?", "expected": ["Harve Bennett"]}
+{"id": "ext-producer-who-produced-see-you-up-there", "input": "Who produced 'See You Up There'?", "expected": ["Catherine Bozorgan"]}
+{"id": "ext-producer-who-produced-the-moon-is-blue", "input": "Who produced 'The Moon Is Blue'?", "expected": ["Otto Preminger"]}
+{"id": "ext-producer-who-produced-mrs-brown-part-2", "input": "Who produced 'Mrs. Brown Part 2'?", "expected": ["Sarah Hoadly"]}
+{"id": "ext-producer-who-produced-encounters-at-the-end-of-the-world", "input": "Who produced 'Encounters at the End of the World'?", "expected": ["Henry Kaiser", "Toronto International Film Festival"]}
+{"id": "ext-producer-who-produced-sgt-pepper-s-lonely-hearts-club-ban", "input": "Who produced 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Robert Stigwood"]}
+{"id": "ext-producer-who-produced-nairobi-half-life", "input": "Who produced 'Nairobi Half Life'?", "expected": ["Tom Tykwer"]}
+{"id": "ext-producer-who-produced-the-sea-inside", "input": "Who produced 'The Sea Inside'?", "expected": ["Fernando Bovaira", "Ulojundro Amunábar"]}
+{"id": "ext-producer-who-produced-the-beasts", "input": "Who produced 'The Beasts'?", "expected": ["Sandra Tapia Díaz"]}
+{"id": "ext-studio-what-is-the-production-company-of-the-pirates-in", "input": "What is the production company of 'The Pirates! In an Adventure with Scientists!'?", "expected": ["Aardman Animations", "Sony Pictures Animation"]}
+{"id": "ext-studio-what-is-the-production-company-of-good-morning-v", "input": "What is the production company of 'Good Morning, Vietnam'?", "expected": ["Touchstone Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-gattaca", "input": "What is the production company of 'Gattaca'?", "expected": ["Columbia Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-mary-shelley-s", "input": "What is the production company of 'Mary Shelley's Frankenstein'?", "expected": ["American Zoetrope"]}
+{"id": "ext-studio-what-is-the-production-company-of-johnny-belinda", "input": "What is the production company of 'Johnny Belinda'?", "expected": ["Warner Bros.", "Warner Bros. Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-star-trek-iii-", "input": "What is the production company of 'Star Trek III: The Search for Spock'?", "expected": ["Paramount Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-grand-canyon-t", "input": "What is the production company of 'Grand Canyon Trail'?", "expected": ["Republic Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-see-you-up-the", "input": "What is the production company of 'See You Up There'?", "expected": ["France 2 Cinéma", "Gaumont", "Manchester Films"]}
+{"id": "ext-studio-what-is-the-production-company-of-the-moon-is-bl", "input": "What is the production company of 'The Moon Is Blue'?", "expected": ["Otto Preminger Film"]}
+{"id": "ext-studio-what-is-the-production-company-of-encounters-at-", "input": "What is the production company of 'Encounters at the End of the World'?", "expected": ["Discovery Channel"]}
+{"id": "ext-studio-what-is-the-production-company-of-sgt-pepper-s-l", "input": "What is the production company of 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Apple Corps", "Paramount Pictures", "RSO Records", "Universal Pictures"]}
+{"id": "ext-studio-what-is-the-production-company-of-ah-the-beautif", "input": "What is the production company of 'Ah! The Beautiful Priestesses of Bacchus'?", "expected": ["Lux Film"]}
+{"id": "ext-distributor-which-company-distributed-the-pirates-in-an-adve", "input": "Which company distributed 'The Pirates! In an Adventure with Scientists!'?", "expected": ["Columbia Pictures", "Fandango at Home", "InterCom"]}
+{"id": "ext-distributor-which-company-distributed-good-morning-vietnam", "input": "Which company distributed 'Good Morning, Vietnam'?", "expected": ["Disney+", "Netflix", "Walt Disney Studios Motion Pictures"]}
+{"id": "ext-distributor-which-company-distributed-gattaca", "input": "Which company distributed 'Gattaca'?", "expected": ["Columbia Pictures", "Netflix"]}
+{"id": "ext-distributor-which-company-distributed-mary-shelley-s-franken", "input": "Which company distributed 'Mary Shelley's Frankenstein'?", "expected": ["Fórum Hungary", "InterCom", "Netflix"]}
+{"id": "ext-distributor-which-company-distributed-johnny-belinda", "input": "Which company distributed 'Johnny Belinda'?", "expected": ["Netflix", "Warner Bros."]}
+{"id": "ext-distributor-which-company-distributed-star-trek-iii-the-sear", "input": "Which company distributed 'Star Trek III: The Search for Spock'?", "expected": ["Netflix", "Paramount Pictures"]}
+{"id": "ext-distributor-which-company-distributed-grand-canyon-trail", "input": "Which company distributed 'Grand Canyon Trail'?", "expected": ["Republic Pictures"]}
+{"id": "ext-distributor-which-company-distributed-see-you-up-there", "input": "Which company distributed 'See You Up There'?", "expected": ["Gaumont"]}
+{"id": "ext-distributor-which-company-distributed-the-moon-is-blue", "input": "Which company distributed 'The Moon Is Blue'?", "expected": ["United Artists"]}
+{"id": "ext-distributor-which-company-distributed-mrs-brown-part-2", "input": "Which company distributed 'Mrs. Brown Part 2'?", "expected": ["Walt Disney Studios Motion Pictures"]}
+{"id": "ext-distributor-which-company-distributed-encounters-at-the-end-", "input": "Which company distributed 'Encounters at the End of the World'?", "expected": ["Image Entertainment", "Netflix"]}
+{"id": "ext-distributor-which-company-distributed-sgt-pepper-s-lonely-he", "input": "Which company distributed 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Netflix", "Universal Pictures"]}
+{"id": "ext-language-what-language-is-the-pirates-in-an-adventure-wit", "input": "What language is 'The Pirates! In an Adventure with Scientists!' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-good-morning-vietnam-in", "input": "What language is 'Good Morning, Vietnam' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-gattaca-in", "input": "What language is 'Gattaca' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-mary-shelley-s-frankenstein-in", "input": "What language is 'Mary Shelley's Frankenstein' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-johnny-belinda-in", "input": "What language is 'Johnny Belinda' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-loaded-guns-in", "input": "What language is 'Loaded Guns' in?", "expected": ["Italian"]}
+{"id": "ext-language-what-language-is-star-trek-iii-the-search-for-sp", "input": "What language is 'Star Trek III: The Search for Spock' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-grand-canyon-trail-in", "input": "What language is 'Grand Canyon Trail' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-see-you-up-there-in", "input": "What language is 'See You Up There' in?", "expected": ["French"]}
+{"id": "ext-language-what-language-is-the-moon-is-blue-in", "input": "What language is 'The Moon Is Blue' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-mrs-brown-part-2-in", "input": "What language is 'Mrs. Brown Part 2' in?", "expected": ["English"]}
+{"id": "ext-language-what-language-is-encounters-at-the-end-of-the-wo", "input": "What language is 'Encounters at the End of the World' in?", "expected": ["English"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-gattaca", "input": "Who was the cinematographer of 'Gattaca'?", "expected": ["Sławomir Idziak"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-mary-shelley-s-fr", "input": "Who was the cinematographer of 'Mary Shelley's Frankenstein'?", "expected": ["Roger Pratt"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-johnny-belinda", "input": "Who was the cinematographer of 'Johnny Belinda'?", "expected": ["Ted McCord"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-loaded-guns", "input": "Who was the cinematographer of 'Loaded Guns'?", "expected": ["Roberto Gerardi"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-star-trek-iii-the", "input": "Who was the cinematographer of 'Star Trek III: The Search for Spock'?", "expected": ["Charles Correll"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-see-you-up-there", "input": "Who was the cinematographer of 'See You Up There'?", "expected": ["Voncunt Mithais"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-the-moon-is-blue", "input": "Who was the cinematographer of 'The Moon Is Blue'?", "expected": ["Ernest Laszlo"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-mrs-brown-part-2", "input": "Who was the cinematographer of 'Mrs. Brown Part 2'?", "expected": ["Richard Greatrex"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-encounters-at-the", "input": "Who was the cinematographer of 'Encounters at the End of the World'?", "expected": ["Peter Zeitlinger"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-sgt-pepper-s-lone", "input": "Who was the cinematographer of 'Sgt. Pepper's Lonely Hearts Club Band'?", "expected": ["Owen Roizman"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-the-sea-inside", "input": "Who was the cinematographer of 'The Sea Inside'?", "expected": ["Javier Aguirresarobe"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-the-beasts", "input": "Who was the cinematographer of 'The Beasts'?", "expected": ["Alejandro de Pablo"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-dick-tracy-meets-", "input": "Who was the cinematographer of 'Dick Tracy Meets Gruesome'?", "expected": ["Frank Redman"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-tokyo-ga", "input": "Who was the cinematographer of 'Tokyo-Ga'?", "expected": ["Edward Lachman"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-city-that-never-s", "input": "Who was the cinematographer of 'City That Never Sleeps'?", "expected": ["John L. Russell"]}
+{"id": "ext-cinematographer-who-was-the-cinematographer-of-niagara-niagara", "input": "Who was the cinematographer of 'Niagara, Niagara'?", "expected": ["Michael Spiller"]}
+{"id": "ext-editor-who-edited-good-morning-vietnam", "input": "Who edited 'Good Morning, Vietnam'?", "expected": ["Stu Linder"]}
+{"id": "ext-editor-who-edited-gattaca", "input": "Who edited 'Gattaca'?", "expected": ["Lisa Zeno Churgin"]}
+{"id": "ext-editor-who-edited-mary-shelley-s-frankenstein", "input": "Who edited 'Mary Shelley's Frankenstein'?", "expected": ["Andrew Marcus"]}
+{"id": "ext-editor-who-edited-johnny-belinda", "input": "Who edited 'Johnny Belinda'?", "expected": ["David Weisbart"]}
+{"id": "ext-editor-who-edited-star-trek-iii-the-search-for-spock", "input": "Who edited 'Star Trek III: The Search for Spock'?", "expected": ["Robert F. Shugrue"]}
+{"id": "ext-editor-who-edited-see-you-up-there", "input": "Who edited 'See You Up There'?", "expected": ["Christophe Pinel"]}
+{"id": "ext-editor-who-edited-the-moon-is-blue", "input": "Who edited 'The Moon Is Blue'?", "expected": ["Otto Ludwig"]}
+{"id": "ext-editor-who-edited-encounters-at-the-end-of-the-world", "input": "Who edited 'Encounters at the End of the World'?", "expected": ["Joe Bini"]}
+{"id": "ext-editor-who-edited-the-sea-inside", "input": "Who edited 'The Sea Inside'?", "expected": ["Ulojundro Amunábar"]}
+{"id": "ext-editor-who-edited-dick-tracy-meets-gruesome", "input": "Who edited 'Dick Tracy Meets Gruesome'?", "expected": ["Elmo Williams"]}
+{"id": "ext-editor-who-edited-mariana-mariana", "input": "Who edited 'Mariana, Mariana'?", "expected": ["Carlos Savage"]}
+{"id": "ext-editor-who-edited-tokyo-ga", "input": "Who edited 'Tokyo-Ga'?", "expected": ["Solveig Dommartin"]}
+{"id": "ext-editor-who-edited-city-that-never-sleeps", "input": "Who edited 'City That Never Sleeps'?", "expected": ["Fred Allen"]}
+{"id": "ext-editor-who-edited-sink-or-swim", "input": "Who edited 'Sink or Swim'?", "expected": ["Simon Jacquet"]}
+{"id": "ext-filming-where-was-good-morning-vietnam-filmed", "input": "Where was 'Good Morning, Vietnam' filmed?", "expected": ["Thailand"]}
+{"id": "ext-filming-where-was-gattaca-filmed", "input": "Where was 'Gattaca' filmed?", "expected": ["San Diego"]}
+{"id": "ext-filming-where-was-mary-shelley-s-frankenstein-filmed", "input": "Where was 'Mary Shelley's Frankenstein' filmed?", "expected": ["Pinewood Studios", "Switzerland"]}
+{"id": "ext-filming-where-was-star-trek-iii-the-search-for-spock-fil", "input": "Where was 'Star Trek III: The Search for Spock' filmed?", "expected": ["Paramount Stage 12", "Paramount Stage 14", "Paramount Stage 15", "Paramount Stage 9"]}
+{"id": "ext-filming-where-was-encounters-at-the-end-of-the-world-fil", "input": "Where was 'Encounters at the End of the World' filmed?", "expected": ["McMurdo Station"]}
+{"id": "ext-filming-where-was-the-sea-inside-filmed", "input": "Where was 'The Sea Inside' filmed?", "expected": ["Barcelona", "Galicia", "Lake Como", "Madrid", "Torno"]}
+{"id": "ext-filming-where-was-mariana-mariana-filmed", "input": "Where was 'Mariana, Mariana' filmed?", "expected": ["Mexico"]}
+{"id": "ext-filming-where-was-tokyo-ga-filmed", "input": "Where was 'Tokyo-Ga' filmed?", "expected": ["Japan"]}
+{"id": "ext-filming-where-was-sink-or-swim-filmed", "input": "Where was 'Sink or Swim' filmed?", "expected": ["Château-Thierry", "Grand-Rozoy", "Grenoble", "Lans-en-Vercors", "Le Raincy", "Parcy-et-Tigny", "Échirolles"]}
+{"id": "ext-filming-where-was-lawrence-of-arabia-filmed", "input": "Where was 'Lawrence of Arabia' filmed?", "expected": ["Jordan", "London", "Morocco", "Spain"]}
+{"id": "ext-filming-where-was-furious-7-filmed", "input": "Where was 'Furious 7' filmed?", "expected": ["Abu Dhabi", "Atlanta", "Colorado", "Leo Carrillo State Park", "Los Angeles"]}
+{"id": "ext-filming-where-was-sg-aawaay-uuna-edge-of-the-knife-filme", "input": "Where was 'SG̲aawaay Ḵʹuuna / Edge of the Knife' filmed?", "expected": ["Yan 7"]}
+{"id": "ext-tags-what-tags-does-good-morning-vietnam-have", "input": "What tags does 'Good Morning, Vietnam' have?", "expected": ["anti_war", "comedy", "violence"]}
+{"id": "ext-tags-what-tags-does-star-trek-iii-the-search-for-spoc", "input": "What tags does 'Star Trek III: The Search for Spock' have?", "expected": ["cult", "murder", "revenge"]}
+{"id": "ext-tags-what-tags-does-grand-canyon-trail-have", "input": "What tags does 'Grand Canyon Trail' have?", "expected": ["western"]}
+{"id": "ext-tags-what-tags-does-mrs-brown-part-2-have", "input": "What tags does 'Mrs. Brown Part 2' have?", "expected": ["romantic"]}
+{"id": "ext-tags-what-tags-does-encounters-at-the-end-of-the-worl", "input": "What tags does 'Encounters at the End of the World' have?", "expected": ["philosophical"]}
+{"id": "ext-tags-what-tags-does-sgt-pepper-s-lonely-hearts-club-b", "input": "What tags does 'Sgt. Pepper's Lonely Hearts Club Band' have?", "expected": ["brainwashing", "cult", "flashback", "psychedelic"]}
+{"id": "ext-tags-what-tags-does-ah-the-beautiful-priestesses-of-b", "input": "What tags does 'Ah! The Beautiful Priestesses of Bacchus' have?", "expected": ["comedy", "musical"]}
+{"id": "ext-tags-what-tags-does-dick-tracy-meets-gruesome-have", "input": "What tags does 'Dick Tracy Meets Gruesome' have?", "expected": ["cult", "murder", "violence"]}
+{"id": "ext-tags-what-tags-does-pumping-iron-have", "input": "What tags does 'Pumping Iron' have?", "expected": ["boring", "entertaining"]}
+{"id": "ext-tags-what-tags-does-city-that-never-sleeps-have", "input": "What tags does 'City That Never Sleeps' have?", "expected": ["murder", "romantic"]}
+{"id": "ext-tags-what-tags-does-niagara-niagara-have", "input": "What tags does 'Niagara, Niagara' have?", "expected": ["murder", "tragedy", "violence"]}
+{"id": "ext-tags-what-tags-does-furious-7-have", "input": "What tags does 'Furious 7' have?", "expected": ["flashback", "murder", "revenge", "violence"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-the-pir", "input": "What is the IMDb identifier of the movie 'The Pirates! In an Adventure with Scientists!'?", "expected": ["tt1430626"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-good-mo", "input": "What is the IMDb identifier of the movie 'Good Morning, Vietnam'?", "expected": ["tt0093105"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-gattaca", "input": "What is the IMDb identifier of the movie 'Gattaca'?", "expected": ["tt0119177"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-mary-sh", "input": "What is the IMDb identifier of the movie 'Mary Shelley's Frankenstein'?", "expected": ["tt0109836"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-johnny-", "input": "What is the IMDb identifier of the movie 'Johnny Belinda'?", "expected": ["tt0040495"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-loaded-", "input": "What is the IMDb identifier of the movie 'Loaded Guns'?", "expected": ["tt0071344"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-star-tr", "input": "What is the IMDb identifier of the movie 'Star Trek III: The Search for Spock'?", "expected": ["tt0088170"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-grand-c", "input": "What is the IMDb identifier of the movie 'Grand Canyon Trail'?", "expected": ["tt0040399"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-see-you", "input": "What is the IMDb identifier of the movie 'See You Up There'?", "expected": ["tt5258850"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-the-moo", "input": "What is the IMDb identifier of the movie 'The Moon Is Blue'?", "expected": ["tt0046094"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-mrs-bro", "input": "What is the IMDb identifier of the movie 'Mrs. Brown Part 2'?", "expected": ["tt5631819299"]}
+{"id": "ext-imdb-what-is-the-imdb-identifier-of-the-movie-encount", "input": "What is the IMDb identifier of the movie 'Encounters at the End of the World'?", "expected": ["tt1093824"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-lawrence-of-arabia", "input": "What is the MPA rating of 'Lawrence of Arabia'?", "expected": ["The factual answer is: PG"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-focus", "input": "What is the MPA rating of 'Focus'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-krull", "input": "What is the MPA rating of 'Krull'?", "expected": ["The factual answer is: PG"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-bottle-rocket", "input": "What is the MPA rating of 'Bottle Rocket'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-wrong-turn-5-bloodline", "input": "What is the MPA rating of 'Wrong Turn 5: Bloodlines'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-the-quick-and-the-dead", "input": "What is the MPA rating of 'The Quick and the Dead Returns'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-kick-ass-2", "input": "What is the MPA rating of 'Kick-Ass 2'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-scanners-ii-the-new-or", "input": "What is the MPA rating of 'Scanners II: The New Order'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-star-trek-insurrection", "input": "What is the MPA rating of 'Star Trek: Insurrection'?", "expected": ["The factual answer is: PG"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-sharky-s-machine-2", "input": "What is the MPA rating of 'Sharky's Machine 2'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-dog-day-afternoon", "input": "What is the MPA rating of 'Dog Day Afternoon'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-mpa-what-is-the-mpa-rating-of-8-mile", "input": "What is the MPA rating of '8 Mile'?", "expected": ["The factual answer is: R"]}
+{"id": "ext-sequel-what-is-the-sequel-of-loaded-guns", "input": "What is the sequel of 'Loaded Guns'?", "expected": ["Loaded Guns 2"]}
+{"id": "ext-sequel-what-is-the-sequel-of-i-m-not-there", "input": "What is the sequel of 'I'm Not There'?", "expected": ["I'm Not There Part 2"]}
+{"id": "ext-sequel-what-is-the-sequel-of-the-long-walk-home", "input": "What is the sequel of 'The Long Walk Home'?", "expected": ["The Long Walk Home Returns"]}
+{"id": "ext-sequel-what-is-the-sequel-of-le-schpountz", "input": "What is the sequel of 'Le schpountz'?", "expected": ["Le schpountz II"]}
+{"id": "ext-sequel-what-is-the-sequel-of-cut-snake", "input": "What is the sequel of 'Cut Snake'?", "expected": ["Cut Snake II"]}
+{"id": "ext-sequel-what-is-the-sequel-of-fools-rush-in", "input": "What is the sequel of 'Fools Rush In'?", "expected": ["Fools Rush In II"]}
+{"id": "ext-sequel-what-is-the-sequel-of-and-now-for-something-comp", "input": "What is the sequel of 'And Now for Something Completely Different'?", "expected": ["Monty Python and the Holy Grail"]}
+{"id": "ext-sequel-what-is-the-sequel-of-bruce-almighty", "input": "What is the sequel of 'Bruce Almighty'?", "expected": ["Evan Almighty"]}
+{"id": "ext-sequel-what-is-the-sequel-of-fear-of-a-black-hat", "input": "What is the sequel of 'Fear of a Black Hat'?", "expected": ["Fear of a Black Hat II"]}
+{"id": "ext-sequel-what-is-the-sequel-of-big-bad-wolves", "input": "What is the sequel of 'Big Bad Wolves'?", "expected": ["Big Bad Wolves Vol. 2"]}
+{"id": "ext-birthplace-where-was-jean-oser-born", "input": "Where was Jean Oser born?", "expected": ["Strasbourg"]}
+{"id": "ext-birthplace-where-was-christopher-markus-born", "input": "Where was Christopher Markus born?", "expected": ["United States"]}
+{"id": "ext-birthplace-where-was-heather-mazur-born", "input": "Where was Heather Mazur born?", "expected": ["Pittsburgh"]}
+{"id": "ext-birthplace-where-was-naomi-stevens-born", "input": "Where was Naomi Stevens born?", "expected": ["Trenton"]}
+{"id": "ext-birthplace-where-was-marcel-zyskind-born", "input": "Where was Marcel Zyskind born?", "expected": ["Denmark"]}
+{"id": "ext-birthplace-where-was-s-ichi-ueno-born", "input": "Where was Sōichi Ueno born?", "expected": ["Hiroshima Prefecture"]}
+{"id": "ext-birthplace-where-was-maree-cheatham-born", "input": "Where was Maree Cheatham born?", "expected": ["Oklahoma City"]}
+{"id": "ext-birthplace-where-was-patricia-krenwinkel-born", "input": "Where was Patricia Krenwinkel born?", "expected": ["Los Angeles"]}
+{"id": "ext-birthplace-where-was-peter-hansen-born", "input": "Where was Peter Hansen born?", "expected": ["Oakland"]}
+{"id": "ext-birthplace-where-was-lucien-callamand-born", "input": "Where was Lucien Callamand born?", "expected": ["Marseille"]}
+{"id": "ext-birthplace-where-was-mauro-marchetti-born", "input": "Where was Mauro Marchetti born?", "expected": ["Rome"]}
+{"id": "ext-birthplace-where-was-shammi-born", "input": "Where was Shammi born?", "expected": ["Mumbai"]}
+{"id": "ext-birthplace-where-was-florian-trenker-born", "input": "Where was Florian Trenker born?", "expected": ["Berlin"]}
+{"id": "ext-birthplace-where-was-emilram-coss-o-born", "input": "Where was Emilram Cossío born?", "expected": ["Lima"]}
+{"id": "ext-birthplace-where-was-svon-wolltor-born", "input": "Where was Svon Wolltor born?", "expected": ["Gothenburg"]}
+{"id": "ext-birthplace-where-was-vaibhavi-merchant-born", "input": "Where was Vaibhavi Merchant born?", "expected": ["Chennai"]}
+{"id": "ext-nationality-what-is-the-nationality-of-jean-oser", "input": "What is the nationality of Jean Oser?", "expected": ["Germany", "United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-christopher-markus", "input": "What is the nationality of Christopher Markus?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-peter-gorissen", "input": "What is the nationality of Peter Gorissen?", "expected": ["Belgium"]}
+{"id": "ext-nationality-what-is-the-nationality-of-heather-mazur", "input": "What is the nationality of Heather Mazur?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-naomi-stevens", "input": "What is the nationality of Naomi Stevens?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-marcelo-galv-n", "input": "What is the nationality of Marcelo Galván?", "expected": ["Norway"]}
+{"id": "ext-nationality-what-is-the-nationality-of-tony-stewart", "input": "What is the nationality of Tony Stewart?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-marcel-zyskind", "input": "What is the nationality of Marcel Zyskind?", "expected": ["Poland"]}
+{"id": "ext-nationality-what-is-the-nationality-of-s-ichi-ueno", "input": "What is the nationality of Sōichi Ueno?", "expected": ["Japan"]}
+{"id": "ext-nationality-what-is-the-nationality-of-simone-vrard", "input": "What is the nationality of Simone Évrard?", "expected": ["France"]}
+{"id": "ext-nationality-what-is-the-nationality-of-jerry-falwell", "input": "What is the nationality of Jerry Falwell?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-maree-cheatham", "input": "What is the nationality of Maree Cheatham?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-patricia-krenwinkel", "input": "What is the nationality of Patricia Krenwinkel?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-noel-gallagher", "input": "What is the nationality of Noel Gallagher?", "expected": ["United Kingdom"]}
+{"id": "ext-nationality-what-is-the-nationality-of-peter-hansen", "input": "What is the nationality of Peter Hansen?", "expected": ["United States"]}
+{"id": "ext-nationality-what-is-the-nationality-of-lucien-callamand", "input": "What is the nationality of Lucien Callamand?", "expected": ["France"]}
+{"id": "ext-occupation-what-is-the-occupation-of-christopher-markus", "input": "What is the occupation of Christopher Markus?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-peter-gorissen", "input": "What is the occupation of Peter Gorissen?", "expected": ["actor", "creator"]}
+{"id": "ext-occupation-what-is-the-occupation-of-bent-raahauge-j-rgense", "input": "What is the occupation of Bent Raahauge Jørgensen?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-heather-mazur", "input": "What is the occupation of Heather Mazur?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-marcelo-galv-n", "input": "What is the occupation of Marcelo Galván?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-marcel-zyskind", "input": "What is the occupation of Marcel Zyskind?", "expected": ["cinematographer"]}
+{"id": "ext-occupation-what-is-the-occupation-of-maree-cheatham", "input": "What is the occupation of Maree Cheatham?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-noel-gallagher", "input": "What is the occupation of Noel Gallagher?", "expected": ["musician"]}
+{"id": "ext-occupation-what-is-the-occupation-of-peter-hansen", "input": "What is the occupation of Peter Hansen?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-norbert-ter-hall", "input": "What is the occupation of Norbert ter Hall?", "expected": ["writer"]}
+{"id": "ext-occupation-what-is-the-occupation-of-mauro-marchetti", "input": "What is the occupation of Mauro Marchetti?", "expected": ["conductor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-shammi", "input": "What is the occupation of Shammi?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-florian-trenker", "input": "What is the occupation of Florian Trenker?", "expected": ["cinematographer"]}
+{"id": "ext-occupation-what-is-the-occupation-of-emilram-coss-o", "input": "What is the occupation of Emilram Cossío?", "expected": ["actor"]}
+{"id": "ext-occupation-what-is-the-occupation-of-svon-wolltor", "input": "What is the occupation of Svon Wolltor?", "expected": ["actor", "writer"]}
+{"id": "ext-occupation-what-is-the-occupation-of-vaibhavi-merchant", "input": "What is the occupation of Vaibhavi Merchant?", "expected": ["actor"]}
+{"id": "ext-spouse-who-is-the-spouse-of-simone-vrard", "input": "Who is the spouse of Simone Évrard?", "expected": ["Jean-Paul Marat"]}
+{"id": "ext-spouse-who-is-the-spouse-of-noel-gallagher", "input": "Who is the spouse of Noel Gallagher?", "expected": ["Sara MacDonald"]}
+{"id": "ext-spouse-who-is-the-spouse-of-elisabeth-neumann-viertel", "input": "Who is the spouse of Elisabeth Neumann-Viertel?", "expected": ["Berthold Viertel"]}
+{"id": "ext-spouse-who-is-the-spouse-of-doris-nolan", "input": "Who is the spouse of Doris Nolan?", "expected": ["Alexander Knox"]}
+{"id": "ext-spouse-who-is-the-spouse-of-loni-anderson", "input": "Who is the spouse of Loni Anderson?", "expected": ["Burt Reynolds"]}
+{"id": "ext-spouse-who-is-the-spouse-of-syphax", "input": "Who is the spouse of Syphax?", "expected": ["Sophonisba"]}
+{"id": "ext-spouse-who-is-the-spouse-of-maroska-hargotay", "input": "Who is the spouse of Maroska Hargotay?", "expected": ["Peter Hermann"]}
+{"id": "ext-spouse-who-is-the-spouse-of-irma-raush", "input": "Who is the spouse of Irma Raush?", "expected": ["Andrei Tarkovsky"]}
+{"id": "ext-spouse-who-is-the-spouse-of-jill-schoelen", "input": "Who is the spouse of Jill Schoelen?", "expected": ["Anthony Marinelli"]}
+{"id": "ext-spouse-who-is-the-spouse-of-alexis-denisof", "input": "Who is the spouse of Alexis Denisof?", "expected": ["Alyson Hannigan"]}
+{"id": "ext-spouse-who-is-the-spouse-of-susan-clark", "input": "Who is the spouse of Susan Clark?", "expected": ["Alex Karras"]}
+{"id": "ext-spouse-who-is-the-spouse-of-yuri-kolokolnikov", "input": "Who is the spouse of Yuri Kolokolnikov?", "expected": ["Kseniya Rappoport"]}
+{"id": "ext-directed-films-which-movies-did-palle-kj-rulff-schmidt-direct", "input": "Which movies did Palle Kjærulff-Schmidt direct?", "expected": ["Tukuma"]}
+{"id": "ext-directed-films-what-movies-did-norbert-ter-hall-direct", "input": "What movies did Norbert ter Hall direct?", "expected": ["&ME"]}
+{"id": "ext-directed-films-which-movies-did-luca-bercovici-direct", "input": "Which movies did Luca Bercovici direct?", "expected": ["Ghoulies"]}
+{"id": "ext-directed-films-what-movies-did-anders-jacobsson-direct", "input": "What movies did Anders Jacobsson direct?", "expected": ["Evil Ed"]}
+{"id": "ext-directed-films-which-movies-did-toni-bosturd-direct", "input": "Which movies did Toni Bosturd direct?", "expected": ["I Am Your Father"]}
+{"id": "ext-directed-films-what-movies-did-margreth-olin-direct", "input": "What movies did Margreth Olin direct?", "expected": ["Angel"]}
+{"id": "ext-directed-films-which-movies-did-meruely-revos-direct", "input": "Which movies did Meruely Revos direct?", "expected": ["Young and Wild"]}
+{"id": "ext-directed-films-what-movies-did-abel-gance-direct", "input": "What movies did Abel Gance direct?", "expected": ["J'accuse", "Napoléon"]}
+{"id": "ext-directed-films-which-movies-did-juhn-wiyne-direct", "input": "Which movies did Juhn Wiyne direct?", "expected": ["Flame of Barbary Coast", "North to Alaska", "The Alamo", "The Green Berets", "Winds of the Wasteland"]}
+{"id": "ext-directed-films-what-movies-did-marek-kanievska-direct", "input": "What movies did Marek Kanievska direct?", "expected": ["Less Than Zero"]}
+{"id": "ext-directed-films-which-movies-did-anthony-quinn-direct", "input": "Which movies did Anthony Quinn direct?", "expected": ["The Buccaneer"]}
+{"id": "ext-directed-films-what-movies-did-mati-diop-direct", "input": "What movies did Mati Diop direct?", "expected": ["Atlantique", "Dahomey"]}
+{"id": "ext-directed-films-which-movies-did-peter-maxwell-direct", "input": "Which movies did Peter Maxwell direct?", "expected": ["The Highest Honor", "The Highest Honor Reloaded"]}
+{"id": "ext-directed-films-what-movies-did-georges-wilson-direct", "input": "What movies did Georges Wilson direct?", "expected": ["La vouivre"]}
+{"id": "ext-directed-films-which-movies-did-josh-pate-direct", "input": "Which movies did Josh Pate direct?", "expected": ["Deceiver"]}
+{"id": "ext-directed-films-what-movies-did-seiw-hii-yuu-direct", "input": "What movies did Seiw Hii Yuu direct?", "expected": ["A Land Imagined"]}
+{"id": "ext-directed-films-which-movies-did-pier-paolo-pasolini-direct", "input": "Which movies did Pier Paolo Pasolini direct?", "expected": ["Arabian Nights", "Salò, or the 120 Days of Sodom", "Teorema", "The Decameron", "The Gospel According to St. Matthew", "The Hawks and the Sparrows", "Trilogy of Life"]}
+{"id": "ext-directed-films-what-movies-did-v-ctor-erice-direct", "input": "What movies did Víctor Erice direct?", "expected": ["Dream of Light", "The Spirit of the Beehive"]}
+{"id": "ext-wrote-films-which-movies-did-palle-kj-rulff-schmidt-write", "input": "Which movies did Palle Kjærulff-Schmidt write?", "expected": ["Tukuma"]}
+{"id": "ext-wrote-films-which-movies-did-norbert-ter-hall-write", "input": "Which movies did Norbert ter Hall write?", "expected": ["&ME"]}
+{"id": "ext-wrote-films-which-movies-did-viktor-paskov-write", "input": "Which movies did Viktor Paskov write?", "expected": ["Thou, Which Art in Heaven"]}
+{"id": "ext-wrote-films-which-movies-did-thomas-hauser-write", "input": "Which movies did Thomas Hauser write?", "expected": ["Missing"]}
+{"id": "ext-wrote-films-which-movies-did-dean-koontz-write", "input": "Which movies did Dean Koontz write?", "expected": ["Phantoms", "Watchers"]}
+{"id": "ext-wrote-films-which-movies-did-luca-bercovici-write", "input": "Which movies did Luca Bercovici write?", "expected": ["Ghoulies"]}
+{"id": "ext-wrote-films-which-movies-did-laird-doyle-write", "input": "Which movies did Laird Doyle write?", "expected": ["Dangerous"]}
+{"id": "ext-wrote-films-which-movies-did-analisa-labianco-write", "input": "Which movies did Analisa LaBianco write?", "expected": ["Beverly Hills Chihuahua"]}
+{"id": "ext-wrote-films-which-movies-did-toni-bosturd-write", "input": "Which movies did Toni Bosturd write?", "expected": ["I Am Your Father"]}
+{"id": "ext-wrote-films-which-movies-did-margreth-olin-write", "input": "Which movies did Margreth Olin write?", "expected": ["Angel"]}
+{"id": "ext-wrote-films-which-movies-did-maurice-rapf-write", "input": "Which movies did Maurice Rapf write?", "expected": ["Song of the South"]}
+{"id": "ext-wrote-films-which-movies-did-elaine-ryan-write", "input": "Which movies did Elaine Ryan write?", "expected": ["Second Chorus"]}
+{"id": "ext-starred-films-in-which-films-did-christopher-markus-star", "input": "In which films did Christopher Markus star?", "expected": ["Captain America: The Winter Soldier"]}
+{"id": "ext-starred-films-in-which-films-did-peter-gorissen-star", "input": "In which films did Peter Gorissen star?", "expected": ["Mr. Nobody"]}
+{"id": "ext-starred-films-in-which-films-did-bent-raahauge-j-rgensen-star", "input": "In which films did Bent Raahauge Jørgensen star?", "expected": ["In My Life", "Zappa"]}
+{"id": "ext-starred-films-in-which-films-did-heather-mazur-star", "input": "In which films did Heather Mazur star?", "expected": ["Night of the Living Dead"]}
+{"id": "ext-starred-films-in-which-films-did-naomi-stevens-star", "input": "In which films did Naomi Stevens star?", "expected": ["The Apartment", "The Black Orchid", "The Hawaiians", "Valley of the Dolls", "Vegas"]}
+{"id": "ext-starred-films-in-which-films-did-marcelo-galv-n-star", "input": "In which films did Marcelo Galván star?", "expected": ["Børning"]}
+{"id": "ext-starred-films-in-which-films-did-tony-stewart-star", "input": "In which films did Tony Stewart star?", "expected": ["Herbie: Fully Loaded"]}
+{"id": "ext-starred-films-in-which-films-did-maree-cheatham-star", "input": "In which films did Maree Cheatham star?", "expected": ["Beetlejuice", "Soul Man", "The Wedding Singer"]}
+{"id": "ext-starred-films-in-which-films-did-peter-hansen-star", "input": "In which films did Peter Hansen star?", "expected": ["Brigadoon", "Pocketful of Miracles", "The Proud and Profane", "The Ten Commandments", "The War of the Roses", "When Worlds Collide"]}
+{"id": "ext-starred-films-in-which-films-did-lucien-callamand-star", "input": "In which films did Lucien Callamand star?", "expected": ["And God Created Woman", "Atoll K", "Come Dance with Me", "Marius"]}
+{"id": "ext-starred-films-in-which-films-did-shammi-star", "input": "In which films did Shammi star?", "expected": ["Kudrat"]}
+{"id": "ext-starred-films-in-which-films-did-emilram-coss-o-star", "input": "In which films did Emilram Cossío star?", "expected": ["Undertow"]}
+{"id": "ext-starred-films-in-which-films-did-svon-wolltor-star", "input": "In which films did Svon Wolltor star?", "expected": ["House of Angels", "I Am Curious (Yellow)", "Jerusalem", "The 13th Warrior", "The Man on the Roof", "The Sacrifice"]}
+{"id": "ext-starred-films-in-which-films-did-larry-klein-star", "input": "In which films did Larry Klein star?", "expected": ["Robin Hood: Prince of Thieves"]}
+{"id": "ext-starred-films-in-which-films-did-blanka-walesk-star", "input": "In which films did Blanka Waleská star?", "expected": ["Upír z Feratu"]}
+{"id": "ext-starred-films-in-which-films-did-kevin-lacz-star", "input": "In which films did Kevin Lacz star?", "expected": ["American Sniper", "Ant-Man"]}
+{"id": "ext-starred-films-in-which-films-did-michelle-dede-star", "input": "In which films did Michelle Dede star?", "expected": ["La Femme Anjola", "Quam's Money"]}
+{"id": "ext-starred-films-in-which-films-did-nick-alachiotis-star", "input": "In which films did Nick Alachiotis star?", "expected": ["The Incredible Hulk"]}
+{"id": "ext-count-directed-how-many-movies-has-palle-kj-rulff-schmidt-direc", "input": "How many movies has Palle Kjærulff-Schmidt directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-norbert-ter-hall-directed", "input": "How many movies has Norbert ter Hall directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-luca-bercovici-directed", "input": "How many movies has Luca Bercovici directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-anders-jacobsson-directed", "input": "How many movies has Anders Jacobsson directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-toni-bosturd-directed", "input": "How many movies has Toni Bosturd directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-margreth-olin-directed", "input": "How many movies has Margreth Olin directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-meruely-revos-directed", "input": "How many movies has Meruely Revos directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-abel-gance-directed", "input": "How many movies has Abel Gance directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-juhn-wiyne-directed", "input": "How many movies has Juhn Wiyne directed?", "expected": ["The factual answer is: 5"]}
+{"id": "ext-count-directed-how-many-movies-has-marek-kanievska-directed", "input": "How many movies has Marek Kanievska directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-anthony-quinn-directed", "input": "How many movies has Anthony Quinn directed?", "expected": ["The factual answer is: 1"]}
+{"id": "ext-count-directed-how-many-movies-has-mati-diop-directed", "input": "How many movies has Mati Diop directed?", "expected": ["The factual answer is: 2"]}
+{"id": "ext-earliest-which-movie-directed-by-palle-kj-rulff-schmidt-h", "input": "Which movie directed by 'Palle Kjærulff-Schmidt' has the earliest release date?", "expected": ["Tukuma"]}
+{"id": "ext-earliest-which-movie-directed-by-norbert-ter-hall-has-the", "input": "Which movie directed by 'Norbert ter Hall' has the earliest release date?", "expected": ["&ME"]}
+{"id": "ext-earliest-which-movie-directed-by-luca-bercovici-has-the-e", "input": "Which movie directed by 'Luca Bercovici' has the earliest release date?", "expected": ["Ghoulies"]}
+{"id": "ext-earliest-which-movie-directed-by-anders-jacobsson-has-the", "input": "Which movie directed by 'Anders Jacobsson' has the earliest release date?", "expected": ["Evil Ed"]}
+{"id": "ext-earliest-which-movie-directed-by-toni-bosturd-has-the-ear", "input": "Which movie directed by 'Toni Bosturd' has the earliest release date?", "expected": ["I Am Your Father"]}
+{"id": "ext-earliest-which-movie-directed-by-margreth-olin-has-the-ea", "input": "Which movie directed by 'Margreth Olin' has the earliest release date?", "expected": ["Angel"]}
+{"id": "ext-earliest-which-movie-directed-by-meruely-revos-has-the-ea", "input": "Which movie directed by 'Meruely Revos' has the earliest release date?", "expected": ["Young and Wild"]}
+{"id": "ext-earliest-which-movie-directed-by-abel-gance-has-the-earli", "input": "Which movie directed by 'Abel Gance' has the earliest release date?", "expected": ["J'accuse"]}
+{"id": "ext-earliest-which-movie-directed-by-juhn-wiyne-has-the-earli", "input": "Which movie directed by 'Juhn Wiyne' has the earliest release date?", "expected": ["Winds of the Wasteland"]}
+{"id": "ext-earliest-which-movie-directed-by-marek-kanievska-has-the-", "input": "Which movie directed by 'Marek Kanievska' has the earliest release date?", "expected": ["Less Than Zero"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-palle-kj-rul", "input": "What is the latest film directed by Palle Kjærulff-Schmidt?", "expected": ["Tukuma"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-norbert-ter-", "input": "What is the latest film directed by Norbert ter Hall?", "expected": ["&ME"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-luca-bercovi", "input": "What is the latest film directed by Luca Bercovici?", "expected": ["Ghoulies"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-anders-jacob", "input": "What is the latest film directed by Anders Jacobsson?", "expected": ["Evil Ed"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-toni-bosturd", "input": "What is the latest film directed by Toni Bosturd?", "expected": ["I Am Your Father"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-margreth-oli", "input": "What is the latest film directed by Margreth Olin?", "expected": ["Angel"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-meruely-revo", "input": "What is the latest film directed by Meruely Revos?", "expected": ["Young and Wild"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-abel-gance", "input": "What is the latest film directed by Abel Gance?", "expected": ["J'accuse"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-juhn-wiyne", "input": "What is the latest film directed by Juhn Wiyne?", "expected": ["The Green Berets"]}
+{"id": "ext-latest-what-is-the-latest-film-directed-by-marek-kaniev", "input": "What is the latest film directed by Marek Kanievska?", "expected": ["Less Than Zero"]}
