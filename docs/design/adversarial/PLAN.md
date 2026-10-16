@@ -43,3 +43,4 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 |---|---|---|---|
 | S0 | G0 | PASS (2026-10-16) | all 8 questions answered in `00-questions.md`; plan lists S0-S11; baseline evals run: stage1 9/9 exit 0, stage2 508/508 exit 0 (`docs/design/adversarial/eval/baseline-stage1.log`, `baseline-stage2.log`) |
 | S1 | G1 | PASS (2026-10-16) | `docs/design/adversarial/01-domain-model.md`: 30/30 union relations with 2 grounded examples; entity types Q11424/Q5 with counts; probes in `scripts/adversarial/probe_domain_model.py`, log `docs/design/adversarial/eval/s1-domain-probe.log` |
+| S2 | G2 | PASS (2026-10-16) | `docs/design/adversarial/02-architecture-contracts.md`: 6 phases x 5 columns, 7 boundaries with real traces from `scripts/adversarial/capture_traces.py` (log `docs/design/adversarial/eval/s2-trace-examples.log`); baseline 508/508 and 9/9 recorded |
