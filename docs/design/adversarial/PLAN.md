@@ -22,7 +22,7 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
   - Check G4: >= 5 new types; each names boundary + 2 grounded examples + failing phase; entities probed against the lexicon.
 - [x] S5 DATASETS - artifacts `evals/adversarial/<type-id>.jsonl` (one per type), `docs/design/adversarial/05-dataset-manifest.md`.
   - Check G5: the mission's dataset-OK python check; 5 random cases per file re-validated by independent KG query in the manifest; >= 10 distinct entities per file.
-- [ ] S6 BASELINE MEASUREMENT - artifacts `docs/design/adversarial/eval/iter0/<type-id>.log` and `-baseline.md`.
+- [x] S6 BASELINE MEASUREMENT - artifacts `docs/design/adversarial/eval/iter0/<type-id>.log` and `-baseline.md`.
   - Check G6: per type a log and a report; numeric pass rate from the log; every failure clustered with counts summing to the failure total.
   - Run: `source .venv/bin/activate && python -m agent.eval -v evals/adversarial/<type-id>.jsonl 2>&1 | tee docs/design/adversarial/eval/iter0/<type-id>.log`.
 - [ ] S7 DIAGNOSIS (subagents, template 3.11) - artifacts `docs/design/adversarial/07-cluster-index.md`, `docs/design/adversarial/diagnosis/<cluster-id>.md`.
@@ -47,3 +47,4 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 | S3 | G3 | PASS (2026-10-16) | `docs/design/adversarial/03-known-types-spec.md`: 5/5 types with red+green grounded cases (logs `s3-probe.log`, `s3-probe2.log`); decision nodes Q1-Q12 all answered by the operator |
 | S4 | G4 | PASS (2026-10-16) | `docs/design/notes-adversarial-factual-questions-discovered.md`: 8 new types D1-D8; all 16 cited QIDs probed in lexicon and all red replies reproduced (`docs/design/adversarial/eval/s4-verification.log`); impact triage `s4-triage.log`; datasets for the top 5: D2, D3, D5, D8, D1 |
 | S5 | G5 | PASS (2026-10-16) | `evals/adversarial/`: 10 files, 598 cases, every file >= 50 cases, >= 10 entities, >= 2 relations; `scripts/adversarial/check_datasets.py` prints "datasets OK" (`eval/s5-check.log`); 50 random cases re-validated in `eval/s5-verify.log` (0 failures), embedded in `05-dataset-manifest.md` |
+| S6 | G6 | PASS (2026-10-16) | per type a verbose log + report in `eval/iter0/`; cluster tables written by `scripts/adversarial/cluster_baseline.py`, counts sum to failures; baseline pass rates: t1 8/64, t2 24/60, t3 37/57, t4 39/60, t5 20/51, d1 6/63, d2 10/65, d3 18/55, d5 0/62, d8 10/70 |

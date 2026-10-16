@@ -1,0 +1,130 @@
+FAIL t1-negation-001: 'Which movies did John Ford not direct?'
+  -> The factual answer is: 3 Godfathers, Arrowsmith, Cavalry Trilogy, Cheyenne Autumn, December 7th, Donovan's Reef, Drums Along the Mohawk, Fort Apache, Gideon's Day, How Green Was My Valley, How the West Was Won, Judge Priest, Lightnin', Men Without Women, Mister Roberts, Mogambo, My Darling Clementin
+FAIL t1-negation-002: 'Which films has John Ford not directed?'
+  -> The factual answer is: 3 Godfathers, Arrowsmith, Cavalry Trilogy, Cheyenne Autumn, December 7th, Donovan's Reef, Drums Along the Mohawk, Fort Apache, Gideon's Day, How Green Was My Valley, How the West Was Won, Judge Priest, Lightnin', Men Without Women, Mister Roberts, Mogambo, My Darling Clementin
+FAIL t1-negation-003: 'Which movies were not directed by John Ford?'
+  -> The factual answer is: 3 Godfathers, Arrowsmith, Cavalry Trilogy, Cheyenne Autumn, December 7th, Donovan's Reef, Drums Along the Mohawk, Fort Apache, Gideon's Day, How Green Was My Valley, How the West Was Won, Judge Priest, Lightnin', Men Without Women, Mister Roberts, Mogambo, My Darling Clementin
+FAIL t1-negation-004: 'Which movies did John Ford never direct?'
+  -> The factual answer is: 3 Godfathers, Arrowsmith, Cavalry Trilogy, Cheyenne Autumn, December 7th, Donovan's Reef, Drums Along the Mohawk, Fort Apache, Gideon's Day, How Green Was My Valley, How the West Was Won, Judge Priest, Lightnin', Men Without Women, Mister Roberts, Mogambo, My Darling Clementin
+FAIL t1-negation-005: 'Which movies did Alfred Hitchcock not direct?'
+  -> The factual answer is: Blackmail, Dial M for Murder, Family Plot, Foreign Correspondent, Frenzy, I Confess, Jamaica Inn, Juno and the Paycock, Lifeboat, Marnie, Mr. & Mrs. Smith, North by Northwest, Notorious, Number Seventeen, Psycho, Psycho tetralogy, Rear Window, Rebecca, Rope, Saboteur, Secret A
+FAIL t1-negation-006: 'Which films has Alfred Hitchcock not directed?'
+  -> The factual answer is: Blackmail, Dial M for Murder, Family Plot, Foreign Correspondent, Frenzy, I Confess, Jamaica Inn, Juno and the Paycock, Lifeboat, Marnie, Mr. & Mrs. Smith, North by Northwest, Notorious, Number Seventeen, Psycho, Psycho tetralogy, Rear Window, Rebecca, Rope, Saboteur, Secret A
+FAIL t1-negation-007: 'Which movies were not directed by Alfred Hitchcock?'
+  -> The factual answer is: Blackmail, Dial M for Murder, Family Plot, Foreign Correspondent, Frenzy, I Confess, Jamaica Inn, Juno and the Paycock, Lifeboat, Marnie, Mr. & Mrs. Smith, North by Northwest, Notorious, Number Seventeen, Psycho, Psycho tetralogy, Rear Window, Rebecca, Rope, Saboteur, Secret A
+FAIL t1-negation-008: 'Which movies did Alfred Hitchcock never direct?'
+  -> The factual answer is: Blackmail, Dial M for Murder, Family Plot, Foreign Correspondent, Frenzy, I Confess, Jamaica Inn, Juno and the Paycock, Lifeboat, Marnie, Mr. & Mrs. Smith, North by Northwest, Notorious, Number Seventeen, Psycho, Psycho tetralogy, Rear Window, Rebecca, Rope, Saboteur, Secret A
+FAIL t1-negation-009: 'Which movies did Woody Allen not direct?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-010: 'Which films has Woody Allen not directed?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-011: 'Which movies were not directed by Woody Allen?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-012: 'Which movies did Woody Allen never direct?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-013: 'Which movies did Michael Curtiz not direct?'
+  -> The factual answer is: Angels with Dirty Faces, Anthony Adverse, Black Fury, Black Legion, Captain Blood, Captains of the Clouds, Captains of the Clouds Returns, Casablanca, Casablanca Reloaded, Dive Bomber, Doctor X, Four Daughters, Janie, Kid Galahad, King Creole, Life with Father, Mildred Pierce,
+FAIL t1-negation-014: 'Which films has Michael Curtiz not directed?'
+  -> The factual answer is: Angels with Dirty Faces, Anthony Adverse, Black Fury, Black Legion, Captain Blood, Captains of the Clouds, Captains of the Clouds Returns, Casablanca, Casablanca Reloaded, Dive Bomber, Doctor X, Four Daughters, Janie, Kid Galahad, King Creole, Life with Father, Mildred Pierce,
+FAIL t1-negation-015: 'Which movies were not directed by Michael Curtiz?'
+  -> The factual answer is: Angels with Dirty Faces, Anthony Adverse, Black Fury, Black Legion, Captain Blood, Captains of the Clouds, Captains of the Clouds Returns, Casablanca, Casablanca Reloaded, Dive Bomber, Doctor X, Four Daughters, Janie, Kid Galahad, King Creole, Life with Father, Mildred Pierce,
+FAIL t1-negation-016: 'Which movies did Michael Curtiz never direct?'
+  -> The factual answer is: Angels with Dirty Faces, Anthony Adverse, Black Fury, Black Legion, Captain Blood, Captains of the Clouds, Captains of the Clouds Returns, Casablanca, Casablanca Reloaded, Dive Bomber, Doctor X, Four Daughters, Janie, Kid Galahad, King Creole, Life with Father, Mildred Pierce,
+FAIL t1-negation-017: 'Which movies did Steven Spielberg not direct?'
+  -> The factual answer is: 1941, 1941 Part 2, A.I. Artificial Intelligence, Always, Amistad, Bridge of Spies, Catch Me If You Can, Close Encounters of the Third Kind, Duel, E.T. the Extra-Terrestrial, Empire of the Sun, Hook, Indiana Jones, Indiana Jones and the Kingdom of the Crystal Skull, Indiana Jon
+FAIL t1-negation-018: 'Which films has Steven Spielberg not directed?'
+  -> The factual answer is: 1941, 1941 Part 2, A.I. Artificial Intelligence, Always, Amistad, Bridge of Spies, Catch Me If You Can, Close Encounters of the Third Kind, Duel, E.T. the Extra-Terrestrial, Empire of the Sun, Hook, Indiana Jones, Indiana Jones and the Kingdom of the Crystal Skull, Indiana Jon
+FAIL t1-negation-019: 'Which movies were not directed by Steven Spielberg?'
+  -> The factual answer is: 1941, 1941 Part 2, A.I. Artificial Intelligence, Always, Amistad, Bridge of Spies, Catch Me If You Can, Close Encounters of the Third Kind, Duel, E.T. the Extra-Terrestrial, Empire of the Sun, Hook, Indiana Jones, Indiana Jones and the Kingdom of the Crystal Skull, Indiana Jon
+FAIL t1-negation-020: 'Which movies did George Cukor not direct?'
+  -> The factual answer is: A Bill of Divorcement, A Double Life, A Star Is Born, A Woman's Face, Adam's Rib, Adam's Rib 2, Born Yesterday, Camille, David Copperfield, Desire Me, Dinner at Eight, Gaslight, Gone with the Wind, Holiday, It Should Happen to You, Les Girls, Let's Make Love, Little Women, Lus
+FAIL t1-negation-021: 'Which films has George Cukor not directed?'
+  -> The factual answer is: A Bill of Divorcement, A Double Life, A Star Is Born, A Woman's Face, Adam's Rib, Adam's Rib 2, Born Yesterday, Camille, David Copperfield, Desire Me, Dinner at Eight, Gaslight, Gone with the Wind, Holiday, It Should Happen to You, Les Girls, Let's Make Love, Little Women, Lus
+FAIL t1-negation-022: 'Which movies were not directed by George Cukor?'
+  -> The factual answer is: A Bill of Divorcement, A Double Life, A Star Is Born, A Woman's Face, Adam's Rib, Adam's Rib 2, Born Yesterday, Camille, David Copperfield, Desire Me, Dinner at Eight, Gaslight, Gone with the Wind, Holiday, It Should Happen to You, Les Girls, Let's Make Love, Little Women, Lus
+FAIL t1-negation-023: 'Which movies did Clint Eastwood not direct?'
+  -> The factual answer is: A Perfect World, Absolute Power, American Sniper, Bird, Breezy, Bronco Billy, Changeling, Firefox, Flags of Our Fathers, Gran Torino, Heartbreak Ridge, Hereafter, High Plains Drifter, Honkytonk Man, Invictus, J. Edgar, Jersey Boys, Letters from Iwo Jima, Million Dollar Baby, M
+FAIL t1-negation-024: 'Which films has Clint Eastwood not directed?'
+  -> The factual answer is: A Perfect World, Absolute Power, American Sniper, Bird, Breezy, Bronco Billy, Changeling, Firefox, Flags of Our Fathers, Gran Torino, Heartbreak Ridge, Hereafter, High Plains Drifter, Honkytonk Man, Invictus, J. Edgar, Jersey Boys, Letters from Iwo Jima, Million Dollar Baby, M
+FAIL t1-negation-025: 'Which movies were not directed by Clint Eastwood?'
+  -> The factual answer is: A Perfect World, Absolute Power, American Sniper, Bird, Breezy, Bronco Billy, Changeling, Firefox, Flags of Our Fathers, Gran Torino, Heartbreak Ridge, Hereafter, High Plains Drifter, Honkytonk Man, Invictus, J. Edgar, Jersey Boys, Letters from Iwo Jima, Million Dollar Baby, M
+FAIL t1-negation-026: 'Which movies did John Huston not direct?'
+  -> The factual answer is: A Farewell to Arms, Across the Pacific, Annie, Beat the Devil, Casino Royale, Escape to Victory, Fat City, Freud: The Secret Passion, Heaven Knows, Mr. Allison, Key Largo, Moby Dick, Moulin Rouge, Phobia, Prizzi's Honor, The African Queen, The Asphalt Jungle, The Bible: In the
+FAIL t1-negation-027: 'Which films has John Huston not directed?'
+  -> The factual answer is: A Farewell to Arms, Across the Pacific, Annie, Beat the Devil, Casino Royale, Escape to Victory, Fat City, Freud: The Secret Passion, Heaven Knows, Mr. Allison, Key Largo, Moby Dick, Moulin Rouge, Phobia, Prizzi's Honor, The African Queen, The Asphalt Jungle, The Bible: In the
+FAIL t1-negation-028: 'Which movies were not directed by John Huston?'
+  -> The factual answer is: A Farewell to Arms, Across the Pacific, Annie, Beat the Devil, Casino Royale, Escape to Victory, Fat City, Freud: The Secret Passion, Heaven Knows, Mr. Allison, Key Largo, Moby Dick, Moulin Rouge, Phobia, Prizzi's Honor, The African Queen, The Asphalt Jungle, The Bible: In the
+FAIL t1-negation-029: 'Which films did Ben Hecht not write?'
+  -> The factual answer is: 7 Faces of Dr. Lao, A Farewell to Arms, Angels Over Broadway, Angels with Dirty Faces, Barbary Coast, Circus World, Cleopatra, Comrade X, Dishonored Lady, Duel in the Sun, Foreign Correspondent, Gilda, Gone with the Wind, Guys and Dolls, Hans Christian Andersen, I Take This Wo
+FAIL t1-negation-030: 'Which movies has Ben Hecht not written?'
+  -> The factual answer is: 7 Faces of Dr. Lao, A Farewell to Arms, Angels Over Broadway, Angels with Dirty Faces, Barbary Coast, Circus World, Cleopatra, Comrade X, Dishonored Lady, Duel in the Sun, Foreign Correspondent, Gilda, Gone with the Wind, Guys and Dolls, Hans Christian Andersen, I Take This Wo
+FAIL t1-negation-031: 'Which films did Woody Allen not write?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-032: 'Which movies has Woody Allen not written?'
+  -> The factual answer is: A Midsummer Night's Sex Comedy, Alice, Annie Hall, Bananas, Blue Jasmine, Broadway Danny Rose, Broadway Danny Rose Reloaded, Bullets Over Broadway, Café Society, Crimes and Misdemeanors, Deconstructing Harry, Everyone Says I Love You, Everything You Always Wanted to Know About
+FAIL t1-negation-033: 'Which films did Tonino Guerra not write?'
+  -> The factual answer is: Amarcord, And the Ship Sails On, Beyond the Clouds, Blowup, Carmen, Casanova 70, Christ Stopped at Eboli, Dark Illness, Eclipse, Eternity and a Day, Ginger and Fred, Illustrious Corpses, Kaos, L'Avventura, La Notte, Landscape in the Mist, Marriage Italian-Style, Nostalghia, Re
+FAIL t1-negation-034: 'Which movies has Tonino Guerra not written?'
+  -> The factual answer is: Amarcord, And the Ship Sails On, Beyond the Clouds, Blowup, Carmen, Casanova 70, Christ Stopped at Eboli, Dark Illness, Eclipse, Eternity and a Day, Ginger and Fred, Illustrious Corpses, Kaos, L'Avventura, La Notte, Landscape in the Mist, Marriage Italian-Style, Nostalghia, Re
+FAIL t1-negation-035: 'Which films did Luc Besson not write?'
+  -> The factual answer is: Angel-A, Anna, Bandidas, Colombiana, District 13, Fanfan la Tulipe, From Paris with Love, Le Dernier Combat, Lucy, Léon: The Professional, Nikita, Point of No Return, Subway, Taken, Taken 2, Taken 3, Taxi, Taxi 3, The Big Blue, The Family, The Fifth Element, The Messenger: The
+FAIL t1-negation-036: 'Which movies has Luc Besson not written?'
+  -> The factual answer is: Angel-A, Anna, Bandidas, Colombiana, District 13, Fanfan la Tulipe, From Paris with Love, Le Dernier Combat, Lucy, Léon: The Professional, Nikita, Point of No Return, Subway, Taken, Taken 2, Taken 3, Taxi, Taxi 3, The Big Blue, The Family, The Fifth Element, The Messenger: The
+FAIL t1-negation-037: 'Which films did Dudley Nichols not write?'
+  -> The factual answer is: Air Force, And Then There Were None, And Then There Were None Returns, Bataan, Bringing Up Baby, For Whom the Bell Tolls, It Happened Tomorrow, Judge Priest, Men Without Women, Mourning Becomes Electra, Pinky, Scarlet Street, Sister Kenny, Stagecoach, The Battle of Midway, The
+FAIL t1-negation-038: 'Which movies has Dudley Nichols not written?'
+  -> The factual answer is: Air Force, And Then There Were None, And Then There Were None Returns, Bataan, Bringing Up Baby, For Whom the Bell Tolls, It Happened Tomorrow, Judge Priest, Men Without Women, Mourning Becomes Electra, Pinky, Scarlet Street, Sister Kenny, Stagecoach, The Battle of Midway, The
+FAIL t1-negation-039: "Who did not direct 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+FAIL t1-negation-040: "Who has not directed 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+FAIL t1-negation-041: "Who did not direct 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan
+FAIL t1-negation-042: "Who has not directed 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan
+FAIL t1-negation-043: "Who did not direct 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+FAIL t1-negation-044: "Who has not directed 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+FAIL t1-negation-045: "Who did not direct 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola
+FAIL t1-negation-046: "Who has not directed 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola
+FAIL t1-negation-047: "Who did not direct 'The Matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+FAIL t1-negation-048: "Who has not directed 'The Matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+FAIL t1-negation-049: "Who did not direct 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+FAIL t1-negation-050: "Who has not directed 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+FAIL t1-negation-051: "Who did not direct 'Jaws'?"
+  -> The factual answer is: Steven Spielberg
+FAIL t1-negation-052: "Who has not directed 'Jaws'?"
+  -> The factual answer is: Steven Spielberg
+FAIL t1-negation-053: "Who did not direct 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+FAIL t1-negation-054: "Who has not directed 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS t1-negation-055: "Who directed 'No Country for Old Men'?"
+  -> The factual answer is: Ethan Coen and Joel Coen
+PASS t1-negation-056: "Who directed 'Notting Hill'?"
+  -> The factual answer is: Roger Michell
+PASS t1-negation-057: "Who directed 'North by Northwest'?"
+  -> The factual answer is: Alfred Hitchcock
+PASS t1-negation-058: "Who directed 'Never Let Me Go'?"
+  -> The factual answer is: Mark Romanek
+PASS t1-negation-059: "Who directed 'Notorious'?"
+  -> The factual answer is: Alfred Hitchcock
+PASS t1-negation-060: "Who directed 'Noah'?"
+  -> The factual answer is: Darren Aronofsky
+PASS t1-negation-061: "Who directed 'Nocturnal Animals'?"
+  -> The factual answer is: Tom Ford
+PASS t1-negation-062: "Who directed 'Notes on a Scandal'?"
+  -> The factual answer is: Richard Eyre
+FAIL t1-negation-063: "Who did not direct 'No Country for Old Men'?"
+  -> The factual answer is: Ethan Coen and Joel Coen
+FAIL t1-negation-064: "Who did not direct 'Notting Hill'?"
+  -> The factual answer is: Roger Michell
+
+8/64 passed. Latency: median 0.00 s, max 0.01 s
