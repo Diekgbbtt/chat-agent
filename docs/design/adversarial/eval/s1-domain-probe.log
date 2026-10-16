@@ -1,0 +1,160 @@
+== 1. relation union ==
+source A: agent/data/relations.json -> 26 predicates
+source B: predicates from parsing all 508 eval inputs -> 27 distinct
+    wdt:P57        label='director'               cases=96
+    wdt:P161       label='cast member'            cases=44
+    wdt:P58        label='screenwriter'           cases=39
+    wdt:P136       label='genre'                  cases=23
+    wdt:P86        label='composer'               cases=19
+    wdt:P495       label='country of origin'      cases=18
+    wdt:P577       label='publication date'       cases=18
+    wdt:P166       label='award received'         cases=17
+    wdt:P344       label='director of photography' cases=17
+    wdt:P19        label='place of birth'         cases=17
+    wdt:P106       label='occupation'             cases=17
+    wdt:P27        label='country of citizenship' cases=17
+    wdt:P1040      label='film editor'            cases=16
+    wdt:P162       label='producer'               cases=15
+    wdt:P1411      label='nominated for'          cases=15
+    wdt:P345       label='IMDb ID'                cases=13
+    wdt:P364       label='original language of film or TV show' cases=13
+    wdt:P915       label='filming location'       cases=13
+    ddis:tag       label=None                     cases=13
+    wdt:P1657      label='MPA film rating'        cases=13
+    wdt:P750       label='distributed by'         cases=13
+    wdt:P272       label='production company'     cases=13
+    wdt:P26        label='spouse'                 cases=13
+    wdt:P156       label='followed by'            cases=11
+    wdt:P2142      label='box office'             cases=1
+    wdt:P144       label='based on'               cases=1
+    wdt:P2515      label='costume designer'       cases=1
+source B parse errors: {'no_entity': 2}
+source C: sparql_builder.RELEASE_DATE -> wdt:P577
+source D: sparql_builder type constraint -> wdt:P31 wd:Q11424 (films)
+
+union size: 30 predicates
+
+== 2. per-relation facts: label, triples, 2 grounded examples ==
+ddis:tag       label='(no @en label)'           triples=  27422  e.g. He Died with a Felafel in His Hand -> absurd | The Naked Gun: From the Files of Police Squad! -> absurd
+wdt:P1040      label='film editor'              triples=   9315  e.g. Kameradschaft -> Jean Oser | Mushishi -> Sōichi Ueno
+wdt:P106       label='occupation'               triples= 251858  e.g. Massimo Girotti -> wd:Q10843402 | Steve Clark -> wd:Q10843402
+wdt:P136       label='genre'                    triples=  54097  e.g. Stanisław Lem -> wd:Q188867 | Antarctica -> wd:Q492264
+wdt:P1411      label='nominated for'            triples=  36391  e.g. The Pussycat Dolls -> wd:Q1527196 | Post Malone -> wd:Q1527196
+wdt:P144       label='based on'                 triples=   5194  e.g. The BFG film poster -> The BFG | The BFG teaser poster -> The BFG
+wdt:P155       label='follows'                  triples=   2259  e.g. The Way We Was -> One Fish, Two Fish, Blowfish, Blue Fish | Loaded Guns 2 -> Loaded Guns
+wdt:P156       label='followed by'              triples=   2251  e.g. interwar period -> World War II | World War I -> World War II
+wdt:P161       label='cast member'              triples= 167536  e.g. Captain America: The Winter Soldier -> Christopher Markus | Mr. Nobody -> Peter Gorissen
+wdt:P162       label='producer'                 triples=  17281  e.g. Fly Me to the Moon -> Caroline Van Iseghem | Phantoms -> Dean Koontz
+wdt:P1657      label='MPA film rating'          triples=   2328  e.g. Cactus Flower -> M | Psycho -> M
+wdt:P166       label='award received'           triples=  69870  e.g. Winston Churchill -> wd:Q97556388 | E. M. Forster -> wd:Q97556388
+wdt:P19        label='place of birth'           triples=  59056  e.g. Andurs Hava -> Greenland | Randy Couture -> wd:Q392599
+wdt:P2142      label='box office'               triples=   3347  e.g. The Best of Me 2 -> 0.0137681365 | Doctor Zhivago Part 2 -> 0.024367101
+wdt:P2515      label='costume designer'         triples=   2401  e.g. Undine -> Katharina Ost | The Caiman -> Lina Nerli Taviani
+wdt:P26        label='spouse'                   triples=   9210  e.g. Sara MacDonald -> Noel Gallagher | Berthold Viertel -> Elisabeth Neumann-Viertel
+wdt:P27        label='country of citizenship'   triples=  86522  e.g. Fiona Glascott -> Ireland | Alan Glynn -> Ireland
+wdt:P272       label='production company'       triples=  12911  e.g. Mother of Mine -> Film i Skåne | Io capitano -> Tarantula Belgium
+wdt:P344       label='director of photography'  triples=  11134  e.g. The Killing -> Marcel Zyskind | The Road to Guantanamo -> Marcel Zyskind
+wdt:P345       label='IMDb ID'                  triples=  95907  e.g. Chen Zhen -> ch0010348 | Billy Lo -> ch0024421
+wdt:P364       label='original language of film or TV show' triples=  15530  e.g. The Mummy -> Egyptian | Nairobi Half Life -> Gikuyu
+wdt:P495       label='country of origin'        triples=  21995  e.g. December Bride -> Ireland | The King's Choice -> Ireland
+wdt:P57        label='director'                 triples=  15187  e.g. Tukuma -> Palle Kjærulff-Schmidt | &ME -> Norbert ter Hall
+wdt:P577       label='publication date'         triples=  19543  e.g. The Blue Bird Vol. 2 -> 1920-03-05T00:00:00 | Tokyo Chorus II -> 1934-11-15T00:00:00
+wdt:P58        label='screenwriter'             triples=  19964  e.g. The Chronicles of Narnia -> Christopher Markus | Captain America: Civil War -> Christopher Markus
+wdt:P69        label='educated at'              triples=  40549  e.g. Lenny Clarke -> wd:Q15144 | Tom Shillue -> wd:Q15144
+wdt:P750       label='distributed by'           triples=  20147  e.g. Ghost Story -> Confederazione italiana agricoltori | High Heels -> Filmauro
+wdt:P840       label='narrative location'       triples=  13040  e.g. Qivitoq -> Greenland | Zero Kelvin -> Greenland
+wdt:P86        label='composer'                 triples=  13317  e.g. The Jackal -> Noel Gallagher | Savage Streets -> John D'Andrea
+wdt:P915       label='filming location'         triples=   9733  e.g. Alatriste -> Úbeda | Kolya -> Sterneggovský palác
+
+== 3. entity types used by the pipeline ==
+films (wdt:P31 wd:Q11424): 12245
+entities with a director (Lexicon.directed): 13746
+Q25188 (film example): label='Inception' types=['Q11424'] is_film=True is_human=False
+Q25191 (human example): label='Christopher Nolan' types=['Q5'] is_film=False is_human=True
+Q47703 (ambiguous label example): label='The Godfather' types=['Q11424'] is_film=True is_human=False
+label 'The Godfather' resolves to: ['Q47703', 'Q3225260', 'Q1139696', 'Q243556']
+
+== 4. direction conventions on P57 (grounded) ==
+Who directed 'Inception'?  entity=Q25188 direction=out
+    SPARQL: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+    rows: ['Christopher Nolan']
+Which films did Christopher Nolan direct?  entity=Q25191 direction=in
+    SPARQL: SELECT DISTINCT ?x ?label WHERE { ?x <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q25191> . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+    rows: ['Oppenheimer', 'Inception', 'Batman Begins', 'The Dark Knight trilogy', 'The Prestige', 'The Dark Knight Rises'] ...
+
+== 5. sample answer values from the eval set (label -> first QID -> types) ==
+'United States' -> Q30 types=['Q1489259', 'Q1520223', 'Q3624078', 'Q512187']
+'South Korea' -> Q884 types=['Q1520223', 'Q3624078', 'Q6256']
+'drama' -> Q25372 types=['Q4263830', 'Q621993']
+'The Handmaiden' -> Q20444585 types=['Q11424']
+'Inception' -> Q54888270 types=['Q47461344', 'Q72996181']
+'Inception' -> Q3797611 types=['Q482994']
+
+== 6. golden eval inputs that parse to no_entity ==
+greeting: 'hello' -> error=no_entity expected=['not sure']
+unknown-title: "Who directed 'Qwzxv Plorbnik Unfilmable'?" -> error=no_entity expected=['not sure']
+
+== 7. ambiguous labels, full candidate lists ==
+'inception': ['Q54888270', 'Q3797611', 'Q25188']
+'the godfather': ['Q47703', 'Q3225260', 'Q1139696', 'Q243556']
+'up': ['Q174811', 'Q3825402']
+'the matrix': ['Q33140061', 'Q13014087', 'Q83495']
+
+== 8. P577 multi-value example (Inception, direction out) ==
+  value=2010-07-08 label=None
+
+== 9. labeled examples for the label-poor predicates ==
+wdt:P106:
+    Anthony Quinn -> painter
+    Frida Kahlo -> painter
+wdt:P136:
+    Maverick -> Westerns on television
+    Django -> Westerns on television
+wdt:P166:
+    Ovosodo -> David di Donatello for Best Sound
+    Fulgenzio Ceccon -> David di Donatello for Best Sound
+wdt:P19:
+    Andurs Hava -> Greenland
+    Paco Ortega -> Úbeda
+wdt:P69:
+    Stephen J. Dubner -> Contact
+    Mojtaba Javadi -> Tehran
+
+== 10. predicates and directions produced by parsing the 508 eval inputs ==
+  ddis:tag     direction=out kind=lookup   cases=13
+  wdt:P1040    direction=out kind=lookup   cases=16
+  wdt:P106     direction=out kind=lookup   cases=17
+  wdt:P136     direction=out kind=lookup   cases=23
+  wdt:P1411    direction=out kind=lookup   cases=15
+  wdt:P144     direction=out kind=lookup   cases=1
+  wdt:P156     direction=out kind=lookup   cases=11
+  wdt:P161     direction=in  kind=lookup   cases=19
+  wdt:P161     direction=out kind=lookup   cases=25
+  wdt:P162     direction=out kind=lookup   cases=15
+  wdt:P1657    direction=out kind=lookup   cases=13
+  wdt:P166     direction=out kind=lookup   cases=17
+  wdt:P19      direction=out kind=lookup   cases=17
+  wdt:P2142    direction=out kind=lookup   cases=1
+  wdt:P2515    direction=out kind=lookup   cases=1
+  wdt:P26      direction=in  kind=lookup   cases=12
+  wdt:P26      direction=out kind=lookup   cases=1
+  wdt:P27      direction=out kind=lookup   cases=17
+  wdt:P272     direction=out kind=lookup   cases=13
+  wdt:P344     direction=out kind=lookup   cases=17
+  wdt:P345     direction=out kind=lookup   cases=13
+  wdt:P364     direction=out kind=lookup   cases=13
+  wdt:P495     direction=out kind=lookup   cases=18
+  wdt:P57      direction=in  kind=count    cases=13
+  wdt:P57      direction=in  kind=earliest cases=12
+  wdt:P57      direction=in  kind=latest   cases=11
+  wdt:P57      direction=in  kind=lookup   cases=19
+  wdt:P57      direction=out kind=lookup   cases=41
+  wdt:P577     direction=out kind=lookup   cases=18
+  wdt:P58      direction=in  kind=lookup   cases=13
+  wdt:P58      direction=out kind=lookup   cases=26
+  wdt:P750     direction=out kind=lookup   cases=13
+  wdt:P86      direction=out kind=lookup   cases=19
+  wdt:P915     direction=out kind=lookup   cases=13
+
+== 11. human count ==
+humans (wdt:P31 wd:Q5): 85854
