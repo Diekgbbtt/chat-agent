@@ -54,7 +54,7 @@ Each line is `{"id", "input", "expected", "forbidden", "grounding"}`.
 
 Entity counts are distinct QIDs across `grounding.entity` and `grounding.entities`.
 Every file has >= 50 cases, >= 10 distinct entities, and >= 2 relations.
-Total: 598 cases.
+Total: 607 cases.
 
 ## G5 check
 

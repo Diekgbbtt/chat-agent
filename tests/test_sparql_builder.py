@@ -14,9 +14,33 @@ def test_superlative_order():
     assert "MAX(?d)" in sb.superlative("Q1", P57, "in", "DESC")
 
 
+P166 = "http://www.wikidata.org/prop/direct/P166"
+
+
+def test_count_filters_films_only_for_film_credits():
+    assert "?x wdt:P31 wd:Q11424" in sb.count("Q193628", P57, "in")
+    assert "?x wdt:P31 wd:Q11424" not in sb.count("Q103569", P166, "out")
+    assert "?x wdt:P31 wd:Q11424" not in sb.count("Q103569", P57, "out")
+
+
+def test_complement_directions():
+    film = sb.complement("Q56094", P57, "in")
+    assert f"?x wdt:P31 wd:Q11424 . FILTER NOT EXISTS {{ ?x <{P57}> <http://www.wikidata.org/entity/Q56094> }}" in film
+    people = sb.complement("Q103569", P57, "out")
+    assert f"?f <{P57}> ?x" in people
+    assert f"FILTER NOT EXISTS {{ <http://www.wikidata.org/entity/Q103569> <{P57}> ?x }}" in people
+
+
+def test_claim_ask():
+    assert sb.claim("Q47703", P57, "Q56094") == \
+        f"ASK {{ <http://www.wikidata.org/entity/Q47703> <{P57}> <http://www.wikidata.org/entity/Q56094> }}"
+
+
 def test_queries_run(movies_kg):
     for query in (sb.lookup("Q47703", P57, "out"), sb.count("Q193628", P57, "in"),
-                  sb.superlative("Q193628", P57, "in", "ASC"), sb.degree("Q47703")):
+                  sb.superlative("Q193628", P57, "in", "ASC"), sb.degree("Q47703"),
+                  sb.complement("Q56094", P57, "in"), sb.complement("Q103569", P57, "out")):
         movies_kg.query(query)
     assert movies_kg.query(sb.has_facts("Q47703", P57, "out")) is True
     assert movies_kg.query(sb.has_facts("Q47703", P57, "in")) is False
+    assert movies_kg.query(sb.claim("Q47703", P57, "Q56094")) is True

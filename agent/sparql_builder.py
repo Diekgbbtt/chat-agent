@@ -7,6 +7,10 @@ direction "in":  the entity is the object, the answer is the subject ("Which mov
 
 WD = "http://www.wikidata.org/entity/"
 RELEASE_DATE = "http://www.wikidata.org/prop/direct/P577"
+DIRECTOR = "http://www.wikidata.org/prop/direct/P57"
+SCREENWRITER = "http://www.wikidata.org/prop/direct/P58"
+COMPOSER = "http://www.wikidata.org/prop/direct/P86"
+FILM_CREDITS = {DIRECTOR, SCREENWRITER, COMPOSER}
 LIMIT = 200
 
 
@@ -30,7 +34,26 @@ def lookup(entity: str, predicate: str, direction: str) -> str:
 
 
 def count(entity: str, predicate: str, direction: str) -> str:
-    return f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ {_triple(entity, predicate, direction)} ?x wdt:P31 wd:Q11424 }}"
+    """Count the relation values; "how many films did X direct" only counts films."""
+    film_filter = " ?x wdt:P31 wd:Q11424" if direction == "in" and predicate in FILM_CREDITS else ""
+    return (f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ {_triple(entity, predicate, direction)}"
+            f"{film_filter} }}")
+
+
+def complement(entity: str, predicate: str, direction: str) -> str:
+    """The relation's domain minus the values linked to the entity ("movies not directed by X")."""
+    if direction == "in":
+        return (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
+                f"FILTER NOT EXISTS {{ ?x <{predicate}> <{WD}{entity}> }} "
+                f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
+    return (f"SELECT DISTINCT ?x ?label WHERE {{ ?f <{predicate}> ?x . "
+            f"FILTER NOT EXISTS {{ <{WD}{entity}> <{predicate}> ?x }} "
+            f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
+
+
+def claim(film: str, predicate: str, person: str) -> str:
+    """ASK whether the film has the credit to the person ("Did X direct Y?")."""
+    return f"ASK {{ <{WD}{film}> <{predicate}> <{WD}{person}> }}"
 
 
 def superlative(entity: str, predicate: str, direction: str, order: str) -> str:

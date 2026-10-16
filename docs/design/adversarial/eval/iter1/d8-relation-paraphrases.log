@@ -1,0 +1,142 @@
+PASS d8-relation-paraphrases-001: "Who did the directing for 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-002: "Who was at the helm of 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-003: "Who is behind the camera on 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-004: "Who did the writing for 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-005: "Who did the composing for 'Inception'?"
+  -> The factual answer is: Hans Zimmer
+PASS d8-relation-paraphrases-006: "Who did the directing for 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-007: "Who was at the helm of 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-008: "Who is behind the camera on 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-009: "Who did the writing for 'Interstellar'?"
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS d8-relation-paraphrases-010: "Who did the composing for 'Interstellar'?"
+  -> The factual answer is: Hans Zimmer
+PASS d8-relation-paraphrases-011: "Who did the directing for 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-012: "Who was at the helm of 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-013: "Who is behind the camera on 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-014: "Who did the writing for 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d8-relation-paraphrases-015: "Who did the composing for 'The Godfather'?"
+  -> The factual answer is: Nino Rota
+PASS d8-relation-paraphrases-016: "Who did the directing for 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-017: "Who was at the helm of 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-018: "Who is behind the camera on 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-019: "Who did the writing for 'The Godfather Part II'?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d8-relation-paraphrases-020: "Who did the composing for 'The Godfather Part II'?"
+  -> The factual answer is: Nino Rota
+PASS d8-relation-paraphrases-021: "Who did the directing for 'The Matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-022: "Who was at the helm of 'The Matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-023: "Who is behind the camera on 'The Matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-024: "Who did the writing for 'The Matrix'?"
+  -> The factual answer is: the Wachowskis
+PASS d8-relation-paraphrases-025: "Who did the composing for 'The Matrix'?"
+  -> The factual answer is: Don Davis
+PASS d8-relation-paraphrases-026: "Who did the directing for 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-027: "Who was at the helm of 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-028: "Who is behind the camera on 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-029: "Who did the writing for 'The Matrix Reloaded'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d8-relation-paraphrases-030: "Who did the composing for 'The Matrix Reloaded'?"
+  -> The factual answer is: Don Davis
+PASS d8-relation-paraphrases-031: "Who did the directing for 'Jaws'?"
+  -> The factual answer is: Steven Spielberg
+PASS d8-relation-paraphrases-032: "Who was at the helm of 'Jaws'?"
+  -> The factual answer is: Steven Spielberg
+PASS d8-relation-paraphrases-033: "Who is behind the camera on 'Jaws'?"
+  -> The factual answer is: Steven Spielberg
+PASS d8-relation-paraphrases-034: "Who did the writing for 'Jaws'?"
+  -> The factual answer is: Carl Gottlieb and Peter Benchley
+PASS d8-relation-paraphrases-035: "Who did the composing for 'Jaws'?"
+  -> The factual answer is: John Williams
+PASS d8-relation-paraphrases-036: "Who did the directing for 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS d8-relation-paraphrases-037: "Who was at the helm of 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS d8-relation-paraphrases-038: "Who is behind the camera on 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS d8-relation-paraphrases-039: "Who did the writing for 'The Handmaiden'?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS d8-relation-paraphrases-040: "Who did the composing for 'The Handmaiden'?"
+  -> The factual answer is: Jo Yeong-wook
+PASS d8-relation-paraphrases-041: "Who did the directing for 'Titanic'?"
+  -> The factual answer is: Jean Negulesco
+PASS d8-relation-paraphrases-042: "Who was at the helm of 'Titanic'?"
+  -> The factual answer is: Jean Negulesco
+PASS d8-relation-paraphrases-043: "Who is behind the camera on 'Titanic'?"
+  -> The factual answer is: Jean Negulesco
+PASS d8-relation-paraphrases-044: "Who did the writing for 'Titanic'?"
+  -> The factual answer is: Charles Brackett, Richard L. Breen, and Walter Reisch
+PASS d8-relation-paraphrases-045: "Who did the composing for 'Titanic'?"
+  -> The factual answer is: Sol Kaplan
+PASS d8-relation-paraphrases-046: "Who did the directing for 'Batman Begins'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-047: "Who was at the helm of 'Batman Begins'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-048: "Who is behind the camera on 'Batman Begins'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-049: "Who did the writing for 'Batman Begins'?"
+  -> The factual answer is: Christopher Nolan and David S. Goyer
+PASS d8-relation-paraphrases-050: "Who did the composing for 'Batman Begins'?"
+  -> The factual answer is: Hans Zimmer and James Newton Howard
+PASS d8-relation-paraphrases-051: "Who did the directing for 'The Dark Knight'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-052: "Who was at the helm of 'The Dark Knight'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-053: "Who is behind the camera on 'The Dark Knight'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-054: "Who did the writing for 'The Dark Knight'?"
+  -> The factual answer is: Bill Finger, Bob Kane, Christopher Nolan, David S. Goyer, and Jonathan Nolan
+PASS d8-relation-paraphrases-055: "Who did the composing for 'The Dark Knight'?"
+  -> The factual answer is: Hans Zimmer and James Newton Howard
+PASS d8-relation-paraphrases-056: "Who did the directing for 'The Prestige'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-057: "Who was at the helm of 'The Prestige'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-058: "Who is behind the camera on 'The Prestige'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-059: "Who did the writing for 'The Prestige'?"
+  -> The factual answer is: Christopher Nolan, Christopher Priest, and Jonathan Nolan
+PASS d8-relation-paraphrases-060: "Who did the composing for 'The Prestige'?"
+  -> The factual answer is: David Julyan
+PASS d8-relation-paraphrases-061: "Who is the director of 'Inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-062: "Which filmmaker made 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS d8-relation-paraphrases-063: "By whom was 'Interstellar' directed?"
+  -> The factual answer is: Christopher Nolan
+PASS d8-relation-paraphrases-064: "Who wrote the screenplay for 'The Matrix'?"
+  -> The factual answer is: the Wachowskis
+PASS d8-relation-paraphrases-065: "Who composed the music for 'Jaws'?"
+  -> The factual answer is: John Williams
+PASS d8-relation-paraphrases-066: "Who is the director of 'The Handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS d8-relation-paraphrases-067: "Which filmmaker made 'Parasite'?"
+  -> The factual answer is: Bong Joon-ho
+PASS d8-relation-paraphrases-068: "By whom was 'Whiplash' directed?"
+  -> The factual answer is: Damien Chazelle
+PASS d8-relation-paraphrases-069: "Who wrote the screenplay for 'The Departed'?"
+  -> The factual answer is: Alan Mak, Felix Chong, and William Monahan
+PASS d8-relation-paraphrases-070: "Who composed the music for 'The Pianist'?"
+  -> The factual answer is: Wojciech Kilar
+
+70/70 passed. Latency: median 0.00 s, max 0.00 s

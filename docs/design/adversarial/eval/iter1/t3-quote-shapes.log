@@ -1,0 +1,116 @@
+PASS t3-quote-shapes-001: "Who directed ''Inception''?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-002: 'Who directed Inception?'
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-003: 'Who directed "Inception"?'
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-004: "Who directed 'Inception?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-005: "Who directed ' Inception '?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-006: "Who directed ' The Godfather '?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t3-quote-shapes-007: "Who directed 'The Godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t3-quote-shapes-008: 'Who directed “The Godfather”?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t3-quote-shapes-009: "Who directed 'The Godfather?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t3-quote-shapes-010: "Who directed 'The Godfather?'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t3-quote-shapes-011: "Who wrote the screenplay for 'Interstellar.'?"
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t3-quote-shapes-012: 'Who wrote the screenplay for "Interstellar"?'
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t3-quote-shapes-013: "Who wrote the screenplay for 'Interstellar?"
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t3-quote-shapes-015: "Who wrote the screenplay for ''Interstellar''?"
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t3-quote-shapes-016: "Who wrote the screenplay for ''The Handmaiden''?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS t3-quote-shapes-017: 'Who wrote the screenplay for “The Handmaiden”?'
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS t3-quote-shapes-018: "Who wrote the screenplay for 'The Handmaiden' (the film)?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS t3-quote-shapes-019: "Who wrote the screenplay for 'The Handmaiden?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS t3-quote-shapes-020: "Who directed ' The Matrix '?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t3-quote-shapes-021: "Who directed 'The Matrix?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t3-quote-shapes-022: 'Who directed ‘The Matrix’?'
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t3-quote-shapes-024: "Who directed 'The Matrix.'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t3-quote-shapes-025: "Who directed 'The Matrix?'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t3-quote-shapes-026: "Who directed 'Jaws.'?"
+  -> The factual answer is: Steven Spielberg
+PASS t3-quote-shapes-027: "Who directed 'Jaws' (the film)?"
+  -> The factual answer is: Steven Spielberg
+PASS t3-quote-shapes-028: 'Who directed Jaws?'
+  -> The factual answer is: Steven Spielberg
+PASS t3-quote-shapes-029: "Who directed 'Jaws?"
+  -> The factual answer is: Steven Spielberg
+PASS t3-quote-shapes-030: "Who directed ''Titanic''?"
+  -> The factual answer is: Jean Negulesco
+PASS t3-quote-shapes-031: 'Who directed ‘Titanic’?'
+  -> The factual answer is: Jean Negulesco
+PASS t3-quote-shapes-032: "Who directed 'Titanic'?"
+  -> The factual answer is: Jean Negulesco
+PASS t3-quote-shapes-033: "Who directed 'Titanic?"
+  -> The factual answer is: Jean Negulesco
+PASS t3-quote-shapes-034: "Who directed ' Titanic '?"
+  -> The factual answer is: Jean Negulesco
+PASS t3-quote-shapes-035: "Who directed ' Batman Begins '?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-036: 'Who directed Batman Begins?'
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-037: 'Who directed "Batman Begins"?'
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-038: "Who directed 'Batman Begins?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-039: "Who directed 'Batman Begins?'?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-040: "Who directed 'Parasite.'?"
+  -> The factual answer is: Bong Joon-ho
+PASS t3-quote-shapes-041: "Who directed 'Parasite'?"
+  -> The factual answer is: Bong Joon-ho
+PASS t3-quote-shapes-042: 'Who directed “Parasite”?'
+  -> The factual answer is: Bong Joon-ho
+PASS t3-quote-shapes-043: "Who directed 'Parasite?"
+  -> The factual answer is: Bong Joon-ho
+PASS t3-quote-shapes-044: "Who directed ''Parasite''?"
+  -> The factual answer is: Bong Joon-ho
+PASS t3-quote-shapes-045: "Who composed the music for ''Whiplash''?"
+  -> The factual answer is: Justin Hurwitz
+PASS t3-quote-shapes-046: 'Who composed the music for "Whiplash"?'
+  -> The factual answer is: Justin Hurwitz
+PASS t3-quote-shapes-047: "Who composed the music for 'Whiplash?"
+  -> The factual answer is: Justin Hurwitz
+PASS t3-quote-shapes-049: "Who directed ' The Departed '?"
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-050: 'Who directed “The Departed”?'
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-051: "Who directed 'The Departed' (the film)?"
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-052: "Who directed 'The Departed?"
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-053: "Who directed 'The Departed.'?"
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-054: "Who directed 'The Departed?'?"
+  -> The factual answer is: Martin Scorsese
+PASS t3-quote-shapes-055: "Who directed 'The Pianist.'?"
+  -> The factual answer is: Roman Polanski
+PASS t3-quote-shapes-056: "Who directed 'The Pianist?"
+  -> The factual answer is: Roman Polanski
+PASS t3-quote-shapes-057: 'Who directed ‘The Pianist’?'
+  -> The factual answer is: Roman Polanski
+PASS t3-quote-shapes-059: "who directed 'inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS t3-quote-shapes-060: "who directed 'the handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS t3-quote-shapes-061: "who directed 'jaws'?"
+  -> The factual answer is: Steven Spielberg
+
+57/57 passed. Latency: median 0.00 s, max 0.00 s

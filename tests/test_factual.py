@@ -66,3 +66,42 @@ def test_part_of_an_unknown_title_is_not_answered(factual_agent):
     # "Don't Look Up" is not in the graph; answering for "Her" would be wrong
     assert factual_agent.answer("Who directed Don't Look Her?").startswith("I'm not sure which movie or person")
     assert factual_agent.answer("Who directed Her and Interstellar?") == "The factual answer is: Spike Jonze"
+
+
+@pytest.mark.parametrize("question, answer", [
+    ("Who did the directing for 'Alien'?", "Ridley Scott"),
+    ("Who was at the helm of 'Jaws'?", "Steven Spielberg"),
+    ("Who is behind the camera on 'Jaws'?", "Steven Spielberg"),
+    ("Who did the writing for 'The Godfather'?", "Mario Puzo"),
+    ("who directed jawss?", "Steven Spielberg"),
+    ("who directed virgin suicides?", "Sofia Coppola"),
+    ("Who directed 'Alien', the first film in the trilogy?", "Ridley Scott"),
+    ("Did Sofia Coppola direct 'Lost in Translation'?", "Yes"),
+    ("Was 'Alien' directed by Steven Spielberg?", "No"),
+])
+def test_adversarial_forms(factual_agent, question, answer):
+    assert factual_agent.answer(question) == f"The factual answer is: {answer}"
+
+
+def test_negated_question_lists_the_complement(factual_agent):
+    reply = factual_agent.answer("Which movies did Sofia Coppola not direct?")
+    assert "Jaws" in reply and "Alien" in reply
+    assert "Lost in Translation" not in reply and "Marie Antoinette" not in reply
+
+
+def test_negated_question_with_the_entity_as_object(factual_agent):
+    reply = factual_agent.answer("Who did not direct 'Alien'?")
+    assert "Sofia Coppola" in reply and "Steven Spielberg" in reply
+    assert "Ridley Scott" not in reply
+
+
+def test_negation_word_in_a_title_is_not_a_negation(factual_agent):
+    assert factual_agent.answer("Who directed 'Never Let Me Go'?") == "The factual answer is: Mark Romanek"
+
+
+def test_two_mentions_are_clarified(factual_agent):
+    assert factual_agent.answer("I love Jaws. Who directed Big?").startswith("I'm not sure which movie or person")
+
+
+def test_count_does_not_filter_awards_as_films(factual_agent):
+    assert factual_agent.answer("How many awards did the movie 'Alien' receive?") == "The factual answer is: 1"

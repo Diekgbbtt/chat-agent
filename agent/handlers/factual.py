@@ -4,6 +4,7 @@ from agent import nlg, sparql_builder as sb
 from agent.kg import KnowledgeGraph
 from agent.lexicon import Lexicon
 from agent.parser import Parser
+from agent.preprocess import Preprocessor
 
 
 class FactualHandler:
@@ -13,12 +14,20 @@ class FactualHandler:
         self.kg = kg
         self.lex = lexicon
         self.parser = Parser(kg, lexicon)
+        self.pre = Preprocessor(kg, lexicon, self.parser)
 
     def can_handle(self, text: str, session) -> bool:
         return True
 
     def handle(self, text: str, session, trace) -> str:
-        q = self.parser.parse(text)
+        plan = self.pre.analyze(text)
+        trace.add("preprocess", plan)
+        if plan.claim is not None:
+            holds = self.kg.query(sb.claim(plan.claim.film, plan.claim.predicate, plan.claim.person))
+            return nlg.answer(["Yes" if holds else "No"])
+        if plan.clarify:
+            return nlg.no_entity()
+        q = self.parser.parse(plan.text)
         trace.add("question", q)
         if q.error == "no_entity":
             return nlg.no_entity()
@@ -29,7 +38,9 @@ class FactualHandler:
         if q.error == "no_facts":
             return nlg.no_facts(relation, entity)
 
-        if q.kind == "count":
+        if plan.negated and q.kind == "lookup" and q.predicate:
+            query = sb.complement(q.entity, q.predicate, q.direction)
+        elif q.kind == "count":
             query = sb.count(q.entity, q.predicate, q.direction)
         elif q.kind in ("earliest", "latest"):
             query = sb.superlative(q.entity, q.predicate, q.direction, "ASC" if q.kind == "earliest" else "DESC")

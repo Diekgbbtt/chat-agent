@@ -1,0 +1,122 @@
+PASS t4-typos-001: 'Who directed godfahter?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t4-typos-002: 'Who directed godfatherr?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t4-typos-003: "Who directed 'godfathre'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t4-typos-004: 'Who wrote the screenplay for godfther?'
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS t4-typos-005: 'Who directed terminater?'
+  -> The factual answer is: James Cameron
+PASS t4-typos-006: 'Who directed terminatr?'
+  -> The factual answer is: James Cameron
+PASS t4-typos-007: "Who directed 'termonator'?"
+  -> The factual answer is: James Cameron
+PASS t4-typos-008: 'Who wrote the screenplay for terminatoor?'
+  -> The factual answer is: Gale Anne Hurd, James Cameron, and William Wisher Jr.
+PASS t4-typos-009: 'Who directed jazws?'
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-010: 'Who directed jawss?'
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-011: "Who directed 'jaws!'?"
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-012: 'Who wrote the screenplay for jwaws?'
+  -> The factual answer is: Carl Gottlieb and Peter Benchley
+PASS t4-typos-013: 'Who directed intersteller?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-014: 'Who directed interstallar?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-015: "Who directed 'interstellr'?"
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-016: 'Who wrote the screenplay for interstelar?'
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t4-typos-017: 'Who directed incepton?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-018: 'Who directed inceptio?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-019: "Who directed 'incepsion'?"
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-020: 'Who wrote the screenplay for inceptiom?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-021: 'Who directed schindlers list?'
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-022: 'Who directed schinlders list?'
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-023: "Who directed 'schindler's lsit'?"
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-024: "Who wrote the screenplay for shindler's list?"
+  -> The factual answer is: Steven Zaillian
+PASS t4-typos-025: 'Who directed forrst gump?'
+  -> The factual answer is: Robert Zemeckis
+PASS t4-typos-026: 'Who directed forest gump?'
+  -> The factual answer is: Robert Zemeckis
+PASS t4-typos-027: "Who directed 'forresst gump'?"
+  -> The factual answer is: Robert Zemeckis
+PASS t4-typos-028: 'Who wrote the screenplay for forrest gmp?'
+  -> The factual answer is: Eric Roth and Winston Groom
+PASS t4-typos-029: 'Who directed the matirx?'
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t4-typos-030: 'Who directed the mtrix?'
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t4-typos-031: "Who directed 'the matrx'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t4-typos-032: 'Who wrote the screenplay for the matritx?'
+  -> The factual answer is: the Wachowskis
+PASS t4-typos-033: 'Who directed batman begns?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-034: 'Who directed batmen begins?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-035: "Who directed 'batman bigins'?"
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-036: 'Who wrote the screenplay for batmon begins?'
+  -> The factual answer is: Christopher Nolan and David S. Goyer
+PASS t4-typos-037: 'Who directed the prestge?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-038: 'Who directed the prestiege?'
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-039: "Who directed 'the prestrige'?"
+  -> The factual answer is: Christopher Nolan
+PASS t4-typos-040: 'Who wrote the screenplay for the perstige?'
+  -> The factual answer is: Christopher Nolan, Christopher Priest, and Jonathan Nolan
+PASS t4-typos-041: 'Who directed parasit?'
+  -> The factual answer is: Bong Joon-ho
+PASS t4-typos-042: 'Who directed parsite?'
+  -> The factual answer is: Bong Joon-ho
+PASS t4-typos-043: 'Who wrote the screenplay for parasitte?'
+  -> The factual answer is: Bong Joon-ho and Han Jin-won
+PASS t4-typos-044: 'Who directed the deaprted?'
+  -> The factual answer is: Martin Scorsese
+PASS t4-typos-045: 'Who directed the departd?'
+  -> The factual answer is: Martin Scorsese
+PASS t4-typos-046: "Who directed 'the deparred'?"
+  -> The factual answer is: Martin Scorsese
+PASS t4-typos-047: 'Who wrote the screenplay for the deported?'
+  -> The factual answer is: Alan Mak, Felix Chong, and William Monahan
+PASS t4-typos-048: "Who directed 'otinenpic'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-049: "Who directed 'trneaesltirl'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-050: "Who directed 'droaegfht'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-051: "Who directed 'ar dtoht rfigapei'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-052: "Who directed 'txairm'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-053: "Who directed ' ermloardxdeati'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-054: "Who directed 'wsaj'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-055: "Who directed 'nmdnhdaiae'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t4-typos-056: 'Who directed the Godfahter?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t4-typos-057: 'Who wrote the screenplay for Intersteller?'
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t4-typos-058: 'Who directed Schindlers List?'
+  -> The factual answer is: Steven Spielberg
+PASS t4-typos-059: 'Who directed Forrst Gump?'
+  -> The factual answer is: Robert Zemeckis
+PASS t4-typos-060: "who directed 'the matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+
+60/60 passed. Latency: median 0.01 s, max 0.12 s
