@@ -8,19 +8,19 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 
 ## Checklist
 
-- [ ] S0 CLARIFY AND PLAN - artifacts `docs/design/adversarial/00-questions.md`, `docs/design/adversarial/PLAN.md`.
+- [x] S0 CLARIFY AND PLAN - artifacts `docs/design/adversarial/00-questions.md`, `docs/design/adversarial/PLAN.md`.
   - Check G0: both files exist; every question has an answer or default; this plan lists S1 to S11. `test -f docs/design/adversarial/00-questions.md -a -f docs/design/adversarial/PLAN.md`.
-- [ ] S1 DOMAIN MODEL - artifact `docs/design/adversarial/01-domain-model.md`.
+- [x] S1 DOMAIN MODEL - artifact `docs/design/adversarial/01-domain-model.md`.
   - Check G1: every relation from the union set (relations.json + stage2 eval property labels + sparql_builder templates) has >= 2 KG-grounded examples; entity types have real QIDs; probe commands and outputs shown.
   - Probe: `.venv/bin/python -m agent.cli --debug "Who directed 'Inception'?"`.
-- [ ] S2 ARCHITECTURE - artifact `docs/design/adversarial/02-architecture-contracts.md`.
+- [x] S2 ARCHITECTURE - artifact `docs/design/adversarial/02-architecture-contracts.md`.
   - Check G2: six phases with five columns; seven boundaries with assumption + real intermediate value; baseline eval run shown.
   - Baseline: `source .venv/bin/activate && python -m agent.eval evals/stage2_factual.jsonl` and `python -m agent.eval evals/stage1_sparql.jsonl`.
-- [ ] S3 FIVE KNOWN TYPES - artifact `docs/design/adversarial/03-known-types-spec.md`.
+- [x] S3 FIVE KNOWN TYPES - artifact `docs/design/adversarial/03-known-types-spec.md`.
   - Check G3: 5/5 sections with definition, boundary, >= 1 red + >= 1 green grounded case, decision nodes resolved.
-- [ ] S4 DISCOVERY (subagent, template 3.8) - artifact `docs/design/notes-adversarial-factual-questions-discovered.md`.
+- [x] S4 DISCOVERY (subagent, template 3.8) - artifact `docs/design/notes-adversarial-factual-questions-discovered.md`.
   - Check G4: >= 5 new types; each names boundary + 2 grounded examples + failing phase; entities probed against the lexicon.
-- [ ] S5 DATASETS - artifacts `evals/adversarial/<type-id>.jsonl` (one per type), `docs/design/adversarial/05-dataset-manifest.md`.
+- [x] S5 DATASETS - artifacts `evals/adversarial/<type-id>.jsonl` (one per type), `docs/design/adversarial/05-dataset-manifest.md`.
   - Check G5: the mission's dataset-OK python check; 5 random cases per file re-validated by independent KG query in the manifest; >= 10 distinct entities per file.
 - [ ] S6 BASELINE MEASUREMENT - artifacts `docs/design/adversarial/eval/iter0/<type-id>.log` and `-baseline.md`.
   - Check G6: per type a log and a report; numeric pass rate from the log; every failure clustered with counts summing to the failure total.
@@ -46,3 +46,4 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 | S2 | G2 | PASS (2026-10-16) | `docs/design/adversarial/02-architecture-contracts.md`: 6 phases x 5 columns, 7 boundaries with real traces from `scripts/adversarial/capture_traces.py` (log `docs/design/adversarial/eval/s2-trace-examples.log`); baseline 508/508 and 9/9 recorded |
 | S3 | G3 | PASS (2026-10-16) | `docs/design/adversarial/03-known-types-spec.md`: 5/5 types with red+green grounded cases (logs `s3-probe.log`, `s3-probe2.log`); decision nodes Q1-Q12 all answered by the operator |
 | S4 | G4 | PASS (2026-10-16) | `docs/design/notes-adversarial-factual-questions-discovered.md`: 8 new types D1-D8; all 16 cited QIDs probed in lexicon and all red replies reproduced (`docs/design/adversarial/eval/s4-verification.log`); impact triage `s4-triage.log`; datasets for the top 5: D2, D3, D5, D8, D1 |
+| S5 | G5 | PASS (2026-10-16) | `evals/adversarial/`: 10 files, 598 cases, every file >= 50 cases, >= 10 entities, >= 2 relations; `scripts/adversarial/check_datasets.py` prints "datasets OK" (`eval/s5-check.log`); 50 random cases re-validated in `eval/s5-verify.log` (0 failures), embedded in `05-dataset-manifest.md` |

@@ -1,0 +1,172 @@
+
+## d1-count-class.jsonl (5/63 sampled, seed 20261016)
+- d1-count-class-009: "How many awards did 'Interstellar' win?"
+  VERIFIED: count 2 == 2
+  query: SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q13417189> wdt:P166 ?x }
+- d1-count-class-047: "How many countries of origin does 'The Prestige' have?"
+  VERIFIED: count 2 == 2
+  query: SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q46551> wdt:P495 ?x }
+- d1-count-class-036: "How many countries of origin does 'The Handmaiden' have?"
+  VERIFIED: count 1 == 1
+  query: SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q20444585> wdt:P495 ?x }
+- d1-count-class-033: "How many awards did 'The Handmaiden' win?"
+  VERIFIED: count 1 == 1
+  query: SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q20444585> wdt:P166 ?x }
+- d1-count-class-043: "How many genres does 'Schindler's List' have?"
+  VERIFIED: count 7 == 7
+  query: SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q483941> wdt:P136 ?x }
+
+## d2-multiple-mentions.jsonl (5/65 sampled, seed 20261016)
+- d2-multiple-mentions-053: 'I love Forrest Gump. Who directed The Prestige?'
+  VERIFIED: forbidden values ['Robert Zemeckis', 'Christopher Nolan'] confirmed in KG
+  query: SELECT ?f ?x ?label WHERE { VALUES ?f { <http://www.wikidata.org/entity/Q134773> <http://www.wikidata.org/entity/Q46551> } ?f wdt:P57 ?x OPTIONAL { ?x
+- d2-multiple-mentions-038: 'I love The Handmaiden. Who directed Parasite?'
+  VERIFIED: forbidden values ['Park Chan-wook', 'Bong Joon-ho'] confirmed in KG
+  query: SELECT ?f ?x ?label WHERE { VALUES ?f { <http://www.wikidata.org/entity/Q20444585> <http://www.wikidata.org/entity/Q61448040> } ?f wdt:P57 ?x OPTIONAL
+- d2-multiple-mentions-057: "Who directed 'The Terminator'? Who directed 'Jaws'?"
+  VERIFIED: forbidden values ['James Cameron', 'Steven Spielberg'] confirmed in KG
+  query: SELECT ?f ?x ?label WHERE { VALUES ?f { <http://www.wikidata.org/entity/Q162255> <http://www.wikidata.org/entity/Q189505> } ?f wdt:P57 ?x OPTIONAL { ?
+- d2-multiple-mentions-023: 'I love Up. Who directed Jaws?'
+  VERIFIED: forbidden values ['Bob Peterson', 'Pete Docter', 'Steven Spielberg'] confirmed in KG
+  query: SELECT ?f ?x ?label WHERE { VALUES ?f { <http://www.wikidata.org/entity/Q174811> <http://www.wikidata.org/entity/Q189505> } ?f wdt:P57 ?x OPTIONAL { ?
+- d2-multiple-mentions-013: 'I love Jaws. Who directed Interstellar?'
+  VERIFIED: forbidden values ['Steven Spielberg', 'Christopher Nolan'] confirmed in KG
+  query: SELECT ?f ?x ?label WHERE { VALUES ?f { <http://www.wikidata.org/entity/Q189505> <http://www.wikidata.org/entity/Q13417189> } ?f wdt:P57 ?x OPTIONAL {
+
+## d3-trailing-superlative.jsonl (5/55 sampled, seed 20261016)
+- d3-trailing-superlative-046: "Who directed 'The Pianist', the first film in the trilogy?"
+  VERIFIED: expected ['Roman Polanski'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q150804> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d3-trailing-superlative-038: "Who directed 'The Dark Knight', the first film in the trilogy?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q163872> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d3-trailing-superlative-055: "Who directed 'The Last of the Mohicans'?"
+  VERIFIED: expected ['Michael Mann'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q144483> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d3-trailing-superlative-034: "Who directed 'The Departed', my favourite film?"
+  VERIFIED: expected ['Martin Scorsese'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q172975> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d3-trailing-superlative-015: "Who composed the music for 'Inception', my favourite film?"
+  VERIFIED: expected ['Hans Zimmer'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> wdt:P86 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## d5-yes-no.jsonl (5/62 sampled, seed 20261016)
+- d5-yes-no-034: "Did Jean Negulesco direct 'Titanic'?"
+  VERIFIED: ASK=True matches expected Yes
+  query: ASK { <http://www.wikidata.org/entity/Q1197729> wdt:P57 <http://www.wikidata.org/entity/Q286104> }
+- d5-yes-no-018: "Did Lana Wachowski direct 'The Matrix'?"
+  VERIFIED: ASK=True matches expected Yes
+  query: ASK { <http://www.wikidata.org/entity/Q83495> wdt:P57 <http://www.wikidata.org/entity/Q9545711> }
+- d5-yes-no-004: "Was 'Inception' directed by John Ford?"
+  VERIFIED: ASK=False matches expected No
+  query: ASK { <http://www.wikidata.org/entity/Q25188> wdt:P57 <http://www.wikidata.org/entity/Q51114> }
+- d5-yes-no-011: "Did Woody Allen direct 'The Godfather'?"
+  VERIFIED: ASK=False matches expected No
+  query: ASK { <http://www.wikidata.org/entity/Q47703> wdt:P57 <http://www.wikidata.org/entity/Q25089> }
+- d5-yes-no-047: "Did Ridley Scott direct 'The Prestige'?"
+  VERIFIED: ASK=False matches expected No
+  query: ASK { <http://www.wikidata.org/entity/Q46551> wdt:P57 <http://www.wikidata.org/entity/Q56005> }
+
+## d8-relation-paraphrases.jsonl (5/70 sampled, seed 20261016)
+- d8-relation-paraphrases-008: "Who is behind the camera on 'Interstellar'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q13417189> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d8-relation-paraphrases-001: "Who did the directing for 'Inception'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d8-relation-paraphrases-061: "Who is the director of 'Inception'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d8-relation-paraphrases-046: "Who did the directing for 'Batman Begins'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q166262> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- d8-relation-paraphrases-053: "Who is behind the camera on 'The Dark Knight'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q163872> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## t1-negation.jsonl (5/64 sampled, seed 20261016)
+- t1-negation-047: "Who did not direct 'The Matrix'?"
+  VERIFIED: expected ['Alfred Hitchcock', 'Steven Spielberg'] found
+  query: SELECT DISTINCT ?x ?label WHERE { ?f wdt:P57 ?x . FILTER NOT EXISTS { <http://www.wikidata.org/entity/Q83495> wdt:P57 ?x } OPTIONAL { ?x rdfs:label ?l
+- t1-negation-051: "Who did not direct 'Jaws'?"
+  VERIFIED: expected ['Alfred Hitchcock', 'Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { ?f wdt:P57 ?x . FILTER NOT EXISTS { <http://www.wikidata.org/entity/Q189505> wdt:P57 ?x } OPTIONAL { ?x rdfs:label ?
+- t1-negation-060: "Who directed 'Noah'?"
+  VERIFIED: expected ['Darren Aronofsky'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q286868> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t1-negation-016: 'Which movies did Michael Curtiz never direct?'
+  VERIFIED: expected ['The BFG', 'The Pirates! In an Adventure with Scientists!'] found
+  query: SELECT ?x ?label WHERE { ?x wdt:P31 wd:Q11424 . FILTER NOT EXISTS { ?x wdt:P57 <http://www.wikidata.org/entity/Q51491> } OPTIONAL { ?x rdfs:label ?lab
+- t1-negation-056: "Who directed 'Notting Hill'?"
+  VERIFIED: expected ['Roger Michell'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q200672> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## t2-subvention.jsonl (5/60 sampled, seed 20261016)
+- t2-subvention-041: "Who directed 'Dumbo'?"
+  VERIFIED: expected ['Ben Sharpsteen', 'Bill Roberts', 'Jack Kinney', 'Norm Ferguson', 'Samuel Armstrong', 'Wilfred Jackson'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q40895> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t2-subvention-027: 'Who wrote the screenplay for munich of the deep?'
+  VERIFIED: forbidden values ['Eric Roth', 'Tony Kushner'] confirmed in KG
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q152456> wdt:P58 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t2-subvention-023: "Who directed 'The frozen within'?"
+  VERIFIED: forbidden values ['Chris Buck', 'Jennifer Lee'] confirmed in KG
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q246283> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t2-subvention-004: 'Who directed looking mulan?'
+  VERIFIED: forbidden values ['Barry Cook', 'Tony Bancroft'] confirmed in KG
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q537407> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t2-subvention-033: 'Who wrote the screenplay for gandhi of the deep?'
+  VERIFIED: forbidden values ['Juhn Broluy'] confirmed in KG
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q202211> wdt:P58 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## t3-quote-shapes.jsonl (5/57 sampled, seed 20261016)
+- t3-quote-shapes-041: "Who directed 'Parasite'?"
+  VERIFIED: expected ['Bong Joon-ho'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q61448040> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t3-quote-shapes-016: "Who wrote the screenplay for ''The Handmaiden''?"
+  VERIFIED: expected ['Jeong Seo-kyeong', 'Park Chan-wook'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q20444585> wdt:P58 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t3-quote-shapes-045: "Who composed the music for ''Whiplash''?"
+  VERIFIED: expected ['Justin Hurwitz'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q15648198> wdt:P86 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t3-quote-shapes-049: "Who directed ' The Departed '?"
+  VERIFIED: expected ['Martin Scorsese'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q172975> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t3-quote-shapes-002: 'Who directed Inception?'
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## t4-typos.jsonl (5/60 sampled, seed 20261016)
+- t4-typos-031: "Who directed 'the matrx'?"
+  VERIFIED: expected ['Lana Wachowski', 'Lelly Wechawsku'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q83495> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t4-typos-015: "Who directed 'interstellr'?"
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q13417189> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t4-typos-036: 'Who wrote the screenplay for batmon begins?'
+  VERIFIED: expected ['Christopher Nolan', 'David S. Goyer'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q166262> wdt:P58 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t4-typos-033: 'Who directed batman begns?'
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q166262> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t4-typos-021: 'Who directed schindlers list?'
+  VERIFIED: expected ['Steven Spielberg'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q483941> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+## t5-partial-titles.jsonl (5/51 sampled, seed 20261016)
+- t5-partial-titles-049: 'who directed the matrix?'
+  VERIFIED: expected ['Lana Wachowski', 'Lelly Wechawsku'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q83495> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t5-partial-titles-010: 'who directed inception?'
+  VERIFIED: expected ['Christopher Nolan'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t5-partial-titles-009: "Who directed 'godfather'?"
+  VERIFIED: expected ['Francis Ford Coppola'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q184768> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t5-partial-titles-017: 'Who wrote the screenplay for terminator?'
+  VERIFIED: expected ['Gale Anne Hurd', 'James Cameron', 'William Wisher Jr.'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q170564> wdt:P58 ?x OPTIONAL { ?x rdfs:label ?label } }
+- t5-partial-titles-050: 'who directed the departed?'
+  VERIFIED: expected ['Martin Scorsese'] found
+  query: SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q172975> wdt:P57 ?x OPTIONAL { ?x rdfs:label ?label } }
+
+summary: 0 failed checks

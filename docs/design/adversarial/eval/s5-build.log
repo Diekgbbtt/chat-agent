@@ -1,0 +1,98 @@
+[
+  {
+    "file": "t1-negation.jsonl",
+    "cases": 64,
+    "entities": 28,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "t2-subvention.jsonl",
+    "cases": 60,
+    "entities": 12,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "t3-quote-shapes.jsonl",
+    "cases": 57,
+    "entities": 12,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58",
+      "wdt:P86"
+    ]
+  },
+  {
+    "file": "t4-typos.jsonl",
+    "cases": 60,
+    "entities": 15,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "t5-partial-titles.jsonl",
+    "cases": 51,
+    "entities": 20,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "d1-count-class.jsonl",
+    "cases": 63,
+    "entities": 21,
+    "relations": [
+      "wdt:P136",
+      "wdt:P161",
+      "wdt:P166",
+      "wdt:P495",
+      "wdt:P57"
+    ]
+  },
+  {
+    "file": "d2-multiple-mentions.jsonl",
+    "cases": 65,
+    "entities": 18,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "d3-trailing-superlative.jsonl",
+    "cases": 55,
+    "entities": 18,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58",
+      "wdt:P86"
+    ]
+  },
+  {
+    "file": "d5-yes-no.jsonl",
+    "cases": 62,
+    "entities": 36,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58"
+    ]
+  },
+  {
+    "file": "d8-relation-paraphrases.jsonl",
+    "cases": 70,
+    "entities": 16,
+    "relations": [
+      "wdt:P57",
+      "wdt:P58",
+      "wdt:P86"
+    ]
+  }
+]

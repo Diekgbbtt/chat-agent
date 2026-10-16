@@ -130,6 +130,13 @@ Reply `defaults` to accept all recommendations: 1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a.
 
 All four took the recommended option.
 
+## S5 addendum (third decision batch, answered 2026-10-16)
+
+- Q13 (D5 yes/no reply shape): "The factual answer is: Yes" / "The factual answer is: No" - reuse the existing answer template, no new `nlg` function.
+- Q14 (D8 scope): nominalisations and idioms both rewrite to canonical relation words.
+- Q15 (T4/T5 core-name precedence): prominence ranking everywhere - rank all matching title candidates (exact labels, article variants, prefix siblings) by film-first then graph degree, answer the top film. This revises the Q2 example text: "matrix" resolves to The Matrix (Q83495) instead of clarifying.
+- Q16 (D2 multiple mentions): clarify on two title mentions - return the clarification reply ("not sure which movie or person you mean"), no answer attempted; datasets forbid both films' answer values.
+
 ## Decision consequences (bind S3 and S5)
 
 1. T1 expected values: members of the complement set, verified absent from the positive set by SPARQL; `forbidden` values: members of the positive set.
