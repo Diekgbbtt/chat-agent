@@ -32,9 +32,9 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
   - Commands: `.venv/bin/python -m pytest -q`; `python -m agent.eval evals/stage2_factual.jsonl`; `python -m agent.eval evals/stage1_sparql.jsonl`.
 - [x] S9 RE-EVALUATE - artifacts `docs/design/adversarial/09-scoreboard.md` plus `eval/iter<N>/<type-id>.log`.
   - Check G9: every type >= 0.8 and happy path not regressed -> S10; else `iter += 1` and loop to S7 or exit S11 when `iter > 3`.
-- [ ] S10 FINAL REPORT - artifact `docs/design/adversarial/10-final-report.md`.
+- [x] S10 FINAL REPORT - artifact `docs/design/adversarial/10-final-report.md`.
   - Check G10: report exists; every number traces to a saved log; `git status` clean; no open PLAN items.
-- [ ] S11 BLOCKED REPORT - artifact `docs/design/adversarial/11-blockers.md`.
+- [x] S11 BLOCKED REPORT - not entered: the loop reached S10, so no `docs/design/adversarial/11-blockers.md` is required.
   - Check G11: report exists; final reply names the blocker.
 
 ## Gate log
@@ -51,3 +51,4 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 | S7 | G7 | PASS (2026-10-16) | `07-cluster-index.md` defines 10 clusters; `diagnosis/` holds 10 reports (count matches); every report carries a red repro from `eval/s7-repros.log` (script `capture_repros.py`), ranked hypotheses, a root cause pinned to a phase and a B1-B7 boundary with file:line, a suggested fix, and a regression seam |
 | S8 | G8 | PASS (2026-10-16) | `docs/design/adversarial/08-fix-log.md`: new seam `agent/preprocess.py` + handler wiring + `complement`/`claim` templates + narrowed count filter; pytest 127 passed; stage2 508/508 and stage1 9/9 (exit 0); all 10 clusters carry a change (no deferrals); iter1 607/607 in `eval/iter1/`; diff grep finds no hardcoded eval strings |
 | S9 | G9 | PASS (2026-10-16) | `09-scoreboard.md`: iter0 172/607 -> iter1 607/607; every type at 1.00 (>= 0.8); happy path unchanged (stage2 508/508, stage1 9/9, both exit 0); zero iter1 failures, so `iter` stays 1; per-type logs `eval/iter1/<type-id>.log`, table `eval/iter1/summary.md` |
+| S10 | G10 | PASS (2026-10-16) | `10-final-report.md`: outcome, per-type table, Q1-Q16 compliance, deviations, reproduction commands, FSM ledger; every number cites a saved log (`final-stage2.log` 508/508, `final-stage1.log` 9/9, `final-pytest.log` 127 passed, `eval/iter1/` 607/607); golden datasets and `requirements.txt` unchanged; tree clean; S11 not entered |
