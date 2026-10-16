@@ -1,0 +1,135 @@
+== fuzzy scores (OSA normalized similarity >= 0.80) ==
+'godfahter':
+    'godfather'                        score=0.8889 ids=['Q5576354'] film_ids=['Q5576354']
+'the godfahter':
+    'the godfather'                    score=0.9231 ids=['Q47703', 'Q3225260', 'Q1139696', 'Q243556'] film_ids=['Q47703', 'Q3225260']
+'intersteller':
+    'interstellar'                     score=0.9167 ids=['Q13417189'] film_ids=['Q13417189']
+'incepton':
+    'inception'                        score=0.8889 ids=['Q54888270', 'Q3797611', 'Q25188'] film_ids=['Q25188']
+'handmaiden':
+'godfather':
+    'godfather'                        score=1.0000 ids=['Q5576354'] film_ids=['Q5576354']
+
+== entity facts for the T2/T4 probes ==
+Q5576354: label='Godfather' is_film=True types=['Q11424']
+Q47703: label='The Godfather' is_film=True types=['Q11424']
+Q28008305: label='Don' is_film=False types=['Q15632617', 'Q15711870']
+Q174811: label='Up' is_film=True types=['Q202866']
+Q13417189: label='Interstellar' is_film=True types=['Q11424']
+label 'up': ['Q174811', 'Q3825402']
+label 'it': []
+label 'us': []
+label 'her': ['Q788822', 'Q105581367']
+label 'no country for old men': ['Q611689', 'Q183081']
+label 'don': ['Q5292131', 'Q28008305', 'Q77191171', 'Q55408539']
+label "don't look up": []
+Q174811 label='Up'
+Q28008305 label='Don'
+
+== T3 cases ==
+'who directed inception'
+  span=(13, 22) candidates=['Q25188']
+  reply='The factual answer is: Christopher Nolan'
+'WHO DIRECTED INCEPTION?'
+  span=(13, 22) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+'Who directed "Inception"?'
+  span=(14, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed 'Inception' (2010)?"
+  span=(14, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+'Who directed Inception (2010 film)?'
+  span=(13, 22) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+'who directed “the handmaiden”?'
+  span=(14, 28) candidates=['Q20444585']
+  reply='The factual answer is: Park Chan-wook'
+"Who directed 'the handmaiden'?"
+  span=(14, 28) candidates=['Q20444585']
+  reply='The factual answer is: Park Chan-wook'
+'Who directed The Handmaiden?'
+  span=(13, 27) candidates=['Q20444585']
+  reply='The factual answer is: Park Chan-wook'
+'Who directed the handmaiden?'
+  span=(13, 27) candidates=['Q20444585']
+  reply='The factual answer is: Park Chan-wook'
+"Who wrote 'The Handmaiden's screenplay?"
+  span=(11, 25) candidates=['Q20444585']
+  reply='The factual answer is: Jeong Seo-kyeong and Park Chan-wook'
+"Who directed '12 Angry Men'?"
+  span=(14, 26) candidates=['Q2345', 'Q386042']
+  reply='The factual answer is: Sidney Lumet'
+"Who directed ''Inception''?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"Who directed 'Inception ?"
+  span=(13, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed the movie 'Inception'?"
+  span=(24, 33) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+
+== T2 cases ==
+"Who directed 'Don't Look Up'?"
+  span=(14, 17) candidates=['Q28008305', 'Q55408539', 'Q5292131', 'Q77191171']
+  reply='Sorry, my knowledge graph has no information about the director of Don.'
+"Who directed Don't Look Up?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"who directed don't look up"
+  span=(24, 26) candidates=['Q174811']
+  reply='The factual answer is: Bob Peterson and Pete Docter'
+"Who directed 'No Country for Old Men'?"
+  span=(14, 36) candidates=['Q183081', 'Q611689']
+  reply='The factual answer is: Ethan Coen and Joel Coen'
+'Who directed No Country for Old Men?'
+  span=(13, 35) candidates=['Q183081', 'Q611689']
+  reply='The factual answer is: Ethan Coen and Joel Coen'
+'who directed up'
+  span=(13, 15) candidates=['Q174811']
+  reply='The factual answer is: Bob Peterson and Pete Docter'
+"Who directed 'Up'?"
+  span=(14, 16) candidates=['Q174811', 'Q3825402']
+  reply='The factual answer is: Bob Peterson and Pete Docter'
+"Who directed 'It'?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"Who directed 'Us'?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"Who directed 'Her'?"
+  span=(14, 17) candidates=['Q788822', 'Q105581367']
+  reply='The factual answer is: Spike Jonze'
+
+== T5 cases ==
+'who directed matrix'
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+'who directed the matrix'
+  span=(13, 23) candidates=['Q83495', 'Q13014087', 'Q33140061']
+  reply='The factual answer is: Lana Wachowski and Lelly Wechawsku'
+'who wrote the screenplay of handmaiden'
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+'Who directed Handmaiden?'
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+'who directed godfather'
+  span=(13, 22) candidates=['Q5576354']
+  reply='The factual answer is: Lal and Siddique'
+'who directed the godfather'
+  span=(13, 26) candidates=['Q47703', 'Q3225260', 'Q1139696', 'Q243556']
+  reply='The factual answer is: Francis Ford Coppola'
+'who directed titanic'
+  span=(13, 20) candidates=['Q1197729']
+  reply='The factual answer is: Jean Negulesco'
+
+== T1 cases ==
+'Which movies did Christopher Nolan not direct?'
+  span=(17, 34) candidates=['Q25191']
+  reply='The factual answer is: Batman Begins, Dunkirk, Following, Inception, Insomnia, Interstellar, Oppenheimer, The Dark Knight, The Dark Knight Rises, The Dark Knight trilogy, and The Prestige'
+"Who did not direct 'Inception'?"
+  span=(20, 29) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'

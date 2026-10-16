@@ -1,0 +1,86 @@
+== candidate longer titles (T2 dataset): label presence in the KG ==
+'growing up'               -> ['Q5611641']
+'looking up'               -> []
+'it follows'               -> ['Q16547881']
+'up in the air'            -> ['Q211429', 'Q2069220']
+"don't look up"            -> []
+'no country for old men'   -> ['Q611689', 'Q183081']
+'noah'                     -> ['Q286868', 'Q81422']
+'up'                       -> ['Q174811', 'Q3825402']
+'it'                       -> []
+'her'                      -> ['Q788822', 'Q105581367']
+'us'                       -> []
+'nine'                     -> ['Q752989', 'Q2278286']
+'giant'                    -> ['Q669592', 'Q106563275']
+
+== T3 quote variants ==
+"Who directed ''Inception''?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"Who directed ' Inception'?"
+  span=(15, 24) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed 'Inception '?"
+  span=(13, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed ''The Godfather''?"
+  span=(19, 28) candidates=['Q5576354']
+  reply='The factual answer is: Lal and Siddique'
+"Who directed 'Inception.'?"
+  span=(0, 0) candidates=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+"Who directed Inception'?"
+  span=(13, 22) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed Inception?'"
+  span=(13, 22) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+'"Who directed Inception?"'
+  span=(14, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+"Who directed 'inception'?"
+  span=(14, 23) candidates=['Q25188', 'Q54888270', 'Q3797611']
+  reply='The factual answer is: Christopher Nolan'
+
+== T4 typo wrong-links (fuzzy top 3 + reply) ==
+'Who directed Godfahter?'
+  fuzzy=[('godfather', 0.889, ['Q5576354'])]
+  reply='The factual answer is: Lal and Siddique'
+'Who directed Godfather?'
+  fuzzy=[('godfather', 1.0, ['Q5576354'])]
+  reply='The factual answer is: Lal and Siddique'
+'Who directed Terminater?'
+  fuzzy=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+'Who directed Pulp Ficton?'
+  fuzzy=[]
+  reply='Sorry, my knowledge graph has no information about the director of Pulp Fiction.'
+'Who directed Schindlers List?'
+  fuzzy=[]
+  reply='The factual answer is: Steven Spielberg'
+'Who directed Jazws?'
+  fuzzy=[]
+  reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+'Who directed Forrst Gump?'
+  fuzzy=[]
+  reply='The factual answer is: Robert Zemeckis'
+
+== label checks for the decision batch ==
+'jaws': ['Q1322449', 'Q2361723', 'Q6166233', 'Q189505']
+'the terminator': ['Q162255', 'Q9357438']
+'terminator': ['Q14539568', 'Q1976616', 'Q98063049', 'Q551327']
+'the matrix reloaded': ['Q189600']
+'godfather': ['Q5576354']
+fuzzy 'jazws': [('jaws', 0.8)]
+fuzzy 'terminater': []
+
+== complement query feasibility (T1) ==
+films not directed by Nolan: rows=10000 truncated=True
+  contains 'The Godfather': True | contains 'Inception': False
+directors (P57 subjects) not directing Inception: rows=10000 truncated=True
+  contains 'Alfred Hitchcock': False | contains 'Christopher Nolan': False
+  first 5 labels: ['Tukuma', '&ME', "Sweet Seymour Skinner's Baadasssss Song", 'Haw-Haw Land', 'Miracle on Evergreen Terrace']
+films P31 Q11424: 12245
+P57 subjects (films that have a director): 13746
+P57 objects (directors): 6109
+humans Q5: 85854

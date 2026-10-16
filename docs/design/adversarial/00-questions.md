@@ -121,6 +121,15 @@ Reply `defaults` to accept all recommendations: 1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a.
   Stated invariant kept: negation words inside entity mentions ("Don't Look Up", "No Country for Old Men") must never trigger T1; the entity span is masked before negation detection.
   Consequence: T1 datasets never contain double-negation cases; no double-negation code path is written.
 
+## S3 addendum (second decision batch, answered 2026-10-16)
+
+- Q9: relation domains as complement universes - films `wdt:P31 wd:Q11424` (12,245), directors = objects of `wdt:P57` (6,109).
+- Q10: rank within article-stripped label families - films first, then graph degree; "Godfather"/"Godfahter" resolve to The Godfather.
+- Q11: unique short-word fuzzy match accepted (words <= 6 chars, score >= 0.80, gap >= 0.05) - "Jazws" -> Jaws.
+- Q12: full quote normalisation - doubled quotes collapsed, inner whitespace stripped, apostrophes inside words are never quote delimiters.
+
+All four took the recommended option.
+
 ## Decision consequences (bind S3 and S5)
 
 1. T1 expected values: members of the complement set, verified absent from the positive set by SPARQL; `forbidden` values: members of the positive set.
