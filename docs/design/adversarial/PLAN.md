@@ -25,7 +25,7 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 - [x] S6 BASELINE MEASUREMENT - artifacts `docs/design/adversarial/eval/iter0/<type-id>.log` and `-baseline.md`.
   - Check G6: per type a log and a report; numeric pass rate from the log; every failure clustered with counts summing to the failure total.
   - Run: `source .venv/bin/activate && python -m agent.eval -v evals/adversarial/<type-id>.jsonl 2>&1 | tee docs/design/adversarial/eval/iter0/<type-id>.log`.
-- [ ] S7 DIAGNOSIS (subagents, template 3.11) - artifacts `docs/design/adversarial/07-cluster-index.md`, `docs/design/adversarial/diagnosis/<cluster-id>.md`.
+- [x] S7 DIAGNOSIS (subagents, template 3.11) - artifacts `docs/design/adversarial/07-cluster-index.md`, `docs/design/adversarial/diagnosis/<cluster-id>.md`.
   - Check G7: report count == cluster count; each has a run red repro, ranked hypotheses, root cause at a phase boundary, suggested fix, regression seam.
 - [ ] S8 IMPLEMENTATION - code + tests + `docs/design/adversarial/08-fix-log.md`.
   - Check G8: `pytest` green; happy-path eval no regression; every cluster has a change or recorded deferral; diff grep finds no hardcoded eval strings; Stage 1 still 9/9.
@@ -48,3 +48,4 @@ Worktree plan (default 5a): commit operator baseline on `factual_approach`, then
 | S4 | G4 | PASS (2026-10-16) | `docs/design/notes-adversarial-factual-questions-discovered.md`: 8 new types D1-D8; all 16 cited QIDs probed in lexicon and all red replies reproduced (`docs/design/adversarial/eval/s4-verification.log`); impact triage `s4-triage.log`; datasets for the top 5: D2, D3, D5, D8, D1 |
 | S5 | G5 | PASS (2026-10-16) | `evals/adversarial/`: 10 files, 598 cases, every file >= 50 cases, >= 10 entities, >= 2 relations; `scripts/adversarial/check_datasets.py` prints "datasets OK" (`eval/s5-check.log`); 50 random cases re-validated in `eval/s5-verify.log` (0 failures), embedded in `05-dataset-manifest.md` |
 | S6 | G6 | PASS (2026-10-16) | per type a verbose log + report in `eval/iter0/`; cluster tables written by `scripts/adversarial/cluster_baseline.py`, counts sum to failures; baseline pass rates: t1 8/64, t2 24/60, t3 37/57, t4 39/60, t5 20/51, d1 6/63, d2 10/65, d3 18/55, d5 0/62, d8 10/70 |
+| S7 | G7 | PASS (2026-10-16) | `07-cluster-index.md` defines 10 clusters; `diagnosis/` holds 10 reports (count matches); every report carries a red repro from `eval/s7-repros.log` (script `capture_repros.py`), ranked hypotheses, a root cause pinned to a phase and a B1-B7 boundary with file:line, a suggested fix, and a regression seam |

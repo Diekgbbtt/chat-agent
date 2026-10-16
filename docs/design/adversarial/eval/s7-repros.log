@@ -1,0 +1,415 @@
+
+========================================================================
+## c-t1-negation
+
+--- t1-negation-001
+input: 'Which movies did John Ford not direct?'
+expected: ['The BFG', 'The Pirates! In an Adventure with Scientists!']
+forbidden: ['The Man Who Shot Liberty Valance', 'When Willie Comes Marching Home']
+span=(17, 26) candidates=['Q51114']
+rest_after_span='Which movies did   not direct?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Which movies did John Ford not direct?', entity='Q51114', predicate='http://www.wikidata.org/prop/direct/P57', direction='in', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { ?x <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q51114> . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply="The factual answer is: 3 Godfathers, Arrowsmith, Cavalry Trilogy, Cheyenne Autumn, December 7th, Donovan's Reef, Drums Along the Mohawk, Fort Apache, Gideon's Day, How Green Was My Valley, How the West Was Won, Judge Priest, Lightnin', Men Without Women, Mister Roberts, Mogambo, My Darling Clementine, Pinky, Rio Grande, Rio Grande II, Sergeant Rutledge, She Wore a Yellow Ribbon, Stagecoach, The Ba" ...
+
+--- t1-negation-029
+input: 'Which films did Ben Hecht not write?'
+expected: ['The BFG', 'The Pirates! In an Adventure with Scientists!']
+forbidden: ['Spellbound', 'Kiss of Death']
+span=(16, 25) candidates=['Q267441']
+rest_after_span='Which films did   not write?' predicates=['http://www.wikidata.org/prop/direct/P58']
+  [handler] factual
+  [question] Question(text='Which films did Ben Hecht not write?', entity='Q267441', predicate='http://www.wikidata.org/prop/direct/P58', direction='in', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { ?x <http://www.wikidata.org/prop/direct/P58> <http://www.wikidata.org/entity/Q267441> . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: 7 Faces of Dr. Lao, A Farewell to Arms, Angels Over Broadway, Angels with Dirty Faces, Barbary Coast, Circus World, Cleopatra, Comrade X, Dishonored Lady, Duel in the Sun, Foreign Correspondent, Gilda, Gone with the Wind, Guys and Dolls, Hans Christian Andersen, I Take This Woman, Journey into Fear, Kiss of Death, Lady of the Tropics, Lifeboat, Monkey Business, Mutiny on the' ...
+
+--- t1-negation-039
+input: "Who did not direct 'Inception'?"
+expected: ['Alfred Hitchcock', 'Steven Spielberg']
+forbidden: ['Christopher Nolan']
+span=(20, 29) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Who did not direct ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who did not direct 'Inception'?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Christopher Nolan'
+
+--- t1-negation-057
+input: "Who directed 'North by Northwest'?"
+expected: ['Alfred Hitchcock']
+forbidden: ['Steven Spielberg']
+span=(14, 32) candidates=['Q223139']
+rest_after_span="Who directed ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'North by Northwest'?", entity='Q223139', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q223139> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Alfred Hitchcock'
+
+
+========================================================================
+## c-t2-subvention
+
+--- t2-subvention-001
+input: 'Who directed looking tarzan?'
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['Chris Buck', 'Kevin Lima']
+span=(21, 27) candidates=['Q208696', 'Q27881730']
+rest_after_span='Who directed looking  ?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Who directed looking tarzan?', entity='Q208696', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q208696> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Chris Buck and Kevin Lima'
+
+--- t2-subvention-002
+input: "Who directed 'The tarzan within'?"
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['Chris Buck', 'Kevin Lima']
+span=(18, 24) candidates=['Q208696', 'Q27881730']
+rest_after_span="Who directed 'The   within'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'The tarzan within'?", entity='Q208696', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q208696> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Chris Buck and Kevin Lima'
+
+--- t2-subvention-003
+input: 'Who wrote the screenplay for tarzan of the deep?'
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['Bob Tzudiker', 'David Reynolds', 'Jeffrey Stepakoff', 'Noni White', 'Tab Murphy']
+span=(39, 47) candidates=['Q494367', 'Q5018929', 'Q7729541', 'Q28517137']
+rest_after_span='Who wrote the screenplay for tarzan of  ?' predicates=['http://www.wikidata.org/prop/direct/P58']
+  [handler] factual
+  [question] Question(text='Who wrote the screenplay for tarzan of the deep?', entity='Q494367', predicate='http://www.wikidata.org/prop/direct/P58', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q494367> <http://www.wikidata.org/prop/direct/P58> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Peter Benchley'
+
+
+========================================================================
+## c-t3-quote-shapes
+
+--- t3-quote-shapes-001
+input: "Who directed ''Inception''?"
+expected: ['Christopher Nolan']
+forbidden: []
+span=(0, 0) candidates=[]
+rest_after_span=" Who directed ''Inception''?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed ''Inception''?", entity=None, predicate=None, direction='out', kind='lookup', error='no_entity')
+reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+
+--- t3-quote-shapes-024
+input: "Who directed 'The Matrix.'?"
+expected: ['Lana Wachowski', 'Lelly Wechawsku']
+forbidden: []
+span=(18, 24) candidates=['Q44337']
+rest_after_span="Who directed 'The  .'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'The Matrix.'?", entity='Q44337', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error='no_facts')
+reply='Sorry, my knowledge graph has no information about the director of matrix.'
+
+--- t3-quote-shapes-054
+input: "Who directed 'The Departed?'?"
+expected: ['Martin Scorsese']
+forbidden: []
+span=(0, 0) candidates=[]
+rest_after_span=" Who directed 'The Departed?'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'The Departed?'?", entity=None, predicate=None, direction='out', kind='lookup', error='no_entity')
+reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+
+--- t3-quote-shapes-010
+input: "Who directed 'The Godfather?'?"
+expected: ['Francis Ford Coppola']
+forbidden: ['Lal and Siddique']
+span=(18, 27) candidates=['Q5576354']
+rest_after_span="Who directed 'The  ?'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'The Godfather?'?", entity='Q5576354', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q5576354> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Lal and Siddique'
+
+
+========================================================================
+## c-t4-typos
+
+--- t4-typos-003
+input: "Who directed 'godfathre'?"
+expected: ['Francis Ford Coppola']
+forbidden: ['Lal', 'Siddique']
+span=(0, 0) candidates=[]
+rest_after_span=" Who directed 'godfathre'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'godfathre'?", entity=None, predicate=None, direction='out', kind='lookup', error='no_entity')
+reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+
+--- t4-typos-031
+input: "Who directed 'the matrx'?"
+expected: ['Lana Wachowski', 'Lelly Wechawsku']
+forbidden: []
+span=(0, 0) candidates=[]
+rest_after_span=" Who directed 'the matrx'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'the matrx'?", entity=None, predicate=None, direction='out', kind='lookup', error='no_entity')
+reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+
+--- t4-typos-002
+input: 'Who directed godfatherr?'
+expected: ['Francis Ford Coppola']
+forbidden: ['Lal', 'Siddique']
+span=(13, 24) candidates=['Q5576354']
+rest_after_span='Who directed  ' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Who directed godfatherr?', entity='Q5576354', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q5576354> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Lal and Siddique'
+
+--- t4-typos-033
+input: 'Who directed batman begns?'
+expected: ['Christopher Nolan']
+forbidden: []
+span=(13, 19) candidates=['Q116852', 'Q810857']
+rest_after_span='Who directed   begns?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Who directed batman begns?', entity='Q116852', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q116852> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Tim Burton'
+
+
+========================================================================
+## c-t5-partials
+
+--- t5-partial-titles-001
+input: 'who directed handmaiden?'
+expected: ['Park Chan-wook']
+forbidden: []
+span=(0, 0) candidates=[]
+rest_after_span=' who directed handmaiden?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='who directed handmaiden?', entity=None, predicate=None, direction='out', kind='lookup', error='no_entity')
+reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+
+--- t5-partial-titles-006
+input: "Who directed 'matrix'?"
+expected: ['Lana Wachowski', 'Lelly Wechawsku']
+forbidden: []
+span=(14, 20) candidates=['Q44337']
+rest_after_span="Who directed ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'matrix'?", entity='Q44337', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error='no_facts')
+reply='Sorry, my knowledge graph has no information about the director of matrix.'
+
+--- t5-partial-titles-035
+input: 'who directed usual suspects?'
+expected: ['Bryan Singer']
+forbidden: []
+span=(19, 28) candidates=['Q1971726']
+rest_after_span='who directed usual  ' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='who directed usual suspects?', entity='Q1971726', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q1971726> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Peter Yates'
+
+--- t5-partial-titles-007
+input: 'who directed godfather?'
+expected: ['Francis Ford Coppola']
+forbidden: ['Lal and Siddique']
+span=(13, 22) candidates=['Q5576354']
+rest_after_span='who directed  ?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='who directed godfather?', entity='Q5576354', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q5576354> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Lal and Siddique'
+
+--- t5-partial-titles-045
+input: 'Who directed twilight zone?'
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['the factual answer is:']
+span=(13, 21) candidates=['Q160071']
+rest_after_span='Who directed   zone?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Who directed twilight zone?', entity='Q160071', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q160071> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Catherine Hardwicke'
+
+
+========================================================================
+## c-d1-counts
+
+--- d1-count-class-001
+input: "How many awards did 'Inception' win?"
+expected: ['6']
+forbidden: ['the factual answer is: 0']
+span=(21, 30) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="How many awards did ' ' win?" predicates=['http://www.wikidata.org/prop/direct/P166']
+  [handler] factual
+  [question] Question(text="How many awards did 'Inception' win?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P166', direction='out', kind='count', error=None)
+  [sparql] SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P166> ?x . ?x wdt:P31 wd:Q11424 }
+reply='The factual answer is: 0'
+
+--- d1-count-class-002
+input: "How many cast members does 'Inception' have?"
+expected: ['21']
+forbidden: ['the factual answer is: 0']
+span=(28, 37) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="How many cast members does ' ' have?" predicates=['http://www.wikidata.org/prop/direct/P161']
+  [handler] factual
+  [question] Question(text="How many cast members does 'Inception' have?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P161', direction='out', kind='count', error=None)
+  [sparql] SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P161> ?x . ?x wdt:P31 wd:Q11424 }
+reply='The factual answer is: 0'
+
+--- d1-count-class-036
+input: "How many countries of origin does 'The Handmaiden' have?"
+expected: ['1']
+forbidden: ['the factual answer is: 0']
+span=(35, 49) candidates=['Q20444585']
+rest_after_span="How many countries of origin does ' ' have?" predicates=['http://www.wikidata.org/prop/direct/P495']
+  [handler] factual
+  [question] Question(text="How many countries of origin does 'The Handmaiden' have?", entity='Q20444585', predicate='http://www.wikidata.org/prop/direct/P495', direction='out', kind='count', error=None)
+  [sparql] SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE { <http://www.wikidata.org/entity/Q20444585> <http://www.wikidata.org/prop/direct/P495> ?x . ?x wdt:P31 wd:Q11424 }
+reply='The factual answer is: 0'
+
+
+========================================================================
+## c-d2-multi-mention
+
+--- d2-multiple-mentions-001
+input: "I love 'Jaws'. Who directed 'Inception'?"
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['The factual answer is', 'Steven Spielberg', 'Christopher Nolan']
+span=(8, 12) candidates=['Q189505', 'Q6166233', 'Q1322449', 'Q2361723', 'Q333477']
+rest_after_span="I love ' '. Who directed 'Inception'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="I love 'Jaws'. Who directed 'Inception'?", entity='Q189505', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q189505> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Steven Spielberg'
+
+--- d2-multiple-mentions-002
+input: "Who directed 'Jaws'? Who directed 'Inception'?"
+expected: ["I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"]
+forbidden: ['The factual answer is', 'Steven Spielberg', 'Christopher Nolan']
+span=(14, 18) candidates=['Q189505', 'Q6166233', 'Q1322449', 'Q2361723', 'Q333477']
+rest_after_span="Who directed ' '? Who directed 'Inception'?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'Jaws'? Who directed 'Inception'?", entity='Q189505', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q189505> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Steven Spielberg'
+
+
+========================================================================
+## c-d3-trailing
+
+--- d3-trailing-superlative-001
+input: "Who directed 'Batman Begins', the first film in the trilogy?"
+expected: ['Christopher Nolan']
+forbidden: ['no information']
+span=(14, 27) candidates=['Q166262', 'Q2891561']
+rest_after_span="Who directed ' ', the first film in the trilogy?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'Batman Begins', the first film in the trilogy?", entity='Q166262', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='earliest', error=None)
+  [sparql] SELECT ?x ?label (MIN(?d) AS ?date) WHERE { <http://www.wikidata.org/entity/Q166262> <http://www.wikidata.org/prop/direct/P57> ?x . ?x wdt:P31 wd:Q11424 ; <http://www.wikidata.org/prop/direct/P577> ?d . OPTIONAL { ?x rdfs:label ?label } } GROUP BY ?x ?label ORDER BY ASC(?date) LIMIT 1
+reply='Sorry, my knowledge graph has no information about the director of Batman Begins.'
+
+--- d3-trailing-superlative-002
+input: "Who directed 'Batman Begins', the latest film I watched?"
+expected: ['Christopher Nolan']
+forbidden: ['no information']
+span=(14, 27) candidates=['Q166262', 'Q2891561']
+rest_after_span="Who directed ' ', the latest film I watched?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'Batman Begins', the latest film I watched?", entity='Q166262', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='latest', error=None)
+  [sparql] SELECT ?x ?label (MAX(?d) AS ?date) WHERE { <http://www.wikidata.org/entity/Q166262> <http://www.wikidata.org/prop/direct/P57> ?x . ?x wdt:P31 wd:Q11424 ; <http://www.wikidata.org/prop/direct/P577> ?d . OPTIONAL { ?x rdfs:label ?label } } GROUP BY ?x ?label ORDER BY DESC(?date) LIMIT 1
+reply='Sorry, my knowledge graph has no information about the director of Batman Begins.'
+
+--- d3-trailing-superlative-005
+input: "Who directed 'Batman Begins', my favourite film?"
+expected: ['Christopher Nolan']
+forbidden: ['no information']
+span=(14, 27) candidates=['Q166262', 'Q2891561']
+rest_after_span="Who directed ' ', my favourite film?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who directed 'Batman Begins', my favourite film?", entity='Q166262', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q166262> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Christopher Nolan'
+
+
+========================================================================
+## c-d5-yes-no
+
+--- d5-yes-no-001
+input: 'Did Christopher Nolan direct Inception?'
+expected: ['the factual answer is: Yes']
+forbidden: ['Christopher Nolan', 'John Ford']
+span=(4, 21) candidates=['Q25191']
+rest_after_span='Did   direct Inception?' predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text='Did Christopher Nolan direct Inception?', entity='Q25191', predicate='http://www.wikidata.org/prop/direct/P57', direction='in', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { ?x <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q25191> . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Batman Begins, Dunkirk, Following, Inception, Insomnia, Interstellar, Oppenheimer, The Dark Knight, The Dark Knight Rises, The Dark Knight trilogy, and The Prestige'
+
+--- d5-yes-no-002
+input: "Did Christopher Nolan direct 'Inception'?"
+expected: ['the factual answer is: Yes']
+forbidden: ['Christopher Nolan', 'John Ford']
+span=(30, 39) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Did Christopher Nolan direct ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Did Christopher Nolan direct 'Inception'?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Christopher Nolan'
+
+--- d5-yes-no-003
+input: "Did John Ford direct 'Inception'?"
+expected: ['the factual answer is: No']
+forbidden: ['Christopher Nolan', 'John Ford']
+span=(22, 31) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Did John Ford direct ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Did John Ford direct 'Inception'?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Christopher Nolan'
+
+
+========================================================================
+## c-d8-paraphrases
+
+--- d8-relation-paraphrases-001
+input: "Who did the directing for 'Inception'?"
+expected: ['Christopher Nolan']
+forbidden: ["I'm not sure what you'd like to know"]
+span=(27, 36) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Who did the directing for ' '?" predicates=[]
+  [handler] factual
+  [question] Question(text="Who did the directing for 'Inception'?", entity='Q25188', predicate=None, direction='out', kind='lookup', error='no_relation')
+reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+
+--- d8-relation-paraphrases-002
+input: "Who was at the helm of 'Inception'?"
+expected: ['Christopher Nolan']
+forbidden: ["I'm not sure what you'd like to know"]
+span=(24, 33) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Who was at the helm of ' '?" predicates=[]
+  [handler] factual
+  [question] Question(text="Who was at the helm of 'Inception'?", entity='Q25188', predicate=None, direction='out', kind='lookup', error='no_relation')
+reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+
+--- d8-relation-paraphrases-003
+input: "Who is behind the camera on 'Inception'?"
+expected: ['Christopher Nolan']
+forbidden: ["I'm not sure what you'd like to know"]
+span=(29, 38) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Who is behind the camera on ' '?" predicates=[]
+  [handler] factual
+  [question] Question(text="Who is behind the camera on 'Inception'?", entity='Q25188', predicate=None, direction='out', kind='lookup', error='no_relation')
+reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+
+--- d8-relation-paraphrases-061
+input: "Who is the director of 'Inception'?"
+expected: ['Christopher Nolan']
+forbidden: ["I'm not sure what you'd like to know"]
+span=(24, 33) candidates=['Q25188', 'Q54888270', 'Q3797611']
+rest_after_span="Who is the director of ' '?" predicates=['http://www.wikidata.org/prop/direct/P57']
+  [handler] factual
+  [question] Question(text="Who is the director of 'Inception'?", entity='Q25188', predicate='http://www.wikidata.org/prop/direct/P57', direction='out', kind='lookup', error=None)
+  [sparql] SELECT DISTINCT ?x ?label WHERE { <http://www.wikidata.org/entity/Q25188> <http://www.wikidata.org/prop/direct/P57> ?x . OPTIONAL { ?x rdfs:label ?label } } LIMIT 200
+reply='The factual answer is: Christopher Nolan'
+
