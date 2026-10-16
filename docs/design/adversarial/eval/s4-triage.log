@@ -1,0 +1,61 @@
+== D1 count cases (fail when the reply is 0 but the truth is not 0) ==
+FAIL "How many awards did 'Inception' win?" truth=6 reply='The factual answer is: 0'
+FAIL 'How many awards has Meryl Streep won?' truth=35 reply='The factual answer is: 0'
+FAIL "How many cast members does 'Inception' have?" truth=21 reply='The factual answer is: 0'
+FAIL "How many genres does 'The Godfather' have?" truth=10 reply='The factual answer is: 0'
+FAIL "How many awards did 'The Godfather' win?" truth=6 reply='The factual answer is: 0'
+pass 'How many films has Steven Spielberg directed?' truth=36 reply='The factual answer is: 32'
+
+== D2-D8 pattern cases ==
+FAIL "I love 'Jaws'. Who directed 'Inception'?" reply='The factual answer is: Steven Spielberg'
+FAIL "Who directed 'The Godfather'? Who directed 'Inception'?" reply='The factual answer is: Francis Ford Coppola'
+FAIL 'I love Jaws. Who directed Inception?' reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+FAIL "In 'Jaws'... actually, who wrote 'Inception'?" reply='The factual answer is: Carl Gottlieb and Peter Benchley'
+FAIL 'The Godfather is great. Who composed the music for Inception?' reply='The factual answer is: Nino Rota'
+FAIL 'My favourite film is Jaws. When did Inception come out?' reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+FAIL "Who directed 'Batman Begins', the first film in the trilogy?" reply='Sorry, my knowledge graph has no information about the director of Batman Begins.'
+FAIL "Who wrote the screenplay of 'The Godfather', the first film of the trilogy?" reply='Sorry, my knowledge graph has no information about the screenwriter of The Godfather.'
+FAIL "Who composed the music for 'Inception', the latest film I watched?" reply='Sorry, my knowledge graph has no information about the composer of Inception.'
+FAIL "Who directed 'Inception', my first Nolan film?" reply='Sorry, my knowledge graph has no information about the director of Inception.'
+FAIL "Who directed 'Jaws', the last film I saw?" reply='Sorry, my knowledge graph has no information about the director of Jaws.'
+FAIL "Who starred in 'Inception', the first film in the list?" reply='Sorry, my knowledge graph has no information about the cast member of Inception.'
+FAIL "who directed 'Amelie'?" reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+FAIL 'who directed 101 reykjavik?' reply='Sorry, my knowledge graph has no information about the director of 101.'
+pass "who directed 'the matrix'?" reply='The factual answer is: Lana Wachowski and Lelly Wechawsku'
+FAIL 'who directed 8 1/2?' reply='Sorry, my knowledge graph has no information about the director of 2.'
+FAIL 'who directed 3 iron?' reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+FAIL 'who directed 50 50?' reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+FAIL "Did Steven Spielberg direct 'Inception'?" reply='The factual answer is: Christopher Nolan'
+FAIL "Did Christopher Nolan direct 'Jaws'?" reply='The factual answer is: Steven Spielberg'
+FAIL "Was 'Inception' directed by Steven Spielberg?" reply='The factual answer is: Christopher Nolan'
+FAIL "Did Christopher Nolan direct 'Inception'?" reply='The factual answer is: Christopher Nolan'
+FAIL "Did Steven Spielberg direct 'Jaws'?" reply='The factual answer is: Steven Spielberg'
+FAIL "Did Alfred Hitchcock direct 'The Godfather'?" reply='The factual answer is: Francis Ford Coppola'
+FAIL "When did 'The Blue Bird Vol. 2' come out?" reply='The factual answer is: 1920-03-05T00:00:00'
+FAIL "When was 'Tokyo Chorus II' released?" reply='The factual answer is: 1934-11-15T00:00:00'
+pass "When did the movie 'Manchester by the Sea' come out?" reply='The factual answer is: 2016-01-23'
+pass "When did 'Inception' come out?" reply='The factual answer is: 2010-07-08'
+pass "When did 'Interstellar' come out?" reply='The factual answer is: 2014-10-26'
+pass "When was 'The Godfather' released?" reply='The factual answer is: 1972-03-15'
+FAIL "Whodirected 'Inception'?" reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL 'who directedinception?' reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+pass "Who directed 'Inception'?" reply='The factual answer is: Christopher Nolan'
+pass "Who wrote'Inception'?" reply='The factual answer is: Christopher Nolan'
+FAIL 'Whodirected Jaws?' reply="I found Jaws, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL 'Who directedthe godfather?' reply="I found Godfather, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL "Who did the directing for 'Inception'?" reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL "Who was at the helm of 'Inception'?" reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL "Who is behind the camera on 'Inception'?" reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL "Who did the directing for 'Jaws'?" reply="I found Jaws, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+FAIL "Who was at the helm of 'The Godfather'?" reply="I found The Godfather, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, "
+FAIL "Who is behind the camera on 'Jaws'?" reply="I found Jaws, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+
+== triage summary (fail rate) ==
+D2: 6/6 fail (100%)
+D3: 6/6 fail (100%)
+D5: 6/6 fail (100%)
+D8: 6/6 fail (100%)
+D1: 5/6 fail (83%)
+D4: 5/6 fail (83%)
+D7: 4/6 fail (67%)
+D6: 2/6 fail (33%)

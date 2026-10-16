@@ -1,0 +1,78 @@
+== lexicon existence of cited QIDs ==
+Q25188: label='Inception' in_lbl2ent=yes
+Q873: label='Meryl Streep' in_lbl2ent=yes
+Q189505: label='Jaws' in_lbl2ent=yes
+Q8877: label='Steven Spielberg' in_lbl2ent=yes
+Q25191: label='Christopher Nolan' in_lbl2ent=yes
+Q47703: label='The Godfather' in_lbl2ent=yes
+Q166262: label='Batman Begins' in_lbl2ent=yes
+Q484048: label='Amélie' in_lbl2ent=yes
+Q113116290: label='101' in_lbl2ent=yes
+Q165525: label='101 Reykjavík' in_lbl2ent=yes
+Q489818: label='3-Iron' in_lbl2ent=yes
+Q859448: label='50/50' in_lbl2ent=yes
+Q26989920: label='2' in_lbl2ent=yes
+Q12018: label='8½' in_lbl2ent=yes
+Q8229794167428617: label='The Blue Bird Vol. 2' in_lbl2ent=yes
+Q0666980522408053: label='Tokyo Chorus II' in_lbl2ent=yes
+
+== red example reproduction ==
+D1: "How many awards did 'Inception' win?"
+    span=(21, 30) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply='The factual answer is: 0'
+D1: 'How many awards has Meryl Streep won?'
+    span=(20, 32) candidates=['Q873']
+    reply='The factual answer is: 0'
+D1: "How many cast members does 'Inception' have?"
+    span=(28, 37) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply='The factual answer is: 0'
+D2: "I love 'Jaws'. Who directed 'Inception'?"
+    span=(8, 12) candidates=['Q189505', 'Q6166233', 'Q1322449']
+    reply='The factual answer is: Steven Spielberg'
+D2: "Who directed 'The Godfather'? Who directed 'Inception'?"
+    span=(14, 27) candidates=['Q47703', 'Q3225260', 'Q1139696']
+    reply='The factual answer is: Francis Ford Coppola'
+D2: 'I love Jaws. Who directed Inception?'
+    span=(0, 0) candidates=[]
+    reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+D3: "Who directed 'Batman Begins', the first film in the trilogy?"
+    span=(14, 27) candidates=['Q166262', 'Q2891561']
+    reply='Sorry, my knowledge graph has no information about the director of Batman Begins.'
+D3: "Who wrote the screenplay of 'The Godfather', the first film of the trilogy?"
+    span=(29, 42) candidates=['Q47703', 'Q3225260', 'Q1139696']
+    reply='Sorry, my knowledge graph has no information about the screenwriter of The Godfather.'
+D4: "who directed 'Amelie'?"
+    span=(0, 0) candidates=[]
+    reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+D4: 'who directed 101 reykjavik?'
+    span=(13, 16) candidates=['Q113116290']
+    reply='Sorry, my knowledge graph has no information about the director of 101.'
+D5: "Did Steven Spielberg direct 'Inception'?"
+    span=(29, 38) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply='The factual answer is: Christopher Nolan'
+D5: "Did Christopher Nolan direct 'Jaws'?"
+    span=(30, 34) candidates=['Q189505', 'Q6166233', 'Q1322449']
+    reply='The factual answer is: Steven Spielberg'
+D6: "When did 'The Blue Bird Vol. 2' come out?"
+    span=(10, 30) candidates=['Q8229794167428617']
+    reply='The factual answer is: 1920-03-05T00:00:00'
+D6: "When was 'Tokyo Chorus II' released?"
+    span=(10, 25) candidates=['Q0666980522408053']
+    reply='The factual answer is: 1934-11-15T00:00:00'
+D7: "Whodirected 'Inception'?"
+    span=(13, 22) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+D7: 'who directedinception?'
+    span=(0, 0) candidates=[]
+    reply="I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?"
+D8: "Who did the directing for 'Inception'?"
+    span=(27, 36) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+D8: "Who was at the helm of 'Inception'?"
+    span=(24, 33) candidates=['Q25188', 'Q54888270', 'Q3797611']
+    reply="I found Inception, but I'm not sure what you'd like to know. You can ask about its director, cast, genre, ..."
+
+== true counts quoted by D1 (independent SPARQL) ==
+Q25188 P166 (Inception awards): 6
+Q873 P166 (Meryl Streep awards): 35
+Q25188 P161 (Inception cast): 21
