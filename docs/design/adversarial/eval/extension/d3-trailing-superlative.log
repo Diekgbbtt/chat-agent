@@ -1,0 +1,112 @@
+PASS d3-trailing-superlative-001: "Who directed 'Batman Begins', the first film in the trilogy?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-002: "Who directed 'Batman Begins', the latest film I watched?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-003: "Who directed 'Batman Begins', the last movie I saw?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-004: "Who directed 'Batman Begins', the newest one I own?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-005: "Who directed 'Batman Begins', my favourite film?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-006: "Who wrote the screenplay of 'The Godfather', the first film in the trilogy?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d3-trailing-superlative-007: "Who wrote the screenplay of 'The Godfather', the latest film I watched?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d3-trailing-superlative-008: "Who wrote the screenplay of 'The Godfather', the last movie I saw?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d3-trailing-superlative-009: "Who wrote the screenplay of 'The Godfather', the newest one I own?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d3-trailing-superlative-010: "Who wrote the screenplay of 'The Godfather', my favourite film?"
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS d3-trailing-superlative-011: "Who composed the music for 'Inception', the first film in the trilogy?"
+  -> The factual answer is: Hans Zimmer
+PASS d3-trailing-superlative-012: "Who composed the music for 'Inception', the latest film I watched?"
+  -> The factual answer is: Hans Zimmer
+PASS d3-trailing-superlative-013: "Who composed the music for 'Inception', the last movie I saw?"
+  -> The factual answer is: Hans Zimmer
+PASS d3-trailing-superlative-014: "Who composed the music for 'Inception', the newest one I own?"
+  -> The factual answer is: Hans Zimmer
+PASS d3-trailing-superlative-015: "Who composed the music for 'Inception', my favourite film?"
+  -> The factual answer is: Hans Zimmer
+PASS d3-trailing-superlative-016: "Who directed 'Interstellar', the first film in the trilogy?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-017: "Who directed 'Interstellar', the latest film I watched?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-018: "Who directed 'Interstellar', the last movie I saw?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-019: "Who directed 'Interstellar', my favourite film?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-020: "Who directed 'The Matrix', the first film in the trilogy?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d3-trailing-superlative-021: "Who directed 'The Matrix', the latest film I watched?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d3-trailing-superlative-022: "Who directed 'The Matrix', my favourite film?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS d3-trailing-superlative-023: "Who directed 'Parasite', the first film in the trilogy?"
+  -> The factual answer is: Bong Joon-ho
+PASS d3-trailing-superlative-024: "Who directed 'Parasite', the latest film I watched?"
+  -> The factual answer is: Bong Joon-ho
+PASS d3-trailing-superlative-025: "Who directed 'Parasite', my favourite film?"
+  -> The factual answer is: Bong Joon-ho
+PASS d3-trailing-superlative-026: "Who directed 'Whiplash', the first film in the trilogy?"
+  -> The factual answer is: Damien Chazelle
+PASS d3-trailing-superlative-027: "Who directed 'Whiplash', the latest film I watched?"
+  -> The factual answer is: Damien Chazelle
+PASS d3-trailing-superlative-028: "Who directed 'Whiplash', my favourite film?"
+  -> The factual answer is: Damien Chazelle
+PASS d3-trailing-superlative-029: "Who wrote the screenplay of 'The Handmaiden', the first film in the trilogy?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS d3-trailing-superlative-030: "Who wrote the screenplay of 'The Handmaiden', the latest film I watched?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS d3-trailing-superlative-031: "Who wrote the screenplay of 'The Handmaiden', my favourite film?"
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS d3-trailing-superlative-032: "Who directed 'The Departed', the first film in the trilogy?"
+  -> The factual answer is: Martin Scorsese
+PASS d3-trailing-superlative-033: "Who directed 'The Departed', the latest film I watched?"
+  -> The factual answer is: Martin Scorsese
+PASS d3-trailing-superlative-034: "Who directed 'The Departed', my favourite film?"
+  -> The factual answer is: Martin Scorsese
+PASS d3-trailing-superlative-035: "Who directed 'Jaws', the first film in the trilogy?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-036: "Who directed 'Jaws', the latest film I watched?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-037: "Who directed 'Jaws', my favourite film?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-038: "Who directed 'The Dark Knight', the first film in the trilogy?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-039: "Who directed 'The Dark Knight', the latest film I watched?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-040: "Who directed 'The Dark Knight', the last movie I saw?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-041: "Who directed 'The Dark Knight', my favourite film?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-042: "Who directed 'Schindler's List', the first film in the trilogy?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-043: "Who directed 'Schindler's List', the latest film I watched?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-044: "Who directed 'Schindler's List', the last movie I saw?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-045: "Who directed 'Schindler's List', my favourite film?"
+  -> The factual answer is: Steven Spielberg
+PASS d3-trailing-superlative-046: "Who directed 'The Pianist', the first film in the trilogy?"
+  -> The factual answer is: Roman Polanski
+PASS d3-trailing-superlative-047: "Who directed 'The Pianist', the latest film I watched?"
+  -> The factual answer is: Roman Polanski
+PASS d3-trailing-superlative-048: "Who directed 'The Pianist', my favourite film?"
+  -> The factual answer is: Roman Polanski
+PASS d3-trailing-superlative-049: "Who directed 'The Prestige', the first film in the trilogy?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-050: "Who directed 'The Prestige', the latest film I watched?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-051: "Who directed 'The Prestige', my favourite film?"
+  -> The factual answer is: Christopher Nolan
+PASS d3-trailing-superlative-052: "Who directed 'The Last Emperor'?"
+  -> The factual answer is: Bernardo Bertolucci
+PASS d3-trailing-superlative-053: "Who directed 'The Last Samurai'?"
+  -> The factual answer is: Edward Zwick
+PASS d3-trailing-superlative-054: "Who directed 'First Blood'?"
+  -> The factual answer is: Ted Kotcheff
+PASS d3-trailing-superlative-055: "Who directed 'The Last of the Mohicans'?"
+  -> The factual answer is: Michael Mann
+
+55/55 passed. Latency: median 0.00 s, max 0.04 s

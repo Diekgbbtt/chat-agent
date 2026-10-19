@@ -3,6 +3,8 @@
 State: S10.
 Terminal state: S10 success.
 S11 was not entered because every gate G0 to G9 passed.
+Post-S10 note: the operator requested a negation extension after this report.
+The T1 dataset grew to 121 cases and the agent gained the corresponding behavior; see `12-negation-extension.md` and `eval/extension/`.
 
 ## Mission outcome
 

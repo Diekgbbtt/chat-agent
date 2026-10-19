@@ -5,6 +5,8 @@ direction "out": the entity is the subject, the answer is the object ("Who direc
 direction "in":  the entity is the object, the answer is the subject ("Which movies did Ridley Scott direct?")
 """
 
+from typing import Optional, Sequence
+
 WD = "http://www.wikidata.org/entity/"
 RELEASE_DATE = "http://www.wikidata.org/prop/direct/P577"
 DIRECTOR = "http://www.wikidata.org/prop/direct/P57"
@@ -40,14 +42,24 @@ def count(entity: str, predicate: str, direction: str) -> str:
             f"{film_filter} }}")
 
 
-def complement(entity: str, predicate: str, direction: str) -> str:
-    """The relation's domain minus the values linked to the entity ("movies not directed by X")."""
+def complement(entity: str, predicate: str, direction: str, universe: Optional[str] = None,
+               others: Sequence[str] = ()) -> str:
+    """The relation's domain minus the values linked to the entity ("movies not directed by X").
+
+    universe "actor" scopes person answers to cast members (P161), the default is everyone who holds
+    the credit; `others` lists further films whose holders the person answers must exclude too.
+    """
     if direction == "in":
         return (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
                 f"FILTER NOT EXISTS {{ ?x <{predicate}> <{WD}{entity}> }} "
                 f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
-    return (f"SELECT DISTINCT ?x ?label WHERE {{ ?f <{predicate}> ?x . "
-            f"FILTER NOT EXISTS {{ <{WD}{entity}> <{predicate}> ?x }} "
+    if universe == "actor" and predicate == DIRECTOR:
+        base = "?f wdt:P161 ?x . ?x wdt:P31 wd:Q5 ."
+    else:
+        base = f"?f <{predicate}> ?x ."
+    filters = " ".join(f"FILTER NOT EXISTS {{ <{WD}{film}> <{predicate}> ?x }}"
+                       for film in (entity, *others))
+    return (f"SELECT DISTINCT ?x ?label WHERE {{ {base} {filters} "
             f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
 
 

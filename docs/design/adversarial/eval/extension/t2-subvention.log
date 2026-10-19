@@ -1,0 +1,122 @@
+PASS t2-subvention-001: 'Who directed looking tarzan?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-002: "Who directed 'The tarzan within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-003: 'Who wrote the screenplay for tarzan of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-004: 'Who directed looking mulan?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-005: "Who directed 'The mulan within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-006: 'Who wrote the screenplay for mulan of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-007: 'Who directed looking dumbo?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-008: "Who directed 'The dumbo within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-009: 'Who wrote the screenplay for dumbo of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-010: 'Who directed looking moana?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-011: "Who directed 'The moana within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-012: 'Who wrote the screenplay for moana of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-013: 'Who directed looking thor?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-014: "Who directed 'The thor within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-015: 'Who wrote the screenplay for thor of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-016: 'Who directed looking bambi?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-017: "Who directed 'The bambi within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-018: 'Who wrote the screenplay for bambi of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-019: 'Who directed looking ali?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-020: "Who directed 'The ali within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-021: 'Who wrote the screenplay for ali of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-022: 'Who directed looking frozen?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-023: "Who directed 'The frozen within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-024: 'Who wrote the screenplay for frozen of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-025: 'Who directed looking munich?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-026: "Who directed 'The munich within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-027: 'Who wrote the screenplay for munich of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-028: 'Who directed looking avatar?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-029: "Who directed 'The avatar within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-030: 'Who wrote the screenplay for avatar of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-031: 'Who directed looking gandhi?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-032: "Who directed 'The gandhi within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-033: 'Who wrote the screenplay for gandhi of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-034: 'Who directed looking elvis?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-035: "Who directed 'The elvis within'?"
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-036: 'Who wrote the screenplay for elvis of the deep?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t2-subvention-037: "Who directed 'Tarzan'?"
+  -> The factual answer is: Chris Buck and Kevin Lima
+PASS t2-subvention-038: "Tell me the director of 'Tarzan'."
+  -> The factual answer is: Chris Buck and Kevin Lima
+PASS t2-subvention-039: "Who directed 'Mulan'?"
+  -> The factual answer is: Barry Cook and Tony Bancroft
+PASS t2-subvention-040: "Tell me the director of 'Mulan'."
+  -> The factual answer is: Barry Cook and Tony Bancroft
+PASS t2-subvention-041: "Who directed 'Dumbo'?"
+  -> The factual answer is: Ben Sharpsteen, Bill Roberts, Jack Kinney, Norm Ferguson, Samuel Armstrong, and Wilfred Jackson
+PASS t2-subvention-042: "Tell me the director of 'Dumbo'."
+  -> The factual answer is: Ben Sharpsteen, Bill Roberts, Jack Kinney, Norm Ferguson, Samuel Armstrong, and Wilfred Jackson
+PASS t2-subvention-043: "Who directed 'Moana'?"
+  -> The factual answer is: Chris Williams, Don Hall, John Musker, and Ron Clements
+PASS t2-subvention-044: "Tell me the director of 'Moana'."
+  -> The factual answer is: Chris Williams, Don Hall, John Musker, and Ron Clements
+PASS t2-subvention-045: "Who directed 'Thor'?"
+  -> The factual answer is: Kenneth Branagh
+PASS t2-subvention-046: "Tell me the director of 'Thor'."
+  -> The factual answer is: Kenneth Branagh
+PASS t2-subvention-047: "Who directed 'Bambi'?"
+  -> The factual answer is: Bill Roberts, David Hand, Graham Heid, James Algar, Norman Wright, Paul Satterfield, and Samuel Armstrong
+PASS t2-subvention-048: "Tell me the director of 'Bambi'."
+  -> The factual answer is: Bill Roberts, David Hand, Graham Heid, James Algar, Norman Wright, Paul Satterfield, and Samuel Armstrong
+PASS t2-subvention-049: "Who directed 'Ali'?"
+  -> The factual answer is: Michael Mann
+PASS t2-subvention-050: "Tell me the director of 'Ali'."
+  -> The factual answer is: Michael Mann
+PASS t2-subvention-051: "Who directed 'Frozen'?"
+  -> The factual answer is: Chris Buck and Jennifer Lee
+PASS t2-subvention-052: "Tell me the director of 'Frozen'."
+  -> The factual answer is: Chris Buck and Jennifer Lee
+PASS t2-subvention-053: "Who directed 'Munich'?"
+  -> The factual answer is: Steven Spielberg
+PASS t2-subvention-054: "Tell me the director of 'Munich'."
+  -> The factual answer is: Steven Spielberg
+PASS t2-subvention-055: "Who directed 'Avatar'?"
+  -> The factual answer is: James Cameron
+PASS t2-subvention-056: "Tell me the director of 'Avatar'."
+  -> The factual answer is: James Cameron
+PASS t2-subvention-057: "Who directed 'Gandhi'?"
+  -> The factual answer is: Richard Attenborough
+PASS t2-subvention-058: "Tell me the director of 'Gandhi'."
+  -> The factual answer is: Richard Attenborough
+PASS t2-subvention-059: "Who directed 'Elvis'?"
+  -> The factual answer is: Buz Luhrmunn
+PASS t2-subvention-060: "Tell me the director of 'Elvis'."
+  -> The factual answer is: Buz Luhrmunn
+
+60/60 passed. Latency: median 0.02 s, max 0.06 s

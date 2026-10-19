@@ -54,6 +54,8 @@ CLAIM_VERBS = {
     "write": sb.SCREENWRITER, "wrote": sb.SCREENWRITER, "written": sb.SCREENWRITER,
     "compose": sb.COMPOSER, "composed": sb.COMPOSER,
 }
+UNIVERSES = {"actor": "actor", "actors": "actor", "actress": "actor", "actresses": "actor",
+             "director": "director", "directors": "director"}
 PARAPHRASES = (
     (re.compile(r"\b(?:did|does) the directing (?:for|of|on)\b", re.IGNORECASE), "directed"),
     (re.compile(r"\b(?:was|is|were|are) at the helm of\b", re.IGNORECASE), "directed"),
@@ -85,6 +87,8 @@ class Plan:
     negated: bool = False
     clarify: bool = False
     claim: Optional[Claim] = None
+    universe: Optional[str] = None  # "actor" or "director" when the question names the answer class
+    films: List[str] = field(default_factory=list)  # film mentions of a negated question, in text order
     notes: List[str] = field(default_factory=list)
 
 
@@ -134,6 +138,14 @@ class Preprocessor:
         cleaned = self._strip_trailing_clause(cleaned)
         mentions, clarify = self._scan(cleaned)
         plan.negated = NEGATION.search(self._shield(cleaned, mentions)) is not None
+        if plan.negated:
+            plan.universe = self._universe(cleaned, mentions)
+            if plan.universe is not None:
+                # "which actors did not direct X": the noun names the answer class, the verb names the
+                # relation; remove the noun so it cannot hijack the relation phrase
+                cleaned = self._detach_noun(cleaned, plan.universe)
+                plan.notes.append(f"{plan.universe} noun scopes the complement universe")
+                mentions, clarify = self._scan(cleaned)
         claim = None if plan.negated else self._detect_claim(cleaned)
         if claim is None and self._two_film_sentences(cleaned, mentions):
             clarify = True
@@ -142,6 +154,8 @@ class Preprocessor:
             plan.notes.append("ambiguous or partial mention")
         plan.claim = claim
         plan.clarify = claim is None and clarify
+        if plan.negated:
+            plan.films = self._mentioned_films(mentions)
         plan.text = cleaned if claim is not None else self._rewrite(cleaned, mentions)
         return plan
 
@@ -366,6 +380,42 @@ class Preprocessor:
             for i in range(mention.start, min(end, len(chars))):
                 chars[i] = " "
         return "".join(chars)
+
+    def _universe(self, text: str, mentions: List[_Mention]) -> Optional[str]:
+        """The person class the question names ("actors", "directors"), outside any title mention."""
+        spans = [(m.start, m.end) for m in mentions]
+        for match in TOKEN.finditer(text):
+            if any(match.start() < b and match.end() > a for a, b in spans):
+                continue
+            word = match.group(0).strip(CLEAN).casefold()
+            if word in UNIVERSES:
+                return UNIVERSES[word]
+        return None
+
+    def _detach_noun(self, text: str, universe: str) -> str:
+        """Remove the universe noun so the verb, not the noun, chooses the relation."""
+        words = sorted((w for w, u in UNIVERSES.items() if u == universe), key=len, reverse=True)
+        pattern = re.compile(r"\b(" + "|".join(map(re.escape, words)) + r")\b", re.IGNORECASE)
+        spans = [(start, end) for start, end, _content in self._quoted_spans(text)]
+        out, last = [], 0
+        for match in pattern.finditer(text):
+            if any(match.start() < b and match.end() > a for a, b in spans):
+                continue
+            out.append(text[last:match.start()])
+            last = match.end()
+        out.append(text[last:])
+        return re.sub(r"\s+", " ", "".join(out)).strip()
+
+    def _mentioned_films(self, mentions: List[_Mention]) -> List[str]:
+        """Every film the mentions resolve to, in text order (a negated question may name several)."""
+        films: List[str] = []
+        for mention in sorted(mentions, key=lambda m: m.start):
+            if mention.resolution is None:
+                continue
+            qid = next((q for q in mention.resolution.qids if self.lex.is_film(q)), None)
+            if qid is not None and qid not in films:
+                films.append(qid)
+        return films
 
     # ------------------------------------------------------------ resolution
 

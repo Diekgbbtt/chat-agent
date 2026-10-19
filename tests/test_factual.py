@@ -95,6 +95,25 @@ def test_negated_question_with_the_entity_as_object(factual_agent):
     assert "Ridley Scott" not in reply
 
 
+def test_negated_actor_question_uses_the_actor_universe(factual_agent):
+    # "actors" names the answer class (cast members, P161); it must not switch the relation to P161
+    reply = factual_agent.answer("Which actors did not direct 'Alien'?")
+    assert "Sigourney Weaver" in reply and "Meg Ryan" in reply
+    assert "Ridley Scott" not in reply
+
+
+def test_negated_multi_film_question_excludes_every_film(factual_agent):
+    reply = factual_agent.answer("Which directors did not direct 'Jaws' or 'Alien'?")
+    assert "Sofia Coppola" in reply
+    assert "Steven Spielberg" not in reply and "Ridley Scott" not in reply
+
+
+def test_negated_question_without_facts_lists_the_complement(factual_agent):
+    # Meg Ryan has no directing credits: she did not direct any film, not "no information"
+    reply = factual_agent.answer("What did Meg Ryan not direct?")
+    assert reply.startswith("The factual answer is:") and "Jaws" in reply
+
+
 def test_negation_word_in_a_title_is_not_a_negation(factual_agent):
     assert factual_agent.answer("Who directed 'Never Let Me Go'?") == "The factual answer is: Mark Romanek"
 

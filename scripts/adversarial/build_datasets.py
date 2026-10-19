@@ -261,6 +261,115 @@ def build_t1() -> list[dict]:
         forbidden = [v for v in vals if not any(v.casefold() in lb.casefold() for lb in labels)][:2]
         add(f"Who did not direct '{cand}'?", expected, forbidden, ent, "P57", q)
 
+    # film side, new syntax: "What did D not direct?" / "What has D not directed?"
+    # the reference template of the negation type: a director names the subject, films are the answer
+    for di, (d, _cnt) in enumerate(top_directors(8)):
+        q = (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
+             f"FILTER NOT EXISTS {{ ?x wdt:P57 <{WD}{d}> }} OPTIONAL {{ ?x rdfs:label ?label }} }}")
+        rs = rows(q)
+        labels = [r[1].value for r in rs if r[1]]
+        early = [lb for lb in labels[:400] if len(lb) >= 4 and not lb.isdigit()][:2]
+        if len(early) < 2:
+            continue
+        forb_pool = sorted((label(f) for f in films_of(d) if f in LEX.ent2lbl), key=len, reverse=True)
+        forbidden = [f for f in forb_pool if not any(f.casefold() in lb.casefold() for lb in labels)][:2]
+        dname = label(d)
+        forms = [f"What did {dname} not direct?", f"What has {dname} not directed?"]
+        if di < 3:
+            forms += [f"What movies did {dname} not direct?", f"What films has {dname} not directed?"]
+        for form in forms:
+            add(form, early, forbidden, d, "P57", q)
+
+    # person side, director noun: "Which directors did not direct 'F'?"
+    for f, fvals in list(POOL.values())[:8]:
+        q = (f"SELECT DISTINCT ?x ?label WHERE {{ ?f wdt:P57 ?x . "
+             f"FILTER NOT EXISTS {{ <{WD}{f}> wdt:P57 ?x }} OPTIONAL {{ ?x rdfs:label ?label }} }}")
+        rs = rows(q)
+        labels = {r[1].value for r in rs if r[1]}
+        pool = [n2 for n2 in ("Alfred Hitchcock", "Steven Spielberg", "Christopher Nolan",
+                              "Martin Scorsese", "Quentin Tarantino", "Ridley Scott") if n2 in labels]
+        expected = pool[:2] if len(pool) >= 2 else [lb for lb in sorted(labels, key=str.casefold)
+                                                   if len(lb) >= 5][:2]
+        if len(expected) < 2:
+            continue
+        forbidden = [v for v in fvals if not any(v.casefold() in lb.casefold() for lb in labels)][:2]
+        title = label(f)
+        for form in (f"Which directors did not direct '{title}'?",
+                     f"What directors have not directed '{title}'?"):
+            add(form, expected, forbidden, f, "P57", q)
+
+    # person side, several films: "Which directors did not direct 'A' or 'B'?" (neither film)
+    pairs = [("Jaws", "Alien"), ("The Godfather", "Titanic"), ("Inception", "Parasite"),
+             ("The Matrix", "Interstellar"), ("The Handmaiden", "Whiplash"),
+             ("The Departed", "The Pianist")]
+    for i, (a, b) in enumerate(pairs):
+        if a not in POOL or b not in POOL:
+            continue
+        fa, fvals_a = POOL[a]
+        fb, fvals_b = POOL[b]
+        q = (f"SELECT DISTINCT ?x ?label WHERE {{ ?f wdt:P57 ?x . "
+             f"FILTER NOT EXISTS {{ <{WD}{fa}> wdt:P57 ?x }} FILTER NOT EXISTS {{ <{WD}{fb}> wdt:P57 ?x }} "
+             f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
+        rs = rows(q)
+        labels = {r[1].value for r in rs if r[1]}
+        pool = [n2 for n2 in ("Alfred Hitchcock", "Steven Spielberg", "Christopher Nolan",
+                              "Martin Scorsese", "Quentin Tarantino", "Ridley Scott") if n2 in labels]
+        expected = pool[:2] if len(pool) >= 2 else [lb for lb in sorted(labels, key=str.casefold)
+                                                   if len(lb) >= 5][:2]
+        if len(expected) < 2:
+            continue
+        forbidden = [v for v in fvals_a + fvals_b
+                     if not any(v.casefold() in lb.casefold() for lb in labels)][:2]
+        forms = [f"Which directors did not direct '{a}' or '{b}'?"]
+        if i < 3:
+            forms.append(f"What directors have not directed '{a}' or '{b}'?")
+        for form in forms:
+            add(form, expected, forbidden, fa, "P57", q)
+
+    # actor universe: the noun names the answer class (P161 cast members), the verb names the relation
+    ACTOR_MARKERS = ["Meryl Streep", "Julia Roberts", "Gary Oldman", "Tom Hanks", "Diane Keaton",
+                     "Robert De Niro", "Al Pacino", "Gene Hackman", "Morgan Freeman", "Robert Duvall",
+                     "James Caan", "Leonardo DiCaprio", "Harrison Ford", "Kevin Costner"]
+    for i, act_lb in enumerate(("Unforgiven", "Argo", "Annie Hall", "The Godfather", "Jaws")):
+        ent = resolve_film(act_lb)
+        if not ent:
+            continue
+        q = (f"SELECT DISTINCT ?x ?label WHERE {{ ?f wdt:P161 ?x . ?x wdt:P31 wd:Q5 . "
+             f"FILTER NOT EXISTS {{ <{WD}{ent}> wdt:P57 ?x }} OPTIONAL {{ ?x rdfs:label ?label }} }}")
+        rs = rows(q)
+        labels = [r[1].value for r in rs if r[1]]
+        seen = set(labels)
+        cast = set(answer_values(ent, "P161"))
+        striking = ([m for m in ACTOR_MARKERS if m in seen and m in cast]
+                    or [v for v in labels if v in cast][:1])
+        marker = [m for m in ACTOR_MARKERS if m in seen and m not in cast]
+        expected = list(dict.fromkeys(striking[:1] + marker[:1]))
+        if len(expected) < 2:
+            continue
+        forbidden = answer_values(ent, "P57")[:2]
+        title = label(ent)
+        forms = [f"Which actors did not direct '{title}'?"]
+        if i < 3:
+            forms.append(f"What actors have not directed '{title}'?")
+        for form in forms:
+            add(form, expected, forbidden, ent, "P57", q)
+
+    # credit-less person subject: the negation must not be dropped as "no facts"
+    for lb, form in (("Marilyn Monroe", "What did {p} not direct?"),
+                     ("Audrey Hepburn", "What has {p} not directed?")):
+        ids = LEX.lbl2ent.get(lb.casefold(), [])
+        person = next((e for e in rank_entities(ids) if LEX.is_human(e)), None)
+        if not person or films_of(person):
+            continue
+        q = (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
+             f"FILTER NOT EXISTS {{ ?x wdt:P57 <{WD}{person}> }} OPTIONAL {{ ?x rdfs:label ?label }} }}")
+        rs = rows(q)
+        labels = [r[1].value for r in rs if r[1]]
+        early = [e for e in labels[:400] if len(e) >= 4 and not e.isdigit()][:2]
+        if len(early) < 2:
+            continue
+        add(form.format(p=lb), early, ["no information"], person, "P57", q)
+
     return cases
 
 

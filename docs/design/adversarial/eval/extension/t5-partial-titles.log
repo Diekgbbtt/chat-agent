@@ -1,0 +1,104 @@
+PASS t5-partial-titles-001: 'who directed handmaiden?'
+  -> The factual answer is: Park Chan-wook
+PASS t5-partial-titles-002: 'Who wrote the screenplay for handmaiden?'
+  -> The factual answer is: Jeong Seo-kyeong and Park Chan-wook
+PASS t5-partial-titles-003: "Who directed 'handmaiden'?"
+  -> The factual answer is: Park Chan-wook
+PASS t5-partial-titles-004: 'who directed matrix?'
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t5-partial-titles-005: 'Who wrote the screenplay for matrix?'
+  -> The factual answer is: the Wachowskis
+PASS t5-partial-titles-006: "Who directed 'matrix'?"
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t5-partial-titles-007: 'who directed godfather?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t5-partial-titles-008: 'Who wrote the screenplay for godfather?'
+  -> The factual answer is: Francis Ford Coppola and Mario Puzo
+PASS t5-partial-titles-009: "Who directed 'godfather'?"
+  -> The factual answer is: Francis Ford Coppola
+PASS t5-partial-titles-010: 'who directed inception?'
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-011: 'Who wrote the screenplay for inception?'
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-012: "Who directed 'inception'?"
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-013: 'who directed interstellar?'
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-014: 'Who wrote the screenplay for interstellar?'
+  -> The factual answer is: Christopher Nolan and Jonathan Nolan
+PASS t5-partial-titles-015: "Who directed 'interstellar'?"
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-016: 'who directed terminator?'
+  -> The factual answer is: James Cameron
+PASS t5-partial-titles-017: 'Who wrote the screenplay for terminator?'
+  -> The factual answer is: Gale Anne Hurd, James Cameron, and William Wisher Jr.
+PASS t5-partial-titles-018: "Who directed 'terminator'?"
+  -> The factual answer is: James Cameron
+PASS t5-partial-titles-019: 'who directed titanic?'
+  -> The factual answer is: Jean Negulesco
+PASS t5-partial-titles-020: 'Who wrote the screenplay for titanic?'
+  -> The factual answer is: Charles Brackett, Richard L. Breen, and Walter Reisch
+PASS t5-partial-titles-021: "Who directed 'titanic'?"
+  -> The factual answer is: Jean Negulesco
+PASS t5-partial-titles-022: 'who directed prestige?'
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-023: 'Who wrote the screenplay for prestige?'
+  -> The factual answer is: Christopher Nolan, Christopher Priest, and Jonathan Nolan
+PASS t5-partial-titles-024: "Who directed 'prestige'?"
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-025: 'who directed departed?'
+  -> The factual answer is: Martin Scorsese
+PASS t5-partial-titles-026: 'Who wrote the screenplay for departed?'
+  -> The factual answer is: Alan Mak, Felix Chong, and William Monahan
+PASS t5-partial-titles-027: "Who directed 'departed'?"
+  -> The factual answer is: Martin Scorsese
+PASS t5-partial-titles-028: 'who directed pianist?'
+  -> The factual answer is: Roman Polanski
+PASS t5-partial-titles-029: 'Who wrote the screenplay for pianist?'
+  -> The factual answer is: Ronald Harwood
+PASS t5-partial-titles-030: "Who directed 'pianist'?"
+  -> The factual answer is: Roman Polanski
+PASS t5-partial-titles-031: 'who directed dark knight?'
+  -> The factual answer is: Christopher Nolan
+PASS t5-partial-titles-032: 'Who wrote the screenplay for dark knight?'
+  -> The factual answer is: Bill Finger, Bob Kane, Christopher Nolan, David S. Goyer, and Jonathan Nolan
+PASS t5-partial-titles-033: 'who directed shawshank redemption?'
+  -> The factual answer is: Frank Darabont
+PASS t5-partial-titles-034: 'Who wrote the screenplay for shawshank redemption?'
+  -> The factual answer is: Frank Darabont and Stephen King
+PASS t5-partial-titles-035: 'who directed usual suspects?'
+  -> The factual answer is: Bryan Singer
+PASS t5-partial-titles-036: 'Who wrote the screenplay for usual suspects?'
+  -> The factual answer is: Christopher McQuarrie
+PASS t5-partial-titles-037: 'who directed silence of the lambs?'
+  -> The factual answer is: Jonathan Demme
+PASS t5-partial-titles-038: 'Who wrote the screenplay for silence of the lambs?'
+  -> The factual answer is: Ted Tally
+PASS t5-partial-titles-039: 'who directed basic instinct?'
+  -> The factual answer is: Paul Verhoeven
+PASS t5-partial-titles-040: 'Who wrote the screenplay for basic instinct?'
+  -> The factual answer is: Joe Eszterhas
+PASS t5-partial-titles-041: 'who directed dancer in the dark?'
+  -> The factual answer is: Lars von Trier
+PASS t5-partial-titles-042: 'Who wrote the screenplay for dancer in the dark?'
+  -> The factual answer is: Lars von Trier
+PASS t5-partial-titles-043: 'who directed truman show?'
+  -> The factual answer is: Peter Weir
+PASS t5-partial-titles-044: 'Who wrote the screenplay for truman show?'
+  -> The factual answer is: Andrew Niccol
+PASS t5-partial-titles-045: 'Who directed twilight zone?'
+  -> I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?
+PASS t5-partial-titles-046: 'who directed the handmaiden?'
+  -> The factual answer is: Park Chan-wook
+PASS t5-partial-titles-047: 'who directed the godfather?'
+  -> The factual answer is: Francis Ford Coppola
+PASS t5-partial-titles-048: 'who directed the terminator?'
+  -> The factual answer is: James Cameron
+PASS t5-partial-titles-049: 'who directed the matrix?'
+  -> The factual answer is: Lana Wachowski and Lelly Wechawsku
+PASS t5-partial-titles-050: 'who directed the departed?'
+  -> The factual answer is: Martin Scorsese
+PASS t5-partial-titles-051: 'who directed the prestige?'
+  -> The factual answer is: Christopher Nolan
+
+51/51 passed. Latency: median 0.00 s, max 0.02 s

@@ -1,0 +1,13 @@
+| type | passed | total | rate |
+| --- | --- | --- | --- |
+| t1-negation | 121 | 121 | 1.00 |
+| t2-subvention | 60 | 60 | 1.00 |
+| t3-quote-shapes | 57 | 57 | 1.00 |
+| t4-typos | 60 | 60 | 1.00 |
+| t5-partial-titles | 51 | 51 | 1.00 |
+| d1-count-class | 63 | 63 | 1.00 |
+| d2-multiple-mentions | 65 | 65 | 1.00 |
+| d3-trailing-superlative | 55 | 55 | 1.00 |
+| d5-yes-no | 62 | 62 | 1.00 |
+| d8-relation-paraphrases | 70 | 70 | 1.00 |
+| **all** | **664** | **664** | **1.00** |

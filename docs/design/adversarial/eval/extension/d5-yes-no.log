@@ -1,0 +1,126 @@
+PASS d5-yes-no-001: 'Did Christopher Nolan direct Inception?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-002: "Did Christopher Nolan direct 'Inception'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-003: "Did John Ford direct 'Inception'?"
+  -> The factual answer is: No
+PASS d5-yes-no-004: "Was 'Inception' directed by John Ford?"
+  -> The factual answer is: No
+PASS d5-yes-no-005: 'Did Christopher Nolan direct Interstellar?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-006: "Did Christopher Nolan direct 'Interstellar'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-007: "Did Alfred Hitchcock direct 'Interstellar'?"
+  -> The factual answer is: No
+PASS d5-yes-no-008: "Was 'Interstellar' directed by Alfred Hitchcock?"
+  -> The factual answer is: No
+PASS d5-yes-no-009: 'Did Francis Ford Coppola direct The Godfather?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-010: "Did Francis Ford Coppola direct 'The Godfather'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-011: "Did Woody Allen direct 'The Godfather'?"
+  -> The factual answer is: No
+PASS d5-yes-no-012: "Was 'The Godfather' directed by Woody Allen?"
+  -> The factual answer is: No
+PASS d5-yes-no-013: 'Did Francis Ford Coppola direct The Godfather Part II?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-014: "Did Francis Ford Coppola direct 'The Godfather Part II'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-015: "Did Michael Curtiz direct 'The Godfather Part II'?"
+  -> The factual answer is: No
+PASS d5-yes-no-016: "Was 'The Godfather Part II' directed by Michael Curtiz?"
+  -> The factual answer is: No
+PASS d5-yes-no-017: 'Did Lana Wachowski direct The Matrix?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-018: "Did Lana Wachowski direct 'The Matrix'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-019: "Did Steven Spielberg direct 'The Matrix'?"
+  -> The factual answer is: No
+PASS d5-yes-no-020: "Was 'The Matrix' directed by Steven Spielberg?"
+  -> The factual answer is: No
+PASS d5-yes-no-021: 'Did Lana Wachowski direct The Matrix Reloaded?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-022: "Did Lana Wachowski direct 'The Matrix Reloaded'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-023: "Did George Cukor direct 'The Matrix Reloaded'?"
+  -> The factual answer is: No
+PASS d5-yes-no-024: "Was 'The Matrix Reloaded' directed by George Cukor?"
+  -> The factual answer is: No
+PASS d5-yes-no-025: 'Did Steven Spielberg direct Jaws?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-026: "Did Steven Spielberg direct 'Jaws'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-027: "Did Clint Eastwood direct 'Jaws'?"
+  -> The factual answer is: No
+PASS d5-yes-no-028: "Was 'Jaws' directed by Clint Eastwood?"
+  -> The factual answer is: No
+PASS d5-yes-no-029: 'Did Park Chan-wook direct The Handmaiden?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-030: "Did Park Chan-wook direct 'The Handmaiden'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-031: "Did John Huston direct 'The Handmaiden'?"
+  -> The factual answer is: No
+PASS d5-yes-no-032: "Was 'The Handmaiden' directed by John Huston?"
+  -> The factual answer is: No
+PASS d5-yes-no-033: 'Did Jean Negulesco direct Titanic?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-034: "Did Jean Negulesco direct 'Titanic'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-035: "Did Martin Scorsese direct 'Titanic'?"
+  -> The factual answer is: No
+PASS d5-yes-no-036: "Was 'Titanic' directed by Martin Scorsese?"
+  -> The factual answer is: No
+PASS d5-yes-no-037: 'Did Christopher Nolan direct Batman Begins?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-038: "Did Christopher Nolan direct 'Batman Begins'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-039: "Did William Wyler direct 'Batman Begins'?"
+  -> The factual answer is: No
+PASS d5-yes-no-040: "Was 'Batman Begins' directed by William Wyler?"
+  -> The factual answer is: No
+PASS d5-yes-no-041: 'Did Christopher Nolan direct The Dark Knight?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-042: "Did Christopher Nolan direct 'The Dark Knight'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-043: "Did Howard Hawks direct 'The Dark Knight'?"
+  -> The factual answer is: No
+PASS d5-yes-no-044: "Was 'The Dark Knight' directed by Howard Hawks?"
+  -> The factual answer is: No
+PASS d5-yes-no-045: 'Did Christopher Nolan direct The Prestige?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-046: "Did Christopher Nolan direct 'The Prestige'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-047: "Did Ridley Scott direct 'The Prestige'?"
+  -> The factual answer is: No
+PASS d5-yes-no-048: "Was 'The Prestige' directed by Ridley Scott?"
+  -> The factual answer is: No
+PASS d5-yes-no-049: 'Did Bong Joon-ho direct Parasite?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-050: "Did Bong Joon-ho direct 'Parasite'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-051: "Did Sidney Lumet direct 'Parasite'?"
+  -> The factual answer is: No
+PASS d5-yes-no-052: "Was 'Parasite' directed by Sidney Lumet?"
+  -> The factual answer is: No
+PASS d5-yes-no-053: 'Did Damien Chazelle direct Whiplash?'
+  -> The factual answer is: Yes
+PASS d5-yes-no-054: "Did Damien Chazelle direct 'Whiplash'?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-055: "Did Billy Wilder direct 'Whiplash'?"
+  -> The factual answer is: No
+PASS d5-yes-no-056: "Was 'Whiplash' directed by Billy Wilder?"
+  -> The factual answer is: No
+PASS d5-yes-no-057: "Was 'Inception' written by Christopher Nolan?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-058: "Was 'Interstellar' written by Christopher Nolan?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-059: "Was 'The Godfather' written by Francis Ford Coppola?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-060: "Was 'The Godfather Part II' written by Francis Ford Coppola?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-061: "Was 'The Matrix' written by the Wachowskis?"
+  -> The factual answer is: Yes
+PASS d5-yes-no-062: "Was 'The Matrix Reloaded' written by Lana Wachowski?"
+  -> The factual answer is: Yes
+
+62/62 passed. Latency: median 0.00 s, max 0.02 s

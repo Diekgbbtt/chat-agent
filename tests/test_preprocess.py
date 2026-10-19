@@ -131,6 +131,34 @@ def test_plain_question_is_not_negated(pre):
     assert pre.analyze("Who directed 'Jaws'?").negated is False
 
 
+def test_actor_noun_scopes_the_universe(pre):
+    plan = pre.analyze("Which actors did not direct 'Alien'?")
+    assert plan.negated is True and plan.universe == "actor"
+    assert plan.text == "Which did not direct 'Alien'?"
+
+
+def test_director_noun_scopes_the_universe(pre):
+    plan = pre.analyze("Which directors did not direct 'Alien'?")
+    assert plan.negated is True and plan.universe == "director"
+    assert plan.text == "Which did not direct 'Alien'?"
+
+
+def test_positive_actor_question_keeps_the_noun(pre):
+    plan = pre.analyze("Which actors are in 'Alien'?")
+    assert plan.negated is False and plan.universe is None
+    assert "actors" in plan.text
+
+
+def test_single_film_mention_is_collected(pre):
+    assert pre.analyze("Who did not direct 'Alien'?").films == ["Q103569"]
+
+
+def test_multi_film_mentions_are_collected(pre):
+    plan = pre.analyze("Which directors did not direct 'Jaws' or 'Alien'?")
+    assert len(plan.films) == 2 and len(set(plan.films)) == 2
+    assert "Q189505" in plan.films and "Q103569" in plan.films
+
+
 # ---------------------------------------------------------------- claims
 
 def test_direct_claim_detected(pre):

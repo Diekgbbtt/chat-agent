@@ -41,7 +41,7 @@ Each line is `{"id", "input", "expected", "forbidden", "grounding"}`.
 
 | File | Cases | Entities | Relations | Form classes (counts) |
 |---|---|---|---|---|
-| `t1-negation.jsonl` | 64 | 28 | P57, P58 | film-side P57 not-direct 28; film-side P58 not-write 10; person-side P57 not-direct 16; combined negation + masked title 2; masking controls 8 |
+| `t1-negation.jsonl` | 121 | 34 | P57, P58 | film-side P57 not-direct 28; film-side P58 not-write 10; person-side P57 not-direct 16; combined negation + masked title 2; masking controls 8; director-subject "what did" syntax 22; director-noun person side 16; multi-film "or" 9; actor-universe 8; credit-less subject 2 |
 | `t2-subvention.jsonl` | 60 | 12 | P57, P58 | crafted longer non-title, expected = clarification 36; real short-title controls 24 |
 | `t3-quote-shapes.jsonl` | 57 | 12 | P57, P58, P86 | doubled quotes 6; inner spaces 6; inner period 6; inner question mark 4; working shapes (bare, single, double, curly, unclosed, suffix, lowercase) 35 |
 | `t4-typos.jsonl` | 60 | 15 | P57, P58 | mapped typos 47; safe scrambles, expected = clarification 8; known-working controls 5 |
@@ -54,7 +54,7 @@ Each line is `{"id", "input", "expected", "forbidden", "grounding"}`.
 
 Entity counts are distinct QIDs across `grounding.entity` and `grounding.entities`.
 Every file has >= 50 cases, >= 10 distinct entities, and >= 2 relations.
-Total: 607 cases.
+Total: 664 cases.
 
 ## G5 check
 
@@ -250,9 +250,14 @@ The verification output in full:
 summary: 0 failed checks
 ```
 
+Post-S10 extension: the file set was rebuilt after the T1 extension.
+`eval/extension/check.log` reports 10 files OK and `eval/extension/verify.log` reports 0 failed checks.
+The block above is the S5 sample history.
+
 ## Decision mapping
 
 - T1 universes follow Q9. Film side: `?x wdt:P31 wd:Q11424` without `wdt:P57` to the director. Person side: objects of `wdt:P57` without a `wdt:P57` edge from the film.
+  The post-S10 extension adds the actor universe (objects of `wdt:P161` with `wdt:P31 wd:Q5`), used when the question names actors; see `12-negation-extension.md`.
 - T1 film-side truncation follows the accepted risk. A film complement always exceeds `Settings.max_fetch_rows` = 10,000. The builder picks `expected` labels from the first 400 rows of the exact query shape above. The S8 implementation must reuse this query shape so the reply contains these labels.
 - T2 restriction follows Q12 plus the subvention guard. All 36 red carriers are absent from the lexicon and score below 0.80 against the parser's fuzzy list. `forbidden` holds the fragment's real answers, so a substring match inside the longer non-title cannot pass.
 - T3 shapes follow Q12. Working shapes include the doubled quote-free forms that already pass. The Godfather cases forbid `Lal and Siddique`, the current wrong link.
@@ -269,3 +274,4 @@ summary: 0 failed checks
 Command: `.venv/bin/python scripts/adversarial/build_datasets.py`
 The builder is deterministic: fixed seed, sorted pools, no network access.
 It overwrites the ten files and prints the coverage grid as JSON (log: `s5-build.log`).
+Post-S10: the same command produced `eval/extension/build.log` with the extended T1 file (121 cases).

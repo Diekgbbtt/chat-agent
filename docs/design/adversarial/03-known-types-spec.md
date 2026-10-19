@@ -52,6 +52,19 @@ Reply shape: the standard `nlg.answer()` list, same template as positive lookups
 
 **Dataset plan (S5).** 50+ cases: >= 10 distinct entities, 2 relations (P57 director; P58 screenwriter complement on the film side), mix of "did not", "has not", "never" forms; 15+ masking control cases with negation words inside titles.
 
+**Extension (post-S10, operator request).**
+
+- Director subject, the reference template: "What did D not direct?", "What has D not directed?".
+  Same semantics as S10: the film-side complement.
+- Director noun, film object: "Which directors did not direct 'F'?", "What directors have not directed 'F'?".
+- Multi-film "or": "Which directors did not direct 'A' or 'B'?" excludes directors of A and of B.
+- Actor universe: "Which actors did not direct 'F'?" scopes the answer to cast members (objects of `wdt:P161` with `wdt:P31 wd:Q5`), not to holders of the credit.
+  The noun names the answer class; the verb names the relation.
+- Credit-less subject: a negated question about a person without the credit ("What did Marilyn Monroe not direct?") answers the complement; the negation is never dropped as "no facts".
+- A noun only scopes; it never replaces the relation: "Which actors are in 'F'?" keeps answering the P161 cast.
+- Cases 065-121; full record in `docs/design/adversarial/12-negation-extension.md`.
+- Accepted risk: the actor complement truncates at the 10,000-row cap; F4 expected values are harvested from the capped rows.
+
 ---
 
 ## T2 - Subvention (entity name contains another entity name)

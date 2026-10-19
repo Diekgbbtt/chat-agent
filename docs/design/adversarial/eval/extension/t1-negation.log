@@ -1,0 +1,244 @@
+PASS t1-negation-001: 'Which movies did John Ford not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-002: 'Which films has John Ford not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-003: 'Which movies were not directed by John Ford?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-004: 'Which movies did John Ford never direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-005: 'Which movies did Alfred Hitchcock not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-006: 'Which films has Alfred Hitchcock not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-007: 'Which movies were not directed by Alfred Hitchcock?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-008: 'Which movies did Alfred Hitchcock never direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-009: 'Which movies did Woody Allen not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-010: 'Which films has Woody Allen not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-011: 'Which movies were not directed by Woody Allen?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-012: 'Which movies did Woody Allen never direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-013: 'Which movies did Michael Curtiz not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-014: 'Which films has Michael Curtiz not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-015: 'Which movies were not directed by Michael Curtiz?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-016: 'Which movies did Michael Curtiz never direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-017: 'Which movies did Steven Spielberg not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-018: 'Which films has Steven Spielberg not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-019: 'Which movies were not directed by Steven Spielberg?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-020: 'Which movies did George Cukor not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-021: 'Which films has George Cukor not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-022: 'Which movies were not directed by George Cukor?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-023: 'Which movies did Clint Eastwood not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-024: 'Which films has Clint Eastwood not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-025: 'Which movies were not directed by Clint Eastwood?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-026: 'Which movies did John Huston not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-027: 'Which films has John Huston not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-028: 'Which movies were not directed by John Huston?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-029: 'Which films did Ben Hecht not write?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-030: 'Which movies has Ben Hecht not written?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-031: 'Which films did Woody Allen not write?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-032: 'Which movies has Woody Allen not written?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-033: 'Which films did Tonino Guerra not write?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-034: 'Which movies has Tonino Guerra not written?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-035: 'Which films did Luc Besson not write?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-036: 'Which movies has Luc Besson not written?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-037: 'Which films did Dudley Nichols not write?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-038: 'Which movies has Dudley Nichols not written?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-039: "Who did not direct 'Inception'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-040: "Who has not directed 'Inception'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-041: "Who did not direct 'Interstellar'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-042: "Who has not directed 'Interstellar'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-043: "Who did not direct 'The Godfather'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-044: "Who has not directed 'The Godfather'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-045: "Who did not direct 'The Godfather Part II'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-046: "Who has not directed 'The Godfather Part II'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-047: "Who did not direct 'The Matrix'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-048: "Who has not directed 'The Matrix'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-049: "Who did not direct 'The Matrix Reloaded'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-050: "Who has not directed 'The Matrix Reloaded'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-051: "Who did not direct 'Jaws'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-052: "Who has not directed 'Jaws'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-053: "Who did not direct 'The Handmaiden'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-054: "Who has not directed 'The Handmaiden'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-055: "Who directed 'No Country for Old Men'?"
+  -> The factual answer is: Ethan Coen and Joel Coen
+PASS t1-negation-056: "Who directed 'Notting Hill'?"
+  -> The factual answer is: Roger Michell
+PASS t1-negation-057: "Who directed 'North by Northwest'?"
+  -> The factual answer is: Alfred Hitchcock
+PASS t1-negation-058: "Who directed 'Never Let Me Go'?"
+  -> The factual answer is: Mark Romanek
+PASS t1-negation-059: "Who directed 'Notorious'?"
+  -> The factual answer is: Alfred Hitchcock
+PASS t1-negation-060: "Who directed 'Noah'?"
+  -> The factual answer is: Darren Aronofsky
+PASS t1-negation-061: "Who directed 'Nocturnal Animals'?"
+  -> The factual answer is: Tom Ford
+PASS t1-negation-062: "Who directed 'Notes on a Scandal'?"
+  -> The factual answer is: Richard Eyre
+PASS t1-negation-063: "Who did not direct 'No Country for Old Men'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-064: "Who did not direct 'Notting Hill'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-065: 'What did John Ford not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-066: 'What has John Ford not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-067: 'What movies did John Ford not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-068: 'What films has John Ford not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-069: 'What did Alfred Hitchcock not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-070: 'What has Alfred Hitchcock not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-071: 'What movies did Alfred Hitchcock not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-072: 'What films has Alfred Hitchcock not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-073: 'What did Woody Allen not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-074: 'What has Woody Allen not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-075: 'What movies did Woody Allen not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-076: 'What films has Woody Allen not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-077: 'What did Michael Curtiz not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-078: 'What has Michael Curtiz not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-079: 'What did Steven Spielberg not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-080: 'What has Steven Spielberg not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-081: 'What did George Cukor not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-082: 'What has George Cukor not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-083: 'What did Clint Eastwood not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-084: 'What has Clint Eastwood not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-085: 'What did John Huston not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-086: 'What has John Huston not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-087: "Which directors did not direct 'Inception'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-088: "What directors have not directed 'Inception'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-089: "Which directors did not direct 'Interstellar'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-090: "What directors have not directed 'Interstellar'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-091: "Which directors did not direct 'The Godfather'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-092: "What directors have not directed 'The Godfather'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-093: "Which directors did not direct 'The Godfather Part II'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-094: "What directors have not directed 'The Godfather Part II'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-095: "Which directors did not direct 'The Matrix'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-096: "What directors have not directed 'The Matrix'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-097: "Which directors did not direct 'The Matrix Reloaded'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-098: "What directors have not directed 'The Matrix Reloaded'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-099: "Which directors did not direct 'Jaws'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-100: "What directors have not directed 'Jaws'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-101: "Which directors did not direct 'The Handmaiden'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-102: "What directors have not directed 'The Handmaiden'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-103: "Which directors did not direct 'Jaws' or 'Alien'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-104: "What directors have not directed 'Jaws' or 'Alien'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-105: "Which directors did not direct 'The Godfather' or 'Titanic'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-106: "What directors have not directed 'The Godfather' or 'Titanic'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-107: "Which directors did not direct 'Inception' or 'Parasite'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-108: "What directors have not directed 'Inception' or 'Parasite'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-109: "Which directors did not direct 'The Matrix' or 'Interstellar'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-110: "Which directors did not direct 'The Handmaiden' or 'Whiplash'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-111: "Which directors did not direct 'The Departed' or 'The Pianist'?"
+  -> The factual answer is: A. D. Miles, A. Edward Sutherland, A. J. Kardar, Aamir Khan, Aaron Blaise, Aaron Horvath, Aaron Moorhead, Aaron Norris, Aaron Russo, Aaron Schneider, Aaron Seltzer, Aaron Sorkin, Abbas Kiarostami, Abdellatif Ben Ammar, Abdellatif Kechiche, Abderrahmane Sissako, Abel Ferrara, A
+PASS t1-negation-112: "Which actors did not direct 'Unforgiven'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-113: "What actors have not directed 'Unforgiven'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-114: "Which actors did not direct 'Argo'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-115: "What actors have not directed 'Argo'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-116: "Which actors did not direct 'Annie Hall'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-117: "What actors have not directed 'Annie Hall'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-118: "Which actors did not direct 'The Godfather'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-119: "Which actors did not direct 'Jaws'?"
+  -> The factual answer is: A. Bromley Davenport, A. J. Bowen, A. J. Cook, A. Jones, A.J. Verel, Aanchal Munjal, Aaron D. Spears, Aaron Friesz, Aaron Izbicki, Aaron James Murphy, Aaron Kwok, Aaron Lohr, Aaron Lustig, Aaron Miko, Aaron Swartz, Aaron Yoo, Aaryn Doyle, Aasha Davis, Aat Ceelen, Abbey Lincoln
+PASS t1-negation-120: 'What did Marilyn Monroe not direct?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+PASS t1-negation-121: 'What has Audrey Hepburn not directed?'
+  -> The factual answer is: &ME, 'night, Mother, 'Til There Was You, (500) Days of Summer, ...And the Wild Wild Women, 1 + 1 = 3, 1 + 1 = 3 2, 1%, 1, 2, 3, Sun, 1-900, 10, 10 Things I Hate About You, 10 to Midnight, 10 Years, 10,000 BC, 10,000 km, 100 Bloody Acres, 101 Dalmatians, 101 Reykjavík, 102 Dalm
+
+121/121 passed. Latency: median 0.36 s, max 5.44 s
