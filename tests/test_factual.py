@@ -109,6 +109,12 @@ def test_negation_accepts_name_case_and_uppercase_negation(factual_agent, questi
     assert "The Godfather" in reply
 
 
+def test_surname_only_negation_uses_the_famous_director(factual_agent):
+    reply = factual_agent.answer("what films did Spielberg not direct")
+    assert "The Godfather" in reply
+    assert "no information" not in reply
+
+
 def test_negated_actor_question_uses_the_actor_universe(factual_agent):
     # "actors" names the answer class (cast members, P161); it must not switch the relation to P161
     reply = factual_agent.answer("Which actors did not direct 'Alien'?")

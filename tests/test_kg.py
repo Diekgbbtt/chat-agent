@@ -1,3 +1,6 @@
+import hashlib
+import json
+import shutil
 import time
 
 import pytest
@@ -79,3 +82,87 @@ def test_leftover_partial_build_is_replaced(tmp_path):
     build_store(MINI_GRAPH, tmp_path / "store")
     assert store_is_built(tmp_path / "store")
     assert not partial.exists()
+
+
+def test_marker_records_graph_hash_and_runtime(tmp_path):
+    store = tmp_path / "store"
+    build_store(MINI_GRAPH, store)
+    marker = json.loads((store / BUILD_MARKER).read_text(encoding="utf-8"))
+    assert marker["graph"]["sha256"] == hashlib.sha256(MINI_GRAPH.read_bytes()).hexdigest()
+    assert marker["runtime"]["pyoxigraph"]
+    assert marker["runtime"]["platform"]
+    assert marker["runtime"]["machine"]
+    assert store_is_built(store, MINI_GRAPH)
+
+
+def test_store_survives_a_move_without_rebuild(tmp_path):
+    store = tmp_path / "store"
+    moved = tmp_path / "moved-store"
+    build_store(MINI_GRAPH, store)
+    built_at = (store / BUILD_MARKER).stat().st_mtime_ns
+    store.rename(moved)
+    assert store_is_built(moved, MINI_GRAPH)
+    graph = KnowledgeGraph.open(MINI_GRAPH, moved)
+    try:
+        assert graph.query("ASK { wd:Q47703 ?p ?o }") is True
+    finally:
+        graph.close()
+    assert (moved / BUILD_MARKER).stat().st_mtime_ns == built_at
+
+
+def test_changed_graph_invalidates_the_store(tmp_path):
+    store = tmp_path / "store"
+    changed = tmp_path / "changed.nt"
+    changed.write_text(MINI_GRAPH.read_text(encoding="utf-8")
+                       + '\n<http://example.org/s> <http://example.org/p> "v" .\n',
+                       encoding="utf-8")
+    build_store(MINI_GRAPH, store)
+    before = json.loads((store / BUILD_MARKER).read_text(encoding="utf-8"))["graph"]["sha256"]
+    build_store(changed, store)
+    after = json.loads((store / BUILD_MARKER).read_text(encoding="utf-8"))["graph"]["sha256"]
+    assert before != after
+    assert store_is_built(store, changed)
+
+
+def test_legacy_or_incompatible_marker_invalidates_the_store(tmp_path):
+    store = tmp_path / "store"
+    build_store(MINI_GRAPH, store)
+    marker_path = store / BUILD_MARKER
+    marker_path.write_text("/old/absolute/path", encoding="utf-8")
+    assert not store_is_built(store, MINI_GRAPH)
+    build_store(MINI_GRAPH, store)
+    marker = json.loads(marker_path.read_text(encoding="utf-8"))
+    marker["runtime"]["pyoxigraph"] = "0.0.0"
+    marker_path.write_text(json.dumps(marker), encoding="utf-8")
+    assert not store_is_built(store, MINI_GRAPH)
+    build_store(MINI_GRAPH, store)
+    assert store_is_built(store, MINI_GRAPH)
+
+
+def test_dangling_store_symlink_is_rebuilt(tmp_path):
+    target = tmp_path / "target-store"
+    link = tmp_path / "store-link"
+    build_store(MINI_GRAPH, target)
+    link.symlink_to(target, target_is_directory=True)
+    shutil.rmtree(target)
+    assert link.is_symlink()
+    build_store(MINI_GRAPH, link)
+    assert link.exists()
+    assert store_is_built(link, MINI_GRAPH)
+
+
+def test_read_only_store_parent_falls_back_to_a_writable_store(tmp_path, monkeypatch):
+    readonly = tmp_path / "readonly"
+    readonly.mkdir()
+    readonly.chmod(0o500)
+    fallback = tmp_path / "fallback-store"
+    monkeypatch.setattr("agent.kg._fallback_store_path", lambda _: fallback)
+    try:
+        graph = KnowledgeGraph.open(MINI_GRAPH, readonly / "store")
+        try:
+            assert graph.query("ASK { wd:Q47703 ?p ?o }") is True
+        finally:
+            graph.close()
+        assert store_is_built(fallback, MINI_GRAPH)
+    finally:
+        readonly.chmod(0o700)

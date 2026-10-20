@@ -23,6 +23,10 @@ from agent.lexicon import Lexicon
 
 STOPWORDS = set("""a an the of in on at by for to from with and or is are was were be been did does do has have had
 who whom what which when where how many much this that it its me my please tell movie movies film films""".split())
+# Question words and negation words make a fuzzy window straddle a relation phrase.
+# Articles and prepositions can legally start or end a title, so they stay in fuzzy windows.
+FUZZY_EDGE_NOISE = (STOPWORDS - {"a", "an", "the", "of", "in", "on", "at", "by", "for", "to",
+                                  "from", "with", "and", "or"}) | {"not", "never"}
 APPROACH_PREFIX = re.compile(r"^please answer this question[^:]*:\s*", re.IGNORECASE)
 EARLIEST = re.compile(r"\b(earliest|first|oldest)\b", re.IGNORECASE)
 LATEST = re.compile(r"\b(latest|most recent|newest|last)\b", re.IGNORECASE)
@@ -59,6 +63,18 @@ class Parser:
         self.phrase_pattern = re.compile(r"\b(" + "|".join(map(re.escape, alternatives)) + r")\b", re.IGNORECASE)
         self.fuzzy_labels = [l for l, ids in lexicon.lbl2ent.items()
                              if any(lexicon.is_film(q) or lexicon.is_human(q) for q in ids)]
+        self.surnames = {}  # "spielberg" -> ["Q8877", "Q1866328", ...]
+        for label_text, ids in lexicon.lbl2ent.items():
+            if " " not in label_text:
+                continue
+            humans = [q for q in ids if lexicon.is_human(q)]
+            if not humans:
+                continue
+            surname = label_text.rsplit(" ", 1)[-1]
+            bucket = self.surnames.setdefault(surname, [])
+            for q in humans:
+                if q not in bucket:
+                    bucket.append(q)
 
     def parse(self, text: str) -> Question:
         text = APPROACH_PREFIX.sub("", text.replace("‘", "'").replace("’", "'").strip())
@@ -123,6 +139,10 @@ class Parser:
                             if needs_capital and self._inside_longer_title(text, words, i, i + n - 1):
                                 return (0, 0), []  # "Don't Look Up" isn't in the graph; don't answer for "Up"
                             return (start, start + len(phrase)), self._rank(self.lex.lbl2ent[phrase.lower()])
+                        if n == 1:
+                            surname = self._surname_candidates(phrase)
+                            if surname:
+                                return (start, start + len(phrase)), surname
 
         for start, end in reversed(words):  # last resort: a lower-case one-word film title ("who directed her")
             word = text[start:end]
@@ -136,7 +156,9 @@ class Parser:
             for i in range(len(words) - n + 1):
                 start, end = words[i][0], words[i + n - 1][1]
                 phrase = text[start:end].rstrip("?.!,").lower()
-                if len(phrase) < 5 or all(t in STOPWORDS for t in phrase.split()):
+                tokens = phrase.split()
+                if (len(phrase) < 5 or all(t in STOPWORDS for t in tokens)
+                        or tokens[0] in FUZZY_EDGE_NOISE or tokens[-1] in FUZZY_EDGE_NOISE):
                     continue
                 match = process.extractOne(phrase, self.fuzzy_labels, scorer=OSA.normalized_similarity,
                                            score_cutoff=0.85)
@@ -161,6 +183,13 @@ class Parser:
                     break
                 k += step
         return False
+
+    def _surname_candidates(self, phrase: str) -> List[str]:
+        """A capitalized single word can name a person by surname: "Spielberg" -> Steven first."""
+        if " " in phrase or not phrase[:1].isupper():
+            return []
+        candidates = self.surnames.get(phrase.casefold())
+        return self._rank(list(candidates)) if candidates else []
 
     def _rank(self, entities: List[str]) -> List[str]:
         """Films first, then the entity the graph knows most about."""

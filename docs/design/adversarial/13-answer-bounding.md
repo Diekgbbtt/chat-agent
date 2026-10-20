@@ -67,12 +67,14 @@ The new reply is about 175 times smaller.
 - `tests/test_sparql_builder.py`: the complement query ends with `LIMIT 1000`.
 - `tests/test_nlg.py`: `nlg.answer` keeps exactly 50 values.
 - `tests/test_factual.py`: a 61-film graph returns 50 values, the high-degree film is first, and the lowest-degree film is absent.
+- `tests/test_factual.py`: a surname-only negation uses the famous director, not the wrong entity.
 - `tests/test_preprocess.py`: lowercase names and uppercase `NOT` no longer block entity resolution.
-- `evals/stage2_factual_negation.jsonl`: 9/9.
+- `tests/test_parser.py`: `Spielberg` resolves to `Q8877`, and a fuzzy window cannot join `did` to the surname.
+- `evals/stage2_factual_negation.jsonl`: 9/9, with `The BFG` forbidden for every Spielberg case.
 - `evals/stage2_factual.jsonl`: 508/508.
 - `evals/stage1_sparql.jsonl`: 9/9.
 - All ten adversarial types: 664/664.
-- `pytest`: 145 passed.
+- `pytest`: 154 passed.
 
 ## Dataset consequence
 
@@ -112,5 +114,8 @@ It also removes any forbidden value that appears anywhere in the serialized answ
 
 ## Follow-up
 
-The environment-assumptions report and the stale-submission audit remain separate work items.
-The bounded reply shape must be rebuilt into the submission artifact before deployment.
+The environment, technology, and interaction assumptions are recorded in `14-environment-assumptions.md`.
+The store marker now checks the graph SHA-256, pyoxigraph version, Python minor version, OS, and machine.
+The store build resolves dangling symlinks and falls back to a temporary store when the submission directory is read-only.
+The stale submission artifact was rebuilt from the current `agent/` package.
+The bounded reply shape is in the rebuilt submission artifact.
