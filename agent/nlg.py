@@ -24,11 +24,8 @@ def format_term(term: Optional[Term]) -> str:
 
 
 def join_and(items: Iterable[str]) -> str:
-    """["a"] -> "a", ["a", "b"] -> "a and b", ["a", "b", "c"] -> "a, b, and c"."""
-    items = list(items)
-    if len(items) <= 2:
-        return " and ".join(items)
-    return ", ".join(items[:-1]) + f", and {items[-1]}"
+    """["a"] -> "a", ["a", "b"] -> "a and b", ["a", "b", "c"] -> "a and b and c"."""
+    return " and ".join(items)
 
 
 def answer(values: List[str]) -> str:

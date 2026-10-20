@@ -15,7 +15,7 @@ P = "Please answer this question with a factual approach: "
     ("who wrote the godfather", "Mario Puzo"),
     ("Who wrote the screenplay for the Handmaidne?", "Jeong Seo-kyeong and Park Chan-wook"),  # typo
     # the entity is the object: list its movies
-    ("Which movies did Sofia Coppola direct?", "Lost in Translation, Marie Antoinette, and The Virgin Suicides"),
+    ("Which movies did Sofia Coppola direct?", "Lost in Translation and Marie Antoinette and The Virgin Suicides"),
     ("How many movies has Sofia Coppola directed?", "3"),
     ("What is the latest film directed by Sofia Coppola?", "Marie Antoinette"),
     # literals

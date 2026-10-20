@@ -6,7 +6,7 @@ def test_join_and():
     assert join_and([]) == ""
     assert join_and(["A"]) == "A"
     assert join_and(["A", "B"]) == "A and B"
-    assert join_and(["A", "B", "C"]) == "A, B, and C"
+    assert join_and(["A", "B", "C"]) == "A and B and C"
     assert answer(["A", "B"]) == "The factual answer is: A and B"
 
 
