@@ -1,6 +1,6 @@
 # Answer bounding for negated lookups
 
-State: post-S10 extension, 2026-10-20.
+State: post-S10 extension, 2026-10-21.
 Supersedes the unbounded complement decision in Q1 of `03-known-types-spec.md`.
 The runtime behavior is in `agent/sparql_builder.py`, `agent/handlers/factual.py`, and `agent/nlg.py`.
 
@@ -41,6 +41,21 @@ It then sorts by descending degree, breaks ties by case-folded label, removes du
 6. `nlg.answer` slices to 50 again and joins the values.
 7. `SpeakeasyBot` applies the 4,000-character cap only if an abnormal reply still exceeds it.
 
+## Contraction inside an unknown title
+
+`who directed don't look up?` is not a negated lookup.
+The `n't` belongs to the title, not to the question.
+The graph has no `Don't Look Up` label.
+The old edge-trimming path removed `don't`, resolved `look up` by fuzzy match to `Lock Up`, and then marked the question as negated.
+The reply was a complement list that included `Ridley Scott`.
+The fix requires an exact label or family match after edge trimming.
+A fuzzy match cannot create an entity from a trimmed title fragment.
+The preprocessor now finds the sub-run `Up` and returns a clarification.
+The quoted forms `'Don't Look Up'` and `"Don't Look Up"` also clarify.
+Inside a quoted title, a known fragment is subvention even when the fragment starts with a capital letter.
+The agent does not answer `Don't Look Up` with facts about `Don`, `Lock Up`, or `Up`.
+A known contraction title such as `Don't Look Now` still resolves exactly.
+
 ## Relevance definition
 
 The relevance score is the count of triples with the entity as subject.
@@ -69,12 +84,15 @@ The new reply is about 175 times smaller.
 - `tests/test_factual.py`: a 61-film graph returns 50 values, the high-degree film is first, and the lowest-degree film is absent.
 - `tests/test_factual.py`: a surname-only negation uses the famous director, not the wrong entity.
 - `tests/test_preprocess.py`: lowercase names and uppercase `NOT` no longer block entity resolution.
+- `tests/test_preprocess.py`: `who directed don't look up?` clarifies instead of resolving `Lock Up`.
+- `tests/test_preprocess.py`: unquoted, single-quoted, and double-quoted `Don't Look Up` never answer for `Don`.
+- `tests/test_preprocess.py`: `Don't Look Now` still resolves through an exact family match.
 - `tests/test_parser.py`: `Spielberg` resolves to `Q8877`, and a fuzzy window cannot join `did` to the surname.
 - `evals/stage2_factual_negation.jsonl`: 9/9, with `The BFG` forbidden for every Spielberg case.
 - `evals/stage2_factual.jsonl`: 508/508.
 - `evals/stage1_sparql.jsonl`: 9/9.
 - All ten adversarial types: 664/664.
-- `pytest`: 154 passed.
+- `pytest`: 159 passed.
 
 ## Dataset consequence
 
@@ -119,3 +137,7 @@ The store marker now checks the graph SHA-256, pyoxigraph version, Python minor 
 The store build resolves dangling symlinks and falls back to a temporary store when the submission directory is read-only.
 The stale submission artifact was rebuilt from the current `agent/` package.
 The bounded reply shape is in the rebuilt submission artifact.
+The live Speakeasy room showed two bot processes under one alias.
+One process returned the old positive answer, and one returned the bounded complement.
+Stop the old process before deploying the rebuilt artifact.
+Otherwise the room keeps both answer shapes.

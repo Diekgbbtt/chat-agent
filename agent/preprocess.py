@@ -295,7 +295,9 @@ class Preprocessor:
             mentions.append(mention)
             resolution = self._resolve(content)
             if resolution is None:
-                if self._contained_subrun(content) is not None:
+                # A quoted title is a claim that the whole span is the entity. Any known fragment
+                # inside it is subvention, even when the fragment is capitalised ("Don't Look Up").
+                if self._contained_subrun(content, lowercase_only=False) is not None:
                     clarify = True
                 continue
             mention.resolution = resolution
@@ -317,11 +319,15 @@ class Preprocessor:
             if resolution is None:
                 trimmed, trim_start, trim_end = self._trim_negation(raw)
                 if trimmed != raw:
-                    resolution = self._resolve(trimmed)
-                    if resolution is not None and self._interesting(resolution):
+                    candidate = self._resolve(trimmed)
+                    # A fuzzy match after trimming can turn a title contraction into a different
+                    # title ("don't look up" -> "look up" -> "Lock Up"). Require an exact family
+                    # or label match; an unknown title must clarify instead.
+                    if (candidate is not None and candidate.source != "fuzzy"
+                            and self._interesting(candidate)):
                         mentions.append(_Mention(run[low][0] + trim_start,
                                                  run[low][0] + trim_end, trimmed,
-                                                 False, True, resolution))
+                                                 False, True, candidate))
                         continue
             if resolution is not None:
                 if self._interesting(resolution):
@@ -353,14 +359,16 @@ class Preprocessor:
         word = word.strip(CLEAN).casefold()
         return word in {"not", "never"} or word.endswith("n't")
 
-    def _contained_subrun(self, text: str) -> Optional[str]:
-        """A lower-case strict sub-run of `text` that resolves on its own."""
+    def _contained_subrun(self, text: str, *, lowercase_only: bool = True) -> Optional[str]:
+        """A strict sub-run of `text` that resolves on its own (lower-case only by default)."""
         matches = list(TOKEN.finditer(text))
         count = len(matches)
         for size in range(count - 1, 0, -1):
             for start in range(0, count - size + 1):
                 raw = text[matches[start].start():matches[start + size - 1].end()]
-                if not self._lowercase(raw) or all(self._stopword(word) for word in raw.split()):
+                if lowercase_only and not self._lowercase(raw):
+                    continue
+                if all(self._stopword(word) for word in raw.split()):
                     continue
                 resolution = self._resolve(raw, allow_fuzzy=False)
                 if resolution is not None and self._interesting(resolution):

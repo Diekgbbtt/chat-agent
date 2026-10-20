@@ -1,6 +1,6 @@
 # Environment, technology, and interaction assumptions
 
-State: 2026-10-20.
+State: 2026-10-21.
 Scope: the Speakeasy-hosted chatbot, the Nuvolos evaluation machine, the local development machine, the graph store, and the submission artifact.
 Purpose: state every assumption behind a successful run, show which assumptions are proven, and separate the confirmed failure causes from the unproven machine-stack hypothesis.
 The report does not claim a single root cause for the other-system crash.
@@ -268,6 +268,56 @@ The evidence supports a multi-cause model, not a single proven root cause.
    `KnowledgeGraph.open` now retries at a per-store temporary directory and logs a warning.
    A regression test covers the read-only parent case.
 
+8. Two bot processes were connected to one live Speakeasy room.
+   The room showed two replies to a single question under one bot alias.
+   One process ran the old behavior.
+   The other process ran the current behavior.
+   The Alien question is the clearest case.
+   The first reply was `Ridley Scott`.
+   The second reply was the 50-value complement that excludes Ridley Scott.
+   The Spielberg filmography question also split.
+   One reply was the correct list.
+   The other reply was `Sorry, my knowledge graph has no information about the director of David Spielberg.`
+   The negated Spielberg question split in the same way.
+   One reply was the positive filmography with `The BFG`.
+   The other reply was the bounded complement that starts with `Lost in Translation`.
+   This duplicate deployment is a confirmed cause of the observed wrong live answer.
+   A rebuilt artifact alone does not stop the old process.
+   The operator must stop every old process before evaluation.
+
+9. The live pre-patch process treated a contraction inside an unknown title as negation.
+   The live answer to `who directed don't look up?` was a complement list that included `Ridley Scott`.
+   The local cause was a fuzzy match from `look up` to the film `Lock Up`.
+   The quoted form `'Don't Look Up'` had a second cause.
+   The apostrophe in `Don't` paired with the closing quote.
+   That pairing made the parser see the human `Don`.
+   The current fix rejects the fuzzy match and treats a known fragment inside a quoted title as subvention.
+   `Don't Look Up` is absent from the graph, so the correct grounded behavior is a clarification.
+   The fix does not invent Adam McKay, and it does not answer for `Don`, `Lock Up`, or `Up`.
+
+### Live check, 2026-10-21
+
+A signed-in Speakeasy room was observed after the operator reported the Ridley Scott answer.
+The room had one human alias and two bot responders under the alias `affectionate_nash_42`.
+
+| Question | Live replies | Reading |
+|---|---|---|
+| `Who did not direct 'Alien'?` | `Ridley Scott`, then the 50-value complement | Stale process plus current process. |
+| `Which movies did Spielberg direct?` | Correct filmography and a `David Spielberg` no-facts reply | Stale process resolves the wrong person. |
+| `Which movies did Steven Spielberg not direct?` | Positive filmography and a bounded complement | Stale process ignores negation. |
+| `Who directed Jaws?` | `Steven Spielberg` twice | Both processes answer this case correctly. |
+| `Did Ridley Scott direct Jaws?` | `No` | The claim path works in the current process. |
+| `Who directed 'Never Let Me Go'?` | `Mark Romanek` twice | Both processes answer this case correctly. |
+| `who directed don't look up?` | A complement list that included `Ridley Scott` | Pre-patch process; the local fix now clarifies. |
+
+The live latency for the bounded complement was about 0.3 seconds.
+This is below the 25 second timeout, but it does not prove the remote load or the other machine's disk speed.
+
+The live room proves that a second bot process is active.
+It does not prove which filesystem or Python stack that process uses.
+It also does not prove that the old process is the only remaining risk.
+The filesystem and machine-stack drift concern therefore remains open.
+
 ### Unproven hypotheses
 
 The filesystem and machine-stack drift hypothesis is plausible.
@@ -295,6 +345,10 @@ remote failure
 │  ├─ stale agent copy
 │  ├─ missing current preprocessor and parser
 │  └─ old unbounded complement path
+├─ duplicate deployment [confirmed live]
+│  ├─ old bot process still connected
+│  ├─ both processes share one bot alias
+│  └─ old process returns positive or wrong-person answers
 ├─ filesystem and store drift [mechanism confirmed; remote occurrence unknown]
 │  ├─ dangling kg_store symlink -> NotADirectoryError at rename
 │  ├─ read-only parent -> temporary fallback or PermissionError
@@ -316,7 +370,9 @@ remote failure
 
 ### Critical evaluation
 
-The artifact drift is the only confirmed deployment cause.
+The duplicate live process is the confirmed cause of the reported wrong answer.
+Artifact drift was the confirmed cause before the rebuild.
+The two causes interact because the duplicate process is probably an old artifact.
 The unbounded reply is a confirmed code-level cause of latency.
 The surname bug is a confirmed code-level cause of wrong answers.
 The store marker and dangling-link bugs are confirmed code-level failure modes.
@@ -482,6 +538,8 @@ A missing startup log points to an import or launch failure before the bot liste
 
 ## Recommendations
 
+Stop every old bot process and every old Speakeasy session before deployment.
+Confirm that one question produces one reply.
 Deploy the rebuilt submission artifact.
 Run the fingerprint and forced-rebuild tests on the target machine before the evaluation window.
 Use `/opt/conda/bin/python` for every check.
@@ -491,13 +549,15 @@ Do not copy a store across OS, architecture, or pyoxigraph versions.
 Rebuild on the target instead.
 Keep the 1,000-row complement limit and the 50-value serializer.
 Keep the 4,000 character fallback as a guard.
+Do not treat `Don't Look Up` as a supported title.
+The graph does not contain it, so the safe answer is a clarification.
 Capture the startup fingerprint and the first failing traceback if a remote failure recurs.
 
 ## Evidence appendix
 
 Local code and test evidence at this revision.
 
-- `pytest`: 154 passed.
+- `pytest`: 159 passed.
 - Stage 1: 9/9.
 - Stage 2 factual: 508/508.
 - Stage 2 factual negation: 9/9.
@@ -509,6 +569,10 @@ Local code and test evidence at this revision.
 - Local graph: 303,306,568 bytes, SHA-256 `11073431030bde60d971f0e5b2c1f9c1e7f7ca2a91519bfe1bb7229cdc6b5c6a`.
 - Local store: pyoxigraph 0.5.11, Python 3.13, Darwin arm64, marker version 1.
 - Local store hash check: about 0.15 seconds.
+- Live Speakeasy: two bot responders under one alias.
+- Live Alien answer: stale `Ridley Scott` plus current 50-value complement.
+- Live bounded complement latency: about 0.3 seconds.
+- Local unquoted, single-quoted, and double-quoted `Don't Look Up`: clarification, no `Don`, `Lock Up`, or `Up` answer.
 
 The local environment is not the remote environment.
 The local results prove the code paths under the local assumptions.

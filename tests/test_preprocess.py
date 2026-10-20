@@ -3,6 +3,8 @@
 import pytest
 
 from agent import sparql_builder as sb
+from agent.core import build_agent
+from agent.kg import KnowledgeGraph
 from agent.lexicon import Lexicon
 from agent.parser import Parser
 from agent.preprocess import Preprocessor, strip_article
@@ -12,6 +14,37 @@ from agent.preprocess import Preprocessor, strip_article
 def pre(movies_kg):
     lex = Lexicon(movies_kg)
     return Preprocessor(movies_kg, lex, Parser(movies_kg, lex))
+
+
+@pytest.fixture
+def contraction_pre(tmp_path):
+    graph = tmp_path / "graph.nt"
+    graph.write_text(
+        "\n".join([
+            '<http://www.wikidata.org/entity/Q100> <http://www.w3.org/2000/01/rdf-schema#label> "Up" .',
+            '<http://www.wikidata.org/entity/Q100> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .',
+            '<http://www.wikidata.org/entity/Q101> <http://www.w3.org/2000/01/rdf-schema#label> "Lock Up" .',
+            '<http://www.wikidata.org/entity/Q101> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .',
+            '<http://www.wikidata.org/entity/Q102> <http://www.w3.org/2000/01/rdf-schema#label> "Don\'t Look Now" .',
+            '<http://www.wikidata.org/entity/Q102> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .',
+            '<http://www.wikidata.org/entity/Q200> <http://www.w3.org/2000/01/rdf-schema#label> "Pete Docter" .',
+            '<http://www.wikidata.org/entity/Q200> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .',
+            '<http://www.wikidata.org/entity/Q201> <http://www.w3.org/2000/01/rdf-schema#label> "John Flynn" .',
+            '<http://www.wikidata.org/entity/Q201> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .',
+            '<http://www.wikidata.org/entity/Q202> <http://www.w3.org/2000/01/rdf-schema#label> "Nicolas Roeg" .',
+            '<http://www.wikidata.org/entity/Q202> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .',
+            '<http://www.wikidata.org/entity/Q203> <http://www.w3.org/2000/01/rdf-schema#label> "Don" .',
+            '<http://www.wikidata.org/entity/Q203> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .',
+            '<http://www.wikidata.org/entity/Q100> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q200> .',
+            '<http://www.wikidata.org/entity/Q101> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q201> .',
+            '<http://www.wikidata.org/entity/Q102> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q202> .',
+            "",
+        ])
+    )
+    kg = KnowledgeGraph.open(graph, tmp_path / "store", query_timeout_s=5)
+    lex = Lexicon(kg)
+    yield Preprocessor(kg, lex, Parser(kg, lex))
+    kg.close()
 
 
 # ------------------------------------------------------------------ quotes
@@ -56,6 +89,34 @@ def test_contraction_is_not_an_opening_quote(pre):
     plan = pre.analyze("Who directed Don't Look Her?")
     assert plan.text == "Who directed Don't Look Her?"
     assert plan.clarify is False
+
+
+def test_contraction_in_unknown_title_clarifies(contraction_pre):
+    plan = contraction_pre.analyze("who directed don't look up?")
+    assert plan.clarify is True
+    assert plan.text == "who directed don't look up?"
+    reply = build_agent(contraction_pre.kg).answer("who directed don't look up?")
+    assert reply.startswith("I'm not sure which movie or person")
+    assert "Lock Up" not in reply
+
+
+def test_contraction_in_known_title_still_resolves(contraction_pre):
+    plan = contraction_pre.analyze("Who directed Don't Look Now?")
+    assert plan.clarify is False
+    assert plan.text == "Who directed 'Don't Look Now'?"
+    reply = build_agent(contraction_pre.kg).answer("Who directed Don't Look Now?")
+    assert reply == "The factual answer is: Nicolas Roeg"
+
+
+@pytest.mark.parametrize("question", [
+    "Who directed Don't Look Up?",
+    "Who directed 'Don't Look Up'?",
+    'Who directed "Don\'t Look Up"?',
+])
+def test_unknown_contraction_title_never_answers_for_don(contraction_pre, question):
+    reply = build_agent(contraction_pre.kg).answer(question)
+    assert reply.startswith("I'm not sure which movie or person")
+    assert "director of Don" not in reply
 
 
 # ---------------------------------------------------------- trailing clause
