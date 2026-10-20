@@ -317,7 +317,8 @@ class Preprocessor:
             if resolution is None:
                 trimmed, trim_start, trim_end = self._trim_negation(raw)
                 if trimmed != raw:
-                    resolution = self._resolve(trimmed)
+                    # exact only: a fuzzy match would turn "don't look up" into the film Lock Up
+                    resolution = self._resolve(trimmed, allow_fuzzy=False)
                     if resolution is not None and self._interesting(resolution):
                         mentions.append(_Mention(run[low][0] + trim_start,
                                                  run[low][0] + trim_end, trimmed,

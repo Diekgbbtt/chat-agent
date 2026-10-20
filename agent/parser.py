@@ -115,7 +115,8 @@ class Parser:
 
     def _find_entity(self, text: str) -> Tuple[Tuple[int, int], List[str]]:
         """The (start, end) of the entity in the text and its candidate Q-ids, best first."""
-        for pattern in (r"'(.+)'", r"'(.+?)'", r'"(.+?)"'):  # greedy first: "'The Cat o' Nine Tails'"
+        # greedy first: "'The Cat o' Nine Tails'"; quotes never touch a letter on their outer side ("didn't", "Don't")
+        for pattern in (r"(?<!\w)'(.+)'(?!\w)", r"(?<!\w)'(.+?)'(?!\w)", r'"(.+?)"'):
             for match in re.finditer(pattern, text):
                 if match.group(1).lower() in self.lex.lbl2ent:
                     return match.span(1), self._rank(self.lex.lbl2ent[match.group(1).lower()])
