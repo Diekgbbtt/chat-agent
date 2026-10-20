@@ -35,18 +35,20 @@ class FactualHandler:
         if q.error == "no_relation":
             return nlg.no_relation(entity)
         relation = self.lex.prop2lbl.get(q.predicate, nlg.short_iri(q.predicate))
-        negated_lookup = plan.negated and q.kind == "lookup" and q.predicate
-        if q.error == "no_facts" and not negated_lookup:
+        negated = plan.negated and q.kind in ("lookup", "count") and q.predicate
+        negated_lookup = negated and q.kind == "lookup"
+        if q.error == "no_facts" and not negated:
             return nlg.no_facts(relation, entity)
 
-        if negated_lookup:
+        if negated:
             direction = q.direction
             if q.error == "no_facts":
                 # the negation is about the whole relation, not about this entity's (missing) facts
                 direction = "out" if self.lex.is_film(q.entity) else "in"
             others = [f for f in plan.films if f != q.entity]
-            query = sb.complement(q.entity, q.predicate, direction,
-                                  universe=plan.universe, others=others)
+            # "how many ... not ..." counts the complement, not the entity's own values
+            build = sb.complement_count if q.kind == "count" else sb.complement
+            query = build(q.entity, q.predicate, direction, universe=plan.universe, others=others)
         elif q.kind == "count":
             query = sb.count(q.entity, q.predicate, q.direction)
         elif q.kind in ("earliest", "latest"):

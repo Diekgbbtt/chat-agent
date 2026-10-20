@@ -134,6 +134,44 @@ def test_negated_question_without_facts_lists_the_complement(factual_agent):
     assert reply.startswith("The factual answer is:") and "Jaws" in reply
 
 
+def _count(kg, where: str) -> int:
+    return int(kg.query(f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ {where} }}").rows[0][0].value)
+
+
+def test_negated_count_counts_the_complement(factual_agent, movies_kg):
+    # all films minus Spielberg's films, computed independently of the complement query
+    films = _count(movies_kg, "?x wdt:P31 wd:Q11424")
+    his = _count(movies_kg, "?x wdt:P57 wd:Q8877 . ?x wdt:P31 wd:Q11424")
+    assert his > 0
+    for question in ("How many movies did Steven Spielberg not direct?",
+                     "how many films did Spielberg not direct"):
+        assert factual_agent.answer(question) == f"The factual answer is: {films - his}"
+
+
+def test_plain_count_is_unchanged(factual_agent, movies_kg):
+    his = _count(movies_kg, "?x wdt:P57 wd:Q8877 . ?x wdt:P31 wd:Q11424")
+    assert factual_agent.answer("How many movies did Steven Spielberg direct?") == f"The factual answer is: {his}"
+
+
+def test_negated_count_with_the_entity_as_object(factual_agent, movies_kg):
+    directors = _count(movies_kg, "?f wdt:P57 ?x")
+    assert factual_agent.answer("How many directors did not direct 'Alien'?") == \
+        f"The factual answer is: {directors - 1}"  # Ridley Scott is Alien's only director
+
+
+def test_negated_count_excludes_every_film(factual_agent, movies_kg):
+    directors = _count(movies_kg, "?f wdt:P57 ?x")
+    both = _count(movies_kg, "VALUES ?f { wd:Q189505 wd:Q103569 } ?f wdt:P57 ?x")
+    assert factual_agent.answer("How many directors did not direct 'Jaws' or 'Alien'?") == \
+        f"The factual answer is: {directors - both}"
+
+
+def test_negated_count_without_facts_counts_every_film(factual_agent, movies_kg):
+    # Meg Ryan has no directing credits, so she did not direct any of the films
+    films = _count(movies_kg, "?x wdt:P31 wd:Q11424")
+    assert factual_agent.answer("How many movies did Meg Ryan not direct?") == f"The factual answer is: {films}"
+
+
 def test_negation_word_in_a_title_is_not_a_negation(factual_agent):
     assert factual_agent.answer("Who directed 'Never Let Me Go'?") == "The factual answer is: Mark Romanek"
 

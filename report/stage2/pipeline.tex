@@ -1,0 +1,43 @@
+\begin{tikzpicture}[
+    node distance=4mm and 6mm,
+    box/.style={draw, rounded corners, align=center, font=\small, text width=5cm, inner sep=4pt},
+    side/.style={draw, dashed, rounded corners, align=center, font=\footnotesize, text width=3.3cm,
+                 inner sep=3pt, fill=gray!8},
+    arr/.style={-{Stealth}, thick},
+    use/.style={-{Stealth}, dashed}
+]
+    % main flow
+    \node[box] (msg) {\textbf{Speakeasy message}\\ \textit{``Who is the director of Good Will Hunting?''}};
+    \node[box, below=of msg] (bot) {\textbf{Speakeasy bot}\\ worker pool, one lock per chatroom,\\ reply timeout 25\,s};
+    \node[box, below=of bot] (route) {\textbf{Router}: is it a SPARQL query?};
+    \node[box, below=of route] (entity) {\textbf{Entity linking}\\ quoted title, else longest label, else fuzzy\\
+        \texttt{Good Will Hunting} $\rightarrow$ \texttt{wd:Q193835}};
+    \node[box, below=of entity] (relation) {\textbf{Relation linking}\\ \texttt{director} $\rightarrow$ \texttt{wdt:P57}};
+    \node[box, below=of relation] (check) {\textbf{Graph check} (\texttt{ASK} queries)\\
+        same-named entities, direction: answer = object};
+    \node[box, below=of check] (query) {\textbf{SPARQL template}\\ lookup / count / earliest / latest};
+    \node[box, below=of query] (answer) {\textbf{Answer} (posted to the chatroom)\\
+        \textit{``The factual answer is: Gus Van Sant''}};
+
+    % resources
+    \node[side, right=of entity] (lex) {\textbf{Lexicon} (built at start)\\ \texttt{ent2lbl}, \texttt{lbl2ent},\\ property labels};
+    \node[side, right=of relation] (syn) {\texttt{relations.json}\\ everyday wordings};
+    \node[side, right=of query] (store) {\textbf{pyoxigraph store}\\ \texttt{graph.nt}, 2.4M triples};
+    \node[side, left=of route] (sparql) {\textbf{SPARQL handler}\\ (Evaluation I)\\ runs the query as is};
+
+    % edges
+    \draw[arr] (msg) -- (bot);
+    \draw[arr] (bot) -- (route);
+    \draw[arr] (route) -- node[right, font=\footnotesize] {no} (entity);
+    \draw[arr] (route) -- node[above, font=\footnotesize] {yes} (sparql);
+    \draw[arr] (entity) -- (relation);
+    \draw[arr] (relation) -- (check);
+    \draw[arr] (check) -- (query);
+    \draw[arr] (query) -- (answer);
+    \draw[arr] (sparql.south) |- node[pos=0.25, left, font=\footnotesize] {rows} (answer.west);
+    \draw[use] (lex) -- (entity);
+    \draw[use] (lex) -- (relation);
+    \draw[use] (syn) -- (relation);
+    \draw[use] (store) -- (query);
+    \draw[use] (store) |- (check);
+\end{tikzpicture}

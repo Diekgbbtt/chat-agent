@@ -50,6 +50,20 @@ def count(entity: str, predicate: str, direction: str) -> str:
             f"{film_filter} }}")
 
 
+def _complement_where(entity: str, predicate: str, direction: str, universe: Optional[str],
+                      others: Sequence[str]) -> str:
+    """The graph pattern of the complement; shared by the list and the count so they never disagree."""
+    if direction == "in":
+        return f"?x wdt:P31 wd:Q11424 . FILTER NOT EXISTS {{ ?x <{predicate}> <{WD}{entity}> }}"
+    if universe == "actor" and predicate == DIRECTOR:
+        base = "?f wdt:P161 ?x . ?x wdt:P31 wd:Q5 ."
+    else:
+        base = f"?f <{predicate}> ?x ."
+    filters = " ".join(f"FILTER NOT EXISTS {{ <{WD}{film}> <{predicate}> ?x }}"
+                       for film in (entity, *others))
+    return f"{base} {filters}"
+
+
 def complement(entity: str, predicate: str, direction: str, universe: Optional[str] = None,
                others: Sequence[str] = ()) -> str:
     """The relation's domain minus the values linked to the entity ("movies not directed by X").
@@ -57,18 +71,17 @@ def complement(entity: str, predicate: str, direction: str, universe: Optional[s
     universe "actor" scopes person answers to cast members (P161), the default is everyone who holds
     the credit; `others` lists further films whose holders the person answers must exclude too.
     """
-    if direction == "in":
-        return (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
-                f"FILTER NOT EXISTS {{ ?x <{predicate}> <{WD}{entity}> }} "
-                f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {COMPLEMENT_FETCH_LIMIT}")
-    if universe == "actor" and predicate == DIRECTOR:
-        base = "?f wdt:P161 ?x . ?x wdt:P31 wd:Q5 ."
-    else:
-        base = f"?f <{predicate}> ?x ."
-    filters = " ".join(f"FILTER NOT EXISTS {{ <{WD}{film}> <{predicate}> ?x }}"
-                       for film in (entity, *others))
-    return (f"SELECT DISTINCT ?x ?label WHERE {{ {base} {filters} "
+    where = _complement_where(entity, predicate, direction, universe, others)
+    select = "?x ?label" if direction == "in" else "DISTINCT ?x ?label"
+    return (f"SELECT {select} WHERE {{ {where} "
             f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {COMPLEMENT_FETCH_LIMIT}")
+
+
+def complement_count(entity: str, predicate: str, direction: str, universe: Optional[str] = None,
+                     others: Sequence[str] = ()) -> str:
+    """Size of the complement ("how many movies did X not direct"); unbounded, unlike the list."""
+    where = _complement_where(entity, predicate, direction, universe, others)
+    return f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ {where} }}"
 
 
 def claim(film: str, predicate: str, person: str) -> str:

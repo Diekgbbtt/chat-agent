@@ -55,6 +55,16 @@ def test_complement_is_bounded_at_the_query_layer():
     assert sb.complement("Q103569", P57, "out").endswith(f"LIMIT {sb.COMPLEMENT_FETCH_LIMIT}")
 
 
+def test_complement_count_shares_the_complement_pattern():
+    for args, kwargs in ((("Q56094", P57, "in"), {}), (("Q103569", P57, "out"), {"universe": "actor"}),
+                         (("Q103569", P57, "out"), {"others": ("Q47703",)})):
+        listed, counted = sb.complement(*args, **kwargs), sb.complement_count(*args, **kwargs)
+        assert counted.startswith("SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {")
+        assert "LIMIT" not in counted  # the count must cover the whole complement
+        for part in ("FILTER NOT EXISTS", "wdt:P161", "Q47703", "wd:Q11424"):
+            assert (part in listed) == (part in counted)
+
+
 def test_claim_ask():
     assert sb.claim("Q47703", P57, "Q56094") == \
         f"ASK {{ <http://www.wikidata.org/entity/Q47703> <{P57}> <http://www.wikidata.org/entity/Q56094> }}"
@@ -65,7 +75,9 @@ def test_queries_run(movies_kg):
                   sb.superlative("Q193628", P57, "in", "ASC"), sb.degree("Q47703"),
                   sb.complement("Q56094", P57, "in"), sb.complement("Q103569", P57, "out"),
                   sb.complement("Q103569", P57, "out", universe="actor"),
-                  sb.complement("Q103569", P57, "out", others=("Q47703",))):
+                  sb.complement("Q103569", P57, "out", others=("Q47703",)),
+                  sb.complement_count("Q56094", P57, "in"),
+                  sb.complement_count("Q103569", P57, "out", universe="actor", others=("Q47703",))):
         movies_kg.query(query)
     assert movies_kg.query(sb.has_facts("Q47703", P57, "out")) is True
     assert movies_kg.query(sb.has_facts("Q47703", P57, "in")) is False
