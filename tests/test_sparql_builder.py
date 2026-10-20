@@ -49,6 +49,12 @@ def test_complement_extra_films_are_all_excluded():
     assert "<http://www.wikidata.org/entity/Q103569>" in q
 
 
+def test_complement_is_bounded_at_the_query_layer():
+    assert sb.COMPLEMENT_FETCH_LIMIT > 50
+    assert sb.complement("Q56094", P57, "in").endswith(f"LIMIT {sb.COMPLEMENT_FETCH_LIMIT}")
+    assert sb.complement("Q103569", P57, "out").endswith(f"LIMIT {sb.COMPLEMENT_FETCH_LIMIT}")
+
+
 def test_claim_ask():
     assert sb.claim("Q47703", P57, "Q56094") == \
         f"ASK {{ <http://www.wikidata.org/entity/Q47703> <{P57}> <http://www.wikidata.org/entity/Q56094> }}"

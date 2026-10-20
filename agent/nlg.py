@@ -6,6 +6,7 @@ from agent.kg import Term
 
 SHORT_PREFIXES = {"http://www.wikidata.org/entity/": "", "http://www.wikidata.org/prop/direct/": "",
                   "http://ddis.ch/atai/": "ddis:"}
+ANSWER_LIMIT = 50
 
 
 def short_iri(iri: str) -> str:
@@ -28,8 +29,9 @@ def join_and(items: Iterable[str]) -> str:
     return " and ".join(items)
 
 
-def answer(values: List[str]) -> str:
-    return f"The factual answer is: {join_and(values)}"
+def answer(values: List[str], limit: int = ANSWER_LIMIT) -> str:
+    """Serializes at most `limit` values; the caller orders them by relevance."""
+    return f"The factual answer is: {join_and(values[:limit])}"
 
 
 def no_entity() -> str:

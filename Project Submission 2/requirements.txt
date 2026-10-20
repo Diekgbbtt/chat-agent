@@ -1,5 +1,17 @@
 # Speakeasy client (not on PyPI; same commits as the Nuvolos environment)
-openapi @ git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python@daa32fba0a01fee9ddedfbb6b208dc70b5633523
+# seems already an internal dependency of speakeasy python lib
+# openapi @ git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python@daa32fba0a01fee9ddedfbb6b208dc70b5633523
+# pip error log 
+# INFO: pip is looking at multiple versions of speakeasypy to determine which version is compatible with other requirements. This could take a while.
+# ERROR: Cannot install -r requirements.txt (line 3) and openapi 1.0.0 (from git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python@daa32fba0a01fee9ddedfbb6b208dc70b5633523) because these package versions have conflicting dependencies.
+
+# The conflict is caused by:
+#     The user requested openapi 1.0.0 (from git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python@daa32fba0a01fee9ddedfbb6b208dc70b5633523)
+#     speakeasypy 1.0.0 depends on openapi 1.0.0 (from git+https://github.com/Alan-s-Speakeasy/speakeasy-openapi-python)
+
+# To fix this you could try to:
+# 1. loosen the range of package versions you've specified
+# 2. remove package versions to allow pip to attempt to solve the dependency conflict
 speakeasypy @ git+https://github.com/Alan-s-Speakeasy/Speakeasy-Python-Client-Library.git@4419d9c6563633b864eecee05db4b84c93f30a60
 
 # Knowledge graph
