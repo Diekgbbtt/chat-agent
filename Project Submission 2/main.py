@@ -3,6 +3,9 @@
 import os
 import sys
 
+os.environ["BOT_USERNAME"] = ""
+os.environ["BOT_PASSWORD"] = ""
+
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "additional_files"))
 
 from agent.__main__ import main  # noqa: E402
