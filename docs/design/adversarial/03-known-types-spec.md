@@ -11,7 +11,9 @@ Shared definitions (from `docs/design/adversarial/01-domain-model.md` and `02-ar
 - Films that have a director (P57 subjects): 13,746 entities.
 - Human universe: `wdt:P31 wd:Q5` = 85,854 entities.
 - Safe-failure reply: `nlg.no_entity()` = "I'm not sure which movie or person you mean. Could you put the title in quotes, e.g. Who directed 'Jaws'?" (already expected by golden cases `greeting` and `unknown-title`).
-- Row cap: `Settings.max_fetch_rows` = 10,000 (`agent/config.py` line 101); a complement reply truncates deterministically at that cap.
+- Row cap: `Settings.max_fetch_rows` = 10,000 remains the hard safety cap.
+  Negated lookups now cap the candidate query at `COMPLEMENT_FETCH_LIMIT` = 1,000 and serialize at most `ANSWER_LIMIT` = 50 values.
+  See `13-answer-bounding.md`.
 
 ---
 
@@ -37,18 +39,22 @@ The entity span is masked before negation detection.
 - G1: R1 must contain complement members and no positive members.
   Grounded: `"The Godfather"` appears in the complement rows (verified), `"Inception"` does not.
 - G2: R2 must contain directors that are not Inception's director; `"Christopher Nolan"` must not appear.
-  Grounded: director universe = 6,109 entities (fits under the 10,000-row cap, no truncation).
+  Grounded: director universe = 6,109 entities; the bounded candidate query and the 50-value serializer keep the reply small.
 - G3 (masking control, green today, must stay): `"Who directed 'No Country for Old Men'?"` -> `"The factual answer is: Ethan Coen and Joel Coen"`; the reply must not contain the T1 refusal text.
 
-**Expected behaviour.** The complement of the relation over its domain: films not directed by X (film universe, 12,245, truncated at 10,000 rows), or directors who did not direct Y (director universe, 6,109).
+**Expected behaviour.** The complement of the relation over its domain: films not directed by X (film universe, 12,245), or directors who did not direct Y (director universe, 6,109).
+The candidate query returns at most 1,000 rows; the handler ranks those rows by graph degree and serializes the top 50.
 Reply shape: the standard `nlg.answer()` list, same template as positive lookups.
 
 **Decision nodes (resolved).**
 
-- Q1: always compute the complement, regardless of size; one-level negation in scope.
+- Q1: always compute the complement, regardless of size, but bound the candidate query and serialize the most relevant values.
+  One-level negation is in scope. This revises the earlier unbounded interpretation.
 - Q8: double negation disregarded; entity-embedded negation masked.
 - Q9: universe = relation domains: films = `wdt:P31 wd:Q11424`; directors = objects of `wdt:P57`.
-- Accepted risk: the film complement reply truncates at 10,000 rows; dataset expected values are harvested from the actual reply to stay deterministic.
+- Accepted risk: the complement is ranked among a 1,000-row candidate pool, not the full universe.
+  Graph degree is a popularity proxy, not a guarantee that every famous film appears.
+  Dataset expected values are harvested from the actual serialized reply to stay deterministic.
 
 **Dataset plan (S5).** 50+ cases: >= 10 distinct entities, 2 relations (P57 director; P58 screenwriter complement on the film side), mix of "did not", "has not", "never" forms; 15+ masking control cases with negation words inside titles.
 
@@ -63,7 +69,7 @@ Reply shape: the standard `nlg.answer()` list, same template as positive lookups
 - Credit-less subject: a negated question about a person without the credit ("What did Marilyn Monroe not direct?") answers the complement; the negation is never dropped as "no facts".
 - A noun only scopes; it never replaces the relation: "Which actors are in 'F'?" keeps answering the P161 cast.
 - Cases 065-121; full record in `docs/design/adversarial/12-negation-extension.md`.
-- Accepted risk: the actor complement truncates at the 10,000-row cap; F4 expected values are harvested from the capped rows.
+- Accepted risk: the actor complement uses the same 1,000-row candidate cap and 50-value serializer; F4 expected values are harvested from the serialized rows.
 
 ---
 

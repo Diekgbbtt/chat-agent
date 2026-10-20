@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT))
 from rapidfuzz import process as rf_process  # noqa: E402
 from rapidfuzz.distance import OSA  # noqa: E402
 
-from agent import nlg  # noqa: E402
+from agent import nlg, sparql_builder as sb  # noqa: E402
 from agent.cli import load_agent  # noqa: E402
 
 WD = "http://www.wikidata.org/entity/"
@@ -87,6 +87,39 @@ def safe_forbidden(forbidden, expected, haystacks=()) -> list[str]:
     """Forbidden strings that collide (casefold substring) with the expected reply composition."""
     hay = [e.casefold() for e in expected] + [h.casefold() for h in haystacks]
     return [f for f in forbidden if any(f.casefold() in h for h in hay)]
+
+
+def ranked_complement_labels(query: str) -> list[str]:
+    """Mirror the handler: bounded candidate pool, then top labels by graph degree."""
+    rs = rows(f"{query} LIMIT {sb.COMPLEMENT_FETCH_LIMIT}")
+    candidates = {}
+    for row in rs:
+        if len(row) < 2 or not row[0] or not row[1]:
+            continue
+        iri = row[0].value
+        if not iri.startswith(WD):
+            continue
+        candidates.setdefault(iri[len(WD):], row[1].value)
+    if not candidates:
+        return []
+
+    values = " ".join(f"<{WD}{entity}>" for entity in candidates)
+    degree_rows = rows(f"SELECT ?x (COUNT(*) AS ?n) WHERE {{ VALUES ?x {{ {values} }} "
+                       f"?x ?p ?o }} GROUP BY ?x")
+    degree = {r[0].value[len(WD):]: int(r[1].value)
+              for r in degree_rows if r[0] and r[1]}
+    ordered = sorted(candidates.items(),
+                     key=lambda item: (-degree.get(item[0], 0), item[1].casefold()))
+    labels, seen = [], set()
+    for _entity, label_text in ordered:
+        key = label_text.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        labels.append(label_text)
+        if len(labels) >= nlg.ANSWER_LIMIT:
+            break
+    return labels
 
 
 # --------------------------------------------------------------------------------------------------
@@ -369,6 +402,26 @@ def build_t1() -> list[dict]:
         if len(early) < 2:
             continue
         add(form.format(p=lb), early, ["no information"], person, "P57", q)
+
+    # The runtime serializes only the top ANSWER_LIMIT complement members. Keep every
+    # expected value inside that bounded answer, and every forbidden value outside it.
+    answers = {}
+    for case in cases:
+        check = case["grounding"]["check"]
+        if "FILTER NOT EXISTS" not in check:
+            continue
+        if check not in answers:
+            answers[check] = ranked_complement_labels(check)
+        serialized = answers[check]
+        expected = [lb for lb in serialized if len(lb) >= 4 and not lb.isdigit()][:2]
+        if len(expected) < 2:
+            expected = serialized[:2]
+        if len(expected) < 2:
+            continue
+        case["expected"] = expected
+        forbidden = [f for f in case["forbidden"]
+                     if not any(f.casefold() in lb.casefold() for lb in expected + serialized)]
+        case["forbidden"] = forbidden or ["no information"]
 
     return cases
 

@@ -1,5 +1,5 @@
 from agent.kg import Term
-from agent.nlg import answer, format_term, join_and, short_iri
+from agent.nlg import ANSWER_LIMIT, answer, format_term, join_and, short_iri
 
 
 def test_join_and():
@@ -8,6 +8,14 @@ def test_join_and():
     assert join_and(["A", "B"]) == "A and B"
     assert join_and(["A", "B", "C"]) == "A and B and C"
     assert answer(["A", "B"]) == "The factual answer is: A and B"
+
+
+def test_answer_caps_the_serialized_list():
+    values = [f"item{i:03d}" for i in range(ANSWER_LIMIT + 10)]
+    text = answer(values)
+    assert f"item{ANSWER_LIMIT - 1:03d}" in text
+    assert f"item{ANSWER_LIMIT:03d}" not in text
+    assert text.count(" and ") == ANSWER_LIMIT - 1
 
 
 def test_short_iri():

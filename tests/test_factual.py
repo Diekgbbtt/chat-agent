@@ -2,6 +2,10 @@
 
 import pytest
 
+from agent.core import build_agent
+from agent.kg import KnowledgeGraph
+from agent.nlg import ANSWER_LIMIT
+
 P = "Please answer this question with a factual approach: "
 
 
@@ -95,6 +99,16 @@ def test_negated_question_with_the_entity_as_object(factual_agent):
     assert "Ridley Scott" not in reply
 
 
+@pytest.mark.parametrize("question", [
+    "what films did steven spielberg not direct",
+    "what films did Steven Spielberg NOT direct",
+])
+def test_negation_accepts_name_case_and_uppercase_negation(factual_agent, question):
+    reply = factual_agent.answer(question)
+    assert reply.startswith("The factual answer is:")
+    assert "The Godfather" in reply
+
+
 def test_negated_actor_question_uses_the_actor_universe(factual_agent):
     # "actors" names the answer class (cast members, P161); it must not switch the relation to P161
     reply = factual_agent.answer("Which actors did not direct 'Alien'?")
@@ -124,3 +138,36 @@ def test_two_mentions_are_clarified(factual_agent):
 
 def test_count_does_not_filter_awards_as_films(factual_agent):
     assert factual_agent.answer("How many awards did the movie 'Alien' receive?") == "The factual answer is: 1"
+
+
+def test_complement_answer_is_bounded_and_ranked(tmp_path):
+    wd = "http://www.wikidata.org/entity/"
+    wdt = "http://www.wikidata.org/prop/direct/"
+    rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+    lines = [
+        f'<{wdt}P57> <{rdfs}label> "director" .',
+        f'<{wd}Q999> <{rdfs}label> "Zed Zephyr" .',
+        f'<{wd}Q999> <{wdt}P31> <{wd}Q5> .',
+        f'<{wd}Q11424> <{rdfs}label> "film" .',
+    ]
+    for i in range(60):
+        film = f"Q{10000 + i}"
+        lines.append(f'<{wd}{film}> <{rdfs}label> "Obscure {i:02d}" .')
+        lines.append(f'<{wd}{film}> <{wdt}P31> <{wd}Q11424> .')
+    lines.append(f'<{wd}Q20000> <{rdfs}label> "Prominent Film" .')
+    lines.append(f'<{wd}Q20000> <{wdt}P31> <{wd}Q11424> .')
+    for i in range(20):
+        lines.append(f'<{wd}Q20000> <{wdt}P999> <{wd}Q{30000 + i}> .')
+    graph = tmp_path / "graph.nt"
+    graph.write_text("\n".join(lines), encoding="utf-8")
+
+    kg = KnowledgeGraph.open(graph, tmp_path / "store", query_timeout_s=5)
+    try:
+        reply = build_agent(kg).answer("Which movies did Zed Zephyr not direct?")
+    finally:
+        kg.close()
+
+    assert reply.startswith("The factual answer is: ")
+    assert reply.count(" and ") == ANSWER_LIMIT - 1
+    assert reply.split(": ", 1)[1].split(" and ", 1)[0] == "Prominent Film"
+    assert "Obscure 59" not in reply

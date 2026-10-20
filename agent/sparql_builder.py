@@ -14,6 +14,7 @@ SCREENWRITER = "http://www.wikidata.org/prop/direct/P58"
 COMPOSER = "http://www.wikidata.org/prop/direct/P86"
 FILM_CREDITS = {DIRECTOR, SCREENWRITER, COMPOSER}
 LIMIT = 200
+COMPLEMENT_FETCH_LIMIT = 1_000
 
 
 def _triple(entity: str, predicate: str, direction: str) -> str:
@@ -28,6 +29,13 @@ def has_facts(entity: str, predicate: str, direction: str) -> str:
 
 def degree(entity: str) -> str:
     return f"SELECT (COUNT(*) AS ?n) WHERE {{ <{WD}{entity}> ?p ?o }}"
+
+
+def degrees(entities: Sequence[str]) -> str:
+    """Graph degree for a bounded candidate set, in one query."""
+    values = " ".join(f"<{WD}{entity}>" for entity in entities)
+    return (f"SELECT ?x (COUNT(*) AS ?n) WHERE {{ VALUES ?x {{ {values} }} "
+            f"?x ?p ?o }} GROUP BY ?x")
 
 
 def lookup(entity: str, predicate: str, direction: str) -> str:
@@ -52,7 +60,7 @@ def complement(entity: str, predicate: str, direction: str, universe: Optional[s
     if direction == "in":
         return (f"SELECT ?x ?label WHERE {{ ?x wdt:P31 wd:Q11424 . "
                 f"FILTER NOT EXISTS {{ ?x <{predicate}> <{WD}{entity}> }} "
-                f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
+                f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {COMPLEMENT_FETCH_LIMIT}")
     if universe == "actor" and predicate == DIRECTOR:
         base = "?f wdt:P161 ?x . ?x wdt:P31 wd:Q5 ."
     else:
@@ -60,7 +68,7 @@ def complement(entity: str, predicate: str, direction: str, universe: Optional[s
     filters = " ".join(f"FILTER NOT EXISTS {{ <{WD}{film}> <{predicate}> ?x }}"
                        for film in (entity, *others))
     return (f"SELECT DISTINCT ?x ?label WHERE {{ {base} {filters} "
-            f"OPTIONAL {{ ?x rdfs:label ?label }} }}")
+            f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {COMPLEMENT_FETCH_LIMIT}")
 
 
 def claim(film: str, predicate: str, person: str) -> str:

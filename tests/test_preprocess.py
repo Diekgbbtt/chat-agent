@@ -21,6 +21,16 @@ def test_doubled_quotes_collapse(pre):
     assert "'Jaws'" in plan.text and "''" not in plan.text
 
 
+@pytest.mark.parametrize("text", [
+    "what films did steven spielberg not direct",
+    "what films did Steven Spielberg NOT direct",
+])
+def test_negation_word_does_not_block_a_person_mention(pre, text):
+    plan = pre.analyze(text)
+    assert plan.negated and not plan.clarify
+    assert "'Steven Spielberg'" in plan.text
+
+
 def test_inner_punctuation_trimmed_outer_question_kept(pre):
     assert pre.analyze("Who directed 'Jaws.'?").text == "Who directed 'Jaws'?"
 

@@ -314,6 +314,15 @@ class Preprocessor:
             if all(self._stopword(word) for word in raw.split()):
                 continue
             resolution = self._resolve(raw)
+            if resolution is None:
+                trimmed, trim_start, trim_end = self._trim_negation(raw)
+                if trimmed != raw:
+                    resolution = self._resolve(trimmed)
+                    if resolution is not None and self._interesting(resolution):
+                        mentions.append(_Mention(run[low][0] + trim_start,
+                                                 run[low][0] + trim_end, trimmed,
+                                                 False, True, resolution))
+                        continue
             if resolution is not None:
                 if self._interesting(resolution):
                     mentions.append(_Mention(run[low][0], run[high - 1][1], raw, False, True, resolution))
@@ -325,6 +334,24 @@ class Preprocessor:
                 continue
             mentions.extend(self._subrun_mentions(run, low, high, text))
         return mentions, clarify
+
+    def _trim_negation(self, raw: str) -> Tuple[str, int, int]:
+        """Strip negation words at the edges so they cannot block an entity mention."""
+        matches = list(TOKEN.finditer(raw))
+        first, last = 0, len(matches)
+        while first < last and self._negation_word(matches[first].group(0)):
+            first += 1
+        while last > first and self._negation_word(matches[last - 1].group(0)):
+            last -= 1
+        if first == 0 and last == len(matches) or first >= last:
+            return raw, 0, len(raw)
+        return (raw[matches[first].start():matches[last - 1].end()],
+                matches[first].start(), matches[last - 1].end())
+
+    @staticmethod
+    def _negation_word(word: str) -> bool:
+        word = word.strip(CLEAN).casefold()
+        return word in {"not", "never"} or word.endswith("n't")
 
     def _contained_subrun(self, text: str) -> Optional[str]:
         """A lower-case strict sub-run of `text` that resolves on its own."""

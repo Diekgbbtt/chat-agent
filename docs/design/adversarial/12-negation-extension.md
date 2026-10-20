@@ -67,8 +67,8 @@ Tests: 11 new unit tests (preprocess 5, builder 3, handler 3).
   An "and" form stays out of scope: it is ambiguous in English.
 - The first person noun in the text wins when a question names two classes.
 - The actor universe scopes the P57 relation only; other relations keep the S10 base.
-- The actor complement truncates at the 10,000-row cap, like the film complement.
-  Expected values for F4 are harvested from the capped rows (same accepted risk as S3, Q1/Q9).
+- The actor complement uses the same bounded candidate query and 50-value serializer as the film complement (see `13-answer-bounding.md`).
+  Expected values for F4 are harvested from the serialized rows (same accepted risk as S3, Q1/Q9).
 - The credit-less-subject fix is generic: it applies to every negated lookup whose entity has no facts.
 
 ## Evidence

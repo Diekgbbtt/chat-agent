@@ -1,0 +1,9 @@
+{"id": "spielberg-not-direct", "input": "what films did Steven Spielberg not direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-never-direct", "input": "what films did Steven Spielberg never direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-surname", "input": "what films did Spielberg not direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-lowercase-name", "input": "what films did steven spielberg not direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-uppercase-not", "input": "what films did Steven Spielberg NOT direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-contraction", "input": "what films didn't Steven Spielberg direct", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "spielberg-question-mark", "input": "Which films did Steven Spielberg not direct?", "expected": ["The Godfather"], "forbidden": ["E.T. the Extra-Terrestrial"]}
+{"id": "nolan-not-direct", "input": "Which films did Christopher Nolan not direct?", "expected": ["The Godfather"], "forbidden": ["Inception"]}
+{"id": "who-not-direct-inception", "input": "Who did not direct 'Inception'?", "expected": ["Martin Scorsese"], "forbidden": ["Christopher Nolan"]}
