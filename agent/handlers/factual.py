@@ -59,6 +59,7 @@ class FactualHandler:
         rows = self.kg.query(query).rows
 
         if q.kind == "count":
+            trace.add("answer", [rows[0][0].value])
             return nlg.answer([rows[0][0].value])
         if q.predicate == sb.RELEASE_DATE and q.direction == "out":
             rows = [min(rows, key=lambda r: r[0].value)]  # one date per country: keep the first release
@@ -71,6 +72,7 @@ class FactualHandler:
             values = sorted(values, key=str.casefold)
         if not values:
             return nlg.no_facts(relation, entity)
+        trace.add("answer", values)
         return nlg.answer(values)
 
     def _rank_complement(self, rows, limit: int):

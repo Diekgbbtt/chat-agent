@@ -18,7 +18,14 @@ def load_agent() -> Agent:
     settings = load_settings()
     kg = KnowledgeGraph.open(settings.graph_path, settings.store_path, query_timeout_s=settings.query_timeout_s,
                              max_fetch_rows=settings.max_fetch_rows, workers=settings.workers)
-    return build_agent(kg)
+    return build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
+
+
+def load_llm(settings):
+    if not settings.llm_model:
+        return None
+    from agent.llm import LLM  # imports torch, so only when an LLM is configured
+    return LLM(settings.llm_model, four_bit=settings.llm_4bit)
 
 
 def ask(agent: Agent, text: str, debug: bool) -> str:

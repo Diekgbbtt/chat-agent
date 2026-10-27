@@ -1,0 +1,84 @@
+\documentclass{article}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[
+    left=3cm,
+    right=3cm,
+    top=2cm,
+    bottom=2cm
+]{geometry}
+
+\setlength{\parskip}{0.4em}
+
+\begin{document}
+\title{ATAI Evaluation Event II\\[0.3em]
+\large \textit{CoralLeapingBird}}
+
+\author{
+Georgios Stratidis (\textit{h50})
+\and
+Diego Gobbetti (\textit{h35})
+}
+
+\date{}
+
+\maketitle
+\noindent
+\textbf{Max. 2 pages.} Additional pages will not be read.
+References and screenshots are excluded from the page limit.
+
+\section{Agent Overview and Capabilities}
+
+Our agent answers factual questions about movies from the provided knowledge graph, which is derived from Wikidata~\cite{vrandecic2014wikidata}. Each question is translated into a SPARQL query~\cite{harris2013sparql}, and the result is returned as a template sentence, e.g.\ ``\textit{The factual answer is: Jeong Seo-kyeong and Park Chan-wook}''. The agent answers both directions of a triple (``\textit{Who directed Alien?}'', ``\textit{Which movies did Sofia Coppola direct?}''), counts, the earliest or latest film of a person, yes/no claims (``\textit{Did Ridley Scott direct Jaws?}'' $\rightarrow$ ``No'') and negations (``\textit{Which movies did John Ford not direct?}''). Titles may be quoted or unquoted, lower-case, without their article, or misspelled. If the movie, the property or the fact is not in the graph, the agent says so instead of guessing. Raw SPARQL queries (Evaluation~I) are still executed, and several chatrooms are served in parallel.
+
+\section{Adopted Methods}
+
+\begin{itemize}
+    \item \textbf{Graph store.} \texttt{graph.nt} (2.4M triples) is loaded once into an on-disk pyoxigraph\footnote{\url{https://pyoxigraph.readthedocs.io/}} store (built in 11\,s, opened in 0.01\,s). pyoxigraph runs queries outside Python's interpreter lock, so chatrooms are answered in parallel.
+    \item \textbf{Preprocessing.} A rule-based step repairs quotes, rewrites paraphrases (``\textit{was at the helm of}'' $\rightarrow$ ``\textit{directed}''), and detects negation and yes/no claims. Title words are masked first, so \textit{Never Let Me Go} is not a negation.
+    \item \textbf{Entity linking.} As in tutorial 04a, label dictionaries (\texttt{ent2lbl}, \texttt{lbl2ent}) are built at startup. A title is found as a quoted span or the longest word sequence that is a label; typos are matched with RapidFuzz\footnote{\url{https://github.com/rapidfuzz/RapidFuzz}} using the optimal string alignment distance~\cite{damerau1964technique}. Entities with the same label are ranked films first, then by their number of triples.
+    \item \textbf{Relation linking.} The question is matched against the graph's 497 property labels plus a small file of everyday wordings (``\textit{directed}'', ``\textit{starred}'').
+    \item \textbf{Query templates.} Lookup, count, earliest/latest film, \texttt{ASK} for claims, and a complement query for negations (\texttt{FILTER NOT EXISTS}).
+\end{itemize}
+
+\section{Pipeline}
+
+Every message passes through the same steps:
+\begin{center}
+SPARQL? $\rightarrow$ preprocessing $\rightarrow$ entity linking $\rightarrow$ relation linking
+$\rightarrow$ direction check $\rightarrow$ SPARQL template $\rightarrow$ answer sentence
+\end{center}
+For the question ``\textit{Who wrote the screenplay for 'The Handmaiden'?}'', the router first sees that the message is not a SPARQL query. The preprocessor finds no negation and no yes/no claim, and the title is already quoted. Entity linking maps \textit{The Handmaiden} to \texttt{wd:Q20444585} (a film), and relation linking maps ``\textit{wrote the screenplay}'' to \texttt{wdt:P58} (screenwriter). Two \texttt{ASK} queries show that the film has screenwriters, so the answer is the object of the triple. The agent runs
+\begin{center}
+\texttt{SELECT DISTINCT ?x ?label WHERE \{ wd:Q20444585 wdt:P58 ?x .}\\
+\texttt{OPTIONAL \{ ?x rdfs:label ?label \} \} LIMIT 200}
+\end{center}
+and answers ``\textit{The factual answer is: Jeong Seo-kyeong and Park Chan-wook}'', which is correct and matches the official example.
+
+\textbf{Limitations.} Negation is a single signal: ``\textit{Did Steven Spielberg not not direct Jaws?}'' is answered with a list of films instead of ``Yes'', and ``\textit{neither \dots\ nor}'' is not recognised. Ambiguous titles are not clarified: ``\textit{Who directed A Star Is Born?}'' answers for the 1954 version, the one with the most facts. Questions about literal values (``\textit{Which movies came out in 1984?}'') are out of scope.
+
+\section{Improvements}
+
+\textbf{Graph access and concurrency.} The first version parsed the 290\,MB graph with rdflib at every start and answered one message at a time. With the persistent store and a worker pool with one lock per chatroom, rooms are answered in parallel and in order within a room; most answers take under 10\,ms.
+
+\textbf{Adversarial questions.} The first version ignored negation (``\textit{Who did not direct Jurassic Park?}'' $\rightarrow$ Steven Spielberg) and answered for a fragment of an unknown title (``\textit{Don't Look Up}'' $\rightarrow$ the directors of \textit{Up}). We built ten test sets of such forms (negation, titles inside titles, quotes, typos, partial titles, yes/no and others) with answers checked by hand-written SPARQL, and added the preprocessing step. Negated questions now return the complement, ranked by the number of triples and capped at 50 names, or its size for ``\textit{How many \dots\ not \dots}''. Unknown titles get a clarification reply.
+
+\textbf{Testing.} All 1,193 evaluation questions (508 factual, 9 SPARQL, 676 negation and adversarial) and 160 unit tests pass.
+
+\section{Additional Features}
+
+\begin{itemize}
+    \item \textbf{Robustness:} timeouts for queries (20\,s) and replies (25\,s), fallback replies on errors, and automatic re-login.
+    \item \textbf{Debugging:} a command-line interface that prints every step (preprocessor plan, parsed question, SPARQL query).
+\end{itemize}
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}

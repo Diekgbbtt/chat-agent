@@ -19,3 +19,8 @@ pyoxigraph==0.5.11
 
 # Question understanding (fuzzy entity matching)
 rapidfuzz==3.14.6
+
+# LLM for guardrails and answer phrasing (Stage 3)
+torch==2.14.1
+transformers==5.21.0
+accelerate==1.15.0

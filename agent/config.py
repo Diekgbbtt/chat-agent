@@ -65,6 +65,11 @@ def _int_env(name: str, default: int) -> int:
         return default
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    value = os.environ.get(name)
+    return default if value is None else value.strip().lower() in ("1", "true", "yes", "on")
+
+
 def _float_env(name: str, default: float) -> float:
     try:
         return float(os.environ.get(name, default))
@@ -85,6 +90,9 @@ class Settings:
     max_fetch_rows: int  # rows materialised per query before truncating
     log_dir: str
     heartbeat_s: float
+    llm_model: str  # Hugging Face model id
+    llm_4bit: bool  # 4-bit loading for small GPUs (local 6 GB card); off on Nuvolos (fp16)
+    show_guardrail_labels: bool  # prefix replies with "[label]"; off = labels only in the log
 
 
 def load_settings() -> Settings:
@@ -101,4 +109,7 @@ def load_settings() -> Settings:
         max_fetch_rows=max(1, _int_env("MAX_FETCH_ROWS", 10_000)),
         log_dir=os.environ.get("LOG_DIR") or str(PROJECT_ROOT / "logs"),
         heartbeat_s=_float_env("HEARTBEAT_S", 300.0),
+        llm_model=os.environ.get("LLM_MODEL", "Qwen/Qwen3-4B-Instruct-2507"),  # "" = no LLM (Stage 2 agent)
+        llm_4bit=_bool_env("LLM_4BIT", False),
+        show_guardrail_labels=_bool_env("SHOW_GUARDRAIL_LABELS", False),
     )

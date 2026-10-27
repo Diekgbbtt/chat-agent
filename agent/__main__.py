@@ -3,6 +3,7 @@
 import sys
 
 from agent.config import load_settings
+from agent.cli import load_llm
 from agent.core import build_agent
 from agent.kg import KnowledgeGraph
 from agent.speakeasy_bot import SpeakeasyBot
@@ -29,7 +30,7 @@ def main() -> None:
         max_fetch_rows=settings.max_fetch_rows,
         workers=settings.workers,
     )
-    agent = build_agent(kg)
+    agent = build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
     bot = SpeakeasyBot(
         agent.answer,
         username=settings.username,
