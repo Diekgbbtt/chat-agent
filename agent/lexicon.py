@@ -1,5 +1,6 @@
 """Label and type lookups over the whole graph, built once at startup (as in tutorial 04a)."""
 
+from bisect import bisect_left
 from collections import defaultdict
 
 from agent.kg import KnowledgeGraph
@@ -36,6 +37,18 @@ class Lexicon:
             self.types[qid(entity.value)].add(qid(cls.value))
         for (entity,) in kg.query("SELECT DISTINCT ?m WHERE { ?m wdt:P57 ?d }", timeout=300, max_rows=10_000_000).rows:
             self.directed.add(qid(entity.value))
+        self._sorted_labels = sorted(self.lbl2ent)
+
+    def prefix_labels(self, prefix: str) -> list:
+        """Sorted labels that start with `prefix`, case-insensitively."""
+        prefix = prefix.casefold()
+        start = bisect_left(self._sorted_labels, prefix)
+        found = []
+        for label in self._sorted_labels[start:]:
+            if not label.startswith(prefix):
+                break
+            found.append(label)
+        return found
 
     def label(self, entity: str) -> str:
         return self.ent2lbl.get(entity, entity)

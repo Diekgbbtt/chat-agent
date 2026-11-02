@@ -5,6 +5,7 @@ import time
 
 from agent.kg import KnowledgeGraph, QueryError, QueryTimeout, SelectResult
 from agent.nlg import format_term
+from agent.tools.sparql import QueryGuard, QueryRejected
 
 MAX_ROWS_SHOWN = 25
 
@@ -50,12 +51,17 @@ class SparqlHandler:
 
     def __init__(self, kg: KnowledgeGraph):
         self.kg = kg
+        self.guard = QueryGuard()
 
     def can_handle(self, text: str, session) -> bool:
         return looks_like_sparql(text)
 
     def handle(self, text: str, session, trace) -> str:
         query = clean_query(text)
+        try:
+            query = self.guard.validate(query, mode="raw")
+        except QueryRejected as exc:
+            return f"I couldn't run that query. It is not read-only: {exc}"
         trace.add("sparql", query)
         start = time.perf_counter()
         try:

@@ -1,11 +1,11 @@
-# 01 — Reproducible baseline harness
+# 01 - Reproducible baseline harness
 
 **What to build:** A developer can save one JSON result per eval case and print a scoreboard with pass counts, failures, per-label recall, and latency.
 The existing stdout and exit-code contract stays unchanged.
 
-**Blocked by:** None — can start immediately.
+**Blocked by:** None - can start immediately.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] `agent.eval` accepts `--json PATH` and writes one result object per case.
 - [ ] The result object carries id, pass, expected labels, got labels, reply, latency, and error.

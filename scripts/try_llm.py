@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from agent.config import load_settings  # noqa: E402
-from agent.llm import LLM  # noqa: E402
+from agent.llm.legacy import LLM  # noqa: E402
 
 settings = load_settings()
 llm = LLM(settings.llm_model, four_bit=settings.llm_4bit)

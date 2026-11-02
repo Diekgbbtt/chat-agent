@@ -11,3 +11,7 @@ kg_store.partial/
 .vscode/
 .idea/
 .DS_Store
+
+# Local adversarial eval outputs
+docs/design/adversarial/policy-e2e/latest.jsonl
+docs/design/adversarial/policy-e2e/latest-summary.json

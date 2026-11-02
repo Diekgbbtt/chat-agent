@@ -68,6 +68,12 @@ def test_invalid_query_message(kg):
     assert "invalid" in answer(kg, "SELECT ?x WHERE { ?x ?y }")
 
 
+def test_raw_handler_rejects_writes(kg):
+    reply = answer(kg, "INSERT DATA { <a> <b> <c> }")
+
+    assert "not read-only" in reply
+
+
 def test_long_results_are_cut(kg):
     reply = answer(kg, "SELECT ?a ?b WHERE { ?a ?p ?o . ?b ?q ?r }")  # ~500 rows
     assert len(reply.splitlines()) == 26

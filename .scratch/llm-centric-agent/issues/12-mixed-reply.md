@@ -1,4 +1,4 @@
-# 12 — Mixed reply and part validator
+# 12 - Mixed reply and part validator
 
 **What to build:** One reply can carry a factual answer, a general answer, a capability limit, a refusal, a clarification, and a boundary, each tied to one verbatim.
 The validator rejects missing, duplicated, or reordered parts.
@@ -9,7 +9,7 @@ The reply is joined in verbatim order.
 
 **Blocked by:** 11.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] A mixed safe plus unsafe request produces an answer part and a refusal part.
 - [ ] A mixed safe plus out-of-scope request produces an answer part and a boundary part.

@@ -29,6 +29,36 @@ GRAPH_PATH=/absolute/path/to/graph.nt     # default: dataset/graph.nt, then the 
 | `python -m pytest -q` | Runs the unit tests (tiny sample graph, takes seconds). |
 | `python scripts/build_submission.py 2` | Fills `Project Submission 2/` (use `final` for the final one). |
 
+### Stage 3 runtime
+
+`AGENT_MODE` selects the runtime:
+
+- `legacy` is the default and keeps the old handler stack.
+- `guard_only` uses the new guard and policy with the legacy factual handler.
+- `tools` uses the new guard and the bounded QA tool loop.
+
+The guard and QA roles share one local model by default:
+
+```bash
+AGENT_MODE=tools
+LOCAL_MODEL=Qwen/Qwen3-4B-Instruct-2507
+LOCAL_BASE_URL=http://127.0.0.1:8000/v1
+```
+
+`GUARD_MODEL`, `GUARD_BASE_URL`, `QA_MODEL`, and `QA_BASE_URL` override one role.
+`python -m agent.serve` starts one vLLM process for the shared model.
+`python -m agent.serve --check` probes the configured endpoints.
+Set `AUTOSTART_MODELS=1` to start the server with the bot.
+
+The guard uses three parent safety types: `harmful`, `toxic`, and `prompt_injection`.
+Safety types and scopes live in `agent/data/guardrails.json`.
+The guard runs two chained calls: discrimination for spans and ambiguity relationships, then classification for one label per span.
+The classification tool schema enforces exactly one label per span with `minItems` and `maxItems`.
+The policy resolves relationships and applies the fail-closed map in `docs/design/stage3-llm-centric/POLICY_MAP.md`.
+The adversarial policy-map evaluation is in `docs/design/adversarial/policy-e2e/REPORT.md`.
+The suite has 41 cases.
+Local measurement is pending.
+
 ### Speakeasy quirks when testing by hand
 
 - Messages containing `@` never reach the bot.

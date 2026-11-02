@@ -1,4 +1,4 @@
-# 07 — Guard gate and guard-only vertical slice
+# 07 - Guard gate and guard-only vertical slice
 
 **What to build:** A natural-language message can run through normalisation, classification, validation, policy, and a complete reply in `guard_only` mode.
 The bridge uses the legacy factual handler only for an answer handling and canonical text for every other part.
@@ -6,7 +6,7 @@ The legacy default is unchanged.
 
 **Blocked by:** 05, 06.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] `AGENT_MODE=guard_only` builds the new guard path.
 - [ ] A safe in-scope request reaches the legacy factual handler.

@@ -1,0 +1,7 @@
+# Model host only. The agent runtime does not import these packages.
+# Pin the versions after the Nuvolos T4 serving spike.
+vllm
+torch
+transformers
+accelerate
+bitsandbytes

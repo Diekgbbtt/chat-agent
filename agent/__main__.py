@@ -3,8 +3,7 @@
 import sys
 
 from agent.config import load_settings
-from agent.cli import load_llm
-from agent.core import build_agent
+from agent.cli import build_runtime
 from agent.kg import KnowledgeGraph
 from agent.speakeasy_bot import SpeakeasyBot
 
@@ -30,7 +29,25 @@ def main() -> None:
         max_fetch_rows=settings.max_fetch_rows,
         workers=settings.workers,
     )
-    agent = build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
+    agent = None
+    if settings.agent_mode == "legacy":
+        agent = build_runtime(kg, settings)
+    else:
+        if settings.autostart_models:
+            from agent.serve import start
+            if start(settings):
+                kg.close()
+                sys.exit(2)
+        from agent.llm.factory import clients_from_settings
+        from agent.llm.health import check
+        clients = clients_from_settings(settings)
+        status = check({"guard": clients.guard, "qa": clients.qa})
+        if not all(item.ok for item in status.values()):
+            details = {role: item.error for role, item in status.items() if not item.ok}
+            logger.error("Model endpoints are unhealthy: %s", details)
+            kg.close()
+            sys.exit(2)
+        agent = build_runtime(kg, settings, clients)
     bot = SpeakeasyBot(
         agent.answer,
         username=settings.username,

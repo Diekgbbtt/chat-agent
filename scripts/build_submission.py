@@ -53,6 +53,12 @@ def build(dest: Path, force: bool = False) -> None:
         shutil.rmtree(package_dest)  # only ever our own previous copy
     shutil.copytree(ROOT / "agent", package_dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     shutil.copy2(ROOT / "requirements.txt", dest / "requirements.txt")
+    serve_requirements = ROOT / "requirements-serve.txt"
+    if not serve_requirements.exists():
+        sys.exit(f"Missing serving requirements: {serve_requirements}")
+    shutil.copy2(serve_requirements, dest / "requirements-serve.txt")
+    if not (package_dest / "serve.py").exists():
+        sys.exit(f"Missing model launcher in {package_dest / 'serve.py'}")
     print(f"Built {dest}")
 
 

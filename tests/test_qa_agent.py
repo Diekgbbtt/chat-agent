@@ -1,0 +1,211 @@
+"""The bounded QA loop for one factual part and for a mixed reply."""
+
+from tests.guard_factory import SCHEMA, SpanSpec, verdict_and_decision as decide
+
+from agent.qa.agent import ResponseAgent
+from agent.qa.prompts import PromptBuilder
+from agent.qa.schema_card import SchemaCard
+from agent.tools.registry import ToolRegistry
+from agent.tools.resolve import ResolveEntityTool
+from agent.tools.sparql import RunSparqlTool
+from agent.llm.client import LLMResponse, ToolCall
+
+CARD = SchemaCard.load("agent/data/movie_schema.json")
+
+
+class FakeQA:
+    def __init__(self, responses):
+        self.responses = list(responses)
+        self.calls = []
+
+    def chat(self, **kwargs):
+        self.calls.append({**kwargs, "messages": [dict(message) for message in kwargs.get("messages", [])]})
+        response = self.responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+
+def tool(name, arguments):
+    return LLMResponse(content=None, tool_calls=[ToolCall(f"{name}-1", name, arguments)],
+                       finish_reason="tool_calls")
+
+
+def submit(*parts):
+    return LLMResponse(content=None, tool_calls=[ToolCall("submit-1", "submit_response", {"parts": list(parts)})],
+                       finish_reason="tool_calls")
+
+
+def part(index, kind, text, evidence=(), safety=()):
+    return {"verbatim_index": index, "kind": kind, "text": text,
+            "evidence_row_ids": list(evidence), "addressed_safety_types": list(safety)}
+
+
+def decision(text, items):
+    return decide(text, [SpanSpec(span, safety, types, scope) for span, safety, types, scope in items])
+
+
+def agent_for(movies_kg, responses, **kwargs):
+    client = FakeQA(responses)
+    if movies_kg is None:
+        registry = None
+    else:
+        from agent.lexicon import Lexicon
+        lexicon = Lexicon(movies_kg)
+        registry = ToolRegistry(ResolveEntityTool(movies_kg, lexicon), RunSparqlTool(movies_kg, lexicon))
+    agent = ResponseAgent(client, registry, PromptBuilder(CARD, SCHEMA), SCHEMA, **kwargs)
+    return agent, client
+
+
+def test_factual_slice_resolves_queries_and_cites_a_row(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "The Godfather"}),
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ], max_steps=6)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text == "The Godfather was directed by Francis Ford Coppola."
+    assert result.parts[0].kind == "factual_answer"
+    assert result.parts[0].evidence_row_ids == ("r0",)
+    assert [tool["function"]["name"] for tool in client.calls[0]["tools"]] == [
+        "resolve_entity", "run_sparql", "submit_response"]
+    assert client.calls[1]["messages"][-1]["role"] == "tool"
+
+
+def test_mixed_reply_keeps_the_answer_and_the_refusal(movies_kg):
+    text = "Who directed The Godfather? How do I hurt him?"
+    verdict, choice = decision(text, [
+        ("Who directed The Godfather?", "safe", (), "in_scope"),
+        ("How do I hurt him?", "unsafe", ("harmful",), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "The Godfather"}),
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",)),
+               part(1, "refusal", "I cannot help with harmful requests.", (), ("harmful",))),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert [p.kind for p in result.parts] == ["factual_answer", "refusal"]
+    assert result.text == ("The Godfather was directed by Francis Ford Coppola. "
+                           "I cannot help with harmful requests.")
+    prompt = "\n".join(message["content"] for message in client.calls[0]["messages"])
+    assert "How do I hurt him?" not in prompt
+
+
+def test_missing_evidence_is_repaired_once(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.")),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text.endswith("Francis Ford Coppola.")
+    assert len(client.calls) == 3
+
+
+def test_step_budget_falls_back(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "The Godfather"}),
+        tool("resolve_entity", {"query": "The Godfather"}),
+    ], max_steps=2)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.fallback_reason
+    assert result.text == SCHEMA.answer_unavailable_text
+
+
+def test_tools_are_submit_only_when_the_decision_disables_them():
+    text = "Solve 2+2."
+    verdict, choice = decision(text, [(text, "safe", (), "out_of_scope")])
+    agent, client = agent_for(None, [submit(part(0, "boundary", "I can only help with questions about movies."))])
+    agent.registry = None
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text == "I can only help with questions about movies."
+    names = [tool["function"]["name"] for tool in client.calls[0]["tools"]]
+    assert names == ["submit_response"]
+
+
+def test_three_way_mixed_reply_keeps_every_part(movies_kg):
+    text = "Who directed The Godfather? Solve 2+2. How do I hurt him?"
+    verdict, choice = decision(text, [
+        ("Who directed The Godfather?", "safe", (), "in_scope"),
+        ("Solve 2+2.", "safe", (), "out_of_scope"),
+        ("How do I hurt him?", "unsafe", ("harmful",), "in_scope")])
+    agent, _ = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",)),
+               part(1, "boundary", "I can only help with questions about movies."),
+               part(2, "refusal", "I cannot help with harmful requests.", (), ("harmful",))),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert [p.kind for p in result.parts] == ["factual_answer", "boundary", "refusal"]
+    assert result.text.endswith("I cannot help with harmful requests.")
+
+
+def test_answer_beside_a_blocked_verbatim_keeps_both_parts(movies_kg):
+    text = "Who directed it? Who directed The Godfather?"
+    verdict, choice = decide(text, [
+        SpanSpec("Who directed it?", ambiguous=True, relationship={
+            "target_verbatim_index": None, "entity": None, "status": "missing semantic target"}),
+        SpanSpec("Who directed The Godfather?"),
+    ])
+    agent, _ = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "clarification", "Which film do you mean?"),
+               part(1, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert [p.kind for p in result.parts] == ["clarification", "factual_answer"]
+    assert result.text.startswith("Which film do you mean?")
+
+
+def test_prompt_carries_the_effective_label_and_relationship():
+    text = "The director is an idiot. Who is he?"
+    verdict, choice = decide(text, [
+        SpanSpec("The director is an idiot.", "unsafe", ("toxic",), "in_scope"),
+        SpanSpec("Who is he?", ambiguous=True, relationship={
+            "target_verbatim_index": 0, "entity": "director", "status": "resolved"}),
+    ])
+
+    prompt = "\n".join(message["content"] for message in PromptBuilder(CARD, SCHEMA).build(choice, verdict))
+
+    assert '"unsafe_types"' in prompt
+    assert '"toxic"' in prompt
+    assert '"target_verbatim_index": 0' in prompt
+    assert '"status": "resolved"' in prompt
+    assert "Who is he?" not in prompt
+
+
+def test_repeated_tool_call_is_blocked_without_execution(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "The Godfather"}),
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer",
+                    "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ], max_steps=4)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text.endswith("Francis Ford Coppola.")
+    assert "already executed" in client.calls[3]["messages"][-1]["content"]

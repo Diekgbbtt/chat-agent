@@ -1,4 +1,4 @@
-# 13 — Runtime modes and session seam
+# 13 - Runtime modes and session seam
 
 **What to build:** `AGENT_MODE=legacy|guard_only|tools` selects the runtime path on one `Agent.answer` seam.
 The session records only safe in-scope visible text and keeps history disabled.
@@ -7,7 +7,7 @@ The legacy path stays the default and is untouched.
 
 **Blocked by:** 07, 12.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] The default mode is legacy.
 - [ ] Legacy mode constructs the old handler stack and makes no model call.

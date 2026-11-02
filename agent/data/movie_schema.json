@@ -1,0 +1,42 @@
+{
+  "prefixes": {
+    "wd": "http://www.wikidata.org/entity/",
+    "wdt": "http://www.wikidata.org/prop/direct/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/"
+  },
+  "classes": [
+    {"id": "Q11424", "label": "film"},
+    {"id": "Q5", "label": "human"},
+    {"id": "Q13593818", "label": "film series"}
+  ],
+  "properties": [
+    {"id": "P57", "label": "director", "shape": "item"},
+    {"id": "P58", "label": "screenwriter", "shape": "item"},
+    {"id": "P161", "label": "cast member", "shape": "item"},
+    {"id": "P577", "label": "publication date", "shape": "date"},
+    {"id": "P495", "label": "country of origin", "shape": "item"},
+    {"id": "P2142", "label": "box office", "shape": "number"},
+    {"id": "P345", "label": "IMDb ID", "shape": "text"},
+    {"id": "P31", "label": "instance of", "shape": "item"},
+    {"id": "P50", "label": "author", "shape": "item"}
+  ],
+  "value_shapes": [
+    {"name": "item", "description": "An entity IRI; return its label through the result formatter."},
+    {"name": "date", "description": "An xsd:date literal, usually YYYY-MM-DD."},
+    {"name": "number", "description": "A numeric literal."},
+    {"name": "text", "description": "A string literal."}
+  ],
+  "examples": [
+    {"question": "Who directed a film?", "sparql": "SELECT ?director WHERE { wd:Q47703 wdt:P57 ?director }"},
+    {"question": "Who wrote the screenplay?", "sparql": "SELECT ?writer WHERE { wd:Q47703 wdt:P58 ?writer }"},
+    {"question": "Who starred in a film?", "sparql": "SELECT ?actor WHERE { wd:Q47703 wdt:P161 ?actor }"},
+    {"question": "When was a film released?", "sparql": "SELECT ?date WHERE { wd:Q47703 wdt:P577 ?date }"},
+    {"question": "What is the country of origin?", "sparql": "SELECT ?country WHERE { wd:Q47703 wdt:P495 ?country }"},
+    {"question": "What is the box office?", "sparql": "SELECT ?value WHERE { wd:Q13417189 wdt:P2142 ?value }"},
+    {"question": "What is the IMDb ID?", "sparql": "SELECT ?value WHERE { wd:Q13417189 wdt:P345 ?value }"},
+    {"question": "Which films did a person direct?", "sparql": "SELECT ?film WHERE { ?film wdt:P57 wd:Q56094 }"},
+    {"question": "How many films did a person direct?", "sparql": "SELECT (COUNT(?film) AS ?count) WHERE { ?film wdt:P57 wd:Q56094 }"},
+    {"question": "Which predicates exist for a film?", "sparql": "SELECT DISTINCT ?p WHERE { wd:Q11424 ?p ?o } LIMIT 50"}
+  ]
+}

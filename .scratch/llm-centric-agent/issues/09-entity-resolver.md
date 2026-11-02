@@ -1,4 +1,4 @@
-# 09 — Entity resolver tool
+# 09 - Entity resolver tool
 
 **What to build:** The QA model can turn a label into candidate QIDs.
 The resolver returns candidate QIDs, labels, types, film or human flags, and degree.
@@ -7,7 +7,7 @@ The lexicon exposes the sorted prefix index the resolver needs.
 
 **Blocked by:** 08.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] Exact matches come before prefix matches, and prefix matches before contains matches.
 - [ ] Each candidate carries QID, label, types, film flag, human flag, and degree.

@@ -19,7 +19,7 @@ The rewrite sequence is in `PLAN.md`.
 
 The target keeps the environment adapters.
 It removes the symbolic decision stack.
-It replaces the single shared LLM with two model clients.
+It replaces the single shared in-process LLM with a guard role and a QA role over a shared local model.
 It replaces the handler chain with one runtime and one bounded tool loop.
 
 ## 2. Construct inventory
@@ -51,12 +51,12 @@ It replaces the handler chain with one runtime and one bounded tool loop.
 
 | Construct | Path | Lines | Current role | Target decision | Notes |
 |---|---|---|---|---|---|
-| `LABELS` | `agent/guardrails.py` | 11 | Five hardcoded labels | Reuse as data | Seed the legacy label projection used by the 44-case eval; not a policy input |
+| `LABELS` | `agent/guardrails.py` | 11 | Five hardcoded labels | Reuse as data | Seed the canonical label vocabulary used by the 47-case eval; not a policy input |
 | `SYSTEM_PROMPT` | `agent/guardrails.py` | 16-38 | One prompt for labels, span, and reply | Obsolete | Replaced by a generated two-axis classification prompt |
-| `EXAMPLES` | `agent/guardrails.py` | 41-59 | Five worked examples | Reuse as data | Seed adversarial cases and prompt style; the new prompt carries the 14 pair examples |
-| `Verdict` | `agent/guardrails.py` | 62-66 | Labels, movie question, reply | Adapt | Split into a typed `Verdict` with overview, verbatims, labels, rationales, and ambiguities, plus `Decision` |
+| `EXAMPLES` | `agent/guardrails.py` | 41-59 | Five worked examples | Reuse as data | Seed adversarial cases and prompt style; the new prompt carries the 8 pair examples |
+| `Verdict` | `agent/guardrails.py` | 62-66 | Labels, movie question, reply | Adapt | Split into `Discrimination`, `Verdict`, and `Decision`; ambiguity becomes a per-span relationship |
 | `_parse` | `agent/guardrails.py` | 69-78 | JSON extraction and label filter | Obsolete | Replaced by a forced tool call and a verbatim validator |
-| `_messages` | `agent/guardrails.py` | 81-85 | Prompt assembly | Obsolete | Replaced by `GuardClassifier` prompt builder |
+| `_messages` | `agent/guardrails.py` | 81-85 | Prompt assembly | Obsolete | Replaced by the `GuardDiscriminator` and `GuardClassifier` prompt builders |
 | `Guardrails.check` | `agent/guardrails.py` | 92-101 | LLM call and fail-open fallback | Obsolete | Replaced by `GuardGate.classify` with a fail-safe clarification |
 | `MAX_REPLY_CHARS` | `agent/guardrails.py` | 13 | Refusal length bound | Adapt | Move to `AnswerValidator` |
 | `EMERGENCY_REPLY` | `agent/guardrails.py` | 14 | Fixed refusal | Reuse as data | One canonical fallback sentence in the policy data |
@@ -149,7 +149,7 @@ It replaces the handler chain with one runtime and one bounded tool loop.
 | `parse_dotenv` | `agent/config.py` | 21-37 | `.env` parser | Keep | No change |
 | `cli` | `agent/cli.py` | 62 | Offline chat and debug | Adapt | Load two clients; add `--mode` and `--guard-only` |
 | `eval` | `agent/eval.py` | 60 | JSONL regression runner | Adapt | Add suites, modes, per-label metrics, and latency report |
-| `passes` | `agent/eval.py` | 25-30 | Expected, forbidden, labels | Keep | The contract stays |
+| `passes` | `agent/eval.py` | 25-30 | Expected, forbidden, labels | Adapt | Add `labels_any_of` for inherently overlapping types; exact labels stay the default |
 | `SparqlHandler` | `agent/handlers/sparql.py` | 48-73 | Raw SPARQL capability | Adapt | Move to `RawSparqlCapability`; reuse the same tool and query guard |
 | `looks_like_sparql` | `agent/handlers/sparql.py` | 29-31 | Query detection | Keep | Move to the raw capability |
 | `clean_query` | `agent/handlers/sparql.py` | 20-26 | Fence removal | Keep | Move to `tools/sparql.py`; shared by the query guard and raw capability |
@@ -228,15 +228,17 @@ Each removal must keep the unit suite green.
 
 | Construct | Responsibility | Interface |
 |---|---|---|
-| `GuardrailSchema` | Load scope values, safety types, severity, tone, fallback texts, limits, and 14 pair examples | `load_schema(path)` |
-| `GuardClassifier` | Decompose the message into verbatims, assess safety then scope, force `submit_classification` | `classify(text) -> RawClassification` |
+| `GuardrailSchema` | Load scope values, safety types, descriptions, fallback texts, limits, and 8 pair examples | `load_schema(path)` |
+| `GuardDiscriminator` | Decompose the message, detect ambiguity, and map semantic targets; force `submit_discrimination` | `discriminate(text) -> RawDiscrimination` |
+| `GuardClassifier` | Label a fixed decomposition independently on safety and scope; force `submit_classification`; enforce exact label count with `minItems` and `maxItems` | `classify(text, discrimination) -> RawClassification` |
 | `RawClassification` | Parsed overview and verbatims before validation | Frozen dataclass |
-| `VerdictValidator` | Check verbatim spans, order, coverage, labels, rationales, ambiguity flags, and lengths; retry once | `validate(raw, text, schema) -> Verdict` |
-| `Verdict` | Valid flag, overview, verbatims, ambiguities, validation error | Frozen dataclass |
+| `DiscriminationValidator` | Check exact spans, order, coverage, ambiguity flags, relationship targets, entities, and acyclic graph; retry once | `validate_discrimination(raw, text, schema) -> Discrimination` |
+| `ClassificationValidator` | Check one label per span, index order, safety and scope values, rationale bounds; retry once | `validate_classification(raw, discrimination, schema) -> Verdict` |
+| `Verdict` | Valid flag, overview, verbatims, per-span ambiguity and relationship, validation error | Frozen dataclass |
 | `Verbatim` | Exact text, label, and two rationales | Frozen dataclass |
-| `PolicyEngine` | One handling per verbatim, then one aggregate action | `plan(verdict) -> Decision` |
-| `VerbatimPlan` | Index, label, rationale, handling, safe text or redaction, ambiguities | Frozen dataclass |
-| `Decision` | Action, tools permission, verbatim plan, overview, safety types, tone, fallback mode | Frozen dataclass |
+| `PolicyEngine` | Normalize prompt-injection scope, resolve the relationship graph, plan one effective label per verbatim, then aggregate | `decide(verdict) -> Decision` |
+| `VerbatimPlan` | Index, effective label, rationale, handling, text or redaction, ambiguity, relationship | Frozen dataclass |
+| `Decision` | Action, tools permission, verbatim plan, overview, safety types, fallback mode | Frozen dataclass |
 | `FallbackText` | Select canonical text for a refusal, clarification, boundary, capability, or unavailable answer | `text_for(decision, part) -> str` |
 
 ### 4.2 QA package
@@ -248,11 +250,11 @@ Each removal must keep the unit suite green.
 | `ResponsePart` | Enum for `factual_answer`, `general_answer`, `capability_limit`, `refusal`, `clarification`, `boundary` | Enum values |
 | `SchemaCard` | Curated RDF schema and few-shot SPARQL examples | `render() -> str` |
 | `AgentState` | Overview, decision, observations, evidence, errors, step count | Mutable dataclass |
-| `AgentResult` | Ordered parts, joined text, evidence, derived assumptions, fallback reason | Frozen dataclass |
+| `AgentResult` | Ordered parts, joined text, evidence, fallback reason | Frozen dataclass |
 | `AnswerValidator` | Part coverage, kind, safety type, evidence, value, length, and content checks | `validate(response, state) -> Validation` |
 | `Validation` | Pass flag and the first failure reason | Frozen dataclass |
 | `RowRenderer` | Deterministic row-to-text fallback | `render(result) -> str` |
-| `Composer` | Fallback parts in verbatim order | `compose(decision, state) -> AgentResult` |
+| `Composer` | Fallback parts in verbatim order; distinct observations across answer parts | `compose(decision, state) -> AgentResult` |
 
 ### 4.3 Tool package
 
@@ -272,22 +274,22 @@ Each removal must keep the unit suite green.
 
 | Construct | Responsibility | Interface |
 |---|---|---|
-| `LLMClient` | OpenAI SDK wrapper, retries, timeouts, normalisation | `chat(messages, tools, tool_choice, ...) -> LLMResponse` |
+| `LLMClient` | OpenAI SDK wrapper, retries, timeouts, extra body, response format, normalisation | `chat(messages, tools, tool_choice, ...) -> LLMResponse` |
 | `LLMResponse` | Content, tool calls, finish reason, usage | Frozen dataclass |
 | `ToolCall` | ID, name, JSON arguments | Frozen dataclass |
 | `load_clients` | Build guard and QA clients from settings | `load_clients(settings) -> Clients` |
 | `Clients` | Guard and QA client pair | Frozen dataclass |
-| `HealthCheck` | Probe both endpoints at startup | `check(clients) -> Health` |
+| `HealthCheck` | Probe each configured endpoint once at startup | `check(clients) -> Health` |
 | `Health` | Per-endpoint status and latency | Frozen dataclass |
-| `agent/serve.py` | Start and stop the local model servers | `start(settings)`, `stop()` |
+| `agent/serve.py` | Start the local model server | `start(settings)` |
 
 ### 4.5 Data files
 
 | File | Content | Owner |
 |---|---|---|
-| `agent/data/guardrails.json` | Scope values, safety types with legacy labels, severity, tone, fallback texts, limits, 14 pair examples | Guard |
+| `agent/data/guardrails.json` | Scope values, three parent safety types with descriptions and fallbacks, limits, 8 pair examples | Guard |
 | `agent/data/movie_schema.json` | Core classes, properties, value shapes, examples | QA prompt |
-| `config` environment keys | Endpoints, models, budgets, mode | Config |
+| `config` environment keys | Shared local endpoint and model, role overrides, budgets, mode | Config |
 
 ## 5. File-by-file target map
 
@@ -307,9 +309,10 @@ agent/
 ├── eval.py                     adapt    suites, modes, metrics
 ├── guard/
 │   ├── schema.py               new      two-axis guard schema
-│   ├── classifier.py           new      decomposition and forced classification
-│   ├── verdict.py              new      verbatim, label, rationale, and ambiguity validation
-│   ├── policy.py               new      per-verbatim plan and aggregate action
+│   ├── verdict.py              new      discrimination, verbatim, label, rationale, relationship validation
+│   ├── discriminator.py        new      two-stage guard: discrimination prompt and tool
+│   ├── classifier.py           new      two-stage guard: classification prompt and tool
+│   ├── policy.py               new      relationship resolution, plan, aggregate action
 │   └── fallback.py             new      canonical response text
 ├── qa/
 │   ├── agent.py                new      per-verbatim response agent
@@ -381,18 +384,19 @@ Its one useful capability, raw SPARQL, moves to `agent/tools/raw_sparql.py`.
 
 | Test area | Cases |
 |---|---|
-| Guard schema | Load, two scopes, six safety types, 14 pair examples, invalid schema, no allow label |
-| Classifier contract | Forced tool call, decomposition, one-sentence two-request split, exact spans, coverage gap, unknown type, multiple types, typed overview, per-verbatim rationale, blocking ambiguity, retry, clarification |
-| Policy plan | Per-verbatim handling table, aggregate action table, safety first, scope second, invalid to clarify, blocking ambiguity, mixed answer plus refusal, mixed answer plus boundary, utility invariant, tool permission |
+| Guard schema | Load, two scopes, three parent safety types, 8 pair examples, invalid schema, no allow label |
+| Discrimination contract | Forced tool call, smallest complete spans, exact spans, coverage gap, separator words, ambiguity flag, resolved target, missing target, entity in target, target range, self-target, cycle, retry, clarification |
+| Classification contract | Forced tool call, one label per span, index order, unknown type, multiple types, prompt-injection scope rule, rationale bounds, retry, clarification |
+| Policy map | Per-verbatim effective label, parent-child inheritance, scope inheritance, prompt-injection scope, missing target, full 192-case matrix, aggregate action table, utility invariant, tool permission |
 | Tool contracts | Entity exact, prefix, contains, missing, limit; `run_sparql` rows; no schema tool exists |
 | Query guard | SELECT, ASK, updates, SERVICE, DESCRIBE, strings that contain banned words, length |
 | Result formatter | IRI label resolution, dates, numbers, truncation, row IDs |
 | Agent loop | Part kinds, one part per verbatim, mixed reply, factual tool calls, observation, submit, repair, step budget, deadline, repeated call, no graph call in a non-factual part |
 | Answer validator | Part coverage, part kind, graph call in a non-factual part, cited row, missing row, invented number, invented label, URL, code fence, clarify shape, clarify quote length, redacted-text overlap |
 | Refusal and clarify | Per-verbatim safety types, type coverage, no graph fact, length, crisis line, one question, fallback, no graph tools |
-| Composer | Fallback only, ordered parts, answer plus boundary plus refusal, empty, length |
+| Composer | Fallback only, ordered parts, distinct observations, answer plus boundary plus refusal, empty, length |
 | Session seam | Sanitised recording, reset, history disabled |
-| E2E | 44 projected guardrail cases after the three compatibility edits, per-verbatim plan cases, mixed-reply matrix, held-out factual set, adversarial sets |
+| E2E | 47 projected guardrail cases after the three compatibility edits, per-verbatim plan cases, mixed-reply matrix, held-out factual set, adversarial sets |
 
 ## 7. Dependency impact
 
@@ -414,7 +418,7 @@ Its one useful capability, raw SPARQL, moves to `agent/tools/raw_sparql.py`.
 | Dependency | Purpose |
 |---|---|
 | `vllm` | OpenAI-compatible server, tool parser, batching |
-| `bitsandbytes` | 4-bit fallback if AWQ is unavailable |
+| `bitsandbytes` | 4-bit fallback if the full-precision model does not fit |
 | `torch` | Server runtime |
 | `transformers` | Tokenizer and model loading |
 | `accelerate` | Device placement |
@@ -429,8 +433,8 @@ It documents the serving setup next to the launcher.
 
 1. vLLM and torch versions must match on Nuvolos.
    The serving spike pins them together.
-2. AWQ models may not exist for the chosen model pair.
-   The bitsandbytes path is the fallback.
+2. The chosen checkpoint may not have a quantized variant.
+   The launcher serves the full-precision model; bitsandbytes is the fallback if memory is tight.
 3. llama.cpp may not support the exact tool-call format.
    The agent uses the OpenAI message shape; the server must parse it.
 4. The OpenAI SDK must tolerate the local server's response shape.
@@ -447,7 +451,7 @@ It documents the serving setup next to the launcher.
 | Tool files | 1 handler | 4 | `agent/tools/` |
 | LLM instances | 1 | 2 | Config and clients |
 | Unit tests | 174 | at least 220 | `pytest -q` |
-| Eval suites | 3 stage suites | 9 suites | `evals/` |
+| Eval suites | 3 stage suites | 9 suites | `evals/` plus `evals/adversarial/policy_e2e.jsonl` |
 | Runtime dependencies | 6 | 4 | `requirements.txt` |
 | Internet calls | 0 | 0 | Audit |
 
@@ -460,15 +464,19 @@ The cutover records the real counts.
 |---|---|---|---|
 | The 4B model writes wrong SPARQL | High | Wrong but grounded answers | Held-out eval, repair loop, row citation, fallback renderer |
 | The guard model misses unsafe input | Medium | Safety failure | Per-type recall gate, verbatim coverage, per-verbatim plan, red-team set |
-| The classifier merges or drops a clause | Medium | Safety failure | Exact-span coverage, gap retry, clarify on failure, adversarial decomposition cases |
+| The discriminator merges or drops a clause | Medium | Safety failure | Exact-span coverage, gap retry, clarify on failure, adversarial decomposition cases |
 | The response agent complies with an injection | Medium | Safety failure | Graph tools only for a factual answer part, validator fact checks, redacted unsafe text, tool-query overlap check, fallback texts |
-| The classifier returns invalid output | Medium | Safe but unhelpful reply | One retry, then a clarification with no graph tools and no facts |
+| The discriminator or classifier returns invalid output | Medium | Safe but unhelpful reply | One retry per stage, then a clarification with no graph tools and no facts |
 | A mixed reply answers or quotes an unsafe verbatim | Medium | Safety failure | Redacted unsafe text, one refusal part per unsafe verbatim, per-part validator, tool-query overlap check |
 | A mixed reply suppresses a safe verbatim | Medium | Utility loss | Utility invariant, per-verbatim plan, mixed-reply matrix gate |
-| A classifier miss on an unsafe request reaches clarify with raw text | Low | Safety failure | 100 percent safety recall gate, verbatim coverage, red-team set, clarify prompt and validator cap any quote at six words |
+| A wrong relationship target propagates the wrong safety type | Medium | Safety or utility failure | Entity-in-target validation, acyclic graph, fail-closed map, 192-case matrix, relationship tracing |
+| A wrong pronoun target hides a missing antecedent | Medium | Safety failure | Gender-mismatch policy, entity-in-target check, acyclic graph, relationship probes |
+| A procedural self-harm realism question passes as analysis | Medium | Safety failure | Explicit realism-versus-instruction policy, step-request case, harmful examples |
+| A guard miss on an unsafe request reaches clarify with raw text | Low | Safety failure | 100 percent safety recall gate, verbatim coverage, red-team set, clarify prompt and validator cap any quote at six words |
+| The QA model repeats tools and exhausts its budget | Medium | Utility loss | Repeat-call guard, forced final submit, distinct-observation fallback |
 | No schema tool blocks predicate discovery | Medium | Wrong query or retry | Schema card, one predicate-discovery SPARQL example, repair loop |
-| Two models do not fit on the T4 | Medium | Deployment failure | 4-bit AWQ, memory fractions, llama.cpp fallback, serving spike |
-| Tool calls are unreliable on the local server | Medium | Loop failure | Forced classifier tool, JSON schema, one repair, fallback |
+| The shared model and KV cache do not fit on the T4 | Medium | Deployment failure | Memory fraction, 4096 context, quantization if needed, llama.cpp fallback, serving spike |
+| Tool calls are unreliable on the local server | Medium | Loop failure | Forced guard tools, JSON schema, one repair, fallback |
 | The agent is too slow for 25 seconds | High | Timeout replies | Step budget, token caps, 4-bit, vLLM, latency gate, timeout tuning |
 | The new factual path is worse than legacy | High | Regression | Legacy flag, held-out set, per-type scoreboard, no cutover until gate |
 | The eval set leaks into prompt tuning | Medium | False confidence | Split dev and test, freeze test, report per-type recall |
@@ -481,7 +489,7 @@ The cutover records the real counts.
 
 1. Freeze the legacy baseline logs.
 2. Confirm the per-verbatim plan matrix and the aggregate action matrix.
-3. Confirm the 44-case legacy label projection and the three compatibility edits.
+3. Confirm the 47-case canonical labels and the three compatibility edits.
 4. Confirm that invalid classification yields a clarification, not a refusal.
 5. Confirm that a mixed reply answers every safe answerable verbatim and refuses every unsafe verbatim.
    The safe part must still be answered.

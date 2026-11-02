@@ -41,7 +41,7 @@ Confirm the file stays clean before branching.
 | 1 | Serving, LLM client, guard slice | Guard exact 95 percent, unsafe recall 100 percent, per-verbatim plan matrix 100 percent |
 | 2 | Tool layer | Query guard, entity resolver, and SPARQL contract tests pass |
 | 3 | QA agent | Factual at least legacy on held-out set, zero unsupported values, part coverage 100 percent |
-| 4 | Policy, responses, mixed requests | Per-verbatim plan 100 percent, mixed-reply matrix 100 percent, 44/44 projected labels with three relabels |
+| 4 | Policy, responses, mixed requests | Per-verbatim plan 100 percent, mixed-reply matrix 100 percent, 47/47 projected labels with three relabels |
 | 5 | Cutover and deletion | Full regression, adversarial, latency, Nuvolos |
 | 6 | Report and deployment | Reproducible submission and report section |
 
@@ -90,7 +90,7 @@ LLM_MODEL="" .venv/bin/python -m agent.eval evals/stage3_guardrails.jsonl --json
 2. Stage 1 passes 9 of 9.
 3. Stage 2 passes 508 of 508.
 4. The negation set passes 9 of 9.
-5. The Stage 3 no-LLM run is recorded as 0 of 44, not treated as a failure.
+5. The Stage 3 no-LLM run is recorded as 0 of 47, not treated as a failure.
 6. All logs are saved under `eval/phase-0/`.
 7. The `--json` result file and the scoreboard reproduce the same counts.
 
@@ -123,37 +123,35 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
    Normalise `content`, `tool_calls`, `finish_reason`, and `usage`.
    Add timeouts and one retry.
 4. Add `agent/llm/health.py`.
-   Probe both endpoints at startup.
+   Probe each configured endpoint at startup.
    Return a health object.
 5. Add `agent/data/guardrails.json`.
    Two scope values.
-   Six safety types.
-   Severity, tone, fallback texts, limits, legacy labels, and 14 scope and safety pair examples.
+   Three parent safety types.
+   Descriptions, fallback texts, limits, and 8 scope and safety pair examples.
    No allow label.
 6. Add `agent/guard/schema.py`.
    Load and validate the schema.
    Reject duplicate or missing scope values and safety types.
-   Reject an incomplete severity order or an incomplete 14-pair example set.
+   Reject reordered safety types and an incomplete 8-pair example set.
    Reject an allow label.
-7. Add `agent/normalize.py` and `agent/guard/classifier.py`.
+7. Add `agent/normalize.py`, `agent/guard/discriminator.py`, and `agent/guard/classifier.py`.
    The normaliser trims, caps length, repairs quotes, and strips the course prefix.
-   Guard spans and ambiguity text refer to the normalised string.
-   Build the prompt from the schema.
-   Decompose the message into verbatims.
-   Split separate requests joined by "and", "and then", or "then".
-   Split direct address and vocatives.
-   Assess safety first, then scope, for each verbatim.
-   Write a safety rationale and a scope rationale.
-   Build the overview summary.
-   Force the `submit_classification` tool.
-   Cap guard output at 1,600 tokens.
-   Parse the typed object.
+   All spans and relationship entities refer to the normalised string.
+   Call 1 forces `submit_discrimination`.
+   It splits the message into the smallest complete verbatims and maps ambiguity relationships.
+   Call 2 forces `submit_classification`.
+   It labels each fixed span independently on safety and scope.
+   Both calls cap output at 1,600 tokens.
 8. Add `agent/guard/verdict.py`.
-   Validate the overview, verbatims, labels, rationales, exact spans, order, coverage, axes, unsafe types, and ambiguities.
-   Retry once with the validation error.
+   Validate discrimination: overview, exact spans, order, coverage, separator words, ambiguity flags, target range, entity in target, and acyclic graph.
+   Validate classification: one label per span, index order, axes, unsafe types, and rationale bounds.
+   Retry the failing stage once with the validation error.
    On a second failure, return `clarify`.
 9. Add `agent/guard/policy.py`.
-   Implement one handling per verbatim, then one aggregate action.
+   Normalise prompt-injection scope.
+   Resolve the relationship graph.
+   Plan one effective label per verbatim, then one aggregate action.
    Every verbatim is `answer`, `refuse`, `clarify`, or `boundary`.
    Aggregate in fixed order: any answer, else any refuse, else any clarify, else out of scope.
    Safety first within the verbatim.
@@ -175,6 +173,7 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
     Legacy still loads the in-process LLM.
     This is a temporary bridge, not the target.
 12. Add `agent/config.py` keys.
+    `LOCAL_BASE_URL`, `LOCAL_MODEL`.
     `GUARD_BASE_URL`, `GUARD_MODEL`, `GUARD_API_KEY`.
     `QA_BASE_URL`, `QA_MODEL`, `QA_API_KEY`.
     `GUARD_SCHEMA_PATH`, `AGENT_MODE`, `AGENT_DEADLINE_S`.
@@ -182,10 +181,10 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
     `MAX_STEP_TOKENS`, `MAX_PROMPT_TOKENS`, `HISTORY_ENABLED`.
     `MAX_ANSWER_CHARS`, `MAX_REFUSAL_CHARS`.
 13. Add `agent/serve.py`.
-    Start two vLLM processes.
-    Read model names and ports from the environment.
+    Start one vLLM process for the shared model.
+    Read the model name and port from the environment.
     Wait for health.
-    Print the exact commands.
+    Print the exact command.
     Expose `--check` for a health-only probe.
     The module lives under `agent/`, so the submission build copies it.
     `AUTOSTART_MODELS=1` makes the runtime start it at startup.
@@ -205,7 +204,7 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
     `e2e` to `evals/stage3_e2e.jsonl`;
     `adversarial` to every file under `evals/adversarial/`.
 15. Add tests for the guard slice.
-    Schema load and 14 pair examples.
+    Schema load and 8 pair examples.
     No allow label.
     Mode selection keeps legacy.
     Forced tool call.
@@ -226,18 +225,17 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
 ### Serving spike
 
 Run the two servers on the T4.
-Measure VRAM, classifier latency, and a 20-request guard run at 4 concurrent requests.
+Measure VRAM, guard latency, and a 20-request guard run at 4 concurrent requests.
 Decision rule:
 
 1. Both models fit below 15 GB.
 2. Guard p95 is below 2 seconds at 4 concurrent requests.
 3. No OOM under 8 concurrent requests.
-4. The tool parser returns `submit_classification` as a tool call.
-5. The guard template disables thinking, and the guard p95 stays under the budget.
+4. The tool parser returns `submit_discrimination` and `submit_classification` as tool calls.
 
 If the rule fails, use this fallback order:
 
-1. llama.cpp Q4_K_M for both models.
+1. llama.cpp Q4_K_M for the shared model.
 2. One vLLM QA server plus a llama.cpp guard server on CPU.
 3. One 4B model with two prompts only after explicit approval.
 
@@ -255,7 +253,7 @@ nvidia-smi
 
 ### Gate
 
-The 44 existing guardrail cases are the Phase 1 dev set.
+The 47 guardrail cases are the Phase 1 dev set.
 The three scope cases are re-labelled to `out_of_scope`.
 They are `safe-hello`, `safe-thanks`, and `safe-capabilities`.
 The old set contradicted the new general-conversation rule.
@@ -372,15 +370,15 @@ Replace the symbolic query construction with the bounded tool loop.
    Convert the old `sparql_builder` templates into examples.
    `SchemaCard` loads and renders the data file.
 2. Add `agent/qa/prompts.py`.
-   One system prompt with eight sections: role, grounding, classification format, reply contract, tools, policy, schema card, and stop rules.
-   The user prompt carries the overview, the aggregate action, the verbatim plan, and the ambiguities.
+   One system prompt with nine sections: role, grounding, classification format, relationships, reply contract, tools, policy, schema card, and stop rules.
+   The user prompt carries the overview, the aggregate action, and the verbatim plan.
    Unsafe verbatim text and its rationale are redacted from the prompt.
    The reply contract states one part per verbatim, in input order, with the kind that matches the handling.
    The prompt describes every part kind: `factual_answer`, `general_answer`, `capability_limit`, `refusal`, `clarification`, and `boundary`.
 3. Add `agent/qa/actions.py`.
    OpenAI function schemas for `resolve_entity`, `run_sparql`, and `submit_response`.
    `submit_response` fields: `parts[]`.
-   Each part has `verbatim_index`, `kind`, `text`, `evidence_row_ids`, `addressed_safety_types`, and `assumption`.
+   Each part has `verbatim_index`, `kind`, `text`, `evidence_row_ids`, and `addressed_safety_types`.
    Pydantic argument models.
 4. Add `agent/qa/state.py`.
    Overview, verdict, decision, observations, evidence, errors, and step count.
@@ -451,7 +449,8 @@ Replace the symbolic query construction with the bounded tool loop.
 1. System prompt at most 1,800 tokens.
 2. User prompt at most 200 tokens.
 3. Observation at most 1,200 characters.
-4. Step output at most 160 tokens.
+4. Step output at most 300 tokens.
+   The final step forces `submit_response`.
 5. Maximum four tool calls.
 6. Keep the latest observation when the context is tight.
 7. Fall back before the outer reply timeout.
@@ -495,7 +494,7 @@ Make the per-verbatim plan, the aggregate action, and the mixed reply real end t
 ### Tasks
 
 1. Wire the policy into the runtime.
-   `action`, `tools_enabled`, `verbatim_plan`, `overview`, `safety_types`, `tone`, `fallback_mode`.
+   `action`, `tools_enabled`, `verbatim_plan`, `overview`, `safety_types`, `fallback_mode`.
    The plan carries one handling per verbatim.
    Unsafe verbatim text is set to null and marked redacted.
 2. Implement the mixed-scope path.
@@ -504,14 +503,14 @@ Make the per-verbatim plan, the aggregate action, and the mixed reply real end t
    It adds one boundary part for each safe out-of-scope verbatim.
    It does not refuse the in-scope part.
 3. Implement the per-verbatim safety path.
-   Every unsafe verbatim gets one refusal part with its own types and tone.
+   Every unsafe verbatim gets one refusal part with its own safety types.
    The response agent gets the label and the neutral overview entry, not the raw unsafe text.
    A safe answerable verbatim is still answered.
    The refusal part does not suppress it.
    This is the utility invariant.
 4. Implement the clarification path.
-   Invalid classification produces an aggregate `clarify` with no tools and no facts.
-   A blocking ambiguity on an in-scope verbatim produces a clarification part.
+   Invalid discrimination or classification produces an aggregate `clarify` with no tools and no facts.
+   A missing semantic target on a safe verbatim produces a clarification part.
    If another verbatim is answerable, the aggregate action stays `answer` and the reply carries both an answer part and a clarification part.
 5. Implement the out-of-scope path.
    It applies only when every verbatim is a safe boundary.
@@ -537,15 +536,17 @@ Make the per-verbatim plan, the aggregate action, and the mixed reply real end t
    Mixed safe in-scope and safe out-of-scope.
    Mixed safe and unsafe, asserting both an answer part and a refusal part.
    Mixed safe, unsafe, and out-of-scope, asserting three parts.
-   Blocking ambiguity on one verbatim beside an answerable verbatim.
+   Missing semantic target on one verbatim beside an answerable verbatim.
+   Inherited toxic on a dependent verbatim beside its toxic parent.
+   Unambiguous injection parent beside an answerable movie question.
    Invalid classification to `clarify`.
    Recommendation to `capability_limit` in the response agent.
    Full-input unsafe verbatim.
    Every safety type.
-   The 44 existing cases through the legacy projection.
+   The 47 existing cases through the canonical labels.
    The three compatibility relabels.
 10. Add the e2e guardrail eval.
-    The 44 corrected cases.
+    The 47 corrected cases.
     Twelve new mixed-scope cases.
     Twelve new mixed-safety cases with a utility assertion: the safe answer must be present and the refusal part must be present.
     Twelve new clarification cases.
@@ -560,9 +561,9 @@ Make the per-verbatim plan, the aggregate action, and the mixed reply real end t
     A tool query contains no four-word sequence from a redacted verbatim.
 12. Add the label prefix for debug mode.
     Keep `SHOW_GUARDRAIL_LABELS`.
-    Keep the `labels` trace step as the legacy projection.
-13. Review the self-harm refusal wording with a human.
-    Review the mixed composition of a self-harm part and a safe answer part.
+    Keep the `labels` trace step as the canonical label set.
+13. Review the harmful refusal wording with a human.
+    Review the mixed composition of a harmful refusal part and a safe answer part.
     Record the approved wording in `agent/data/guardrails.json`.
 
 ### Commands
@@ -578,16 +579,16 @@ python -m agent.eval --suite redteam --mode tools
 
 1. The per-verbatim handling matrix passes every case.
 2. The aggregate action matrix passes every case.
-3. The legacy projection passes 44 of 44 cases on the corrected set with three relabels.
+3. The canonical labels pass 47 of 47 cases on the corrected set with three relabels.
 4. Unsafe recall is 100 percent on the test split.
 5. Prompt-injection recall is at least 95 percent on the test split.
 6. No unsafe method, code, URL, or forbidden value appears in any refusal part.
 7. A mixed-scope request answers the in-scope verbatim and adds one boundary part.
 8. A mixed-safety request answers every safe answerable verbatim and refuses every unsafe verbatim in the same reply.
    The safe answer is not suppressed.
-9. Invalid classification produces a clarification with no graph tools and no facts.
-   A blocking ambiguity beside an answerable verbatim produces an answer part plus a clarification part.
-10. Every refusal part covers exactly the unsafe types of its own verbatim.
+9. Invalid discrimination or classification produces a clarification with no graph tools and no facts.
+   A missing semantic target beside an answerable verbatim produces an answer part plus a clarification part.
+10. Every refusal part covers exactly the safety types of its own verbatim.
 11. The QA prompt carries no unsafe verbatim text.
     No tool query contains a four-word sequence from a redacted verbatim.
 12. The session stores no raw unsafe or out-of-scope text.
@@ -613,7 +614,7 @@ Remove the symbolic stack and make the tool path the only path.
 3. Update `agent/core.py`, `agent/cli.py`, `agent/__main__.py`, `agent/eval.py`, `agent/config.py`.
    Remove the handler imports.
    Add `--smoke` to `agent/__main__.py`.
-   It checks settings, graph open, both endpoints, one guard call, one factual answer, one refusal, and one clarification.
+   It checks settings, graph open, the shared endpoint, one guard call, one factual answer, one refusal, and one clarification.
    It exits non-zero on failure.
    Keep the launcher call `main()` unchanged.
 4. Update `README.md` and `phases.md`.
@@ -663,7 +664,7 @@ python scripts/build_submission.py 4
 3. Stage 2 accuracy is recorded and explained.
    The negation set is recorded too.
    Parity is not required on the old 508 cases if the held-out gate passed.
-4. The per-verbatim plan, the aggregate action, and the legacy projection meet the Phase 4 gate.
+4. The per-verbatim plan, the aggregate action, and the canonical labels meet the Phase 4 gate.
 5. Adversarial scoreboard shows no regression above two points per family.
 6. Latency p95 is below 20 seconds with 8 concurrent rooms.
 7. The timeout rate is below 1 percent.
@@ -710,7 +711,7 @@ Make the result reproducible and defensible.
 
 | Change | Command | Expected signal |
 |---|---|---|
-| Guard schema | `pytest -q tests/test_guard.py tests/test_policy.py` | Schema and 14 pairs pass |
+| Guard schema | `pytest -q tests/test_guard.py tests/test_policy.py` | Schema and 8 pairs pass |
 | Classifier prompt | `python -m agent.eval --suite guard` | Exact match and per-type recall |
 | Tool contract | `pytest -q tests/test_tools.py tests/test_query_guard.py` | Tool boundaries hold |
 | QA prompt | `python -m agent.eval --suite heldout --mode tools` | Accuracy and unsupported values |
@@ -719,7 +720,7 @@ Make the result reproducible and defensible.
 | Refusal and clarify | `python -m agent.eval --suite redteam` | No leak, no compliance, one question |
 | Full path | `python -m agent.eval --suite e2e` | End-to-end accuracy |
 | Latency | `python scripts/latency.py` | p50, p95, timeout rate |
-| Serving | `python -m agent.serve --check` | Both endpoints healthy |
+| Serving | `python -m agent.serve --check` | Shared endpoint healthy |
 | Submission | `python scripts/build_submission.py 3` | Launcher and package complete |
 | Nuvolos | `python main.py --smoke` | Startup, graph, models, reply |
 
@@ -729,11 +730,11 @@ Make the result reproducible and defensible.
 |---|---|---|
 | Guard model | Measure exact match, unsafe recall, and latency on the dev split | Phase 1 |
 | QA model | Measure held-out accuracy and p95 on the T4 | Phase 3 |
-| Serving stack | Two vLLM processes versus llama.cpp | Phase 1 |
+| Serving stack | One vLLM process versus llama.cpp | Phase 1 |
 | Held-out size | At least 120 cases, 60 dev and 60 test | Phase 3 |
 | Raw SPARQL guard | Keep bypass for Stage 1; revisit after Stage 3 | Phase 5 |
 | Safety boundary | Confirm that a safety boundary suppresses only its verbatim and keeps the safe answer | Phase 4 |
-| Blocking ambiguity | Review the flag on the dev split; freeze the rule | Phase 4 |
+| Ambiguity and relationship map | Review the full pair matrix and fail-closed matrix on the dev split | Phase 4 |
 | Self-harm wording | Human safety review | Phase 4 |
 | History enablement | Defer to Stage 4 | After Phase 6 |
 
@@ -747,9 +748,10 @@ Make the result reproducible and defensible.
 6. The QA agent uses only tools for facts.
 7. Every factual answer cites evidence.
 8. The fallback renderer is tested.
-9. The 44 projected guardrail cases pass on the corrected set.
-10. Invalid classification produces a clarification with no facts.
-    A blocking ambiguity produces a clarification part for that verbatim, never a factual answer for it.
+9. The 47 projected guardrail cases pass on the corrected set.
+10. Invalid discrimination or classification produces a clarification with no facts.
+    A missing semantic target produces a clarification part for that verbatim, never a factual answer for it.
+    A resolved ambiguous child inherits its semantic parent's safety types.
 11. The red-team test split meets the recall gate.
 12. The held-out factual set meets the comparison gate.
 13. The adversarial sets show no material regression.
@@ -766,7 +768,7 @@ Make the result reproducible and defensible.
 4. Stop if any unsafe verbatim reaches a graph tool.
 5. Stop if a safe answerable verbatim is suppressed by another verbatim's safety or scope boundary.
 6. Stop if a mixed reply omits either the safe answer part or an unsafe verbatim's refusal part.
-7. Stop if invalid classification or blocking ambiguity produces a factual answer.
+7. Stop if invalid discrimination, invalid classification, or a missing semantic target produces a factual answer.
 8. Stop if the tool path is slower than the reply budget.
 9. Stop if the held-out accuracy is below legacy.
 10. Stop if the Nuvolos smoke test fails.

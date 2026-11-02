@@ -1,12 +1,12 @@
-# 08 — Read-only SPARQL tool
+# 08 - Read-only SPARQL tool
 
 **What to build:** The QA model can run a read-only SPARQL query and receive labelled rows with stable row IDs.
 The query guard rejects writes and network clauses in agent and raw modes.
 The result formatter resolves entity and property labels, formats values, assigns row IDs, and caps the observation.
 
-**Blocked by:** None — can start immediately.
+**Blocked by:** None - can start immediately.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] Agent mode accepts SELECT and ASK.
 - [ ] Raw mode also accepts CONSTRUCT and DESCRIBE.

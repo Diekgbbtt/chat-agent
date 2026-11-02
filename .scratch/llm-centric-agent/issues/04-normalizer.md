@@ -1,12 +1,12 @@
-# 04 — Input normalizer
+# 04 - Input normalizer
 
 **What to build:** Every message reaches the guard as one normalised string.
 The normaliser trims, caps length, repairs curly quotes, and strips the course prefix.
-Guard spans and ambiguity text refer to the normalised string.
+Discrimination spans and relationship entities refer to the normalised string.
 
-**Blocked by:** None — can start immediately.
+**Blocked by:** None - can start immediately.
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [ ] The normaliser trims leading and trailing whitespace.
 - [ ] The normaliser caps input at the existing maximum.
