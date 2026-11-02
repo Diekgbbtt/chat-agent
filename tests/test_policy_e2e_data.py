@@ -42,7 +42,7 @@ def test_every_branch_has_an_owner():
 
 def test_case_shape_is_valid():
     for case in CASES:
-        assert case["mode"] in ("guard_only", "tools")
+        assert case["mode"] == "llm"
         assert isinstance(case["input"], str) and case["input"].strip()
         expected = case["expected"]
         assert expected["action"] in ("answer", "refuse", "clarify", "out_of_scope")

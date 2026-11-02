@@ -147,7 +147,7 @@ It replaces the handler chain with one runtime and one bounded tool loop.
 | `load_settings` | `agent/config.py` | 98-115 | Environment and `.env` load | Adapt | Add the new keys; keep the existing precedence |
 | `load_dotenv` | `agent/config.py` | 45-53 | `.env` support | Keep | No change |
 | `parse_dotenv` | `agent/config.py` | 21-37 | `.env` parser | Keep | No change |
-| `cli` | `agent/cli.py` | 62 | Offline chat and debug | Adapt | Load two clients; add `--mode` and `--guard-only` |
+| `cli` | `agent/cli.py` | 62 | Offline chat and debug | Adapt | Load two clients; add `--mode` and the `llm` runtime |
 | `eval` | `agent/eval.py` | 60 | JSONL regression runner | Adapt | Add suites, modes, per-label metrics, and latency report |
 | `passes` | `agent/eval.py` | 25-30 | Expected, forbidden, labels | Adapt | Add `labels_any_of` for inherently overlapping types; exact labels stay the default |
 | `SparqlHandler` | `agent/handlers/sparql.py` | 48-73 | Raw SPARQL capability | Adapt | Move to `RawSparqlCapability`; reuse the same tool and query guard |

@@ -1,15 +1,15 @@
-"""Tools mode: guard gate, QA response agent, session seam."""
+"""LLM mode: guard gate, QA response agent, and session seam."""
 
 import logging
 
 from agent.core import append_turn
 from agent.guard.session import visible_user_text
 
-log = logging.getLogger("agent.tool_agent")
+log = logging.getLogger("agent.llm_agent")
 
 
-class ToolAgentHandler:
-    name = "tool_agent"
+class LLMAgentHandler:
+    name = "llm"
 
     def __init__(self, gate, qa_agent, schema, show_labels: bool = False):
         self.gate = gate
@@ -21,7 +21,7 @@ class ToolAgentHandler:
         return True
 
     def handle(self, text: str, session, trace) -> str:
-        trace.add("mode", "tools")
+        trace.add("mode", "llm")
         result = self.gate.evaluate(text, trace)
         if not result.verdict.valid:
             reply = self.schema.clarify_text

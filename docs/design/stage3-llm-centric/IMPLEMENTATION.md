@@ -26,13 +26,13 @@ No old handler was deleted.
 | Policy | One handling per verbatim, aggregate action, redaction, utility invariant |
 | Fallback | Canonical text for refusal, boundary, clarification, capability, general, unavailable answer |
 | Guard-only mode | New guard and policy, legacy factual answer, canonical other parts |
-| Raw SPARQL | Existing capability now validated by the same read-only query guard |
+| Raw SPARQL | Runs first in every mode; validated by the same read-only query guard and bypasses the LLM |
 | Graph tools | `resolve_entity`, `run_sparql`, row IDs, labels, truncation, typed observations |
 | QA contract | Nine-section system prompt, schema card, tool list, `submit_response` contract |
 | QA loop | Bounded steps, one tool call per turn, repeat-call guard, forced final submit, repair, deadline, deterministic fallback |
 | QA validator | Part coverage, order, kind, evidence, values, safety types, clarification shape, redaction overlap |
 | Mixed replies | Factual, general, capability, refusal, clarification, and boundary parts in verbatim order |
-| Runtime modes | `AGENT_MODE=legacy`, `guard_only`, and `tools` |
+| Runtime modes | `AGENT_MODE=legacy` and `llm` |
 | Session seam | Bounded turn list, safe in-scope user text only |
 | Eval data | Three scope relabels, mixed cases keep their safe answer |
 | Policy suite | Every scope and safety pair, aggregate action matrix |
@@ -61,8 +61,7 @@ No old handler was deleted.
 | `agent/qa/validator.py` | Part and grounding checks |
 | `agent/qa/agent.py` | Bounded QA loop |
 | `agent/qa/composer.py` | Deterministic fallback parts |
-| `agent/handlers/guard_only.py` | Guard-only bridge |
-| `agent/handlers/tool_agent.py` | Target runtime handler |
+| `agent/handlers/llm_agent.py` | LLM runtime handler |
 | `agent/llm/client.py` | OpenAI SDK client |
 | `agent/llm/health.py` | Endpoint probe |
 | `agent/serve.py` | vLLM launcher |
@@ -92,7 +91,7 @@ The legacy class and its dependencies stay until Phase 5.
 | `agent/qa/validator.py` | Effective redaction, including inherited unsafe children | `test_answer_validator` |
 | `agent/qa/agent.py` | Repeat-call guard, forced final submit, 300-token step cap | `test_qa_agent` |
 | `agent/qa/composer.py` | Distinct observations across answer parts | `test_composer` |
-| `agent/handlers/guard_only.py`, `tool_agent.py` | Session text from the decision plan | `test_guard_only`, `test_runtime_modes` |
+| `agent/handlers/llm_agent.py` | Session text from the decision plan | `test_runtime_modes` |
 | `agent/config.py`, `agent/llm/factory.py`, `agent/llm/client.py` | Local endpoint settings and local client factory | `test_config`, `test_llm_client` |
 | `agent/guard/verdict.py` | Resolved relationships require an explicit entity; null is missing-target only | `test_guard_verdict` |
 | `evals/stage3_guardrails.jsonl` | Three relational cases | `test_eval_data` |
@@ -104,12 +103,12 @@ The legacy class and its dependencies stay until Phase 5.
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 623 passed |
+| `pytest -q` | 616 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |
 | `agent.eval evals/stage2_factual_negation.jsonl` | 9 of 9 |
-| `agent.eval evals/stage3_guardrails.jsonl` in `guard_only` with no model | 0 of 47, expected |
+| `agent.eval evals/stage3_guardrails.jsonl` in `llm` with no model | 0 of 47, expected |
 | `agent.eval evals/stage1_sparql.jsonl --json ...` | 9 of 9, one result object per case |
 | `scripts/scoreboard.py ...` | 9 of 9, 0 failed |
 | `tests/test_eval.py`, `tests/test_scorecard.py` | `labels_any_of` accepts harmful or toxic |

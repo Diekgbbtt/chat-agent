@@ -78,12 +78,12 @@ def test_role_overrides_still_win(monkeypatch):
 
 
 def test_agent_mode_is_read_from_the_environment(monkeypatch):
-    monkeypatch.setenv("AGENT_MODE", "tools")
+    monkeypatch.setenv("AGENT_MODE", "llm")
     monkeypatch.setenv("MAX_AGENT_STEPS", "9")
     monkeypatch.setenv("HISTORY_ENABLED", "1")
 
     settings = load_settings()
 
-    assert settings.agent_mode == "tools"
+    assert settings.agent_mode == "llm"
     assert settings.max_agent_steps == 9
     assert settings.history_enabled is True

@@ -106,7 +106,7 @@ Revert the housekeeping commit if needed.
 Stand up two local OpenAI-compatible endpoints.
 Build the OpenAI SDK client.
 Build the configurable guard and the total policy engine.
-Wire a guard-only mode that uses the existing factual path for the in-scope answer.
+Wire the LLM mode that uses the new guard, policy, and QA loop.
 
 ### Tasks
 
@@ -165,8 +165,8 @@ Wire a guard-only mode that uses the existing factual path for the in-scope answ
     Select canonical refusal, clarification, scope, capability, and answer-unavailable text from the schema.
     No LLM call.
 11. Add `agent/core.py` mode handling.
-    `AGENT_MODE=legacy|guard_only|tools`.
-    `guard_only` uses the new guard, policy, and canonical fallback.
+    `AGENT_MODE=legacy|llm`.
+    `llm` uses the new guard, policy, QA loop, and canonical fallback.
     It uses the old factual handler for an in-scope factual answer without rephrase.
     This keeps the bridge free of the old in-process LLM.
     Adapt `agent/cli.py::load_agent` to build the selected mode.
@@ -246,7 +246,7 @@ All servers expose the same OpenAI shape.
 
 ```bash
 python -m agent.serve
-python -m agent.eval --suite guard --mode guard_only
+python -m agent.eval --suite guard --mode llm
 pytest -q tests/test_guard.py tests/test_policy.py tests/test_llm_client.py
 nvidia-smi
 ```
@@ -408,7 +408,7 @@ Replace the symbolic query construction with the bounded tool loop.
    Deterministic rendering from the last result.
    The renderer produces fallback parts only.
 8. Add `agent/qa/__init__.py` and the runtime wiring.
-   `AGENT_MODE=tools` uses `ResponseAgent`.
+   `AGENT_MODE=llm` uses `ResponseAgent`.
 9. Add tests with a fake `LLMClient`.
    Factual tool call, observation, submit.
    General answer without a graph call.
@@ -441,7 +441,7 @@ Replace the symbolic query construction with the bounded tool loop.
     Store expected values and forbidden values.
     Add a small multi-hop subset.
 11. Run the comparison.
-    `--mode legacy` and `--mode tools` on the same held-out set.
+    `--mode legacy` and `--mode llm` on the same held-out set.
     Save both scoreboards.
 
 ### Prompt budget
@@ -481,7 +481,7 @@ python scripts/scoreboard.py
 
 ### Rollback
 
-Set `AGENT_MODE=guard_only` or `legacy`.
+Set `AGENT_MODE=llm` or `legacy`.
 The old factual handler is still present.
 Do not delete it in this phase.
 
@@ -596,7 +596,7 @@ python -m agent.eval --suite redteam --mode tools
 
 ### Rollback
 
-Set `AGENT_MODE=guard_only`.
+Set `AGENT_MODE=llm`.
 Keep the policy tests.
 The legacy handler stays.
 
@@ -610,7 +610,7 @@ Remove the symbolic stack and make the tool path the only path.
 
 1. Tag the legacy branch.
    `git tag legacy-stage2-baseline`.
-2. Switch the default to `AGENT_MODE=tools`.
+2. Switch the default to `AGENT_MODE=llm`.
 3. Update `agent/core.py`, `agent/cli.py`, `agent/__main__.py`, `agent/eval.py`, `agent/config.py`.
    Remove the handler imports.
    Add `--smoke` to `agent/__main__.py`.

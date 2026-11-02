@@ -33,16 +33,10 @@ class Fake:
         raise AssertionError("no model call during construction")
 
 
-def test_build_runtime_selects_tools(movies_kg):
-    agent = build_runtime(movies_kg, settings(agent_mode="tools"), Clients(Fake(), Fake()))
+def test_build_runtime_selects_llm(movies_kg):
+    agent = build_runtime(movies_kg, settings(agent_mode="llm"), Clients(Fake(), Fake()))
 
-    assert [handler.name for handler in agent.handlers] == ["sparql", "tool_agent"]
-
-
-def test_build_runtime_selects_guard_only(movies_kg):
-    agent = build_runtime(movies_kg, settings(agent_mode="guard_only"), Clients(Fake(), Fake()))
-
-    assert [handler.name for handler in agent.handlers] == ["sparql", "guard_only"]
+    assert [handler.name for handler in agent.handlers] == ["sparql", "llm"]
 
 
 def test_build_runtime_rejects_an_unknown_mode(movies_kg):

@@ -95,7 +95,7 @@ class Settings:
     llm_model: str  # Hugging Face model id
     llm_4bit: bool  # 4-bit loading for small GPUs (local 6 GB card); off on Nuvolos (fp16)
     show_guardrail_labels: bool  # prefix replies with "[label]"; off = labels only in the log
-    agent_mode: str = "legacy"  # legacy | guard_only | tools
+    agent_mode: str = "legacy"  # legacy | llm
     local_base_url: str = DEFAULT_LOCAL_BASE_URL
     local_model: str = DEFAULT_LOCAL_MODEL
     guard_base_url: str = DEFAULT_LOCAL_BASE_URL

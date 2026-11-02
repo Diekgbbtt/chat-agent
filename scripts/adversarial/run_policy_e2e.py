@@ -453,7 +453,6 @@ def main(argv=None):
     parser.add_argument("--dataset", default=str(DEFAULT_DATASET))
     parser.add_argument("--json", default=str(DEFAULT_OUT))
     parser.add_argument("--summary", default=str(DEFAULT_SUMMARY))
-    parser.add_argument("--mode", choices=["guard_only", "tools"], help="override every case mode")
     parser.add_argument("--case", action="append", default=[], help="run only these case ids")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--repeat", type=int, default=1)
@@ -477,7 +476,7 @@ def main(argv=None):
     agents = {}
     records = []
     for case in cases:
-        mode = args.mode or case.get("mode") or "guard_only"
+        mode = case.get("mode") or "llm"
         if mode not in agents:
             agents[mode] = load_agent(mode)
         for repeat in range(args.repeat):

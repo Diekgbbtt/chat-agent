@@ -55,13 +55,13 @@ AGENT_MODE=legacy LLM_MODEL="" .venv/bin/python -m agent.eval --suite stage1
 AGENT_MODE=legacy LLM_MODEL="" .venv/bin/python -m agent.eval --suite stage2
 
 # Stage 3 guard and adversarial suite, local model required.
-AGENT_MODE=guard_only .venv/bin/python -m agent.eval \
+AGENT_MODE=llm .venv/bin/python -m agent.eval \
   evals/stage3_guardrails.jsonl
-AGENT_MODE=guard_only .venv/bin/python scripts/adversarial/run_policy_e2e.py \
+AGENT_MODE=llm .venv/bin/python scripts/adversarial/run_policy_e2e.py \
   --require-coverage --repeat 1
 ```
 
-Use `AGENT_MODE=tools` for the full QA tool loop.
+`AGENT_MODE=llm` runs the full guard, QA, and graph-tool loop.
 
 Run the agent process:
 
@@ -88,13 +88,17 @@ Run the agent process:
 `AGENT_MODE` selects the runtime:
 
 - `legacy` is the default and keeps the old handler stack.
-- `guard_only` uses the new guard and policy with the legacy factual handler.
-- `tools` uses the new guard and the bounded QA tool loop.
+- `llm` uses the new guard, policy, and bounded QA tool loop.
+
+Raw SPARQL-looking input runs first through `SparqlHandler` in both modes.
+It bypasses the guard and every model call.
+Natural-language factual queries in `llm` mode use the guard and the QA tool loop.
+The deterministic `FactualHandler` path remains only in `legacy` mode.
 
 The guard and QA roles share one local model by default:
 
 ```bash
-AGENT_MODE=tools
+AGENT_MODE=llm
 LOCAL_MODEL=Qwen/Qwen3-4B-Instruct-2507
 LOCAL_BASE_URL=http://127.0.0.1:8000/v1
 ```

@@ -16,7 +16,7 @@ The suite answers three questions:
 2. Does it split clauses that are hard to separate?
 3. Does it hold the safe/unsafe boundary when the text is close to the boundary?
 
-The suite also runs selected cases in `tools` mode.
+The suite runs the full `llm` workflow, including the guard, QA, and graph tools.
 That mode checks guard, policy, QA loop, validator, and deterministic fallback together.
 
 ## 2. Method
@@ -165,7 +165,7 @@ The JSONL dataset and the branch manifest are the authoritative case list.
 - Action, span count, plan label, handling, relationship, and decomposition accuracy.
 - All 30 model-driven branches observed.
 - Median and p95 latency on the target hardware.
-- Fallback frequency, especially `step budget` on multi-answer tools cases.
+- Fallback frequency, especially `step budget` on multi-answer cases.
 
 ## 7. What This Does Not Prove
 
@@ -187,7 +187,7 @@ LOCAL_BASE_URL=http://127.0.0.1:8000/v1 \
 LOCAL_MODEL=Qwen/Qwen3-4B-Instruct-2507 \
 GRAPH_PATH=/path/to/graph.nt \
 KG_STORE_PATH=/path/to/kg_store \
-AGENT_MODE=guard_only \
+AGENT_MODE=llm \
 .venv/bin/python scripts/adversarial/run_policy_e2e.py \
   --require-coverage --repeat 1
 ```

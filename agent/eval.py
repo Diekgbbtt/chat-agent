@@ -99,7 +99,7 @@ def main(argv=None) -> int:
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("--json", metavar="PATH", help="write one result object per case")
     parser.add_argument("--suite", help="named eval suite")
-    parser.add_argument("--mode", choices=["legacy", "guard_only", "tools"], help="runtime mode override")
+    parser.add_argument("--mode", choices=["legacy", "llm"], help="runtime mode override")
     args = parser.parse_args(argv)
 
     files = resolve_files(args.files, args.suite)

@@ -28,7 +28,7 @@ def build_runtime(kg, settings, clients=None) -> Agent:
     mode = settings.agent_mode
     if mode == "legacy":
         return build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
-    if mode not in ("guard_only", "tools"):
+    if mode != "llm":
         raise ValueError(f"unknown AGENT_MODE: {mode}")
 
     from agent.config import PROJECT_ROOT
@@ -37,12 +37,9 @@ def build_runtime(kg, settings, clients=None) -> Agent:
 
     clients = clients or clients_from_settings(settings)
     schema = load_schema(settings.guard_schema_path)
-    if mode == "guard_only":
-        return build_agent(kg, mode="guard_only", guard_client=clients.guard,
-                           guard_schema=schema, show_labels=settings.show_guardrail_labels)
     from agent.qa.schema_card import SchemaCard
     card = SchemaCard.load(PROJECT_ROOT / "agent" / "data" / "movie_schema.json")
-    return build_agent(kg, mode="tools", guard_client=clients.guard, qa_client=clients.qa,
+    return build_agent(kg, mode="llm", guard_client=clients.guard, qa_client=clients.qa,
                        guard_schema=schema, schema_card=card,
                        show_labels=settings.show_guardrail_labels,
                        max_steps=settings.max_agent_steps,

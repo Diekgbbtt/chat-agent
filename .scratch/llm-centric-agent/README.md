@@ -10,7 +10,6 @@ Spec: `spec.md`.
 | 04 | Input normalizer | none | done |
 | 05 | Guard classifier and typed verdict | 02, 03, 04 | done |
 | 06 | Per-verbatim policy and canonical fallback | 05 | done |
-| 07 | Guard gate and guard-only vertical slice | 05, 06 | done |
 | 08 | Read-only SPARQL tool | none | done |
 | 09 | Entity resolver tool | 08 | done |
 | 10 | QA contract and prompt | 02, 06 | done |

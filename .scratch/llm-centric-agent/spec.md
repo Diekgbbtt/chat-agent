@@ -66,7 +66,7 @@ The legacy path remains selectable through `AGENT_MODE` until the replacement ga
 27. As a platform engineer, I want two local OpenAI-compatible endpoints, so that no request leaves the host.
 28. As a platform engineer, I want a thin in-repo tool loop, so that the runtime does not depend on an agent framework.
 29. As a platform engineer, I want a health probe for the configured endpoints, so that startup fails clearly.
-30. As a platform engineer, I want `AGENT_MODE=legacy|guard_only|tools`, so that cutover and rollback are controlled.
+30. As a platform engineer, I want `AGENT_MODE=legacy|llm`, so that cutover and rollback are controlled.
 31. As a platform engineer, I want a session history seam that is disabled, so that single-turn behaviour stays unchanged.
 32. As a platform engineer, I want the legacy handler stack to stay until the gates pass, so that a failed rewrite does not break the bot.
 33. As a platform engineer, I want step, deadline, and token budgets, so that a tool loop cannot hang the reply.
@@ -152,8 +152,7 @@ The legacy path remains selectable through `AGENT_MODE` until the replacement ga
 - Three cases are relabelled: `safe-hello`, `safe-thanks`, and `safe-capabilities` become `out_of_scope`.
 - `mixed-heat-robbery` and `mixed-jaws-insult` keep their expected safe answer and gain a refusal-part assertion.
 - The default mode is `legacy`.
-- `guard_only` is a bridge that uses the new guard and policy with the legacy factual handler.
-- `tools` is the target mode.
+- `llm` is the target mode. It uses the new guard, policy, and bounded QA tool loop.
 - The session history seam stores only safe in-scope verbatims and stays disabled.
 - The serving stack is one vLLM process for the shared model; llama.cpp is the fallback.
 - The adversarial policy suite has 41 cases and 30 model-driven policy branches.

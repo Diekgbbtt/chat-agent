@@ -71,27 +71,21 @@ def test_unknown_mode_fails_at_build_time(movies_kg):
         raise AssertionError("expected ValueError")
 
 
-def test_guard_only_selects_the_bridge(movies_kg):
-    agent = build_agent(movies_kg, mode="guard_only", guard_client=FakeClient([]), guard_schema=SCHEMA)
-
-    assert [handler.name for handler in agent.handlers] == ["sparql", "guard_only"]
-
-
-def test_tools_mode_runs_the_full_path(movies_kg):
+def test_llm_mode_runs_the_full_path(movies_kg):
     text = "Who directed The Godfather?"
     guard = FakeClient([discrimination(span(text)), classification(item(text, "safe", (), "in_scope"))])
     qa = FakeClient([
         tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
         submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
     ])
-    agent = build_agent(movies_kg, mode="tools", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
+    agent = build_agent(movies_kg, mode="llm", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
     trace = Trace()
 
     reply = agent.answer(text, "room", trace)
 
     assert reply == "The Godfather was directed by Francis Ford Coppola."
     steps = dict(trace.steps)
-    assert steps["mode"] == "tools"
+    assert steps["mode"] == "llm"
     assert steps["policy"]["action"] == "answer"
     assert steps["evidence"] == ["r0"]
 
@@ -107,7 +101,7 @@ def test_session_stores_only_safe_in_scope_text(movies_kg):
         submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",)),
                part(1, "boundary", "I can only help with questions about movies.")),
     ])
-    agent = build_agent(movies_kg, mode="tools", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
+    agent = build_agent(movies_kg, mode="llm", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
 
     agent.answer(text, "room")
 
@@ -128,7 +122,7 @@ def test_session_stores_no_unsafe_text(movies_kg):
         submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",)),
                part(1, "refusal", "I cannot help with harmful requests.", (), ("harmful",))),
     ])
-    agent = build_agent(movies_kg, mode="tools", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
+    agent = build_agent(movies_kg, mode="llm", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
 
     agent.answer(text, "room")
 
@@ -150,7 +144,7 @@ def test_session_redacts_an_inherited_unsafe_child(movies_kg):
         submit(part(0, "refusal", "I cannot help with toxic requests.", (), ("toxic",)),
                part(1, "refusal", "I cannot help with toxic requests.", (), ("toxic",))),
     ])
-    agent = build_agent(movies_kg, mode="tools", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
+    agent = build_agent(movies_kg, mode="llm", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
 
     agent.answer(text, "room")
 
@@ -162,7 +156,7 @@ def test_session_redacts_an_inherited_unsafe_child(movies_kg):
 
 def test_session_is_bounded(movies_kg):
     text = "Who directed The Godfather?"
-    agent = build_agent(movies_kg, mode="guard_only", guard_client=FakeClient([]), guard_schema=SCHEMA)
+    agent = build_agent(movies_kg, mode="llm", guard_client=FakeClient([]), guard_schema=SCHEMA)
 
     for index in range(30):
         agent.session("room").turns.append({"user": f"u{index}", "reply": "r"})
@@ -170,3 +164,19 @@ def test_session_is_bounded(movies_kg):
     append_turn(agent.session("room"), "u", "r")
 
     assert len(agent.session("room").turns) <= 20
+
+
+def test_llm_mode_keeps_raw_sparql_symbolic(movies_kg):
+    guard = FakeClient([])
+    qa = FakeClient([])
+    agent = build_agent(movies_kg, mode="llm", guard_client=guard, qa_client=qa, guard_schema=SCHEMA)
+    trace = Trace()
+
+    reply = agent.answer("ASK { wd:Q47703 wdt:P57 wd:Q56094 }", "room", trace)
+
+    assert reply == "Yes."
+    assert guard.calls == []
+    assert qa.calls == []
+    steps = dict(trace.steps)
+    assert "sparql" in steps
+    assert "policy" not in steps

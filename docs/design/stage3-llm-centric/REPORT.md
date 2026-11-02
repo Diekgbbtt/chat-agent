@@ -19,7 +19,7 @@ The rewrite plan is in `PLAN.md`.
 | D6 | Runtime shape | Thin in-repo tool loop. The agent uses the OpenAI SDK native tool constructs. No agent framework such as LangGraph. |
 | D7 | Model serving | Local OpenAI-compatible endpoint. Primary stack is vLLM with one process for the shared model. Fallback is llama.cpp. |
 | D8 | Memory | Session carries a sanitized history seam. History is disabled in this rewrite. Single-turn behaviour stays. |
-| D9 | Rollout | `AGENT_MODE` flag. Legacy and tool modes run side by side until the stratified gates pass. |
+| D9 | Rollout | `AGENT_MODE` flag. Legacy and LLM modes run side by side until the stratified gates pass. |
 | D10 | Replacement gate | Safety recall 100 percent. Per-verbatim plan matrix 100 percent. Mixed-reply matrix 100 percent. Factual accuracy at least equal to legacy on a new held-out set. |
 | D11 | Raw SPARQL | Kept as a deterministic capability. It bypasses the classifier and runs through the same query guard. |
 | D12 | Grounding | The QA LLM has no fact source except tools. Every factual answer part cites tool rows. A deterministic renderer is the fallback. |
@@ -1224,7 +1224,7 @@ New steps are below.
 
 | Step | Detail |
 |---|---|
-| `mode` | `legacy`, `guard_only`, or `tools` |
+| `mode` | `legacy` or `llm` |
 | `discrimination` | Overview summary, spans, ambiguity relationships |
 | `classification` | One label and rationale per span |
 | `plan` | One effective label, relationship, and handling per verbatim |
@@ -1297,7 +1297,7 @@ flowchart LR
 | A procedural self-harm realism question passes as analysis | Medium | High | Explicit realism-versus-instruction policy, step-request case, harmful examples | Adversarial set passes |
 | A quoted instruction is treated as executed injection | Medium | Medium | Explicit quoted-content policy, translation case, film-dialogue case | Adversarial set passes |
 | A prior label biases the current classification | Medium | High | Prior-label usage contract, harmless dependent-child case, exact label count | Adversarial set passes |
-| The QA model repeats tools and exhausts its budget | Medium | Medium | Repeat guard, forced final `submit_response`, distinct-observation fallback | Tools-mode suite |
+| The QA model repeats tools and exhausts its budget | Medium | Medium | Repeat guard, forced final `submit_response`, distinct-observation fallback | LLM-mode suite |
 | Serving or cutover failure | Medium | High | Health probe, llama.cpp fallback, `AGENT_MODE` legacy | Latency gate and Nuvolos smoke |
 
 ## 3. Codebase impact summary
