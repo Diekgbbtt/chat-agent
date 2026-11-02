@@ -104,7 +104,7 @@ The legacy class and its dependencies stay until Phase 5.
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 621 passed |
+| `pytest -q` | 623 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |

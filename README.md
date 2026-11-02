@@ -18,6 +18,60 @@ GRAPH_PATH=/absolute/path/to/graph.nt     # default: dataset/graph.nt, then the 
 # KG_STORE_PATH=/path/to/kg_store         # default: kg_store/ next to agent/
 ```
 
+### Local runbook
+
+Copy the example environment and fill the credentials and graph path:
+
+```bash
+cp .env.example .env
+$EDITOR .env
+```
+
+Start an OpenAI-compatible model server. The bundled launcher uses vLLM and the
+`LOCAL_MODEL` and `LOCAL_BASE_URL` settings:
+
+```bash
+.venv/bin/pip install -r requirements-serve.txt
+.venv/bin/python -m agent.serve          # starts vLLM
+.venv/bin/python -m agent.serve --check  # probes guard and QA endpoints
+```
+
+Any OpenAI-compatible server works. For example:
+
+```bash
+vllm serve Qwen/Qwen3-4B-Instruct-2507 \
+  --host 127.0.0.1 --port 8000 \
+  --max-model-len 4096 \
+  --enable-auto-tool-choice --tool-call-parser hermes
+```
+
+Run the evals:
+
+```bash
+.venv/bin/python -m pytest -q
+
+# Deterministic Stage 1 and Stage 2, no model.
+AGENT_MODE=legacy LLM_MODEL="" .venv/bin/python -m agent.eval --suite stage1
+AGENT_MODE=legacy LLM_MODEL="" .venv/bin/python -m agent.eval --suite stage2
+
+# Stage 3 guard and adversarial suite, local model required.
+AGENT_MODE=guard_only .venv/bin/python -m agent.eval \
+  evals/stage3_guardrails.jsonl
+AGENT_MODE=guard_only .venv/bin/python scripts/adversarial/run_policy_e2e.py \
+  --require-coverage --repeat 1
+```
+
+Use `AGENT_MODE=tools` for the full QA tool loop.
+
+Run the agent process:
+
+```bash
+.venv/bin/python -m agent
+.venv/bin/python -m agent.cli "Who directed Inception?" --debug
+```
+
+`AUTOSTART_MODELS=1` lets the agent start the bundled vLLM server itself.
+
 ### Commands
 
 | Command | What it does |
