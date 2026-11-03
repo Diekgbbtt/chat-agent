@@ -78,6 +78,16 @@ class ResponseAgent:
                 state.errors.append(str(exc))
                 return self._fallback(state, "model error", trace)
 
+            if trace is not None:
+                trace.add("llm_step", {
+                    "step": step + 1,
+                    "content": response.content,
+                    "reasoning": response.reasoning,
+                    "finish_reason": response.finish_reason,
+                    "usage": response.usage,
+                    "tool_calls": [{"name": call.name, "arguments": call.arguments}
+                                   for call in response.tool_calls],
+                })
             if not response.tool_calls:
                 messages.append({"role": "assistant", "content": response.content or ""})
                 messages.append({"role": "user", "content": "You must call submit_response to finish."})
@@ -120,7 +130,10 @@ class ResponseAgent:
                 if call.name == "run_sparql":
                     trace.add("sparql", call.arguments.get("query", ""))
                 trace.add("tool_result", {"tool": call.name,
-                                          "rows": len(executed.observation.rows),
+                                          "arguments": call.arguments,
+                                          "row_count": len(executed.observation.rows),
+                                          "row_ids": list(executed.observation.row_ids),
+                                          "rows": list(executed.observation.rows),
                                           "truncated": executed.observation.truncated,
                                           "error": executed.observation.error})
             self._append_call(messages, call, executed.observation.as_json())

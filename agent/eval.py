@@ -14,8 +14,9 @@ import time
 from pathlib import Path
 
 from agent.cli import load_agent
-from agent.config import PROJECT_ROOT
+from agent.config import PROJECT_ROOT, load_settings
 from agent.core import Trace
+from agent.observability import configure_logging
 
 SUITES = {
     "stage1": "stage1_sparql.jsonl",
@@ -64,6 +65,7 @@ def run_case(agent, case: dict) -> dict:
     ok = error is None and passes(case, reply, trace)
     return {
         "id": case["id"],
+        "request_id": trace.request_id,
         "input": case["input"],
         "pass": ok,
         "expected": list(case.get("expected", [])),
@@ -104,6 +106,7 @@ def main(argv=None) -> int:
 
     files = resolve_files(args.files, args.suite)
     cases = [json.loads(line) for f in files for line in Path(f).read_text(encoding="utf-8").splitlines() if line.strip()]
+    configure_logging(load_settings())
     agent = load_agent(args.mode)
 
     records, failures, latencies = [], 0, []

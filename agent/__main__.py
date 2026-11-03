@@ -1,23 +1,28 @@
 """Starts the Speakeasy bot: `python -m agent` (or a submission's main.py)."""
 
+import logging
 import sys
 
 from agent.config import load_settings
 from agent.cli import build_runtime
 from agent.kg import KnowledgeGraph
+from agent.observability import configure_logging
 from agent.speakeasy_bot import SpeakeasyBot
 
 
-def setup_logging(log_dir: str):
+def setup_logging(settings):
     from speakeasypy import get_logger
 
+    level = getattr(logging, str(settings.agent_log_level).upper(), logging.INFO)
     # Child loggers (agent.kg, agent.bot, ...) propagate into this one.
-    return get_logger("agent", log_dir=log_dir)
+    logger = get_logger("agent", log_dir=settings.log_dir, level=level)
+    configure_logging(settings)
+    return logger
 
 
 def main() -> None:
     settings = load_settings() #Loads settings from .env file and other variables.
-    logger = setup_logging(settings.log_dir) #Sets up logging for the agent.
+    logger = setup_logging(settings) #Sets up logging for the agent.
     if not settings.username or not settings.password:
         logger.error("BOT_USERNAME and BOT_PASSWORD must be set (environment or .env file)")
         sys.exit(2)

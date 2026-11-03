@@ -1,12 +1,17 @@
 """Read-only query enforcement and labelled row observations."""
 
 import json
+import logging
 import re
+import time
 from dataclasses import dataclass
 from typing import Optional
 
 from agent.kg import QueryError, QueryTimeout, SelectResult
 from agent.lexicon import qid
+from agent.observability import emit
+
+log = logging.getLogger("agent.tools.sparql")
 
 MAX_QUERY_CHARS = 4_000
 DEFAULT_OBSERVATION_CHARS = 1_200
@@ -152,15 +157,26 @@ class RunSparqlTool:
         self.formatter = ResultFormatter(lexicon, max_chars=max_chars)
 
     def run(self, query: str) -> Observation:
+        started = time.perf_counter()
         try:
             cleaned = self.guard.validate(query)
             result = self.kg.query(cleaned)
-            return self.formatter.format(result)
+            observation = self.formatter.format(result)
+            emit(log, "sparql.run", query=cleaned, row_count=len(observation.rows),
+                 row_ids=list(observation.row_ids), truncated=observation.truncated,
+                 error=observation.error,
+                 latency_ms=round((time.perf_counter() - started) * 1000.0, 1))
+            return observation
         except QueryRejected as exc:
-            return Observation((), error=str(exc))
+            return self._failed(query, str(exc), started)
         except QueryTimeout as exc:
-            return Observation((), error=f"query timed out: {exc}")
+            return self._failed(query, f"query timed out: {exc}", started)
         except QueryError as exc:
-            return Observation((), error=f"invalid query: {exc}")
+            return self._failed(query, f"invalid query: {exc}", started)
         except Exception as exc:  # noqa: BLE001 - the model receives a typed observation
-            return Observation((), error=f"query failed: {exc}")
+            return self._failed(query, f"query failed: {exc}", started)
+
+    def _failed(self, query: str, error: str, started: float) -> Observation:
+        emit(log, "sparql.error", level=logging.WARNING, query=query, error=error,
+             latency_ms=round((time.perf_counter() - started) * 1000.0, 1))
+        return Observation((), error=error)

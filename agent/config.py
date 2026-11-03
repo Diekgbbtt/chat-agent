@@ -120,6 +120,9 @@ class Settings:
     max_capability_chars: int = 300
     max_general_chars: int = 400
     autostart_models: bool = False
+    agent_log_level: str = "INFO"
+    agent_log_payloads: bool = True
+    agent_log_file: str = ""
 
 
 def load_settings() -> Settings:
@@ -168,4 +171,7 @@ def load_settings() -> Settings:
         max_capability_chars=max(1, _int_env("MAX_CAPABILITY_CHARS", 300)),
         max_general_chars=max(1, _int_env("MAX_GENERAL_CHARS", 400)),
         autostart_models=_bool_env("AUTOSTART_MODELS", False),
+        agent_log_level=(os.environ.get("AGENT_LOG_LEVEL") or "INFO").upper(),
+        agent_log_payloads=_bool_env("AGENT_LOG_PAYLOADS", True),
+        agent_log_file=os.environ.get("AGENT_LOG_FILE") or "",
     )

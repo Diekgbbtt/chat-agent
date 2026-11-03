@@ -4,6 +4,7 @@ import logging
 
 from agent.core import append_turn
 from agent.guard.session import visible_user_text
+from agent.observability import emit
 
 log = logging.getLogger("agent.llm_agent")
 
@@ -23,14 +24,18 @@ class LLMAgentHandler:
     def handle(self, text: str, session, trace) -> str:
         trace.add("mode", "llm")
         result = self.gate.evaluate(text, trace)
+        fallback = ""
         if not result.verdict.valid:
             reply = self.schema.clarify_text
-            trace.add("fallback", "invalid classification")
+            fallback = "invalid classification"
+            trace.add("fallback", fallback)
         else:
             agent_result = self.qa_agent.respond(result.verdict, result.decision, trace)
             reply = agent_result.text
+            fallback = agent_result.fallback_reason
         append_turn(session, visible_user_text(result.decision), reply)
-        log.info("Room [%s] labels=%s action=%s", session.id, result.labels, result.decision.action)
+        emit(log, "answer", labels=list(result.labels), action=result.decision.action,
+             tools_enabled=result.decision.tools_enabled, fallback=fallback, reply=reply)
         if self.show_labels:
             reply = f"[{', '.join(result.labels)}] {reply}"
         return reply

@@ -1,10 +1,15 @@
 """Entity linking over the lexicon label index."""
 
+import logging
+import time
 from typing import List
 
 from agent.kg import Term
 from agent.lexicon import qid
+from agent.observability import emit
 from agent.tools.sparql import Observation
+
+log = logging.getLogger("agent.tools.resolve")
 
 MAX_LIMIT = 10
 DEFAULT_LIMIT = 5
@@ -50,6 +55,7 @@ class ResolveEntityTool:
         return unique
 
     def run(self, query: str, limit: int = DEFAULT_LIMIT) -> Observation:
+        started = time.perf_counter()
         query = (query or "").strip().casefold()
         if not query:
             return Observation(())
@@ -67,4 +73,7 @@ class ResolveEntityTool:
                 "human": self.lexicon.is_human(entity),
                 "degree": degrees.get(entity, 0),
             })
+        emit(log, "resolve.run", query=query, limit=limit, row_count=len(rows),
+             entities=[row["qid"] for row in rows],
+             latency_ms=round((time.perf_counter() - started) * 1000.0, 1))
         return Observation(tuple(rows))

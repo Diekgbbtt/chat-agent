@@ -2,6 +2,7 @@
 
 from tests.guard_factory import SCHEMA, SpanSpec, verdict_and_decision as decide
 
+from agent.core import Trace
 from agent.qa.agent import ResponseAgent
 from agent.qa.prompts import PromptBuilder
 from agent.qa.schema_card import SchemaCard
@@ -175,6 +176,33 @@ def test_answer_beside_a_blocked_verbatim_keeps_both_parts(movies_kg):
 
     assert [p.kind for p in result.parts] == ["clarification", "factual_answer"]
     assert result.text.startswith("Which film do you mean?")
+
+
+def test_trace_surfaces_reasoning_and_tool_rows(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    reasoning = "I need the director property for The Godfather."
+    agent, _ = agent_for(movies_kg, [
+        LLMResponse(content="I will query the graph.", reasoning=reasoning,
+                    tool_calls=[ToolCall("q1", "run_sparql", {
+                        "query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"})],
+                    finish_reason="tool_calls"),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ])
+    trace = Trace()
+
+    result = agent.respond(verdict, choice, trace)
+
+    steps = [step for step, _ in trace.steps]
+    llm_steps = [detail for step, detail in trace.steps if step == "llm_step"]
+    tool_results = [detail for step, detail in trace.steps if step == "tool_result"]
+    assert steps.count("llm_step") == 2
+    assert llm_steps[0]["reasoning"] == reasoning
+    assert llm_steps[0]["content"] == "I will query the graph."
+    assert llm_steps[0]["tool_calls"][0]["name"] == "run_sparql"
+    assert tool_results[0]["rows"][0]["d"] == "Francis Ford Coppola"
+    assert tool_results[0]["arguments"]["query"].startswith("SELECT ?d")
+    assert result.text.endswith("Francis Ford Coppola.")
 
 
 def test_prompt_carries_the_effective_label_and_relationship():

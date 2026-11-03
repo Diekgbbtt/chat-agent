@@ -76,18 +76,22 @@ class GuardGate:
         self.classifier = GuardClassifier(client, schema)
         self.policy = PolicyEngine(schema)
 
-    def _discriminate(self, text: str) -> Discrimination:
+    def _discriminate(self, text: str, trace=None) -> Discrimination:
         raw = self.discriminator.discriminate(text)
         result = validate_discrimination(raw, text, self.schema)
         if not result.valid:
+            if trace is not None:
+                trace.add("guard_retry", {"stage": "discrimination", "error": result.error})
             raw = self.discriminator.discriminate(text, correction=result.error or "invalid output")
             result = validate_discrimination(raw, text, self.schema)
         return result
 
-    def _classify(self, text: str, discrimination: Discrimination) -> Verdict:
+    def _classify(self, text: str, discrimination: Discrimination, trace=None) -> Verdict:
         raw = self.classifier.classify(text, discrimination)
         verdict = validate_classification(raw, discrimination, self.schema)
         if not verdict.valid:
+            if trace is not None:
+                trace.add("guard_retry", {"stage": "classification", "error": verdict.error})
             raw = self.classifier.classify(text, discrimination,
                                             correction=verdict.error or "invalid output")
             verdict = validate_classification(raw, discrimination, self.schema)
@@ -95,13 +99,15 @@ class GuardGate:
 
     def evaluate(self, text: str, trace=None) -> GuardResult:
         normalized = normalise(text)
+        if trace is not None:
+            trace.add("normalized", normalized)
         try:
-            discrimination = self._discriminate(normalized)
+            discrimination = self._discriminate(normalized, trace)
         except LLMError as exc:
             discrimination = invalid_discrimination(str(exc))
         if discrimination.valid:
             try:
-                verdict = self._classify(normalized, discrimination)
+                verdict = self._classify(normalized, discrimination, trace)
             except LLMError as exc:
                 verdict = invalid_verdict(str(exc), self.schema)
         else:

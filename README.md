@@ -122,6 +122,30 @@ LOCAL_BASE_URL=http://127.0.0.1:8000/v1
 `python -m agent.serve --check` probes the configured endpoints.
 Set `AUTOSTART_MODELS=1` to start the server with the bot.
 
+### Observability
+
+Every answer writes one JSON object per line to `logs/agent.jsonl`.
+Each line has `ts`, `level`, `logger`, `event`, `request_id`, `thread`, and `fields`.
+The `trace` event contains `session_id`, `input`, `handler`, `reply`, `error`, `duration_ms`, and every step.
+LLM calls add `llm.request` and `llm.response` events with the same `request_id`.
+The response event includes `content`, `reasoning`, `finish_reason`, `usage`, and `tool_calls`.
+Guard and QA tool calls add `sparql.run`, `sparql.error`, `resolve.run`, and `tool_result` steps.
+`tool_result` carries the arguments, row IDs, and rows.
+
+`AGENT_LOG_LEVEL=DEBUG` also writes every trace step.
+`AGENT_LOG_PAYLOADS=0` hides full prompt and response bodies.
+The file rotates at 50 MB with five backups.
+The logs contain user text and full model prompts. Treat them as sensitive.
+In code, `Trace.to_dict()` and `Trace.to_json()` return the same trajectory.
+To capture one question:
+
+```bash
+AGENT_MODE=llm .venv/bin/python -m agent.cli "who directed Jaws" \
+  --trace-json /tmp/jaws.json
+```
+
+The eval JSON records carry the matching `request_id`.
+
 The guard uses three parent safety types: `harmful`, `toxic`, and `prompt_injection`.
 Safety types and scopes live in `agent/data/guardrails.json`.
 The guard runs two chained calls: discrimination for spans and ambiguity relationships, then classification for one label per span.

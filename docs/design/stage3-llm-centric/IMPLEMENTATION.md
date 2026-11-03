@@ -65,6 +65,7 @@ No old handler was deleted.
 | `agent/llm/client.py` | OpenAI SDK client |
 | `agent/llm/health.py` | Endpoint probe |
 | `agent/serve.py` | vLLM launcher |
+| `agent/observability.py` | Request-scoped JSONL logging, LLM payloads, trace records |
 | `requirements.txt` | Agent runtime; no CUDA packages |
 | `requirements-serve.txt` | vLLM only; vLLM pins torch and transformers |
 | `requirements-legacy.txt` | Optional in-process model for `AGENT_MODE=legacy` |
@@ -106,7 +107,7 @@ The legacy class and its dependencies stay until Phase 5.
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 621 passed |
+| `pytest -q` | 630 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |

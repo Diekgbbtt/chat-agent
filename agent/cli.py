@@ -7,11 +7,14 @@ Talk to the agent without Speakeasy.
 """
 
 import argparse
+import json
 import logging
+from pathlib import Path
 
 from agent.config import load_settings
 from agent.core import Agent, Trace, build_agent
 from agent.kg import KnowledgeGraph
+from agent.observability import configure_logging
 
 
 def load_agent(mode: str = "") -> Agent:
@@ -54,12 +57,16 @@ def load_llm(settings):
     return LLM(settings.llm_model, four_bit=settings.llm_4bit)
 
 
-def ask(agent: Agent, text: str, debug: bool) -> str:
+def ask(agent: Agent, text: str, debug: bool, trace_json: str = "") -> str:
     trace = Trace()
     reply = agent.answer(text, "cli", trace)
     if debug:
         for step, detail in trace.steps:
             print(f"  [{step}] {detail}")
+    if trace_json:
+        payload = {"reply": reply, "trace": trace.to_dict()}
+        Path(trace_json).write_text(json.dumps(payload, ensure_ascii=False, indent=2),
+                                    encoding="utf-8")
     return reply
 
 
@@ -67,12 +74,15 @@ def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("question", nargs="*")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--trace-json", metavar="PATH", help="write the full trace as JSON")
     args = parser.parse_args(argv)
-    logging.basicConfig(level=logging.INFO if args.debug else logging.WARNING)
+    settings = load_settings()
+    configure_logging(settings, stream=args.debug)
+    logging.getLogger().setLevel(logging.WARNING)
 
     agent = load_agent()
     if args.question:
-        print(ask(agent, " ".join(args.question), args.debug))
+        print(ask(agent, " ".join(args.question), args.debug, args.trace_json))
         return
     while True:
         try:
