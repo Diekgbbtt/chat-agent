@@ -25,7 +25,7 @@ No old handler was deleted.
 | Guard validators | Discrimination spans, order, coverage, relationships, acyclic graph; classification labels, indices, rationales; one retry per stage |
 | Policy | One handling per verbatim, aggregate action, redaction, utility invariant |
 | Fallback | Canonical text for refusal, boundary, clarification, capability, general, unavailable answer |
-| Guard-only mode | New guard and policy, legacy factual answer, canonical other parts |
+| LLM mode | New guard, policy, and bounded QA tool loop |
 | Raw SPARQL | Runs first in every mode; validated by the same read-only query guard and bypasses the LLM |
 | Graph tools | `resolve_entity`, `run_sparql`, row IDs, labels, truncation, typed observations |
 | QA contract | Nine-section system prompt, schema card, tool list, `submit_response` contract |
@@ -36,7 +36,7 @@ No old handler was deleted.
 | Session seam | Bounded turn list, safe in-scope user text only |
 | Eval data | Three scope relabels, mixed cases keep their safe answer |
 | Policy suite | Every scope and safety pair, aggregate action matrix |
-| Adversarial suite | 31 multi-part cases, 30 policy branches, three repeats, probe separation |
+| Adversarial suite | 41 multi-part cases, 30 policy branches, three repeats, probe separation |
 | Serving | One-process vLLM launcher, shared endpoint health check, raw command print |
 | Submission build | Copies serving requirements and asserts the launcher |
 
@@ -65,6 +65,9 @@ No old handler was deleted.
 | `agent/llm/client.py` | OpenAI SDK client |
 | `agent/llm/health.py` | Endpoint probe |
 | `agent/serve.py` | vLLM launcher |
+| `requirements.txt` | Agent runtime; no CUDA packages |
+| `requirements-serve.txt` | vLLM only; vLLM pins torch and transformers |
+| `requirements-legacy.txt` | Optional in-process model for `AGENT_MODE=legacy` |
 | `scripts/adversarial/build_policy_e2e.py` | Build the 41-case adversarial suite |
 | `scripts/adversarial/run_policy_e2e.py` | Score action, decomposition, labels, relationships, reply, and branch coverage |
 
@@ -97,13 +100,13 @@ The legacy class and its dependencies stay until Phase 5.
 | `evals/stage3_guardrails.jsonl` | Three relational cases | `test_eval_data` |
 | `evals/adversarial/policy_e2e.jsonl` | 41 adversarial multi-part cases | `test_policy_e2e_data` |
 | `scripts/adversarial/run_policy_e2e.py` | Branch-aware e2e runner and results | manual |
-| Design records | `REPORT`, `IMPACT`, `PLAN`, `IMPLEMENTATION`, `POLICY_MAP`, `OPENROUTER_EVALS`, spec, tickets | review |
+| Design records | `REPORT`, `IMPACT`, `PLAN`, `IMPLEMENTATION`, `POLICY_MAP`, spec, tickets | review |
 
 ## 3. Verification
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 616 passed |
+| `pytest -q` | 621 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |

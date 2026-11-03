@@ -138,7 +138,8 @@ def load_settings() -> Settings:
         max_fetch_rows=max(1, _int_env("MAX_FETCH_ROWS", 10_000)),
         log_dir=os.environ.get("LOG_DIR") or str(PROJECT_ROOT / "logs"),
         heartbeat_s=_float_env("HEARTBEAT_S", 300.0),
-        llm_model=os.environ.get("LLM_MODEL", "Qwen/Qwen3-4B-Instruct-2507"),  # "" = no LLM (Stage 2 agent)
+        # Empty by default: the in-process model is opt-in (requirements-legacy.txt).
+        llm_model=os.environ.get("LLM_MODEL") or "",
         llm_4bit=_bool_env("LLM_4BIT", False),
         show_guardrail_labels=_bool_env("SHOW_GUARDRAIL_LABELS", False),
         agent_mode=os.environ.get("AGENT_MODE", "legacy"),

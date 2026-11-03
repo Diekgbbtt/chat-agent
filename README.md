@@ -9,6 +9,15 @@ python3 -m venv .venv            # or: uv venv .venv --seed
 .venv/bin/pip install -r requirements-local.txt
 ```
 
+The local model stack is optional and only for the legacy in-process path:
+
+```bash
+.venv/bin/pip install -r requirements-legacy.txt
+```
+
+Do not install it in the same environment as vLLM.
+vLLM pins the torch and transformers versions it supports.
+
 Credentials and paths come from environment variables. A `.env` file works too (it is git-ignored). The bot looks for it in the current directory, the project root, and the submission folder:
 
 ```bash
@@ -28,7 +37,9 @@ $EDITOR .env
 ```
 
 Start an OpenAI-compatible model server. The bundled launcher uses vLLM and the
-`LOCAL_MODEL` and `LOCAL_BASE_URL` settings:
+`LOCAL_MODEL` and `LOCAL_BASE_URL` settings.
+`requirements-serve.txt` contains only vLLM.
+vLLM brings the matching torch and transformers versions itself.
 
 ```bash
 .venv/bin/pip install -r requirements-serve.txt
@@ -94,6 +105,9 @@ Raw SPARQL-looking input runs first through `SparqlHandler` in both modes.
 It bypasses the guard and every model call.
 Natural-language factual queries in `llm` mode use the guard and the QA tool loop.
 The deterministic `FactualHandler` path remains only in `legacy` mode.
+Legacy mode loads an in-process model only when `LLM_MODEL` is set.
+Install `requirements-legacy.txt` for that path.
+The `llm` runtime needs only `requirements.txt` and an OpenAI-compatible endpoint.
 
 The guard and QA roles share one local model by default:
 

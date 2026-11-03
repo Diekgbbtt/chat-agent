@@ -418,23 +418,31 @@ Its one useful capability, raw SPARQL, moves to `agent/tools/raw_sparql.py`.
 | Dependency | Purpose |
 |---|---|
 | `vllm` | OpenAI-compatible server, tool parser, batching |
-| `bitsandbytes` | 4-bit fallback if the full-precision model does not fit |
-| `torch` | Server runtime |
-| `transformers` | Tokenizer and model loading |
-| `accelerate` | Device placement |
 
-The serving dependencies live in `requirements-serve.txt`.
+`vllm` pins the `torch` and `transformers` versions it supports.
+`requirements-serve.txt` lists only `vllm`; separate pins can resolve to a conflicting pair.
+The serving environment does not need `accelerate` or `bitsandbytes`.
+
+### 7.3 Legacy in-process model
+
+`requirements-legacy.txt` keeps the old in-process model available.
+It holds `torch`, `transformers`, `accelerate`, and `bitsandbytes`.
+Only `AGENT_MODE=legacy` with `LLM_MODEL` set imports that stack.
+The default `LLM_MODEL` is empty, so a base install starts the deterministic legacy path.
+Do not install this file in the same environment as vLLM.
+
 The agent dependencies live in `requirements.txt`.
-The report must declare both sets.
+The serving dependencies live in `requirements-serve.txt`.
 The submission build copies both files.
 It documents the serving setup next to the launcher.
 
-### 7.3 Dependency risks
+### 7.4 Dependency risks
 
 1. vLLM and torch versions must match on Nuvolos.
-   The serving spike pins them together.
+   Install vLLM without separate torch pins and let its metadata select the pair.
 2. The chosen checkpoint may not have a quantized variant.
-   The launcher serves the full-precision model; bitsandbytes is the fallback if memory is tight.
+   The launcher serves the full-precision model.
+   For 4-bit legacy loading, install `requirements-legacy.txt`.
 3. llama.cpp may not support the exact tool-call format.
    The agent uses the OpenAI message shape; the server must parse it.
 4. The OpenAI SDK must tolerate the local server's response shape.

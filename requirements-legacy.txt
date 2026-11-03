@@ -1,0 +1,11 @@
+# Optional in-process model for AGENT_MODE=legacy with LLM_MODEL set.
+# The llm runtime talks to an OpenAI-compatible endpoint and does not need
+# any package in this file.
+-r requirements.txt
+
+torch==2.14.1
+transformers==5.21.0
+accelerate==1.15.0
+
+# 4-bit loading on a small GPU (LLM_4BIT=1). Not needed for fp16.
+bitsandbytes==0.50.2

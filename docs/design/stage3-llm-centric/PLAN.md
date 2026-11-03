@@ -115,8 +115,10 @@ Wire the LLM mode that uses the new guard, policy, and QA loop.
    `pydantic` as an explicit dependency.
    Keep `pyoxigraph` and `speakeasypy`.
 2. Add `requirements-serve.txt`.
-   Pin the vLLM, torch, transformers, accelerate, and bitsandbytes versions after the spike.
-   This file is for the model host only.
+   List vLLM only and pin it after the spike.
+   vLLM pins the torch and transformers versions it supports, so do not list them here.
+   Keep `torch`, `transformers`, `accelerate`, and `bitsandbytes` in optional `requirements-legacy.txt`.
+   That file is only for the legacy in-process model.
    The agent runtime keeps `requirements.txt` free of CUDA packages.
 3. Add `agent/llm/client.py`.
    Wrap `OpenAI`.

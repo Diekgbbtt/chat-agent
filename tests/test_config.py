@@ -37,6 +37,7 @@ def test_agent_defaults_keep_the_legacy_path(monkeypatch):
     settings = load_settings()
 
     assert settings.agent_mode == "legacy"
+    assert settings.llm_model == ""
     assert settings.local_base_url.endswith(":8000/v1")
     assert settings.guard_base_url == settings.local_base_url
     assert settings.qa_base_url == settings.local_base_url

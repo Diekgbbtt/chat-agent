@@ -1,7 +1,5 @@
-# Model host only. The agent runtime does not import these packages.
-# Pin the versions after the Nuvolos T4 serving spike.
+# Model host only. The agent runtime does not import vLLM.
+# vLLM pins the torch and transformers versions it supports; do not list
+# them here or pip can resolve a conflicting pair.
+# Pin vLLM itself after the local serving spike.
 vllm
-torch
-transformers
-accelerate
-bitsandbytes
