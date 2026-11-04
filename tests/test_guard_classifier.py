@@ -79,6 +79,8 @@ def test_prompt_separates_movie_capabilities_from_general_capabilities():
 
     assert "a capability request that names the movie domain" in prompt
     assert "general capability questions" in prompt
+    assert "biographical facts" in prompt
+    assert "film metadata such as tags and ratings" in prompt
 
 
 def test_prompt_contains_every_example():

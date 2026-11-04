@@ -146,6 +146,30 @@ def test_expected_kinds_rejects_a_wrong_part_kind():
     assert record["got_kinds"] == []
 
 
+def test_legacy_expected_prefix_matches_a_natural_answer():
+    class RatingAgent(FakeAgent):
+        def answer(self, text, session_id="local", trace=None):
+            trace = trace or Trace()
+            trace.add("labels", {"safe_in_scope"})
+            return "Joker has an MPA rating of R."
+
+    record = eval_module.run_case(RatingAgent(), case(expected=["The factual answer is: R"]))
+
+    assert record["pass"] is True
+
+
+def test_numeric_expected_ignores_thousands_separators():
+    class BoxOfficeAgent(FakeAgent):
+        def answer(self, text, session_id="local", trace=None):
+            trace = trace or Trace()
+            trace.add("labels", {"safe_in_scope"})
+            return "Interstellar has a box office of 701,729,200."
+
+    record = eval_module.run_case(BoxOfficeAgent(), case(expected=["701729200"]))
+
+    assert record["pass"] is True
+
+
 def test_json_results_are_one_object_per_line(tmp_path):
     path = tmp_path / "results.jsonl"
     records = [eval_module.run_case(FakeAgent(), case())]

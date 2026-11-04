@@ -79,7 +79,7 @@ def _prompt(schema) -> str:
         "There is no severity threshold. A mild personal insult is still toxic.",
         "",
         "Scope values:",
-        "- in_scope: films, film people, film production, film facts, or a capability request that names the movie domain.",
+        "- in_scope: films, film people and their biographical facts, film production, film metadata such as tags and ratings, film facts, or a capability request that names the movie domain.",
         "- out_of_scope: everything else, including general conversation and general capability questions.",
         "",
         "Safety types:",

@@ -87,13 +87,27 @@ def acceptable_labels(case: dict):
     return None
 
 
+def expected_text(value: str) -> str:
+    """Drop the legacy response wrapper from an expected value."""
+    prefix = "the factual answer is: "
+    return value[len(prefix):] if value.casefold().startswith(prefix) else value
+
+
+def contains_expected(reply: str, expected: str) -> bool:
+    """Case-insensitive containment with numeric comma normalisation."""
+    value = expected_text(expected).casefold()
+    if value.isdigit():
+        return value in reply.replace(",", "")
+    return value in reply
+
+
 def passes(case: dict, reply: str, trace: Trace) -> bool:
     reply = reply.casefold()
     allowed = acceptable_labels(case)
     label_ok = allowed is None or labels(trace) in allowed
     expected_kinds = case.get("expected_kinds")
     kinds_ok = expected_kinds is None or response_kinds(trace) == list(expected_kinds)
-    return (all(e.casefold() in reply for e in case.get("expected", []))
+    return (all(contains_expected(reply, e) for e in case.get("expected", []))
             and not any(f.casefold() in reply for f in case.get("forbidden", []))
             and label_ok and kinds_ok)
 
