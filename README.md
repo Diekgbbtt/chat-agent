@@ -137,6 +137,11 @@ Guard and QA tool calls add `sparql.run`, `sparql.error`, `resolve.run`, and `to
 The file rotates at 50 MB with five backups.
 The logs contain user text and full model prompts. Treat them as sensitive.
 In code, `Trace.to_dict()` and `Trace.to_json()` return the same trajectory.
+
+The QA loop uses the native OpenAI tool-call shape.
+It requires exactly one tool call per turn and forces `submit_response` on the final turn.
+A content-only response is a protocol error and falls back.
+It is never appended to the history as a substitute tool call.
 To capture one question:
 
 ```bash

@@ -4,7 +4,7 @@ import json
 import logging
 import time
 
-from agent.llm.client import LLMError
+from agent.llm.client import LLMError, ToolCallProtocolError
 from agent.qa import actions
 from agent.qa.composer import Composer
 from agent.qa.renderer import RowRenderer
@@ -36,13 +36,14 @@ class ResponseAgent:
             arguments["query"] = " ".join(query.split())
         return call.name, json.dumps(arguments, sort_keys=True, ensure_ascii=False)
 
-    def _append_call(self, messages, call, content):
-        messages.append({"role": "assistant", "content": None, "tool_calls": [{
+    def _append_call(self, messages, call, observation, assistant_content=None):
+        """Append the native assistant tool call and its tool observation."""
+        messages.append({"role": "assistant", "content": assistant_content, "tool_calls": [{
             "id": call.id,
             "type": "function",
             "function": {"name": call.name, "arguments": json.dumps(call.arguments)},
         }]})
-        messages.append({"role": "tool", "tool_call_id": call.id, "content": content})
+        messages.append({"role": "tool", "tool_call_id": call.id, "content": observation})
 
     def _result(self, parts, state, trace) -> AgentResult:
         text = " ".join(part.text for part in parts)
@@ -68,12 +69,16 @@ class ResponseAgent:
                 return self._fallback(state, "deadline", trace)
             state.step_count += 1
             final_step = step == self.max_steps - 1
-            tool_choice = "auto"
-            if final_step and decision.tools_enabled:
+            tool_choice = "required"
+            if final_step:
                 tool_choice = {"type": "function", "function": {"name": "submit_response"}}
             try:
                 response = self.client.chat(messages=messages, tools=tools, tool_choice=tool_choice,
-                                            max_tokens=self.max_step_tokens, temperature=0.0)
+                                            max_tokens=self.max_step_tokens, temperature=0.0,
+                                            require_tool_call=True)
+            except ToolCallProtocolError as exc:
+                state.errors.append(str(exc))
+                return self._fallback(state, "protocol error", trace)
             except LLMError as exc:
                 state.errors.append(str(exc))
                 return self._fallback(state, "model error", trace)
@@ -88,10 +93,9 @@ class ResponseAgent:
                     "tool_calls": [{"name": call.name, "arguments": call.arguments}
                                    for call in response.tool_calls],
                 })
-            if not response.tool_calls:
-                messages.append({"role": "assistant", "content": response.content or ""})
-                messages.append({"role": "user", "content": "You must call submit_response to finish."})
-                continue
+            if len(response.tool_calls) != 1:
+                state.errors.append("the model must return exactly one native tool call")
+                return self._fallback(state, "protocol error", trace)
 
             call = response.tool_calls[0]
             if call.name == "submit_response":
@@ -101,7 +105,8 @@ class ResponseAgent:
                 state.errors.append(validation.error)
                 if trace is not None:
                     trace.add("repair", validation.error)
-                self._append_call(messages, call, f"Invalid response: {validation.error}")
+                self._append_call(messages, call, f"Invalid response: {validation.error}",
+                                  response.content)
                 continue
 
             if not decision.tools_enabled or self.registry is None or call.name not in self.registry.names():
@@ -109,7 +114,7 @@ class ResponseAgent:
                 state.errors.append(error)
                 if trace is not None:
                     trace.add("repair", error)
-                self._append_call(messages, call, error)
+                self._append_call(messages, call, error, response.content)
                 continue
 
             signature = self._signature(call)
@@ -119,7 +124,7 @@ class ResponseAgent:
                 state.errors.append(error)
                 if trace is not None:
                     trace.add("repair", error)
-                self._append_call(messages, call, error)
+                self._append_call(messages, call, error, response.content)
                 continue
             state.tool_signatures.add(signature)
             if trace is not None:
@@ -136,7 +141,7 @@ class ResponseAgent:
                                           "rows": list(executed.observation.rows),
                                           "truncated": executed.observation.truncated,
                                           "error": executed.observation.error})
-            self._append_call(messages, call, executed.observation.as_json())
+            self._append_call(messages, call, executed.observation.as_json(), response.content)
 
         return self._fallback(state, "step budget", trace)
 

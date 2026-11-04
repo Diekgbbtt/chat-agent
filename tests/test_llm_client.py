@@ -119,3 +119,47 @@ def test_health_reports_success_and_failure():
     result = health.probe(healthy)
     assert result.ok is False
     assert "down" in result.error
+
+
+def test_native_dict_response_with_mapping_arguments_is_normalized():
+    response = {
+        "choices": [{
+            "message": {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [{
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {"name": "submit_response", "arguments": {"parts": []}},
+                }],
+            },
+            "finish_reason": "tool_calls",
+        }],
+        "usage": {"prompt_tokens": 3, "completion_tokens": 2, "total_tokens": 5},
+    }
+    llm, _ = client([response])
+
+    result = llm.chat([{"role": "user", "content": "hi"}])
+
+    assert result.tool_calls[0].name == "submit_response"
+    assert result.tool_calls[0].arguments == {"parts": []}
+    assert result.usage["total_tokens"] == 5
+
+
+def test_required_native_tool_call_rejects_content_only_response():
+    llm, _ = client([completion(content="submit_response([...])")])
+
+    with pytest.raises(LLMError, match="native tool call"):
+        llm.chat([{"role": "user", "content": "hi"}],
+                 tools=[{"type": "function", "function": {"name": "submit_response"}}],
+                 require_tool_call=True)
+
+
+def test_required_native_tool_call_sets_required_tool_choice():
+    llm, transport = client([completion(tool_calls=[tool_call("submit_response", '{"parts": []}')])])
+
+    llm.chat([{"role": "user", "content": "hi"}],
+             tools=[{"type": "function", "function": {"name": "submit_response"}}],
+             require_tool_call=True)
+
+    assert transport.calls[0]["tool_choice"] == "required"

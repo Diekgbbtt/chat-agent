@@ -105,3 +105,12 @@ def test_schema_card_renders_classes_properties_and_examples():
     assert "Q11424" in rendered
     assert "P57" in rendered
     assert "SELECT" in rendered
+
+
+def test_prompt_requires_native_tool_calls():
+    text = "Who directed Alien?"
+    decision = decision_for(text, [SpanSpec(text)])
+    prompt = "\n".join(message["content"] for message in PromptBuilder(CARD, SCHEMA).build(decision, None))
+
+    assert "native tool call" in prompt
+    assert "Do not write tool-call syntax as text" in prompt

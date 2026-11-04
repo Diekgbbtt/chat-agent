@@ -74,6 +74,8 @@ class PromptBuilder:
             "",
             "## Tools",
             tool_text.rstrip(),
+            "Return every action as a native tool call, not as assistant text.",
+            "Do not write tool-call syntax as text.",
             "Call submit_response to finish. Do not repeat a tool call.",
             "",
             "## Policy",

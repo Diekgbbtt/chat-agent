@@ -29,7 +29,7 @@ No old handler was deleted.
 | Raw SPARQL | Runs first in every mode; validated by the same read-only query guard and bypasses the LLM |
 | Graph tools | `resolve_entity`, `run_sparql`, row IDs, labels, truncation, typed observations |
 | QA contract | Nine-section system prompt, schema card, tool list, `submit_response` contract |
-| QA loop | Bounded steps, one tool call per turn, repeat-call guard, forced final submit, repair, deadline, deterministic fallback |
+| QA loop | Bounded steps, one native tool call per turn, required tool choice, repeat-call guard, forced final submit, protocol-error fallback, repair, deadline, deterministic fallback |
 | QA validator | Part coverage, order, kind, evidence, values, safety types, clarification shape, redaction overlap |
 | Mixed replies | Factual, general, capability, refusal, clarification, and boundary parts in verbatim order |
 | Runtime modes | `AGENT_MODE=legacy` and `llm` |
@@ -107,7 +107,7 @@ The legacy class and its dependencies stay until Phase 5.
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 630 passed |
+| `pytest -q` | 641 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |
