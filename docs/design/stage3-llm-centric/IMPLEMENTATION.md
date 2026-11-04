@@ -15,7 +15,7 @@ No old handler was deleted.
 
 | Area | Delivered |
 |---|---|
-| Baseline harness | `agent.eval --json`, `scripts/scoreboard.py` |
+| Baseline harness | `agent.eval --json`, local vLLM mode with endpoint probe, discrimination and classification feedback, final `submit_response` call, `scripts/scoreboard.py` |
 | Model access | Local OpenAI-compatible client, retry, typed errors, health probe, client factory |
 | Settings | Local endpoint, shared role defaults, per-role overrides; mode, budgets, limits, autostart flag |
 | Guard schema | Data-driven scopes, three parent safety types, descriptions, fallbacks, 14 examples with complete scope and safety pair coverage |
@@ -71,6 +71,7 @@ No old handler was deleted.
 | `agent/handlers/llm_agent.py` | LLM runtime handler |
 | `agent/llm/client.py` | OpenAI SDK client |
 | `agent/llm/health.py` | Endpoint probe |
+| `agent/eval.py` | Regression runner, local vLLM mode, trace feedback |
 | `agent/serve.py` | vLLM launcher |
 | `agent/observability.py` | Request-scoped JSONL logging, LLM payloads, trace records |
 | `requirements.txt` | Agent runtime; no CUDA packages |
@@ -115,16 +116,33 @@ The legacy class and its dependencies stay until Phase 5.
 | `scripts/adversarial/run_policy_e2e.py` | Branch-aware e2e runner and results | manual |
 | Design records | `REPORT`, `IMPACT`, `PLAN`, `IMPLEMENTATION`, `POLICY_MAP`, spec, tickets | review |
 
+### 2.2 Eval feedback
+
+`agent.eval --local` sends the selected cases through the local vLLM endpoint in `llm` mode.
+The flag uses `LOCAL_BASE_URL`, `LOCAL_MODEL`, and one endpoint for both model roles.
+`--base-url` and `--model` override those values.
+The runner probes `/models` before the run unless `--no-health-check` is set.
+
+Each JSON record now carries three feedback fields:
+
+- `discrimination`: the guard overview, error, and spans.
+- `classification`: the guard error and per-verbatim labels and rationales.
+- `final_response`: the last `submit_response` tool call from the trace, or null for a fallback.
+
+Both factual and guardrail suites use the same path.
+A fake OpenAI-compatible endpoint produced a factual pass and a guardrail pass with all three feedback fields.
+
 ## 3. Verification
 
 | Command | Result |
 |---|---|
-| `pytest -q` | 686 passed |
+| `pytest -q` | 693 passed |
 | `python -m compileall -q agent scripts tests` | clean |
 | `agent.eval evals/stage1_sparql.jsonl` | 9 of 9 |
 | `agent.eval evals/stage2_factual.jsonl` | 508 of 508 |
 | `agent.eval evals/stage2_factual_negation.jsonl` | 9 of 9 |
 | `agent.eval` on the three legacy suites together | 526 of 526 |
+| `agent.eval --local` against a fake OpenAI server | 2 of 2, factual and guardrail feedback |
 | `agent.eval evals/stage3_guardrails.jsonl` in `llm` with no model | 0 of 47, expected |
 | `agent.eval evals/stage1_sparql.jsonl --json ...` | 9 of 9, one result object per case |
 | `scripts/scoreboard.py ...` | 9 of 9, 0 failed |
@@ -174,6 +192,8 @@ No local model measurement is recorded in this branch.
 | Local guard p95 below 2 seconds | no local endpoint |
 | Local QA p95 below 20 seconds | no local endpoint |
 | Live guard and QA prompt behaviour | no local endpoint |
+| Local vLLM eval path | implemented; fake-endpoint end-to-end check passed |
+| Live local vLLM factual and guardrail run | no local endpoint |
 | Held-out factual accuracy | the held-out set does not exist yet |
 | Harmful refusal wording review | needs a human safety reviewer |
 | Red-team split | the 40-case test split does not exist yet |

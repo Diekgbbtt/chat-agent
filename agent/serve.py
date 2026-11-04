@@ -36,8 +36,9 @@ def _endpoints(settings) -> tuple:
     return tuple(dict.fromkeys((settings.guard_base_url, settings.qa_base_url)))
 
 
-def check(settings) -> dict:
-    health = {url: _healthy(url, settings.model_timeout_s) for url in _endpoints(settings)}
+def check(settings, timeout_s: float = None) -> dict:
+    timeout = settings.model_timeout_s if timeout_s is None else timeout_s
+    health = {url: _healthy(url, timeout) for url in _endpoints(settings)}
     return {"guard": health[settings.guard_base_url],
             "qa": health[settings.qa_base_url]}
 

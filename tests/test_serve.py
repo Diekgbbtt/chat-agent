@@ -57,3 +57,17 @@ def test_check_probes_each_role_override(monkeypatch):
 
     assert status == {"guard": False, "qa": True}
     assert seen == ["http://127.0.0.1:8001/v1", "http://127.0.0.1:8002/v1"]
+
+
+def test_check_uses_the_requested_timeout(monkeypatch):
+    seen = []
+
+    def fake_healthy(url, timeout):
+        seen.append(timeout)
+        return True
+
+    monkeypatch.setattr(serve, "_healthy", fake_healthy)
+
+    serve.check(settings(), timeout_s=7.5)
+
+    assert seen == [7.5]

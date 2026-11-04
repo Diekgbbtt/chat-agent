@@ -1,9 +1,11 @@
-"""Regression evaluation: python -m agent.eval [files...] [-v] [--json PATH]
+"""Regression evaluation: python -m agent.eval [files...] [-v] [--json PATH] [--local]
 
 Each line of evals/*.jsonl is {"id": ..., "input": ..., "expected": [...], "forbidden": [...], "labels": [...]}.
 A case may instead carry "labels_any_of": [[...], [...]] for inherently overlapping types.
 A case passes when every expected string is in the reply (case-insensitive), no forbidden one is,
 and the guardrail labels match the exact set or one of the accepted sets.
+--local runs the llm runtime against the local vLLM endpoint.
+Each result also carries the guard discrimination, classification, and final submit_response call.
 """
 
 import argparse
@@ -11,12 +13,13 @@ import json
 import statistics
 import sys
 import time
+from dataclasses import replace
 from pathlib import Path
 
 from agent.cli import load_agent
 from agent.config import PROJECT_ROOT, load_settings
 from agent.core import Trace
-from agent.observability import configure_logging
+from agent.observability import configure_logging, to_jsonable
 
 SUITES = {
     "stage1": "stage1_sparql.jsonl",
@@ -28,6 +31,39 @@ SUITES = {
     "heldout": "stage3_heldout.jsonl",
     "e2e": "stage3_e2e.jsonl",
 }
+
+
+def trace_detail(trace: Trace, name: str):
+    """The last value of one trace step, or None when the step did not run."""
+    for step, detail in reversed(trace.steps):
+        if step == name:
+            return detail
+    return None
+
+
+def final_response_call(trace: Trace):
+    """The last submit_response tool call from the QA logs, or None."""
+    for step, detail in reversed(trace.steps):
+        if step != "llm_step":
+            continue
+        for call in reversed(detail.get("tool_calls") or []):
+            if call.get("name") == "submit_response":
+                return {"step": detail.get("step"),
+                        "name": "submit_response",
+                        "arguments": call.get("arguments")}
+    return None
+
+
+def local_settings(settings, base_url: str = "", model: str = "", api_key: str = ""):
+    """Point both roles at one local vLLM endpoint in llm mode."""
+    base_url = base_url or settings.local_base_url
+    model = model or settings.local_model
+    changes = {"agent_mode": "llm",
+               "local_base_url": base_url, "guard_base_url": base_url, "qa_base_url": base_url,
+               "local_model": model, "guard_model": model, "qa_model": model}
+    if api_key:
+        changes.update(guard_api_key=api_key, qa_api_key=api_key)
+    return replace(settings, **changes)
 
 
 def labels(trace: Trace):
@@ -74,6 +110,9 @@ def run_case(agent, case: dict) -> dict:
                             else [list(item) for item in case.get("labels_any_of", [])]),
         "got_labels": sorted(got) if got is not None else [],
         "reply": reply,
+        "discrimination": trace_detail(trace, "discrimination"),
+        "classification": trace_detail(trace, "classification"),
+        "final_response": final_response_call(trace),
         "latency_s": latency,
         "error": error,
     }
@@ -84,7 +123,7 @@ def write_results(path, records) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         for record in records:
-            handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+            handle.write(json.dumps(to_jsonable(record), ensure_ascii=False) + "\n")
 
 
 def resolve_files(files, suite: str = "") -> list:
@@ -102,12 +141,34 @@ def main(argv=None) -> int:
     parser.add_argument("--json", metavar="PATH", help="write one result object per case")
     parser.add_argument("--suite", help="named eval suite")
     parser.add_argument("--mode", choices=["legacy", "llm"], help="runtime mode override")
+    parser.add_argument("--local", action="store_true",
+                        help="run the llm runtime against the local vLLM endpoint")
+    parser.add_argument("--base-url", default="",
+                        help="local vLLM base URL; implies --local")
+    parser.add_argument("--model", default="",
+                        help="local vLLM model id; implies --local")
+    parser.add_argument("--api-key", default="",
+                        help="local vLLM API key; implies --local")
+    parser.add_argument("--no-health-check", action="store_true",
+                        help="skip the local endpoint probe")
     args = parser.parse_args(argv)
+
+    settings = load_settings()
+    local = bool(args.local or args.base_url or args.model or args.api_key)
+    if local:
+        settings = local_settings(settings, args.base_url, args.model, args.api_key)
+        print(f"Local eval endpoint: {settings.guard_base_url} model={settings.guard_model}")
+        if not args.no_health_check:
+            from agent.serve import check
+            status = check(settings, timeout_s=5.0)
+            if not all(status.values()):
+                raise SystemExit(f"Local model endpoint is unhealthy: {status}. "
+                                 "Start vLLM or pass --no-health-check.")
 
     files = resolve_files(args.files, args.suite)
     cases = [json.loads(line) for f in files for line in Path(f).read_text(encoding="utf-8").splitlines() if line.strip()]
-    configure_logging(load_settings())
-    agent = load_agent(args.mode)
+    configure_logging(settings)
+    agent = load_agent("llm" if local else (args.mode or ""), settings=settings)
 
     records, failures, latencies = [], 0, []
     for case in cases:
@@ -119,6 +180,11 @@ def main(argv=None) -> int:
             got = f" labels={record['got_labels']}" if "labels" in case else ""
             print(f"{'PASS' if record['pass'] else 'FAIL'} {case['id']}: {case['input'][:80]!r}{got}\n"
                   f"  -> {record['reply'][:300]}")
+            if args.verbose:
+                for field in ("discrimination", "classification", "final_response"):
+                    if record[field] is not None:
+                        detail = json.dumps(to_jsonable(record[field]), ensure_ascii=False)
+                        print(f"  {field}: {detail[:500]}")
 
     if args.json:
         write_results(args.json, records)

@@ -74,6 +74,21 @@ AGENT_MODE=llm .venv/bin/python scripts/adversarial/run_policy_e2e.py \
 
 `AGENT_MODE=llm` runs the full guard, QA, and graph-tool loop.
 
+Run factual and guardrail questions against a local vLLM endpoint without
+remote model settings:
+
+```bash
+.venv/bin/python -m agent.eval --local --suite stage2 --json /tmp/factual.jsonl
+.venv/bin/python -m agent.eval --local --suite guard --json /tmp/guard.jsonl
+```
+
+`--local` forces `llm` mode, uses `LOCAL_BASE_URL` and `LOCAL_MODEL` for both roles,
+and probes the endpoint before the run.
+`--base-url` and `--model` override those two local values.
+`--no-health-check` skips the probe.
+Each JSON record carries the guard `discrimination`, the `classification`, and
+`final_response`, which is the last `submit_response` tool call from the trace.
+
 Run the agent process:
 
 ```bash

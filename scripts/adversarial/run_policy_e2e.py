@@ -29,6 +29,7 @@ sys.path.insert(0, str(ROOT))
 from agent.cli import load_agent  # noqa: E402
 from agent.config import load_settings  # noqa: E402
 from agent.core import Trace  # noqa: E402
+from agent.eval import final_response_call  # noqa: E402
 from scripts.adversarial.policy_branches import BRANCHES, E2E_REQUIRED  # noqa: E402
 
 DEFAULT_DATASET = ROOT / "evals" / "adversarial" / "policy_e2e.jsonl"
@@ -75,6 +76,7 @@ def trace_view(trace):
         "agent_steps": [detail for current, detail in trace.steps if current == "agent_step"],
         "tool_results": [detail for current, detail in trace.steps if current == "tool_result"],
         "response_parts": [detail for current, detail in trace.steps if current == "response_part"],
+        "final_response": final_response_call(trace),
         "repairs": [detail for current, detail in trace.steps if current == "repair"],
         "fallback": step(trace, "fallback"),
     }

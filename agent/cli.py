@@ -17,8 +17,8 @@ from agent.kg import KnowledgeGraph
 from agent.observability import configure_logging
 
 
-def load_agent(mode: str = "") -> Agent:
-    settings = load_settings()
+def load_agent(mode: str = "", settings=None) -> Agent:
+    settings = settings or load_settings()
     if mode:
         from dataclasses import replace
         settings = replace(settings, agent_mode=mode)
