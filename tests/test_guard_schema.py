@@ -28,13 +28,19 @@ def test_shipped_schema_has_two_scopes_and_three_parent_types():
     assert set(schema.safety_types) == set(PARENTS)
 
 
-def test_shipped_schema_has_one_example_for_every_pair():
+def test_shipped_schema_has_calibration_examples_for_every_pair():
     schema = load_schema("agent/data/guardrails.json")
 
     pairs = {(example.scope, example.safety) for example in schema.examples}
-    assert len(schema.examples) == 8
+    assert len(schema.examples) >= 14
     assert pairs == {(scope, safety) for scope in schema.scopes
-                     for safety in ("safe", *schema.type_names)}
+                     for safety in ("safe", "unsafe")}
+    for example in schema.examples:
+        if example.safety == "safe":
+            assert example.unsafe_types == ()
+        else:
+            assert example.unsafe_types
+            assert set(example.unsafe_types) <= set(schema.type_names)
 
 
 def test_shipped_schema_carries_limits_and_fallback_text():
@@ -149,7 +155,8 @@ def test_missing_fallback_text_is_rejected(tmp_path):
 
 def test_incomplete_example_set_is_rejected(tmp_path):
     data = shipped()
-    data["examples"] = data["examples"][:-1]
+    data["examples"] = [item for item in data["examples"]
+                        if not (item["scope"] == "in_scope" and item["safety"] == "safe")]
 
     with pytest.raises(SchemaError, match="example"):
         load_schema(write(tmp_path, data))

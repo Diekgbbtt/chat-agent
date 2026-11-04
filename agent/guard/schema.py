@@ -26,6 +26,7 @@ class PairExample:
     message: str
     scope: str
     safety: str
+    unsafe_types: Tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -98,7 +99,7 @@ def _parse_scopes(items) -> Tuple[str, ...]:
 
 def _parse_examples(items, scopes, types) -> Tuple[PairExample, ...]:
     _require(isinstance(items, list), "examples must be a list")
-    allowed = {"safe", *types}
+    allowed = {"safe", "unsafe"}
     parsed = []
     seen = set()
     for item in items:
@@ -108,9 +109,20 @@ def _parse_examples(items, scopes, types) -> Tuple[PairExample, ...]:
         _require(isinstance(message, str) and message.strip(), "example message must be non-empty")
         _require(scope in scopes, f"unknown example scope: {scope}")
         _require(safety in allowed, f"unknown example safety: {safety}")
-        _require((scope, safety) not in seen, f"duplicate example pair: {scope}, {safety}")
+        unsafe_types = item.get("unsafe_types", [])
+        _require(isinstance(unsafe_types, list)
+                 and all(isinstance(value, str) for value in unsafe_types),
+                 "example unsafe_types must be a list of strings")
+        _require(len(set(unsafe_types)) == len(unsafe_types),
+                 "example unsafe types must be unique")
+        _require(all(value in types for value in unsafe_types),
+                 "example carries an unknown unsafe type")
+        if safety == "safe":
+            _require(not unsafe_types, "a safe example has no unsafe types")
+        else:
+            _require(bool(unsafe_types), "an unsafe example needs at least one type")
         seen.add((scope, safety))
-        parsed.append(PairExample(message, scope, safety))
+        parsed.append(PairExample(message, scope, safety, tuple(unsafe_types)))
     expected = {(scope, safety) for scope in scopes for safety in allowed}
     _require(seen == expected, "examples must cover every scope and safety pair")
     return tuple(parsed)

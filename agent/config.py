@@ -108,6 +108,7 @@ class Settings:
     model_timeout_s: float = 30.0
     agent_deadline_s: float = 20.0
     max_agent_steps: int = 6
+    max_submit_repairs: int = 3
     max_tool_rows: int = 50
     max_observation_chars: int = 1_200
     max_step_tokens: int = 300
@@ -120,6 +121,7 @@ class Settings:
     max_capability_chars: int = 300
     max_general_chars: int = 400
     autostart_models: bool = False
+    resolve_fuzzy: bool = False
     agent_log_level: str = "INFO"
     agent_log_payloads: bool = True
     agent_log_file: str = ""
@@ -159,6 +161,7 @@ def load_settings() -> Settings:
         model_timeout_s=_float_env("MODEL_TIMEOUT_S", 30.0),
         agent_deadline_s=_float_env("AGENT_DEADLINE_S", 20.0),
         max_agent_steps=max(1, _int_env("MAX_AGENT_STEPS", 6)),
+        max_submit_repairs=max(1, _int_env("MAX_SUBMIT_REPAIRS", 3)),
         max_tool_rows=max(1, _int_env("MAX_TOOL_ROWS", 50)),
         max_observation_chars=max(1, _int_env("MAX_OBSERVATION_CHARS", 1_200)),
         max_step_tokens=max(1, _int_env("MAX_STEP_TOKENS", 300)),
@@ -171,6 +174,7 @@ def load_settings() -> Settings:
         max_capability_chars=max(1, _int_env("MAX_CAPABILITY_CHARS", 300)),
         max_general_chars=max(1, _int_env("MAX_GENERAL_CHARS", 400)),
         autostart_models=_bool_env("AUTOSTART_MODELS", False),
+        resolve_fuzzy=_bool_env("RESOLVE_FUZZY", False),
         agent_log_level=(os.environ.get("AGENT_LOG_LEVEL") or "INFO").upper(),
         agent_log_payloads=_bool_env("AGENT_LOG_PAYLOADS", True),
         agent_log_file=os.environ.get("AGENT_LOG_FILE") or "",

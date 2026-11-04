@@ -108,6 +108,7 @@ def test_qa_loop_executes_native_tool_calls_end_to_end(server, movies_kg):
     from agent.qa.agent import ResponseAgent
     from agent.qa.prompts import PromptBuilder
     from agent.qa.schema_card import SchemaCard
+    from agent.tools.discover import DiscoverTool
     from agent.tools.registry import ToolRegistry
     from agent.tools.resolve import ResolveEntityTool
     from agent.tools.sparql import RunSparqlTool
@@ -149,7 +150,9 @@ def test_qa_loop_executes_native_tool_calls_end_to_end(server, movies_kg):
     text = "Who directed The Godfather?"
     verdict, choice = verdict_and_decision(text, [SpanSpec(text)])
     lexicon = Lexicon(movies_kg)
-    registry = ToolRegistry(ResolveEntityTool(movies_kg, lexicon), RunSparqlTool(movies_kg, lexicon))
+    registry = ToolRegistry(ResolveEntityTool(movies_kg, lexicon),
+                            DiscoverTool(movies_kg, lexicon),
+                            RunSparqlTool(movies_kg, lexicon))
     card = SchemaCard.load("agent/data/movie_schema.json")
     agent = ResponseAgent(client(server), registry, PromptBuilder(card, SCHEMA), SCHEMA, max_steps=2)
 

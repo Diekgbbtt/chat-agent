@@ -14,7 +14,7 @@ def _tool_schema(schema) -> dict:
         "type": "object",
         "properties": {
             "target_verbatim_index": {"type": ["integer", "null"]},
-            "entity": {"type": ["string", "null"]},
+            "entity": {"type": ["string", "null"], "maxLength": schema.max_rationale_chars},
             "status": {"type": "string", "enum": [RELATIONSHIP_RESOLVED, RELATIONSHIP_MISSING]},
         },
         "required": ["target_verbatim_index", "entity", "status"],
@@ -29,11 +29,13 @@ def _tool_schema(schema) -> dict:
                 "properties": {
                     "overview": {
                         "type": "object",
-                        "properties": {"summary": {"type": "string"}},
+                        "properties": {"summary": {"type": "string",
+                                                   "maxLength": schema.max_overview_chars}},
                         "required": ["summary"],
                     },
                     "verbatims": {
                         "type": "array",
+                        "maxItems": schema.max_verbatims,
                         "items": {
                             "type": "object",
                             "properties": {
@@ -73,6 +75,7 @@ def _prompt(schema) -> str:
         "- entity: the exact text inside the target that the ambiguous verbatim depends on.",
         "  When the dependency is the whole target, repeat the full target text.",
         "  A resolved relationship always names an entity explicitly; null is allowed only for a missing semantic target.",
+        f"  The entity text has at most {schema.max_rationale_chars} characters.",
         "- status: resolved when the target is clear, or missing semantic target when no target can be identified confidently.",
         "A resolved entity must appear in the target verbatim text.",
         "Do not assign safety or scope labels.",

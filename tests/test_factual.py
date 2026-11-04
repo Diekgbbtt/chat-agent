@@ -45,6 +45,11 @@ def test_no_facts(factual_agent):
         "Sorry, my knowledge graph has no information about the box office of The Handmaiden."
 
 
+def test_animated_film_is_answered(factual_agent):
+    assert factual_agent.answer("Which company distributed Toy Story?") == \
+        "The factual answer is: Walt Disney Studios Motion Pictures"
+
+
 def test_sparql_still_wins(factual_agent):
     assert factual_agent.answer("ASK { wd:Q47703 wdt:P57 wd:Q56094 }") == "Yes."
 

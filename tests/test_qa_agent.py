@@ -52,8 +52,10 @@ def agent_for(movies_kg, responses, **kwargs):
         registry = None
     else:
         from agent.lexicon import Lexicon
+        from agent.tools.discover import DiscoverTool
         lexicon = Lexicon(movies_kg)
-        registry = ToolRegistry(ResolveEntityTool(movies_kg, lexicon), RunSparqlTool(movies_kg, lexicon))
+        registry = ToolRegistry(ResolveEntityTool(movies_kg, lexicon), DiscoverTool(movies_kg, lexicon),
+                                RunSparqlTool(movies_kg, lexicon))
     agent = ResponseAgent(client, registry, PromptBuilder(CARD, SCHEMA), SCHEMA, **kwargs)
     return agent, client
 
@@ -73,8 +75,26 @@ def test_factual_slice_resolves_queries_and_cites_a_row(movies_kg):
     assert result.parts[0].kind == "factual_answer"
     assert result.parts[0].evidence_row_ids == ("r0",)
     assert [tool["function"]["name"] for tool in client.calls[0]["tools"]] == [
-        "resolve_entity", "run_sparql", "submit_response"]
+        "resolve_entity", "discover", "run_sparql", "submit_response"]
     assert client.calls[1]["messages"][-1]["role"] == "tool"
+
+
+def test_discovery_feeds_the_query_and_submit(movies_kg):
+    text = "Who produced The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    trace = Trace()
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "The Godfather", "type": "film"}),
+        tool("discover", {"kind": "relation", "query": "producer"}),
+        tool("run_sparql", {"query": "SELECT ?producer WHERE { wd:Q47703 wdt:P162 ?producer }"}),
+        submit(part(0, "factual_answer", "The Godfather was produced by Albert S. Ruddy.", ("r0",))),
+    ])
+
+    result = agent.respond(verdict, choice, trace)
+
+    assert result.text == "The Godfather was produced by Albert S. Ruddy."
+    assert [detail["tool"] for step, detail in trace.steps if step == "agent_step"] == [
+        "resolve_entity", "discover", "run_sparql"]
 
 
 def test_mixed_reply_keeps_the_answer_and_the_refusal(movies_kg):
@@ -113,18 +133,67 @@ def test_missing_evidence_is_repaired_once(movies_kg):
     assert len(client.calls) == 3
 
 
-def test_step_budget_falls_back(movies_kg):
+def test_graph_tool_budget_exhaustion_forces_submit(movies_kg):
     text = "Who directed The Godfather?"
     verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
     agent, client = agent_for(movies_kg, [
         tool("resolve_entity", {"query": "The Godfather"}),
-        tool("resolve_entity", {"query": "The Godfather"}),
+        tool("resolve_entity", {"query": "Godfather"}),
+        submit(part(0, "general_answer", "I do not have graph data for that question.")),
     ], max_steps=2)
 
     result = agent.respond(verdict, choice)
 
-    assert result.fallback_reason
+    assert result.text == "I do not have graph data for that question."
+    assert client.calls[2]["tool_choice"] == {"type": "function",
+                                              "function": {"name": "submit_response"}}
+
+
+def test_submit_repair_does_not_consume_the_graph_tool_budget(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.")),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ], max_steps=1, max_repairs=2)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text.endswith("Francis Ford Coppola.")
+    assert len(client.calls) == 3
+
+
+def test_repair_budget_falls_back(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    missing_evidence = part(0, "factual_answer",
+                            "The Godfather was directed by Francis Ford Coppola.")
+    agent, client = agent_for(movies_kg, [
+        submit(missing_evidence),
+        submit(missing_evidence),
+    ], max_repairs=1)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.fallback_reason == "repair budget"
     assert result.text == SCHEMA.answer_unavailable_text
+
+
+def test_jaws_trajectory_resolves_before_the_query(movies_kg):
+    text = "Who directed Jaws?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("resolve_entity", {"query": "Jaws", "type": "film"}),
+        tool("run_sparql", {"query": "SELECT ?director WHERE { wd:Q189505 wdt:P57 ?director }"}),
+        submit(part(0, "factual_answer", "Jaws was directed by Steven Spielberg.", ("r0",))),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text == "Jaws was directed by Steven Spielberg."
+    resolve_observation = client.calls[1]["messages"][-1]["content"]
+    assert "Q189505" in resolve_observation
 
 
 def test_tools_are_submit_only_when_the_decision_disables_them():
@@ -272,13 +341,13 @@ def test_qa_loop_requests_one_native_tool_call_per_turn():
     assert client.calls[0]["require_tool_call"] is True
 
 
-def test_final_turn_forces_the_native_submit_tool(movies_kg):
+def test_graph_budget_exhaustion_forces_the_native_submit_tool(movies_kg):
     text = "Who directed The Godfather?"
     verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
     agent, client = agent_for(movies_kg, [
         tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
         submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
-    ], max_steps=2)
+    ], max_steps=1)
 
     result = agent.respond(verdict, choice)
 

@@ -44,7 +44,7 @@ class FactualHandler:
             direction = q.direction
             if q.error == "no_facts":
                 # the negation is about the whole relation, not about this entity's (missing) facts
-                direction = "out" if self.lex.is_film(q.entity) else "in"
+                direction = "out" if self.lex.is_movie(q.entity) else "in"
             others = [f for f in plan.films if f != q.entity]
             # "how many ... not ..." counts the complement, not the entity's own values
             build = sb.complement_count if q.kind == "count" else sb.complement

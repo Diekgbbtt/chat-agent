@@ -7,6 +7,20 @@
 <http://www.wikidata.org/prop/direct/P345> <http://www.w3.org/2000/01/rdf-schema#label> "IMDb ID"@en .
 <http://www.wikidata.org/prop/direct/P31> <http://www.w3.org/2000/01/rdf-schema#label> "instance of"@en .
 <http://www.wikidata.org/prop/direct/P50> <http://www.w3.org/2000/01/rdf-schema#label> "author"@en .
+<http://www.wikidata.org/prop/direct/P86> <http://www.w3.org/2000/01/rdf-schema#label> "composer"@en .
+<http://www.wikidata.org/prop/direct/P162> <http://www.w3.org/2000/01/rdf-schema#label> "producer"@en .
+<http://www.wikidata.org/prop/direct/P272> <http://www.w3.org/2000/01/rdf-schema#label> "production company"@en .
+<http://www.wikidata.org/prop/direct/P344> <http://www.w3.org/2000/01/rdf-schema#label> "director of photography"@en .
+<http://www.wikidata.org/prop/direct/P750> <http://www.w3.org/2000/01/rdf-schema#label> "distributor"@en .
+<http://www.wikidata.org/prop/direct/P1040> <http://www.w3.org/2000/01/rdf-schema#label> "film editor"@en .
+<http://www.wikidata.org/prop/direct/P915> <http://www.w3.org/2000/01/rdf-schema#label> "filming location"@en .
+<http://www.wikidata.org/prop/direct/P840> <http://www.w3.org/2000/01/rdf-schema#label> "narrative location"@en .
+<http://www.wikidata.org/prop/direct/P1411> <http://www.w3.org/2000/01/rdf-schema#label> "nominated for"@en .
+<http://www.wikidata.org/prop/direct/P156> <http://www.w3.org/2000/01/rdf-schema#label> "followed by"@en .
+<http://www.wikidata.org/prop/direct/P155> <http://www.w3.org/2000/01/rdf-schema#label> "follows"@en .
+<http://www.wikidata.org/prop/direct/P27> <http://www.w3.org/2000/01/rdf-schema#label> "country of citizenship"@en .
+<http://www.wikidata.org/prop/direct/P26> <http://www.w3.org/2000/01/rdf-schema#label> "spouse"@en .
+<http://www.wikidata.org/prop/direct/P69> <http://www.w3.org/2000/01/rdf-schema#label> "educated at"@en .
 <http://www.wikidata.org/entity/Q56094> <http://www.w3.org/2000/01/rdf-schema#label> "Francis Ford Coppola" .
 <http://www.wikidata.org/entity/Q56094> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
 <http://www.wikidata.org/entity/Q193628> <http://www.w3.org/2000/01/rdf-schema#label> "Sofia Coppola" .
@@ -94,6 +108,8 @@
 <http://www.wikidata.org/entity/Q2263> <http://www.wikidata.org/prop/direct/P19> <http://www.wikidata.org/entity/Q49202> .
 <http://www.wikidata.org/entity/Q49202> <http://www.w3.org/2000/01/rdf-schema#label> "Concord" .
 <http://www.wikidata.org/entity/Q13417189> <http://schema.org/description> "2014 film directed by Christopher Nolan" .
+<http://www.wikidata.org/entity/Q13417189> <http://ddis.ch/atai/tag> "space"@en .
+<http://www.wikidata.org/entity/Q47703> <http://ddis.ch/atai/tag> "mafia"@en .
 <http://www.wikidata.org/prop/direct/P19> <http://www.w3.org/2000/01/rdf-schema#label> "place of birth"@en .
 <http://www.wikidata.org/entity/Q103569> <http://www.w3.org/2000/01/rdf-schema#label> "Alien" .
 <http://www.wikidata.org/entity/Q103569> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
@@ -169,3 +185,40 @@
 <http://www.wikidata.org/entity/Q1059536> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q1336185> .
 <http://www.wikidata.org/entity/Q1336185> <http://www.w3.org/2000/01/rdf-schema#label> "Robert Mulligan" .
 <http://www.wikidata.org/entity/Q1336185> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q13593818> <http://www.w3.org/2000/01/rdf-schema#label> "film trilogy" .
+<http://www.wikidata.org/entity/Q24856> <http://www.w3.org/2000/01/rdf-schema#label> "film series" .
+<http://www.wikidata.org/entity/Q202866> <http://www.w3.org/2000/01/rdf-schema#label> "animated film" .
+<http://www.wikidata.org/entity/Q171048> <http://www.w3.org/2000/01/rdf-schema#label> "Toy Story" .
+<http://www.wikidata.org/entity/Q171048> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q202866> .
+<http://www.wikidata.org/entity/Q171048> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q269214> .
+<http://www.wikidata.org/entity/Q171048> <http://www.wikidata.org/prop/direct/P750> <http://www.wikidata.org/entity/Q1323594> .
+<http://www.wikidata.org/entity/Q269214> <http://www.w3.org/2000/01/rdf-schema#label> "John Lasseter" .
+<http://www.wikidata.org/entity/Q269214> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q1323594> <http://www.w3.org/2000/01/rdf-schema#label> "Walt Disney Studios Motion Pictures" .
+<http://www.wikidata.org/entity/Q5> <http://www.w3.org/2000/01/rdf-schema#label> "human" .
+<http://www.wikidata.org/entity/Q7725634> <http://www.w3.org/2000/01/rdf-schema#label> "literary work" .
+<http://www.wikidata.org/entity/Q1900001> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900002> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900003> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900004> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900005> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900006> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900007> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900008> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900009> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900010> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900011> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900012> <http://www.w3.org/2000/01/rdf-schema#label> "Twin" .
+<http://www.wikidata.org/entity/Q1900012> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q11424> .
+<http://www.wikidata.org/entity/Q1900012> <http://www.wikidata.org/prop/direct/P57> <http://www.wikidata.org/entity/Q56094> .
+<http://www.wikidata.org/entity/Q1900020> <http://www.w3.org/2000/01/rdf-schema#label> "The Godfather Saga" .
+<http://www.wikidata.org/entity/Q1900020> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q24856> .
+<http://www.wikidata.org/entity/Q192349> <http://www.w3.org/2000/01/rdf-schema#label> "Hans Zimmer" .
+<http://www.wikidata.org/entity/Q192349> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q13417189> <http://www.wikidata.org/prop/direct/P86> <http://www.wikidata.org/entity/Q192349> .
+<http://www.wikidata.org/entity/Q313756> <http://www.w3.org/2000/01/rdf-schema#label> "Albert S. Ruddy" .
+<http://www.wikidata.org/entity/Q313756> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q5> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P162> <http://www.wikidata.org/entity/Q313756> .
+<http://www.wikidata.org/entity/Q159846> <http://www.w3.org/2000/01/rdf-schema#label> "Paramount Pictures" .
+<http://www.wikidata.org/entity/Q159846> <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q1762059> .
+<http://www.wikidata.org/entity/Q47703> <http://www.wikidata.org/prop/direct/P750> <http://www.wikidata.org/entity/Q159846> .
