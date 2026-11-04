@@ -13,7 +13,8 @@ def settings(**overrides):
                   guard_api_key="g", qa_base_url="http://127.0.0.1:8002/v1",
                   qa_model="qa", qa_api_key="q", model_timeout_s=9.0,
                   guard_schema_path="agent/data/guardrails.json",
-                  max_agent_steps=4, agent_deadline_s=5.0, max_step_tokens=100)
+                  max_agent_steps=4, agent_deadline_s=5.0, max_step_tokens=100,
+                  resolve_fuzzy=False, max_submit_repairs=3)
     values.update(overrides)
     return SimpleNamespace(**values)
 

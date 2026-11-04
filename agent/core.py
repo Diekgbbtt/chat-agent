@@ -133,7 +133,8 @@ class Agent:
 
 def build_agent(kg: KnowledgeGraph, llm=None, show_labels: bool = False, mode: str = "legacy",
                 guard_client=None, qa_client=None, guard_schema=None, schema_card=None,
-                max_steps: int = 6, deadline_s: float = 20.0, max_step_tokens: int = 300) -> Agent:
+                max_steps: int = 6, deadline_s: float = 20.0, max_step_tokens: int = 300,
+                resolve_fuzzy: bool = False, max_repairs: int = 3) -> Agent:
     """Raw SPARQL runs first and stays symbolic.
 
     ``legacy`` uses the deterministic factual pipeline. ``llm`` uses the
@@ -157,14 +158,17 @@ def build_agent(kg: KnowledgeGraph, llm=None, show_labels: bool = False, mode: s
         from agent.qa.prompts import PromptBuilder
         from agent.qa.schema_card import SchemaCard
         from agent.tools.registry import ToolRegistry
+        from agent.tools.discover import DiscoverTool
         from agent.tools.resolve import ResolveEntityTool
         from agent.tools.sparql import RunSparqlTool
         schema = guard_schema or load_schema(PROJECT_ROOT / "agent" / "data" / "guardrails.json")
         card = schema_card or SchemaCard.load(PROJECT_ROOT / "agent" / "data" / "movie_schema.json")
-        registry = ToolRegistry(ResolveEntityTool(kg, lexicon), RunSparqlTool(kg, lexicon))
+        registry = ToolRegistry(ResolveEntityTool(kg, lexicon, fuzzy=resolve_fuzzy),
+                                DiscoverTool(kg, lexicon),
+                                RunSparqlTool(kg, lexicon))
         gate = GuardGate(guard_client, schema)
         qa_agent = ResponseAgent(qa_client, registry, PromptBuilder(card, schema), schema,
                                  max_steps=max_steps, deadline_s=deadline_s,
-                                 max_step_tokens=max_step_tokens)
+                                 max_step_tokens=max_step_tokens, max_repairs=max_repairs)
         return Agent([SparqlHandler(kg), LLMAgentHandler(gate, qa_agent, schema, show_labels)])
     raise ValueError(f"unknown AGENT_MODE: {mode}")

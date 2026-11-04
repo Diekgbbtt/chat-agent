@@ -18,7 +18,7 @@ log = logging.getLogger("agent.qa")
 class ResponseAgent:
     def __init__(self, client, registry, prompt_builder, schema, max_steps: int = 6,
                  deadline_s: float = 20.0, max_step_tokens: int = 300,
-                 validator=None, composer=None):
+                 validator=None, composer=None, max_repairs: int = 3):
         self.client = client
         self.registry = registry
         self.prompt_builder = prompt_builder
@@ -28,6 +28,7 @@ class ResponseAgent:
         self.max_step_tokens = max_step_tokens
         self.validator = validator or AnswerValidator(schema)
         self.composer = composer or Composer(RowRenderer(schema), schema)
+        self.max_repairs = max(1, max_repairs)
 
     def _signature(self, call):
         arguments = dict(call.arguments or {})
@@ -62,15 +63,21 @@ class ResponseAgent:
         messages = self.prompt_builder.build(decision, verdict)
         tools = actions.available_tools(decision)
         deadline = time.monotonic() + self.deadline_s
+        tool_steps = 0
+        repairs = 0
+        force_submit = not decision.tools_enabled
+        forced = {"type": "function", "function": {"name": "submit_response"}}
+        max_turns = self.max_steps + self.max_repairs + 2
 
-        for step in range(self.max_steps):
+        for _ in range(max_turns):
             if time.monotonic() > deadline:
                 return self._fallback(state, "deadline", trace)
+            if repairs > self.max_repairs:
+                return self._fallback(state, "repair budget", trace)
+            if tool_steps >= self.max_steps:
+                force_submit = True
             state.step_count += 1
-            final_step = step == self.max_steps - 1
-            tool_choice = "auto"
-            if final_step and decision.tools_enabled:
-                tool_choice = {"type": "function", "function": {"name": "submit_response"}}
+            tool_choice = forced if force_submit else "auto"
             try:
                 response = self.client.chat(messages=messages, tools=tools, tool_choice=tool_choice,
                                             max_tokens=self.max_step_tokens, temperature=0.0)
@@ -80,7 +87,7 @@ class ResponseAgent:
 
             if trace is not None:
                 trace.add("llm_step", {
-                    "step": step + 1,
+                    "step": state.step_count,
                     "content": response.content,
                     "reasoning": response.reasoning,
                     "finish_reason": response.finish_reason,
@@ -90,7 +97,14 @@ class ResponseAgent:
                 })
             if not response.tool_calls:
                 messages.append({"role": "assistant", "content": response.content or ""})
-                messages.append({"role": "user", "content": "You must call submit_response to finish."})
+                error = ("You must call submit_response to finish. "
+                         "Do not write the call as text.")
+                state.errors.append(error)
+                if trace is not None:
+                    trace.add("repair", error)
+                messages.append({"role": "user", "content": error})
+                repairs += 1
+                force_submit = True
                 continue
 
             call = response.tool_calls[0]
@@ -98,10 +112,13 @@ class ResponseAgent:
                 validation = self.validator.validate(call.arguments, state)
                 if validation.ok:
                     return self._result(validation.parts, state, trace)
-                state.errors.append(validation.error)
+                error = f"Invalid response: {validation.error}"
+                state.errors.append(error)
                 if trace is not None:
-                    trace.add("repair", validation.error)
-                self._append_call(messages, call, f"Invalid response: {validation.error}")
+                    trace.add("repair", error)
+                self._append_call(messages, call, error)
+                repairs += 1
+                force_submit = True
                 continue
 
             if not decision.tools_enabled or self.registry is None or call.name not in self.registry.names():
@@ -110,6 +127,28 @@ class ResponseAgent:
                 if trace is not None:
                     trace.add("repair", error)
                 self._append_call(messages, call, error)
+                repairs += 1
+                force_submit = True
+                continue
+
+            if tool_steps >= self.max_steps:
+                error = ("The graph tool budget is exhausted. Call submit_response now "
+                         "and cite the rows already returned.")
+                state.errors.append(error)
+                if trace is not None:
+                    trace.add("repair", error)
+                self._append_call(messages, call, error)
+                repairs += 1
+                force_submit = True
+                continue
+
+            if force_submit:
+                error = "You must call submit_response now. Do not call another graph tool."
+                state.errors.append(error)
+                if trace is not None:
+                    trace.add("repair", error)
+                self._append_call(messages, call, error)
+                repairs += 1
                 continue
 
             signature = self._signature(call)
@@ -120,6 +159,7 @@ class ResponseAgent:
                 if trace is not None:
                     trace.add("repair", error)
                 self._append_call(messages, call, error)
+                repairs += 1
                 continue
             state.tool_signatures.add(signature)
             if trace is not None:
@@ -137,6 +177,7 @@ class ResponseAgent:
                                           "truncated": executed.observation.truncated,
                                           "error": executed.observation.error})
             self._append_call(messages, call, executed.observation.as_json())
+            tool_steps += 1
 
         return self._fallback(state, "step budget", trace)
 

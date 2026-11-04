@@ -20,6 +20,7 @@ from rapidfuzz.distance import OSA
 from agent import sparql_builder as sb
 from agent.kg import KnowledgeGraph, PREFIXES
 from agent.lexicon import Lexicon
+from agent.normalize import normalize_label
 
 STOPWORDS = set("""a an the of in on at by for to from with and or is are was were be been did does do has have had
 who whom what which when where how many much this that it its me my please tell movie movies film films""".split())
@@ -62,7 +63,7 @@ class Parser:
         alternatives = sorted(self.phrases, key=len, reverse=True)
         self.phrase_pattern = re.compile(r"\b(" + "|".join(map(re.escape, alternatives)) + r")\b", re.IGNORECASE)
         self.fuzzy_labels = [l for l, ids in lexicon.lbl2ent.items()
-                             if any(lexicon.is_film(q) or lexicon.is_human(q) for q in ids)]
+                             if any(lexicon.is_movie(q) or lexicon.is_human(q) for q in ids)]
         self.surnames = {}  # "spielberg" -> ["Q8877", "Q1866328", ...]
         for label_text, ids in lexicon.lbl2ent.items():
             if " " not in label_text:
@@ -103,7 +104,7 @@ class Parser:
                 into = self.kg.query(sb.has_facts(entity, predicate, "in"))
                 if out or into:
                     question.entity, question.predicate = entity, predicate
-                    question.direction = "out" if out and (not into or self.lex.is_film(entity)) else "in"
+                    question.direction = "out" if out and (not into or self.lex.is_movie(entity)) else "in"
                     return question
         question.entity, question.predicate, question.error = candidates[0], predicates[0], "no_facts"
         return question
@@ -118,8 +119,9 @@ class Parser:
         # greedy first: "'The Cat o' Nine Tails'"; quotes never touch a letter on their outer side ("didn't", "Don't")
         for pattern in (r"(?<!\w)'(.+)'(?!\w)", r"(?<!\w)'(.+?)'(?!\w)", r'"(.+?)"'):
             for match in re.finditer(pattern, text):
-                if match.group(1).lower() in self.lex.lbl2ent:
-                    return match.span(1), self._rank(self.lex.lbl2ent[match.group(1).lower()])
+                key = normalize_label(match.group(1))
+                if key in self.lex.lbl2ent:
+                    return match.span(1), self._rank(self.lex.lbl2ent[key])
 
         words = [(m.start(), m.end()) for m in re.finditer(r"[\w'&:.!?-]+", text)]
         for needs_capital in (True, False):  # "the box office of Interstellar": prefer the capitalised title
@@ -136,10 +138,11 @@ class Parser:
                             continue
                         if (needs_capital and not capitalised) or (n == 1 and not capitalised):
                             continue
-                        if phrase.lower() in self.lex.lbl2ent:
+                        key = normalize_label(phrase)
+                        if key in self.lex.lbl2ent:
                             if needs_capital and self._inside_longer_title(text, words, i, i + n - 1):
                                 return (0, 0), []  # "Don't Look Up" isn't in the graph; don't answer for "Up"
-                            return (start, start + len(phrase)), self._rank(self.lex.lbl2ent[phrase.lower()])
+                            return (start, start + len(phrase)), self._rank(self.lex.lbl2ent[key])
                         if n == 1:
                             surname = self._surname_candidates(phrase)
                             if surname:
@@ -148,15 +151,16 @@ class Parser:
         for start, end in reversed(words):  # last resort: a lower-case one-word film title ("who directed her")
             word = text[start:end]
             for phrase in dict.fromkeys((word, word.rstrip("?.,"), word.rstrip("?.!,"))):
-                films = [e for e in self.lex.lbl2ent.get(phrase.lower(), []) if self.lex.is_film(e)]
-                if films and phrase.lower() not in STOPWORDS:
+                key = normalize_label(phrase)
+                films = [e for e in self.lex.lbl2ent.get(key, []) if self.lex.is_movie(e)]
+                if films and key not in STOPWORDS:
                     return (start, start + len(phrase)), self._rank(films)
 
         best = None
         for n in range(1, min(len(words), 6) + 1):
             for i in range(len(words) - n + 1):
                 start, end = words[i][0], words[i + n - 1][1]
-                phrase = text[start:end].rstrip("?.!,").lower()
+                phrase = normalize_label(text[start:end].rstrip("?.!,"))
                 tokens = phrase.split()
                 if (len(phrase) < 5 or all(t in STOPWORDS for t in tokens)
                         or tokens[0] in FUZZY_EDGE_NOISE or tokens[-1] in FUZZY_EDGE_NOISE):
@@ -189,7 +193,7 @@ class Parser:
         """A capitalized single word can name a person by surname: "Spielberg" -> Steven first."""
         if " " in phrase or not phrase[:1].isupper():
             return []
-        candidates = self.surnames.get(phrase.casefold())
+        candidates = self.surnames.get(normalize_label(phrase))
         return self._rank(list(candidates)) if candidates else []
 
     def _rank(self, entities: List[str]) -> List[str]:
@@ -198,4 +202,4 @@ class Parser:
         if len(entities) == 1:
             return entities
         degree = {e: int(self.kg.query(sb.degree(e)).rows[0][0].value) for e in entities}
-        return sorted(entities, key=lambda e: (not self.lex.is_film(e), -degree[e]))
+        return sorted(entities, key=lambda e: (not self.lex.is_movie(e), -degree[e]))

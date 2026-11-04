@@ -219,3 +219,4 @@ def test_strip_article():
     assert strip_article("The Godfather") == "godfather"
     assert strip_article("Matrix") == "matrix"
     assert strip_article("  The  Matrix  ") == "matrix"
+    assert strip_article("  The  Am\u00e9lie  ") == "am\u00e9lie"

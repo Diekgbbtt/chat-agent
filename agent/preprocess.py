@@ -16,6 +16,7 @@ from rapidfuzz.distance import OSA
 from agent import sparql_builder as sb
 from agent.kg import KnowledgeGraph
 from agent.lexicon import Lexicon
+from agent.normalize import normalize_label
 from agent.parser import APPROACH_PREFIX, STOPWORDS, Parser
 
 QUOTES = "'\""
@@ -66,8 +67,8 @@ PARAPHRASES = (
 
 
 def strip_article(text: str) -> str:
-    """Lower-cased text without a leading English article ("The Matrix" -> "matrix")."""
-    text = re.sub(r"\s+", " ", text.strip().casefold())
+    """Canonical text without a leading English article ("The Matrix" -> "matrix")."""
+    text = normalize_label(text)
     for article in ARTICLES:
         if text.startswith(article):
             return text[len(article):]
@@ -125,7 +126,7 @@ class Preprocessor:
                     bucket.append(qid)
         self.cores = sorted(self.core2ent)
         self.fuzzy_cores = [core for core in self.cores
-                            if any(lexicon.is_film(q) or lexicon.is_human(q) for q in self.core2ent[core])]
+                            if any(lexicon.is_movie(q) or lexicon.is_human(q) for q in self.core2ent[core])]
 
     # ---------------------------------------------------------------- public
 
@@ -221,7 +222,7 @@ class Preprocessor:
         if resolution is None or not resolution.qids:
             return inner.strip()
         best = next((q for q in resolution.qids
-                     if self.lex.is_film(q) or self.lex.is_human(q)), resolution.qids[0])
+                     if self.lex.is_movie(q) or self.lex.is_human(q)), resolution.qids[0])
         return self.lex.label(best)
 
     def _known(self, text: str) -> bool:
@@ -390,7 +391,7 @@ class Preprocessor:
 
     def _two_film_sentences(self, text: str, mentions: List[_Mention]) -> bool:
         film_mentions = [m for m in mentions
-                         if m.resolution and any(self.lex.is_film(q) for q in m.resolution.qids)]
+                         if m.resolution and any(self.lex.is_movie(q) for q in m.resolution.qids)]
         if len(film_mentions) < 2:
             return False
         shielded = self._shield(text, mentions)
@@ -440,7 +441,7 @@ class Preprocessor:
         for mention in sorted(mentions, key=lambda m: m.start):
             if mention.resolution is None:
                 continue
-            qid = next((q for q in mention.resolution.qids if self.lex.is_film(q)), None)
+            qid = next((q for q in mention.resolution.qids if self.lex.is_movie(q)), None)
             if qid is not None and qid not in films:
                 films.append(qid)
         return films
@@ -460,7 +461,7 @@ class Preprocessor:
         if not cores:
             return None
         for core_text in (raw.strip().strip(QUOTES).strip(), raw.strip(CLEAN)):
-            norm = re.sub(r"\s+", " ", core_text).casefold()
+            norm = normalize_label(core_text)
             if norm.startswith(ARTICLES):
                 qids = self.lex.lbl2ent.get(norm)
                 if qids:
@@ -492,7 +493,7 @@ class Preprocessor:
         return best
 
     def _interesting(self, resolution: Resolution) -> bool:
-        return any(self.lex.is_film(q) or self.lex.is_human(q) for q in resolution.qids)
+        return any(self.lex.is_movie(q) or self.lex.is_human(q) for q in resolution.qids)
 
     @staticmethod
     def _stopword(word: str) -> bool:
@@ -527,7 +528,7 @@ class Preprocessor:
         resolution = self._resolve(raw)
         if resolution is None:
             return None
-        qids = [q for q in resolution.qids if self.lex.is_film(q) is want_film]
+        qids = [q for q in resolution.qids if self.lex.is_movie(q) is want_film]
         return qids[0] if qids else None
 
     # -------------------------------------------------------------- rewriting
@@ -542,7 +543,7 @@ class Preprocessor:
         for mention in sorted((m for m in whole if self._priority(m) == best),
                               key=lambda m: m.start, reverse=True):
             target = next((q for q in mention.resolution.qids
-                           if self.lex.is_film(q) or self.lex.is_human(q)), None)
+                           if self.lex.is_movie(q) or self.lex.is_human(q)), None)
             if target is None:
                 continue
             start, end = mention.start, mention.end

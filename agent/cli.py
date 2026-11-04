@@ -47,7 +47,9 @@ def build_runtime(kg, settings, clients=None) -> Agent:
                        show_labels=settings.show_guardrail_labels,
                        max_steps=settings.max_agent_steps,
                        deadline_s=settings.agent_deadline_s,
-                       max_step_tokens=settings.max_step_tokens)
+                       max_step_tokens=settings.max_step_tokens,
+                       resolve_fuzzy=settings.resolve_fuzzy,
+                       max_repairs=settings.max_submit_repairs)
 
 
 def load_llm(settings):

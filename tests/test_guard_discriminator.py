@@ -73,6 +73,22 @@ def test_prompt_defines_the_decomposition_unit_and_relationship_rule():
     assert "The director of Inception is an idiot. Who is he?" in prompt
 
 
+def test_prompt_and_tool_schema_carry_the_span_and_overview_limits():
+    client = FakeClient(response(spans(span(TEXT))))
+    discriminator = GuardDiscriminator(client, SCHEMA)
+
+    prompt = "\n".join(message["content"] for message in discriminator.messages(TEXT))
+    discriminator.discriminate(TEXT)
+    parameters = client.calls[0]["tools"][0]["function"]["parameters"]
+
+    assert "300" in prompt
+    assert "8" in prompt
+    assert parameters["properties"]["overview"]["properties"]["summary"]["maxLength"] == 300
+    assert parameters["properties"]["verbatims"]["maxItems"] == 8
+    relation = parameters["properties"]["verbatims"]["items"]["properties"]["relationship"]
+    assert relation["properties"]["entity"]["maxLength"] == 240
+
+
 def test_missing_tool_call_is_a_typed_error():
     client = FakeClient(LLMResponse(content="not a tool call", tool_calls=[]))
 

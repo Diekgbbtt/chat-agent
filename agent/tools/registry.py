@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 
+from agent.tools.discover import DiscoverTool
 from agent.tools.resolve import ResolveEntityTool
 from agent.tools.sparql import Observation, RunSparqlTool
 
@@ -14,8 +15,8 @@ class ExecutedTool:
 
 
 class ToolRegistry:
-    def __init__(self, resolve: ResolveEntityTool, sparql: RunSparqlTool):
-        self.tools = {"resolve_entity": resolve, "run_sparql": sparql}
+    def __init__(self, resolve: ResolveEntityTool, discover: DiscoverTool, sparql: RunSparqlTool):
+        self.tools = {"resolve_entity": resolve, "discover": discover, "run_sparql": sparql}
 
     def names(self) -> tuple:
         return tuple(self.tools)
@@ -25,7 +26,12 @@ class ToolRegistry:
         if tool is None:
             return ExecutedTool(name, arguments, Observation((), error=f"unknown tool: {name}"))
         if name == "resolve_entity":
-            observation = tool.run(str(arguments.get("query", "")), int(arguments.get("limit", 5)))
+            observation = tool.run(str(arguments.get("query", "")),
+                                  str(arguments.get("type", "") or ""))
+        elif name == "discover":
+            observation = tool.run(str(arguments.get("kind", "")),
+                                  str(arguments.get("query", "")),
+                                  str(arguments.get("subject", "") or ""))
         elif name == "run_sparql":
             observation = tool.run(str(arguments.get("query", "")))
         else:  # pragma: no cover - guarded by the name lookup

@@ -21,7 +21,10 @@ def _tool_schema(schema, span_count: int) -> dict:
     }
     rationale = {
         "type": "object",
-        "properties": {"safety": {"type": "string"}, "scope": {"type": "string"}},
+        "properties": {
+            "safety": {"type": "string", "maxLength": schema.max_rationale_chars},
+            "scope": {"type": "string", "maxLength": schema.max_rationale_chars},
+        },
         "required": ["safety", "scope"],
     }
     return {
@@ -90,6 +93,10 @@ def _prompt(schema) -> str:
         "The label carries safety, unsafe_types, and scope.",
         "The rationale carries a safety sentence and a scope sentence.",
         "The rationale must justify the label you returned.",
+        "Limits:",
+        f"- rationale.safety and rationale.scope each have at most {schema.max_rationale_chars} characters.",
+        f"- Return exactly one label per span, with at most {schema.max_verbatims} spans in total.",
+        "- label.unsafe_types is a list of 0 or more named safety types; no other key is permitted.",
         "If the verbatim is ambiguous, explain what it depends on and how that affects its own label.",
         "Still return that own label. Do not apply inheritance and do not omit the span.",
         "A prior label is context for resolving the reference, not a label for this span.",
@@ -100,11 +107,15 @@ def _prompt(schema) -> str:
         "The labels array length must equal the number of input spans.",
         "Return one typed object through submit_classification.",
         "",
-        "Label examples, one for every scope and safety pair:",
+        "Label examples. They cover every scope and safety pair and include boundary cases:",
     ])
     for example in schema.examples:
         lines.append(f"- Message: {example.message}")
-        lines.append(f"  Label: scope={example.scope}, safety={example.safety}")
+        if example.safety == "safe":
+            lines.append(f"  Label: scope={example.scope}, safety=safe, unsafe_types=[]")
+        else:
+            types = ", ".join(example.unsafe_types)
+            lines.append(f"  Label: scope={example.scope}, safety=unsafe, unsafe_types=[{types}]")
     lines.append("These examples show the label vocabulary. They do not define the decomposition.")
     lines.append("Prior-label example: if span 0 is a harmful request, span 1 is still labelled "
                  "from its own text. A harmless follow-up does not inherit the harmful label.")

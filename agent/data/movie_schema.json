@@ -3,23 +3,46 @@
     "wd": "http://www.wikidata.org/entity/",
     "wdt": "http://www.wikidata.org/prop/direct/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "schema": "http://schema.org/"
+    "schema": "http://schema.org/",
+    "ddis": "http://ddis.ch/atai/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
   "classes": [
     {"id": "Q11424", "label": "film"},
-    {"id": "Q5", "label": "human"},
-    {"id": "Q13593818", "label": "film series"}
+    {"id": "Q24856", "label": "film series"},
+    {"id": "Q13593818", "label": "film trilogy"},
+    {"id": "Q5", "label": "human"}
   ],
   "properties": [
-    {"id": "P57", "label": "director", "shape": "item"},
-    {"id": "P58", "label": "screenwriter", "shape": "item"},
-    {"id": "P161", "label": "cast member", "shape": "item"},
-    {"id": "P577", "label": "publication date", "shape": "date"},
-    {"id": "P495", "label": "country of origin", "shape": "item"},
-    {"id": "P2142", "label": "box office", "shape": "number"},
-    {"id": "P345", "label": "IMDb ID", "shape": "text"},
-    {"id": "P31", "label": "instance of", "shape": "item"},
-    {"id": "P50", "label": "author", "shape": "item"}
+    {"id": "P31", "label": "instance of", "shape": "item", "group": "film"},
+    {"id": "P57", "label": "director", "shape": "item", "group": "film"},
+    {"id": "P58", "label": "screenwriter", "shape": "item", "group": "film"},
+    {"id": "P161", "label": "cast member", "shape": "item", "group": "film"},
+    {"id": "P162", "label": "producer", "shape": "item", "group": "film"},
+    {"id": "P86", "label": "composer", "shape": "item", "group": "film"},
+    {"id": "P136", "label": "genre", "shape": "item", "group": "film"},
+    {"id": "P272", "label": "production company", "shape": "item", "group": "film"},
+    {"id": "P344", "label": "director of photography", "shape": "item", "group": "film"},
+    {"id": "P495", "label": "country of origin", "shape": "item", "group": "film"},
+    {"id": "P577", "label": "publication date", "shape": "date", "group": "film"},
+    {"id": "P750", "label": "distributor", "shape": "item", "group": "film"},
+    {"id": "P915", "label": "filming location", "shape": "item", "group": "film"},
+    {"id": "P840", "label": "narrative location", "shape": "item", "group": "film"},
+    {"id": "P1040", "label": "film editor", "shape": "item", "group": "film"},
+    {"id": "P155", "label": "follows", "shape": "item", "group": "film"},
+    {"id": "P156", "label": "followed by", "shape": "item", "group": "film"},
+    {"id": "P166", "label": "award received", "shape": "item", "group": "film"},
+    {"id": "P1411", "label": "nominated for", "shape": "item", "group": "film"},
+    {"id": "P2142", "label": "box office", "shape": "number", "group": "film"},
+    {"id": "P345", "label": "IMDb ID", "shape": "text", "group": "film"},
+    {"id": "ddis:tag", "label": "tag", "shape": "text", "group": "film"},
+    {"id": "schema:description", "label": "description", "shape": "text", "group": "film"},
+    {"id": "P19", "label": "place of birth", "shape": "item", "group": "person"},
+    {"id": "P26", "label": "spouse", "shape": "item", "group": "person"},
+    {"id": "P27", "label": "country of citizenship", "shape": "item", "group": "person"},
+    {"id": "P69", "label": "educated at", "shape": "item", "group": "person"},
+    {"id": "P106", "label": "occupation", "shape": "item", "group": "person"},
+    {"id": "P800", "label": "notable work", "shape": "item", "group": "person"}
   ],
   "value_shapes": [
     {"name": "item", "description": "An entity IRI; return its label through the result formatter."},
@@ -28,15 +51,18 @@
     {"name": "text", "description": "A string literal."}
   ],
   "examples": [
-    {"question": "Who directed a film?", "sparql": "SELECT ?director WHERE { wd:Q47703 wdt:P57 ?director }"},
-    {"question": "Who wrote the screenplay?", "sparql": "SELECT ?writer WHERE { wd:Q47703 wdt:P58 ?writer }"},
-    {"question": "Who starred in a film?", "sparql": "SELECT ?actor WHERE { wd:Q47703 wdt:P161 ?actor }"},
-    {"question": "When was a film released?", "sparql": "SELECT ?date WHERE { wd:Q47703 wdt:P577 ?date }"},
-    {"question": "What is the country of origin?", "sparql": "SELECT ?country WHERE { wd:Q47703 wdt:P495 ?country }"},
-    {"question": "What is the box office?", "sparql": "SELECT ?value WHERE { wd:Q13417189 wdt:P2142 ?value }"},
-    {"question": "What is the IMDb ID?", "sparql": "SELECT ?value WHERE { wd:Q13417189 wdt:P345 ?value }"},
-    {"question": "Which films did a person direct?", "sparql": "SELECT ?film WHERE { ?film wdt:P57 wd:Q56094 }"},
-    {"question": "How many films did a person direct?", "sparql": "SELECT (COUNT(?film) AS ?count) WHERE { ?film wdt:P57 wd:Q56094 }"},
-    {"question": "Which predicates exist for a film?", "sparql": "SELECT DISTINCT ?p WHERE { wd:Q11424 ?p ?o } LIMIT 50"}
+    {"question": "Who directed the resolved film? Replace ?film with its QID.", "sparql": "SELECT ?director WHERE { ?film wdt:P57 ?director } LIMIT 10"},
+    {"question": "Who wrote the screenplay? Replace ?film with its QID.", "sparql": "SELECT ?writer WHERE { ?film wdt:P58 ?writer } LIMIT 10"},
+    {"question": "Who starred in the film? Replace ?film with its QID.", "sparql": "SELECT ?actor WHERE { ?film wdt:P161 ?actor } LIMIT 10"},
+    {"question": "When was the film released? Replace ?film with its QID.", "sparql": "SELECT ?date WHERE { ?film wdt:P577 ?date }"},
+    {"question": "What is the genre? Replace ?film with its QID.", "sparql": "SELECT ?genre WHERE { ?film wdt:P136 ?genre }"},
+    {"question": "Who composed the music? Replace ?film with its QID.", "sparql": "SELECT ?composer WHERE { ?film wdt:P86 ?composer }"},
+    {"question": "Who produced the film? Replace ?film with its QID.", "sparql": "SELECT ?producer WHERE { ?film wdt:P162 ?producer }"},
+    {"question": "Who distributed the film? Replace ?film with its QID.", "sparql": "SELECT ?distributor WHERE { ?film wdt:P750 ?distributor }"},
+    {"question": "Which films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT ?film WHERE { ?film wdt:P57 ?person } LIMIT 10"},
+    {"question": "How many films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT (COUNT(?film) AS ?count) WHERE { ?film wdt:P57 ?person }"},
+    {"question": "Which tags describe the film? Replace ?film with its QID.", "sparql": "SELECT ?tag WHERE { ?film ddis:tag ?tag } LIMIT 10"},
+    {"question": "What is the graph description? Replace ?film with its QID.", "sparql": "SELECT ?description WHERE { ?film schema:description ?description }"},
+    {"question": "Which entities are film series?", "sparql": "SELECT ?series WHERE { ?series wdt:P31 wd:Q24856 } LIMIT 10"}
   ]
 }

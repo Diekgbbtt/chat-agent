@@ -71,13 +71,24 @@ def test_prompt_defines_the_classification_boundary_and_relationships():
     assert "The rationale must justify the label you returned." in prompt
 
 
-def test_prompt_contains_every_pair_example():
+def test_prompt_contains_every_example():
     client = FakeClient(response(labels()))
     classifier = GuardClassifier(client, SCHEMA)
 
     prompt = "\n".join(message["content"] for message in classifier.messages(TEXT, SPANS))
 
     assert all(example.message in prompt for example in SCHEMA.examples)
+
+
+def test_prompt_examples_use_the_tool_label_vocabulary():
+    client = FakeClient(response(labels()))
+    classifier = GuardClassifier(client, SCHEMA)
+
+    prompt = "\n".join(message["content"] for message in classifier.messages(TEXT, SPANS))
+
+    assert "safety=harmful" not in prompt
+    assert "safety=unsafe, unsafe_types=[harmful]" in prompt
+    assert "safety=safe" in prompt
 
 
 def test_user_prompt_carries_the_decomposition():
@@ -141,6 +152,20 @@ def test_correction_names_every_required_index():
     assert "Return exactly 2 labels" in user
     assert "index: 0, 1" in user
     assert "Do not skip an ambiguous span." in user
+
+
+def test_prompt_and_tool_schema_carry_the_rationale_limit():
+    client = FakeClient(response(labels()))
+    classifier = GuardClassifier(client, SCHEMA)
+
+    prompt = "\n".join(message["content"] for message in classifier.messages(TEXT, SPANS))
+    classifier.classify(TEXT, SPANS)
+    rationale = (client.calls[0]["tools"][0]["function"]["parameters"]["properties"]
+                 ["verbatims"]["items"]["properties"]["rationale"])
+
+    assert "240" in prompt
+    assert rationale["properties"]["safety"]["maxLength"] == 240
+    assert rationale["properties"]["scope"]["maxLength"] == 240
 
 
 def test_tool_schema_enforces_the_exact_label_count():

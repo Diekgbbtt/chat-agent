@@ -39,7 +39,7 @@ class PromptBuilder:
         return view
 
     def system_prompt(self, decision) -> str:
-        tool_text = ("resolve_entity and run_sparql are available only for a factual answer part.\n"
+        tool_text = ("resolve_entity, discover, and run_sparql are available only for a factual answer part.\n"
                      if decision.tools_enabled else
                      "No graph tool is available. Do not state a graph fact.\n")
         return "\n".join([
@@ -49,6 +49,34 @@ class PromptBuilder:
             "## Grounding",
             "Never use world knowledge. Never invent a value, label, date, or number.",
             "Every factual answer part must cite row IDs from a run_sparql observation.",
+            "",
+            "## Workflow",
+            "Follow this fixed order for every answerable verbatim.",
+            "1. Resolve: call resolve_entity before run_sparql. Never run_sparql with a label; use the QID from the selected row.",
+            '   Pass type="film" or type="human" when the name may be ambiguous.',
+            "2. Discover: if the card lacks the relation or type, call discover. "
+            'kind="relation" searches property labels and aliases. kind="type" searches class labels.',
+            "   Use the returned relation or type ID.",
+            "3. Query: call run_sparql with the selected QID and the relation ID from the card or discover.",
+            "4. Cite and submit: cite the row IDs and call submit_response.",
+            "",
+            'Worked example: "Who directed Jaws?"',
+            '1. resolve_entity(query="Jaws", type="film") -> e0: qid=Q189505, label=Jaws, kind=film.',
+            '2. run_sparql(query="SELECT ?director WHERE { wd:Q189505 wdt:P57 ?director }") '
+            "-> r0: director=Steven Spielberg.",
+            '3. submit_response({"parts": [{"verbatim_index": 0, "kind": "factual_answer", '
+            '"text": "Jaws was directed by Steven Spielberg.", "evidence_row_ids": ["r0"], '
+            '"addressed_safety_types": []}]})',
+            "",
+            'Worked discovery example: "What is the MPA rating of Jaws?"',
+            '1. resolve_entity(query="Jaws", type="film") -> e0: qid=Q189505, label=Jaws, kind=film.',
+            '2. discover(kind="relation", query="MPA rating", subject="Q11424") '
+            "-> d0: id=P1657, label=MPA film rating, direction=out.",
+            '3. run_sparql(query="SELECT ?rating WHERE { wd:Q189505 wdt:P1657 ?rating }") '
+            "-> r0: rating=PG.",
+            '4. submit_response({"parts": [{"verbatim_index": 0, "kind": "factual_answer", '
+            '"text": "Jaws has an MPA rating of PG.", "evidence_row_ids": ["r0"], '
+            '"addressed_safety_types": []}]})',
             "",
             "## Classification format",
             "The decision carries an overview and an ordered verbatim plan.",
@@ -64,16 +92,26 @@ class PromptBuilder:
             "",
             "## Reply contract",
             "Return one part per verbatim, in input order.",
-            "The part kind must match the handling:",
-            "  answer -> factual_answer, general_answer, or capability_limit",
+            "The part kind must match the handling and the cause:",
+            "  answer -> factual_answer when a cited graph row answers the verbatim.",
+            "  answer -> capability_limit for a recommendation, ranking, or opinion request.",
+            "  answer -> general_answer only when the graph has no data after three attempts.",
             "  refuse -> refusal",
             "  clarify -> clarification",
             "  boundary -> boundary",
+            "general_answer is not a first fallback.",
+            "After three attempts (resolve, discover, query), a general_answer must say that the graph has "
+            "no data and ask for a more specific question.",
+            "A general_answer must not use world knowledge.",
+            'Example general_answer: "I do not have graph data for that question. '
+            'Ask a more specific question about the film, such as its composer or release date."',
             "Use an empty evidence list outside a factual answer.",
             "Use an empty addressed_safety_types list outside a refusal.",
             "",
             "## Tools",
             tool_text.rstrip(),
+            "Call tools as structured calls, never as text. A message that writes submit_response([...]) is invalid.",
+            'Exact submit call: {"name": "submit_response", "arguments": {"parts": [...]}}',
             "Call submit_response to finish. Do not repeat a tool call.",
             "",
             "## Policy",
@@ -87,9 +125,10 @@ class PromptBuilder:
             "",
             "## Stop rules",
             "Call submit_response with every part.",
+            "Use at most six graph tool steps and respect the 20-second deadline.",
             "Do not answer a redacted verbatim.",
             "Do not quote more than six words from the input.",
-            "If the model cannot produce a grounded factual part, use a general answer or the unavailable-answer fallback.",
+            "Three failed attempts are the only reason for a general answer. Never answer from memory.",
         ])
 
     def user_prompt(self, decision) -> str:

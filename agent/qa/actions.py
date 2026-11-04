@@ -6,12 +6,13 @@ RESOLVE_ENTITY = {
     "type": "function",
     "function": {
         "name": "resolve_entity",
-        "description": "Find candidate entity QIDs from a film or person label. Exact, prefix, and contains matches only.",
+        "description": ("Find candidate entity QIDs from a film or person label. "
+                        "Filter by a type label or QID when the name is ambiguous."),
         "parameters": {
             "type": "object",
             "properties": {
                 "query": {"type": "string"},
-                "limit": {"type": "integer", "minimum": 1, "maximum": 10},
+                "type": {"type": "string"},
             },
             "required": ["query"],
         },
@@ -27,6 +28,25 @@ RUN_SPARQL = {
             "type": "object",
             "properties": {"query": {"type": "string"}},
             "required": ["query"],
+        },
+    },
+}
+
+DISCOVER = {
+    "type": "function",
+    "function": {
+        "name": "discover",
+        "description": ("Search the graph vocabulary for a relation or type that the schema card "
+                        "does not carry. Pass a QID as subject to see the relations used by that "
+                        "type or entity."),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "kind": {"type": "string", "enum": ["relation", "type"]},
+                "query": {"type": "string"},
+                "subject": {"type": ["string", "null"]},
+            },
+            "required": ["kind", "query"],
         },
     },
 }
@@ -59,7 +79,7 @@ SUBMIT_RESPONSE = {
     },
 }
 
-GRAPH_TOOLS = [RESOLVE_ENTITY, RUN_SPARQL]
+GRAPH_TOOLS = [RESOLVE_ENTITY, DISCOVER, RUN_SPARQL]
 
 
 def available_tools(decision) -> list:

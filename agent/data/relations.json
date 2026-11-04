@@ -23,6 +23,7 @@
   "wdt:P26": ["married", "wife", "husband"],
   "wdt:P69": ["studied", "university"],
   "ddis:tag": ["tag", "tags"],
+  "schema:description": ["description", "summary", "plot"],
   "wdt:P27": ["nationality", "citizenship"],
   "wdt:P1657": ["mpa rating", "rating", "rated"]
 }
