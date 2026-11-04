@@ -1,6 +1,10 @@
 """Build deterministic parts when the QA model fails."""
 
+import re
+
 from agent.qa.types import AgentResult, Part
+
+NEGATION = re.compile(r"(?:\bnot\b|\bnever\b|n't\b)", re.IGNORECASE)
 
 
 class Composer:
@@ -36,7 +40,10 @@ class Composer:
             elif plan.handling == "clarify":
                 parts.append(Part(plan.index, "clarification", self.schema.clarify_text))
             else:
-                text, evidence = self.renderer.render(observations.get(plan.index))
+                observation = observations.get(plan.index)
+                if NEGATION.search(plan.text or ""):
+                    observation = None
+                text, evidence = self.renderer.render(observation)
                 if evidence:
                     parts.append(Part(plan.index, "factual_answer", text, evidence_row_ids=evidence))
                 else:

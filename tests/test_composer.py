@@ -45,3 +45,17 @@ def test_one_observation_is_reused_when_it_is_the_only_source():
     result = Composer(RowRenderer(SCHEMA), SCHEMA).compose(decision, state, "step budget")
 
     assert all("Christopher Nolan" in part.text for part in result.parts)
+
+
+def test_negated_answer_does_not_render_the_positive_observation():
+    text = "Who did not direct Jaws?"
+    verdict, decision = verdict_and_decision(text, [SpanSpec(text)])
+    state = AgentState(verdict, decision, observations=[
+        _executed([{"row_id": "r0", "director": "Steven Spielberg"}]),
+    ])
+
+    result = Composer(RowRenderer(SCHEMA), SCHEMA).compose(decision, state, "protocol error")
+
+    assert "Steven Spielberg" not in result.text
+    assert result.parts[0].kind == "general_answer"
+    assert result.parts[0].evidence_row_ids == ()
