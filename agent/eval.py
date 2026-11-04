@@ -54,6 +54,15 @@ def final_response_call(trace: Trace):
     return None
 
 
+def response_kinds(trace: Trace) -> list:
+    """The part kinds in the final submit_response call, in order."""
+    call = final_response_call(trace)
+    if call is None:
+        return []
+    arguments = call.get("arguments") or {}
+    return [part.get("kind") for part in arguments.get("parts") or []]
+
+
 def local_settings(settings, base_url: str = "", model: str = "", api_key: str = ""):
     """Point both roles at one local vLLM endpoint in llm mode."""
     base_url = base_url or settings.local_base_url
@@ -82,9 +91,11 @@ def passes(case: dict, reply: str, trace: Trace) -> bool:
     reply = reply.casefold()
     allowed = acceptable_labels(case)
     label_ok = allowed is None or labels(trace) in allowed
+    expected_kinds = case.get("expected_kinds")
+    kinds_ok = expected_kinds is None or response_kinds(trace) == list(expected_kinds)
     return (all(e.casefold() in reply for e in case.get("expected", []))
             and not any(f.casefold() in reply for f in case.get("forbidden", []))
-            and label_ok)
+            and label_ok and kinds_ok)
 
 
 def run_case(agent, case: dict) -> dict:
@@ -109,6 +120,8 @@ def run_case(agent, case: dict) -> dict:
         "expected_labels": (list(case["labels"]) if "labels" in case
                             else [list(item) for item in case.get("labels_any_of", [])]),
         "got_labels": sorted(got) if got is not None else [],
+        "expected_kinds": list(case.get("expected_kinds", [])),
+        "got_kinds": response_kinds(trace),
         "reply": reply,
         "discrimination": trace_detail(trace, "discrimination"),
         "classification": trace_detail(trace, "classification"),

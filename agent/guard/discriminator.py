@@ -4,7 +4,7 @@ from typing import List
 
 from agent.guard.verdict import (RELATIONSHIP_MISSING, RELATIONSHIP_RESOLVED,
                                  RawDiscrimination)
-from agent.llm.client import LLMError
+from agent.llm.client import ToolCallProtocolError
 
 TOOL_NAME = "submit_discrimination"
 
@@ -129,7 +129,7 @@ class GuardDiscriminator:
         )
         calls = [call for call in response.tool_calls if call.name == TOOL_NAME]
         if len(calls) != 1:
-            raise LLMError(f"expected exactly one {TOOL_NAME} call")
+            raise ToolCallProtocolError(f"expected exactly one {TOOL_NAME} call")
         arguments = calls[0].arguments
         return RawDiscrimination(overview=arguments.get("overview", {}),
                                  verbatims=arguments.get("verbatims", []))

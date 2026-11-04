@@ -71,6 +71,16 @@ def test_prompt_defines_the_classification_boundary_and_relationships():
     assert "The rationale must justify the label you returned." in prompt
 
 
+def test_prompt_separates_movie_capabilities_from_general_capabilities():
+    client = FakeClient(response(labels()))
+    classifier = GuardClassifier(client, SCHEMA)
+
+    prompt = "\n".join(message["content"] for message in classifier.messages(TEXT, SPANS))
+
+    assert "a capability request that names the movie domain" in prompt
+    assert "general capability questions" in prompt
+
+
 def test_prompt_contains_every_example():
     client = FakeClient(response(labels()))
     classifier = GuardClassifier(client, SCHEMA)

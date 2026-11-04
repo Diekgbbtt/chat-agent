@@ -9,7 +9,7 @@ from agent.guard.policy import Decision, PolicyEngine
 from agent.guard.verdict import (Discrimination, Verdict, invalid_discrimination,
                                  invalid_verdict, validate_classification,
                                  validate_discrimination)
-from agent.llm.client import LLMError
+from agent.llm.client import LLMError, ToolCallProtocolError
 from agent.normalize import normalise
 
 
@@ -76,26 +76,56 @@ class GuardGate:
         self.classifier = GuardClassifier(client, schema)
         self.policy = PolicyEngine(schema)
 
-    def _discriminate(self, text: str, trace=None) -> Discrimination:
-        raw = self.discriminator.discriminate(text)
-        result = validate_discrimination(raw, text, self.schema)
-        if not result.valid:
+    def _stage_call(self, call, text: str, correction: str, stage: str, trace, retry_used: bool):
+        """Call one guard stage with at most one retry after a protocol error."""
+        try:
+            return call(text, correction=correction), None, retry_used
+        except ToolCallProtocolError as exc:
+            if retry_used:
+                return None, exc, True
             if trace is not None:
-                trace.add("guard_retry", {"stage": "discrimination", "error": result.error})
-            raw = self.discriminator.discriminate(text, correction=result.error or "invalid output")
-            result = validate_discrimination(raw, text, self.schema)
-        return result
+                trace.add("guard_retry", {"stage": stage, "error": str(exc)})
+            protocol = ("The previous attempt produced no valid tool call. "
+                        "Return exactly one tool call now. Do not write reasoning or prose.")
+            retry_correction = f"{correction} {protocol}".strip() if correction else protocol
+            return self._stage_call(call, text, retry_correction, stage, trace, True)
+
+    def _discriminate(self, text: str, trace=None) -> Discrimination:
+        raw, error, retry_used = self._stage_call(
+            self.discriminator.discriminate, text, "", "discrimination", trace, False)
+        if error is not None:
+            return invalid_discrimination(str(error))
+        result = validate_discrimination(raw, text, self.schema)
+        if result.valid or retry_used:
+            return result
+        if trace is not None:
+            trace.add("guard_retry", {"stage": "discrimination", "error": result.error})
+        raw, error, _ = self._stage_call(
+            self.discriminator.discriminate, text, result.error or "invalid output",
+            "discrimination", trace, True)
+        if error is not None:
+            return invalid_discrimination(str(error))
+        return validate_discrimination(raw, text, self.schema)
 
     def _classify(self, text: str, discrimination: Discrimination, trace=None) -> Verdict:
-        raw = self.classifier.classify(text, discrimination)
+        def classify(value: str, correction: str):
+            return self.classifier.classify(value, discrimination, correction=correction)
+
+        raw, error, retry_used = self._stage_call(
+            classify, text, "", "classification", trace, False)
+        if error is not None:
+            return invalid_verdict(str(error), self.schema)
         verdict = validate_classification(raw, discrimination, self.schema)
-        if not verdict.valid:
-            if trace is not None:
-                trace.add("guard_retry", {"stage": "classification", "error": verdict.error})
-            raw = self.classifier.classify(text, discrimination,
-                                            correction=verdict.error or "invalid output")
-            verdict = validate_classification(raw, discrimination, self.schema)
-        return verdict
+        if verdict.valid or retry_used:
+            return verdict
+        if trace is not None:
+            trace.add("guard_retry", {"stage": "classification", "error": verdict.error})
+        raw, error, _ = self._stage_call(
+            classify, text, verdict.error or "invalid output",
+            "classification", trace, True)
+        if error is not None:
+            return invalid_verdict(str(error), self.schema)
+        return validate_classification(raw, discrimination, self.schema)
 
     def evaluate(self, text: str, trace=None) -> GuardResult:
         normalized = normalise(text)

@@ -122,6 +122,65 @@ def test_client_error_is_clarify_without_a_retry():
     assert len(client.calls) == 1
 
 
+def test_discrimination_protocol_error_retries_with_a_correction():
+    client = FakeClient([
+        LLMResponse(content="", tool_calls=[], finish_reason="length"),
+        discriminated(span(TEXT)),
+        classified((0, "safe", (), "in_scope")),
+    ])
+
+    result = GuardGate(client, SCHEMA).evaluate(TEXT)
+
+    assert result.verdict.valid is True
+    assert len(client.calls) == 3
+    correction = client.calls[1]["messages"][-1]["content"].casefold()
+    assert "tool call" in correction
+    assert "reasoning" in correction
+
+
+def test_classification_protocol_error_retries_with_a_correction():
+    client = FakeClient([
+        discriminated(span(TEXT)),
+        LLMResponse(content="", tool_calls=[], finish_reason="length"),
+        classified((0, "safe", (), "in_scope")),
+    ])
+
+    result = GuardGate(client, SCHEMA).evaluate(TEXT)
+
+    assert result.verdict.valid is True
+    assert len(client.calls) == 3
+    correction = client.calls[2]["messages"][-1]["content"].casefold()
+    assert "tool call" in correction
+    assert "reasoning" in correction
+
+
+def test_second_protocol_error_is_clarify_without_another_retry():
+    client = FakeClient([
+        LLMResponse(content="", tool_calls=[], finish_reason="length"),
+        LLMResponse(content="", tool_calls=[], finish_reason="length"),
+    ])
+
+    result = GuardGate(client, SCHEMA).evaluate(TEXT)
+
+    assert result.verdict.valid is False
+    assert result.decision.action == "clarify"
+    assert len(client.calls) == 2
+
+
+def test_protocol_error_on_the_validation_retry_is_clarify():
+    client = FakeClient([
+        discriminated(span(TEXT)),
+        classified((0, "safe", (), "wrong")),
+        LLMResponse(content="", tool_calls=[], finish_reason="length"),
+    ])
+
+    result = GuardGate(client, SCHEMA).evaluate(TEXT)
+
+    assert result.verdict.valid is False
+    assert result.decision.action == "clarify"
+    assert len(client.calls) == 3
+
+
 def test_canonical_labels_use_the_classified_axes():
     client = FakeClient([discriminated(span(TEXT)), classified((0, "safe", (), "in_scope"))])
 

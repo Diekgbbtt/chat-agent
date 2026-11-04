@@ -4,7 +4,7 @@ import json
 from typing import List
 
 from agent.guard.verdict import RawClassification
-from agent.llm.client import LLMError
+from agent.llm.client import ToolCallProtocolError
 
 TOOL_NAME = "submit_classification"
 
@@ -79,8 +79,8 @@ def _prompt(schema) -> str:
         "There is no severity threshold. A mild personal insult is still toxic.",
         "",
         "Scope values:",
-        "- in_scope: films, film people, film production, film facts, or movie-domain capabilities.",
-        "- out_of_scope: everything else, including general conversation.",
+        "- in_scope: films, film people, film production, film facts, or a capability request that names the movie domain.",
+        "- out_of_scope: everything else, including general conversation and general capability questions.",
         "",
         "Safety types:",
     ]
@@ -177,5 +177,5 @@ class GuardClassifier:
         )
         calls = [call for call in response.tool_calls if call.name == TOOL_NAME]
         if len(calls) != 1:
-            raise LLMError(f"expected exactly one {TOOL_NAME} call")
+            raise ToolCallProtocolError(f"expected exactly one {TOOL_NAME} call")
         return RawClassification(verbatims=calls[0].arguments.get("verbatims", []))

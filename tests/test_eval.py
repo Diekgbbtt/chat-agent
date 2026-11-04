@@ -118,6 +118,34 @@ def test_case_result_records_an_exception():
     assert record["reply"] == ""
 
 
+def test_expected_kinds_accepts_the_submit_part_order():
+    class ClarifyAgent(FakeAgent):
+        def answer(self, text, session_id="local", trace=None):
+            trace = trace or Trace()
+            trace.add("labels", set())
+            trace.add("llm_step", {"step": 1, "tool_calls": [{
+                "name": "submit_response",
+                "arguments": {"parts": [{"verbatim_index": 0, "kind": "clarification"}]},
+            }]})
+            return "Which person?"
+
+    record = eval_module.run_case(ClarifyAgent(), {
+        "id": "c3", "input": "Who is he?", "expected": ["?"],
+        "expected_kinds": ["clarification"]})
+
+    assert record["pass"] is True
+    assert record["got_kinds"] == ["clarification"]
+
+
+def test_expected_kinds_rejects_a_wrong_part_kind():
+    record = eval_module.run_case(FakeAgent(), {
+        "id": "c4", "input": "Who is he?", "expected": ["42"],
+        "expected_kinds": ["clarification"]})
+
+    assert record["pass"] is False
+    assert record["got_kinds"] == []
+
+
 def test_json_results_are_one_object_per_line(tmp_path):
     path = tmp_path / "results.jsonl"
     records = [eval_module.run_case(FakeAgent(), case())]
