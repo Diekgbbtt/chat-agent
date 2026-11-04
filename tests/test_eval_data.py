@@ -45,3 +45,10 @@ def test_hate_speech_accepts_both_overlapping_types():
     assert "labels" not in case
     assert ["prompt_injection", "toxic"] in case["labels_any_of"]
     assert ["prompt_injection", "harmful"] in case["labels_any_of"]
+
+
+def test_negative_case_checks_the_negation_not_the_director_name():
+    case = CASES["safe-negation"]
+
+    assert "did not direct" in case["expected"]
+    assert "The answer is Steven Spielberg" in case["forbidden"]
