@@ -182,7 +182,7 @@ def test_trace_surfaces_reasoning_and_tool_rows(movies_kg):
     text = "Who directed The Godfather?"
     verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
     reasoning = "I need the director property for The Godfather."
-    agent, _ = agent_for(movies_kg, [
+    agent, client = agent_for(movies_kg, [
         LLMResponse(content="I will query the graph.", reasoning=reasoning,
                     tool_calls=[ToolCall("q1", "run_sparql", {
                         "query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"})],
@@ -193,6 +193,9 @@ def test_trace_surfaces_reasoning_and_tool_rows(movies_kg):
 
     result = agent.respond(verdict, choice, trace)
 
+    assistant = next(message for message in client.calls[1]["messages"]
+                     if message["role"] == "assistant" and message.get("tool_calls"))
+    assert assistant["content"] == "I will query the graph."
     steps = [step for step, _ in trace.steps]
     llm_steps = [detail for step, detail in trace.steps if step == "llm_step"]
     tool_results = [detail for step, detail in trace.steps if step == "tool_result"]
@@ -237,3 +240,66 @@ def test_repeated_tool_call_is_blocked_without_execution(movies_kg):
 
     assert result.text.endswith("Francis Ford Coppola.")
     assert "already executed" in client.calls[3]["messages"][-1]["content"]
+
+
+def test_content_only_response_is_a_protocol_failure_not_a_retry_loop(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    content_only = LLMResponse(
+        content='submit_response([{"verbatim_index": 0, "kind": "general_answer", '
+                '"text": "not available", "evidence_row_ids": [], "addressed_safety_types": []}])',
+        tool_calls=[], finish_reason="stop")
+    agent, client = agent_for(movies_kg, [content_only, content_only], max_steps=6)
+
+    result = agent.respond(verdict, choice)
+
+    assert len(client.calls) == 1
+    assert result.fallback_reason == "protocol error"
+    assert result.text == SCHEMA.answer_unavailable_text
+
+
+def test_qa_loop_requests_one_native_tool_call_per_turn():
+    text = "Solve 2+2."
+    verdict, choice = decision(text, [(text, "safe", (), "out_of_scope")])
+    agent, client = agent_for(None, [
+        submit(part(0, "boundary", "I can only help with questions about movies.")),
+    ])
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text == "I can only help with questions about movies."
+    assert client.calls[0]["tool_choice"] == "required"
+    assert client.calls[0]["require_tool_call"] is True
+
+
+def test_final_turn_forces_the_native_submit_tool(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    agent, client = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",))),
+    ], max_steps=2)
+
+    result = agent.respond(verdict, choice)
+
+    assert result.text.endswith("Francis Ford Coppola.")
+    assert client.calls[0]["tool_choice"] == "required"
+    assert client.calls[1]["tool_choice"] == {
+        "type": "function", "function": {"name": "submit_response"}}
+    assert client.calls[1]["require_tool_call"] is True
+
+
+def test_multiple_native_tool_calls_are_a_protocol_error(movies_kg):
+    text = "Who directed The Godfather?"
+    verdict, choice = decision(text, [(text, "safe", (), "in_scope")])
+    response = LLMResponse(content=None, tool_calls=[
+        ToolCall("q1", "run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+        ToolCall("q2", "run_sparql", {"query": "SELECT ?d WHERE { wd:Q47703 wdt:P57 ?d }"}),
+    ], finish_reason="tool_calls")
+    agent, client = agent_for(movies_kg, [response])
+
+    result = agent.respond(verdict, choice)
+
+    assert len(client.calls) == 1
+    assert result.fallback_reason == "protocol error"
+    assert result.text == SCHEMA.answer_unavailable_text

@@ -16,6 +16,10 @@ class LLMError(RuntimeError):
     """The endpoint failed or returned a shape the runtime cannot use."""
 
 
+class ToolCallProtocolError(LLMError):
+    """The response did not follow the native tool-call contract."""
+
+
 @dataclass(frozen=True)
 class ToolCall:
     id: str
@@ -32,19 +36,26 @@ class LLMResponse:
     reasoning: Optional[str] = None
 
 
+def _field(value, name: str, default=None):
+    """Read a field from an SDK object or a plain mapping."""
+    if isinstance(value, dict):
+        return value.get(name, default)
+    return getattr(value, name, default)
+
+
 def _usage(raw) -> Dict[str, int]:
     if raw is None:
         return {}
-    return {name: int(getattr(raw, name) or 0)
+    return {name: int(_field(raw, name) or 0)
             for name in ("prompt_tokens", "completion_tokens", "total_tokens")}
 
 
 def _reasoning(message) -> Optional[str]:
     for name in ("reasoning_content", "reasoning"):
-        value = getattr(message, name, None)
+        value = _field(message, name)
         if value:
             return value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
-    extra = getattr(message, "model_extra", None)
+    extra = _field(message, "model_extra")
     if isinstance(extra, dict):
         for name in ("reasoning_content", "reasoning"):
             value = extra.get(name)
@@ -53,19 +64,27 @@ def _reasoning(message) -> Optional[str]:
     return None
 
 
+def _arguments(raw, name: str) -> dict:
+    if isinstance(raw, dict):
+        return dict(raw)
+    if raw in (None, ""):
+        return {}
+    try:
+        arguments = json.loads(raw)
+    except (TypeError, ValueError) as exc:
+        raise LLMError(f"invalid tool arguments for {name}: {exc}") from exc
+    if not isinstance(arguments, dict):
+        raise LLMError(f"tool arguments for {name} are not an object")
+    return arguments
+
+
 def _tool_calls(message) -> List[ToolCall]:
     calls = []
-    for call in getattr(message, "tool_calls", None) or []:
-        function = getattr(call, "function", None)
-        name = getattr(function, "name", "")
-        raw = getattr(function, "arguments", "") or "{}"
-        try:
-            arguments = json.loads(raw)
-        except (TypeError, ValueError) as exc:
-            raise LLMError(f"invalid tool arguments for {name}: {exc}") from exc
-        if not isinstance(arguments, dict):
-            raise LLMError(f"tool arguments for {name} are not an object")
-        calls.append(ToolCall(id=getattr(call, "id", ""), name=name, arguments=arguments))
+    for call in _field(message, "tool_calls", None) or []:
+        function = _field(call, "function")
+        name = _field(function, "name", "")
+        calls.append(ToolCall(id=_field(call, "id", ""), name=name,
+                              arguments=_arguments(_field(function, "arguments", ""), name)))
     return calls
 
 
@@ -118,7 +137,10 @@ class LLMClient:
                                for call in response.tool_calls]}
 
     def chat(self, messages, tools=None, tool_choice=None, max_tokens: Optional[int] = None,
-             temperature: float = 0.0, parallel_tool_calls: bool = False) -> LLMResponse:
+             temperature: float = 0.0, parallel_tool_calls: bool = False,
+             require_tool_call: bool = False) -> LLMResponse:
+        if require_tool_call and not tools:
+            raise LLMError("require_tool_call needs at least one tool")
         kwargs = {
             "model": self.model,
             "messages": messages,
@@ -127,7 +149,9 @@ class LLMClient:
         }
         if tools is not None:
             kwargs["tools"] = tools
-        if tool_choice is not None:
+        if require_tool_call and tool_choice in (None, "auto"):
+            kwargs["tool_choice"] = "required"
+        elif tool_choice is not None:
             kwargs["tool_choice"] = tool_choice
         if max_tokens is not None:
             kwargs["max_tokens"] = max_tokens
@@ -136,20 +160,28 @@ class LLMClient:
         for attempt in (1, 2):
             started = time.perf_counter()
             emit(log, "llm.request", attempt=attempt,
-                 **self._request_detail(messages, tools, tool_choice, max_tokens, temperature))
+                 **self._request_detail(messages, tools, kwargs.get("tool_choice"),
+                                        max_tokens, temperature))
             try:
                 raw = self.transport.chat.completions.create(**kwargs)
-                choice = raw.choices[0]
-                message = choice.message
+                choices = _field(raw, "choices", None) or []
+                if not choices:
+                    raise LLMError("model response has no choices")
+                choice = choices[0]
+                message = _field(choice, "message")
+                if message is None:
+                    raise LLMError("model response has no message")
                 response = LLMResponse(
-                    content=getattr(message, "content", None),
+                    content=_field(message, "content"),
                     tool_calls=_tool_calls(message),
-                    finish_reason=getattr(choice, "finish_reason", None),
-                    usage=_usage(getattr(raw, "usage", None)),
+                    finish_reason=_field(choice, "finish_reason"),
+                    usage=_usage(_field(raw, "usage")),
                     reasoning=_reasoning(message),
                 )
                 emit(log, "llm.response", attempt=attempt,
                      **self._response_detail(response, round((time.perf_counter() - started) * 1000.0, 1)))
+                if require_tool_call and not response.tool_calls:
+                    raise ToolCallProtocolError("the model returned no native tool call")
                 return response
             except LLMError as exc:
                 emit(log, "llm.error", level=logging.ERROR, attempt=attempt,
