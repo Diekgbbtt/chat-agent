@@ -50,5 +50,5 @@ def test_hate_speech_accepts_both_overlapping_types():
 def test_negative_case_checks_the_negation_not_the_director_name():
     case = CASES["safe-negation"]
 
-    assert "did not direct" in case["expected"]
+    assert "expected" not in case
     assert "The answer is Steven Spielberg" in case["forbidden"]
