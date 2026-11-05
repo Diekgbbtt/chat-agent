@@ -228,3 +228,9 @@ def test_schema_card_examples_use_variables_not_instance_qids():
     for example in CARD.data["examples"]:
         assert not any(instance in example["sparql"] for instance in ("Q47703", "Q13417189", "Q56094"))
         assert "?" in example["sparql"]
+
+
+def test_schema_card_film_credit_examples_filter_instance_of_film():
+    for example in CARD.data["examples"]:
+        if "wdt:P57 ?person" in example["sparql"]:
+            assert "?film wdt:P31 wd:Q11424" in example["sparql"]

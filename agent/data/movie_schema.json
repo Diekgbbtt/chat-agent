@@ -59,8 +59,8 @@
     {"question": "Who composed the music? Replace ?film with its QID.", "sparql": "SELECT ?composer WHERE { ?film wdt:P86 ?composer }"},
     {"question": "Who produced the film? Replace ?film with its QID.", "sparql": "SELECT ?producer WHERE { ?film wdt:P162 ?producer }"},
     {"question": "Who distributed the film? Replace ?film with its QID.", "sparql": "SELECT ?distributor WHERE { ?film wdt:P750 ?distributor }"},
-    {"question": "Which films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT ?film WHERE { ?film wdt:P57 ?person } LIMIT 10"},
-    {"question": "How many films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT (COUNT(?film) AS ?count) WHERE { ?film wdt:P57 ?person }"},
+    {"question": "Which films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT ?film WHERE { ?film wdt:P57 ?person . ?film wdt:P31 wd:Q11424 } LIMIT 10"},
+    {"question": "How many films did the resolved person direct? Replace ?person with their QID.", "sparql": "SELECT (COUNT(?film) AS ?count) WHERE { ?film wdt:P57 ?person . ?film wdt:P31 wd:Q11424 }"},
     {"question": "Which tags describe the film? Replace ?film with its QID.", "sparql": "SELECT ?tag WHERE { ?film ddis:tag ?tag } LIMIT 10"},
     {"question": "What is the graph description? Replace ?film with its QID.", "sparql": "SELECT ?description WHERE { ?film schema:description ?description }"},
     {"question": "Which entities are film series?", "sparql": "SELECT ?series WHERE { ?series wdt:P31 wd:Q24856 } LIMIT 10"}
