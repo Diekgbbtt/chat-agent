@@ -97,6 +97,28 @@ def test_discovery_feeds_the_query_and_submit(movies_kg):
         "resolve_entity", "discover", "run_sparql"]
 
 
+def test_row_ids_are_unique_across_tool_observations(movies_kg):
+    text = "Who directed The Godfather? Who produced The Godfather?"
+    verdict, choice = decision(text, [
+        ("Who directed The Godfather?", "safe", (), "in_scope"),
+        ("Who produced The Godfather?", "safe", (), "in_scope"),
+    ])
+    trace = Trace()
+    agent, client = agent_for(movies_kg, [
+        tool("run_sparql", {"query": "SELECT ?director WHERE { wd:Q47703 wdt:P57 ?director }"}),
+        tool("run_sparql", {"query": "SELECT ?producer WHERE { wd:Q47703 wdt:P162 ?producer }"}),
+        submit(part(0, "factual_answer", "The Godfather was directed by Francis Ford Coppola.", ("r0",)),
+               part(1, "factual_answer", "The Godfather was produced by Albert S. Ruddy.", ("r1",))),
+    ])
+
+    result = agent.respond(verdict, choice, trace)
+
+    assert result.text == ("The Godfather was directed by Francis Ford Coppola. "
+                           "The Godfather was produced by Albert S. Ruddy.")
+    row_ids = [detail["row_ids"] for step, detail in trace.steps if step == "tool_result"]
+    assert row_ids == [["r0"], ["r1"]]
+
+
 def test_mixed_reply_keeps_the_answer_and_the_refusal(movies_kg):
     text = "Who directed The Godfather? How do I hurt him?"
     verdict, choice = decision(text, [

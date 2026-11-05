@@ -3,6 +3,7 @@
 import json
 import logging
 import time
+from dataclasses import replace
 
 from agent.llm.client import LLMError, ToolCallProtocolError
 from agent.qa import actions
@@ -11,8 +12,11 @@ from agent.qa.renderer import RowRenderer
 from agent.qa.state import AgentState
 from agent.qa.types import AgentResult
 from agent.qa.validator import AnswerValidator
+from agent.tools.registry import ExecutedTool
 
 log = logging.getLogger("agent.qa")
+
+ROW_PREFIX = {"run_sparql": "r", "resolve_entity": "e", "discover": "d"}
 
 
 class ResponseAgent:
@@ -59,6 +63,20 @@ class ResponseAgent:
             trace.add("response", {"parts": len(parts), "text": text})
         return AgentResult(tuple(parts), text, evidence)
 
+    def _renumber(self, executed: ExecutedTool, counters: dict) -> ExecutedTool:
+        """Give every tool observation unique row IDs across the whole loop."""
+        prefix = ROW_PREFIX.get(executed.name)
+        if not prefix or not executed.observation.rows:
+            return executed
+        start = counters.get(prefix, 0)
+        rows = []
+        for index, row in enumerate(executed.observation.rows):
+            item = dict(row)
+            item["row_id"] = f"{prefix}{start + index}"
+            rows.append(item)
+        counters[prefix] = start + len(rows)
+        return replace(executed, observation=replace(executed.observation, rows=tuple(rows)))
+
     def respond(self, verdict, decision, trace=None) -> AgentResult:
         state = AgentState(verdict, decision)
         messages = self.prompt_builder.build(decision, verdict)
@@ -67,6 +85,7 @@ class ResponseAgent:
         tool_steps = 0
         repairs = 0
         force_submit = False
+        row_counters = {}
         forced = {"type": "function", "function": {"name": "submit_response"}}
         max_turns = self.max_steps + self.max_repairs + 2
 
@@ -161,7 +180,7 @@ class ResponseAgent:
             state.tool_signatures.add(signature)
             if trace is not None:
                 trace.add("agent_step", {"tool": call.name, "arguments": call.arguments})
-            executed = self.registry.execute(call.name, call.arguments)
+            executed = self._renumber(self.registry.execute(call.name, call.arguments), row_counters)
             state.observations.append(executed)
             if trace is not None:
                 if call.name == "run_sparql":

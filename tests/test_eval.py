@@ -170,6 +170,18 @@ def test_numeric_expected_ignores_thousands_separators():
     assert record["pass"] is True
 
 
+def test_date_expected_ignores_a_zero_time_suffix():
+    class DateAgent(FakeAgent):
+        def answer(self, text, session_id="local", trace=None):
+            trace = trace or Trace()
+            trace.add("labels", {"safe_in_scope"})
+            return "Mrs. Brown Part 2 was released on 2000-04-25."
+
+    record = eval_module.run_case(DateAgent(), case(expected=["2000-04-25T00:00:00"]))
+
+    assert record["pass"] is True
+
+
 def test_json_results_are_one_object_per_line(tmp_path):
     path = tmp_path / "results.jsonl"
     records = [eval_module.run_case(FakeAgent(), case())]

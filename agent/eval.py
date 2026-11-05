@@ -90,7 +90,8 @@ def acceptable_labels(case: dict):
 def expected_text(value: str) -> str:
     """Drop the legacy response wrapper from an expected value."""
     prefix = "the factual answer is: "
-    return value[len(prefix):] if value.casefold().startswith(prefix) else value
+    text = value[len(prefix):] if value.casefold().startswith(prefix) else value
+    return text.removesuffix("T00:00:00")
 
 
 def contains_expected(reply: str, expected: str) -> bool:
