@@ -44,3 +44,23 @@ def no_relation(entity: str) -> str:
 
 def no_facts(relation: str, entity: str) -> str:
     return f"Sorry, my knowledge graph has no information about the {relation} of {entity}."
+
+
+def no_match() -> str:
+    return "Sorry, my knowledge graph has no matching information."
+
+
+def unknown_entity(name: str) -> str:
+    return f"Sorry, I couldn't find {name} in my knowledge graph."
+
+
+def no_property() -> str:
+    return "Sorry, my knowledge graph doesn't have that kind of information."
+
+
+def capabilities() -> str:
+    return "Hi! I can answer questions about movies, e.g. who directed or starred in a film, or when it came out."
+
+
+def not_understood() -> str:
+    return "Sorry, I didn't quite get that. Could you rephrase your question?"

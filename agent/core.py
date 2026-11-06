@@ -60,11 +60,12 @@ class Agent:
         return EMPTY_REPLY
 
 
-def build_agent(kg: KnowledgeGraph, llm=None, show_labels: bool = False) -> Agent:
-    """SPARQL queries first (Stage 1); with an LLM, everything else passes the guardrails (Stage 3)
-    before the factual pipeline (Stage 2); without one, the agent is the Stage 2 agent."""
-    factual = FactualHandler(kg, Lexicon(kg))
+def build_agent(kg: KnowledgeGraph, llm=None, show_labels: bool = False,
+                rephrase_answers: bool = True) -> Agent:
+    """SPARQL queries first (Stage 1); with an LLM, everything else goes guard -> planner -> graph (Stage 3);
+    without one, the agent is the Stage 2 agent."""
+    lexicon = Lexicon(kg)
     if llm is None:
-        return Agent([SparqlHandler(kg), factual])
+        return Agent([SparqlHandler(kg), FactualHandler(kg, lexicon)])
     from agent.handlers.guarded import GuardedHandler
-    return Agent([SparqlHandler(kg), GuardedHandler(factual, llm, show_labels)])
+    return Agent([SparqlHandler(kg), GuardedHandler(kg, lexicon, llm, show_labels, rephrase_answers)])

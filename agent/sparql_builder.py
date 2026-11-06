@@ -5,6 +5,7 @@ direction "out": the entity is the subject, the answer is the object ("Who direc
 direction "in":  the entity is the object, the answer is the subject ("Which movies did Ridley Scott direct?")
 """
 
+import json
 from typing import Optional, Sequence
 
 WD = "http://www.wikidata.org/entity/"
@@ -87,6 +88,69 @@ def complement_count(entity: str, predicate: str, direction: str, universe: Opti
 def claim(film: str, predicate: str, person: str) -> str:
     """ASK whether the film has the credit to the person ("Did X direct Y?")."""
     return f"ASK {{ <{WD}{film}> <{predicate}> <{WD}{person}> }}"
+
+
+def _path(predicates: Sequence[str]) -> str:
+    """One predicate or alternatives as a SPARQL property path: <P1>|<P2>."""
+    return "|".join(f"<{p}>" for p in predicates)
+
+
+def _link(entity: str, predicates: Sequence[str], direction: str, var: str = "?x") -> str:
+    if direction == "out":
+        return f"<{WD}{entity}> {_path(predicates)} {var} ."
+    return f"{var} {_path(predicates)} <{WD}{entity}> ."
+
+
+def has_any(entity: str, predicates: Sequence[str], direction: str) -> str:
+    return f"ASK {{ {_link(entity, predicates, direction)} }}"
+
+
+def lookup_any(entity: str, predicates: Sequence[str], direction: str) -> str:
+    return (f"SELECT DISTINCT ?x ?label WHERE {{ {_link(entity, predicates, direction)} "
+            f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {LIMIT}")
+
+
+def count_any(entity: str, predicates: Sequence[str], direction: str) -> str:
+    film_filter = " ?x wdt:P31 wd:Q11424" if direction == "in" and FILM_CREDITS & set(predicates) else ""
+    return (f"SELECT (COUNT(DISTINCT ?x) AS ?n) WHERE {{ {_link(entity, predicates, direction)}"
+            f"{film_filter} }}")
+
+
+def chain(entity: str, path: Sequence[str]) -> str:
+    """Follow single predicates step by step: Jaws -> director -> date of birth."""
+    steps = [f"?y{i}" for i in range(len(path) - 1)] + ["?x"]
+    subjects = [f"<{WD}{entity}>"] + steps[:-1]
+    where = " ".join(f"{s} <{p}> {o} ." for s, p, o in zip(subjects, path, steps))
+    return f"SELECT DISTINCT ?x ?label WHERE {{ {where} OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {LIMIT}"
+
+
+def ranked(entity: str, predicates: Sequence[str], direction: str, by: str, order: str) -> str:
+    """The item linked to the entity with the lowest ("ASC") or highest ("DESC") value of `by`."""
+    aggregate = "MIN" if order == "ASC" else "MAX"
+    return (f"SELECT ?x ?label ({aggregate}(?v) AS ?value) WHERE {{ {_link(entity, predicates, direction)} "
+            f"?x <{by}> ?v . OPTIONAL {{ ?x rdfs:label ?label }} }} "
+            f"GROUP BY ?x ?label ORDER BY {order}(?value) LIMIT 1")
+
+
+def filtered(predicate: str, op: str, value: str, is_date: bool) -> str:
+    """Everything whose `predicate` value compares to `value`; dates compare on their YYYY-MM-DD text."""
+    left = "SUBSTR(STR(?v), 1, 10)" if is_date else "?v"
+    right = json.dumps(value) if is_date else value
+    return (f"SELECT DISTINCT ?x ?label WHERE {{ ?x <{predicate}> ?v . FILTER({left} {op} {right}) "
+            f"OPTIONAL {{ ?x rdfs:label ?label }} }} LIMIT {LIMIT}")
+
+
+def claim_any(entity: str, predicates: Sequence[str], others: Sequence[str]) -> str:
+    """ASK whether the entity links to any of `others` (either direction): "Did Ridley Scott direct Alien?"."""
+    values = " ".join(f"<{WD}{o}>" for o in others)
+    return (f"ASK {{ VALUES ?o {{ {values} }} {{ <{WD}{entity}> {_path(predicates)} ?o }} "
+            f"UNION {{ ?o {_path(predicates)} <{WD}{entity}> }} }}")
+
+
+def claim_literal(entity: str, predicates: Sequence[str], value: str) -> str:
+    """ASK whether a literal value starts with `value`: "Was Titanic released in 1997?"."""
+    return (f"ASK {{ <{WD}{entity}> {_path(predicates)} ?v . "
+            f"FILTER(STRSTARTS(LCASE(STR(?v)), {json.dumps(value.lower(), ensure_ascii=False)})) }}")
 
 
 def superlative(entity: str, predicate: str, direction: str, order: str) -> str:

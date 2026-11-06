@@ -18,7 +18,7 @@ def load_agent() -> Agent:
     settings = load_settings()
     kg = KnowledgeGraph.open(settings.graph_path, settings.store_path, query_timeout_s=settings.query_timeout_s,
                              max_fetch_rows=settings.max_fetch_rows, workers=settings.workers)
-    return build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
+    return build_agent(kg, load_llm(settings), settings.show_guardrail_labels, settings.rephrase_answers)
 
 
 def load_llm(settings):

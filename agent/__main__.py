@@ -30,7 +30,7 @@ def main() -> None:
         max_fetch_rows=settings.max_fetch_rows,
         workers=settings.workers,
     )
-    agent = build_agent(kg, load_llm(settings), settings.show_guardrail_labels)
+    agent = build_agent(kg, load_llm(settings), settings.show_guardrail_labels, settings.rephrase_answers)
     bot = SpeakeasyBot(
         agent.answer,
         username=settings.username,

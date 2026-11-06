@@ -1,0 +1,15 @@
+{"id": "transcript-moonrise-director", "input": "Who directed 'Moonrise Kingdom'?", "expected": ["Wes Anderson"]}
+{"id": "transcript-carol-director", "input": "Who is the director of 'Carol'?", "expected": ["Todd Haynes"]}
+{"id": "transcript-gravity-composer", "input": "Who composed the music for 'Gravity'?", "expected": ["Steven Price"]}
+{"id": "transcript-favourite-imdb", "input": "What is the IMDb identifier of the movie 'The Favourite'?", "expected": ["tt5083738"]}
+{"id": "transcript-budapest-language", "input": "What is the original language of the movie 'The Grand Budapest Hotel'?", "expected": ["English"]}
+{"id": "transcript-october-sky-location", "input": "What is the narrative location of the movie 'October Sky'?", "expected": ["Coalwood"]}
+{"id": "transcript-sergeant-york-distribution", "input": "What are the distribution platforms of 'Sergeant York'?", "expected": ["Netflix", "Warner Bros."]}
+{"id": "transcript-irishman-composer", "input": "Who is the composer of Irishman?", "expected": ["Robbie Robertson"]}
+{"id": "transcript-titanic-release", "input": "When did the movie Titanic come out?", "expected": ["1953-01-01"]}
+{"id": "transcript-pulp-fiction-tags", "input": "How many user tags does the movie 'Pulp Fiction' have?", "expected": ["25"]}
+{"id": "transcript-horse-racing-subject", "input": "Which movies have 'horse racing' as the main subject?", "expected": ["Hot to Trot", "Kentucky", "Let It Ride", "National Velvet", "Phar Lap", "Ride Like a Girl", "Seabiscuit"]}
+{"id": "transcript-yojimbo-remakes", "input": "What are the remakes of 'Yojimbo'?", "expected": ["A Fistful of Dollars", "Django", "Last Man Standing"]}
+{"id": "transcript-almodovar-top-rated", "input": "W4hich movie directed by 'Pedro AlmodÃ³var' has the highest user rating?", "expected": ["Volver"], "forbidden": ["Pain and Glory", "Talk to Her"]}
+{"id": "transcript-released-after-2027", "input": "Which movies were released after 2027-03-01?", "expected": ["Four Daughters Vol. 2", "La maternal 2"]}
+{"id": "transcript-rating-not-below", "input": "Which movies did not have a user rating below 9.9?", "expected": ["Acidulous Midtime Shed", "Yarest Aprepitant Grind"]}
