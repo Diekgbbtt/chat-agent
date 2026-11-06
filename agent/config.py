@@ -15,6 +15,7 @@ from typing import Iterable, Optional
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 NUVOLOS_GRAPH_PATH = "/space_mounts/atai-hs26/dataset/graph.nt"
+NUVOLOS_MODEL_CACHE = "/files/hf_cache"  # persistent storage, so the model is downloaded only once
 DEFAULT_HOST = "https://speakeasy.ifi.uzh.ch"
 
 
@@ -98,6 +99,8 @@ class Settings:
 
 def load_settings() -> Settings:
     load_dotenv()
+    if Path("/files").is_dir():  # on Nuvolos; must be set before transformers is imported
+        os.environ.setdefault("HF_HOME", NUVOLOS_MODEL_CACHE)
     return Settings(
         host=os.environ.get("SPEAKEASY_HOST", DEFAULT_HOST),
         username=os.environ.get("BOT_USERNAME"),
