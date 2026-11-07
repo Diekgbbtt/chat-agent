@@ -67,10 +67,13 @@ class GuardedHandler:
             # the planner only reached for properties the graph doesn't have ("date of birth")
             return nlg.no_property() if "unknown property" in str(error) else nlg.not_understood()
         texts = []
-        for answer in answers:
+        for request, answer in zip(requests, answers):
             trace.add("answer", answer.values)
             if answer.found and self.rephrase_answers:
-                texts.append(rephrase(self.llm, question, answer.values, answer.text))
+                # with several requests, each sentence may only use its own part of the question:
+                # "Who directed Inception and Jaws?" must not become "Nolan directed Inception and Jaws"
+                part = question if len(answers) == 1 else self.engine.describe(request)
+                texts.append(rephrase(self.llm, part, answer.values, answer.text))
             else:
                 texts.append(answer.text)
         return " ".join(texts)

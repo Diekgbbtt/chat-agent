@@ -84,6 +84,17 @@ class QueryEngine:
                 return self.parser._rank(self.lex.lbl2ent[label])
         return self.parser._find_entity(name)[1]
 
+    def describe(self, request: Request) -> str:
+        """The request in words, e.g. "director of Inception"; what one answer sentence may talk about."""
+        labels = " or ".join(self.by_iri[p].label for p in request.properties)
+        if request.kind == "filter":
+            return f"{labels} {request.op} {request.value}"
+        if request.kind == "superlative":
+            return f"{labels} of {request.entity} with the {request.pick} {self.by_iri[request.order_by].label}"
+        if request.kind == "chain":
+            labels = " of the ".join(self.by_iri[p].label for p in reversed(request.properties))
+        return f"{'not ' if request.negated else ''}{labels} of {request.entity}"
+
     def run(self, request: Request, trace) -> Answer:
         if request.kind == "filter":
             return self._filter(request, trace)

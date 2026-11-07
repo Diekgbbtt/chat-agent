@@ -275,3 +275,12 @@ def test_double_negation_cancels_before_planning_and_no_negation_means_not_negat
 def test_a_single_negation_is_kept(engine):
     llm = FakeLLM({}, {"Who didnt direct Jaws?": [[lookup("Jaws", "P57", negated=True)]]})
     assert Planner(llm, engine).plan("Who didnt direct Jaws?")[0].negated is True
+
+
+def test_a_rephrased_answer_cannot_borrow_another_requests_film(movies_kg):
+    q = "Who directed Alien and Jaws?"
+    llm = FakeLLM({q: verdict(["safe_in_scope"], [q])},
+                  {q: [[lookup("Alien", "P57"), lookup("Jaws", "P57")]]},
+                  "Ridley Scott directed Alien and Jaws.")
+    reply = build_agent(movies_kg, llm).answer(q)
+    assert reply == "The factual answer is: Ridley Scott The factual answer is: Steven Spielberg"
