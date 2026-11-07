@@ -12,6 +12,7 @@ NUMBER = re.compile(r"^-?\d+(\.\d+)?$")
 DATE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
 NEGATION = re.compile(r"\b(?:not|never)\b|\b(?:did|does|do|is|was|were|are|has|have|had|could|would|ca|wo)n'?t\b",
                       re.IGNORECASE)
+SUPERLATIVE = re.compile(r"\b(highest|lowest|best|worst|most|least|earliest|latest|oldest|newest)\b", re.IGNORECASE)
 # "not not direct", "didn't not direct": two adjacent negations cancel; the small model misses that
 DOUBLE_NEGATION = re.compile(r"\b(not|never)\s+(not|never)\b|\b(did|does|do|is|was|were|are|has|have|had)n'?t\s+not\b",
                              re.IGNORECASE)
@@ -42,6 +43,8 @@ yourself ("not above 5" is "<=" 5).
 Rules:
 - NAME is the movie, person or thing as written in the question, spelling kept, without quotes.
 - Use only property IDs from the list below. If several could fit, give a list of up to 3.
+- highest, lowest, best, worst, most, least, earliest, latest, oldest, newest: always a superlative, never a chain.
+- A chain only follows properties outward from the entity, step by step; it never ranks or compares.
 """
 
 EXAMPLES = [
@@ -54,6 +57,9 @@ EXAMPLES = [
      [{"kind": "lookup", "entity": "Coco", "property": "P86", "direction": "out", "negated": True}]),
     ("Did Ennio Morricone compose the score of The Mission?",
      [{"kind": "claim", "entity": "The Mission", "property": "P86", "value": "Ennio Morricone"}]),
+    ("Which movie directed by Agnès Varda has the highest user rating?",
+     [{"kind": "superlative", "entity": "Agnès Varda", "property": "P57", "direction": "in",
+       "order_by": "ddis:rating", "pick": "max"}]),
     ("What is the lowest rated film starring Nicolas Cage?",
      [{"kind": "superlative", "entity": "Nicolas Cage", "property": "P161", "direction": "in",
        "order_by": "ddis:rating", "pick": "min"}]),
@@ -95,6 +101,8 @@ class Planner:
         if not isinstance(items, list) or not items:
             raise PlanError("no requests")
         requests = [self._check(item) for item in items[:MAX_REQUESTS]]
+        if SUPERLATIVE.search(question) and any(r.kind == "chain" for r in requests):
+            raise PlanError("the question asks for the highest/lowest/earliest/latest item: use kind superlative")
         if not NEGATION.search(question):
             for request in requests:
                 request.negated = False  # a negation the question doesn't have

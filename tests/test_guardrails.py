@@ -290,3 +290,10 @@ def test_a_rephrased_answer_cannot_borrow_another_requests_film(movies_kg):
                   "Ridley Scott directed Alien and Jaws.")
     reply = ask(movies_kg, llm, q)[0]
     assert reply == "The factual answer is: Ridley Scott The factual answer is: Steven Spielberg"
+
+
+def test_a_chain_for_a_highest_rated_question_is_rejected(engine):
+    llm = FakeLLM({}, {"Which film directed by Sofia Coppola is the earliest?":
+                       [[{"kind": "chain", "entity": "Sofia Coppola", "path": ["P57", "P577"]}]]})
+    with pytest.raises(PlanError, match="superlative"):
+        Planner(llm, engine).plan("Which film directed by Sofia Coppola is the earliest?")
