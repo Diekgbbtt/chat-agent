@@ -93,7 +93,6 @@ class Settings:
     heartbeat_s: float
     llm_model: str  # Hugging Face model id
     llm_4bit: bool  # 4-bit loading for small GPUs (local 6 GB card); off on Nuvolos (fp16)
-    show_guardrail_labels: bool  # prefix replies with "[label]"; SHOW_GUARDRAIL_LABELS=false = log only
     rephrase_answers: bool  # LLM rephrasing of graph answers; off = template sentences (Stage 2 evals)
 
 
@@ -115,6 +114,5 @@ def load_settings() -> Settings:
         heartbeat_s=_float_env("HEARTBEAT_S", 300.0),
         llm_model=os.environ.get("LLM_MODEL", "Qwen/Qwen3-4B-Instruct-2507"),  # "" = no LLM (Stage 2 agent)
         llm_4bit=_bool_env("LLM_4BIT", False),
-        show_guardrail_labels=_bool_env("SHOW_GUARDRAIL_LABELS", True),
         rephrase_answers=_bool_env("REPHRASE", True),
     )

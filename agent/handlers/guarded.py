@@ -15,12 +15,11 @@ log = logging.getLogger("agent.guarded")
 class GuardedHandler:
     name = "guarded"
 
-    def __init__(self, kg, lexicon, llm, show_labels: bool = False, rephrase_answers: bool = True):
+    def __init__(self, kg, lexicon, llm, rephrase_answers: bool = True):
         self.llm = llm
         self.guard = Guardrails(llm)
         self.engine = QueryEngine(kg, lexicon)
         self.planner = Planner(llm, self.engine)
-        self.show_labels = show_labels
         self.rephrase_answers = rephrase_answers
 
     def can_handle(self, text: str, session) -> bool:
@@ -41,9 +40,7 @@ class GuardedHandler:
         elif not parts:
             parts.append(nlg.capabilities())  # small talk the guard left without a reply
         reply = " ".join(part for part in parts if part) or nlg.not_understood()
-        if self.show_labels:
-            reply = f"[{', '.join(verdict.labels)}] {reply}"
-        return reply
+        return f"[{', '.join(verdict.labels)}] {reply}"  # the labels are part of every guarded reply
 
     def _answer(self, question: str, session, trace) -> str:
         """Plan, run, and plan once more with feedback if the plan was invalid or found nothing."""

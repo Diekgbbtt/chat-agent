@@ -45,10 +45,16 @@ def lookup(entity, prop, direction="out", negated=False):
     return {"kind": "lookup", "entity": entity, "property": prop, "direction": direction, "negated": negated}
 
 
-def ask(movies_kg, llm, text, show_labels=False):
+def ask(movies_kg, llm, text, rephrase_answers=True):
+    """(reply without the label prefix, labels); checks that a guarded reply starts with its labels."""
     trace = Trace()
-    reply = build_agent(movies_kg, llm, show_labels).answer(text, "room", trace)
-    return reply, dict(trace.steps).get("labels")
+    reply = build_agent(movies_kg, llm, rephrase_answers).answer(text, "room", trace)
+    labels = dict(trace.steps).get("labels")
+    if labels:
+        prefix = f"[{', '.join(labels)}] "
+        assert reply.startswith(prefix), reply
+        reply = reply[len(prefix):]
+    return reply, labels
 
 
 GODFATHER = "Who directed The Godfather?"
@@ -78,7 +84,7 @@ def test_several_movie_questions_are_all_answered(movies_kg):
     first, second = "Who directed Alien", "when did Interstellar come out?"
     llm = FakeLLM({text: verdict(["safe_in_scope"], [first, second])},
                   {first: [[lookup("Alien", "P57")]], second: [[lookup("Interstellar", "P577")]]})
-    reply = build_agent(movies_kg, llm, rephrase_answers=False).answer(text)
+    reply = ask(movies_kg, llm, text, rephrase_answers=False)[0]
     assert reply == "The factual answer is: Ridley Scott The factual answer is: 2014-10-26"
 
 
@@ -97,7 +103,7 @@ def test_the_planner_gets_the_users_words_not_the_guards_rewrite(movies_kg):
     text = "Who didnt direct Alien?"
     llm = FakeLLM({text: verdict(["safe_in_scope"], ["Who directed Alien?"])},
                   {"Who didnt direct Alien?": [[lookup("Alien", "P57", negated=True)]]})
-    reply = build_agent(movies_kg, llm, rephrase_answers=False).answer(text)
+    reply = ask(movies_kg, llm, text, rephrase_answers=False)[0]
     assert llm.planned == ["Who didnt direct Alien?"]
     assert "Ridley Scott" not in reply
 
@@ -132,7 +138,7 @@ def test_an_invalid_plan_is_retried_with_feedback(movies_kg):
     llm = FakeLLM({GODFATHER: verdict(["safe_in_scope"], [GODFATHER])},
                   {GODFATHER: ['{"requests": [{"kind": "lookup", "entity": "The Godfather", "property": "P999"}]}',
                                [lookup("The Godfather", "P57")]]})
-    reply = build_agent(movies_kg, llm, rephrase_answers=False).answer(GODFATHER)
+    reply = ask(movies_kg, llm, GODFATHER, rephrase_answers=False)[0]
     assert reply == "The factual answer is: Francis Ford Coppola"
     assert "unknown property" in llm.planned[1]
 
@@ -141,7 +147,7 @@ def test_a_plan_that_finds_nothing_is_retried(movies_kg):
     q = "Who starred in Lost in Translation?"
     llm = FakeLLM({q: verdict(["safe_in_scope"], [q])},
                   {q: [[lookup("Lost in Translation", "P161")], [lookup("Lost in Translation", "P57")]]})
-    reply = build_agent(movies_kg, llm, rephrase_answers=False).answer(q)
+    reply = ask(movies_kg, llm, q, rephrase_answers=False)[0]
     assert reply == "The factual answer is: Sofia Coppola"
     assert "found nothing" in llm.planned[1]
 
@@ -183,9 +189,9 @@ def test_a_movie_question_always_counts_as_in_scope(movies_kg):
     assert reply == "The factual answer is: Steven Spielberg Please be kind."
 
 
-def test_labels_can_be_shown_in_the_reply(movies_kg):
+def test_every_guarded_reply_starts_with_its_labels(movies_kg):
     llm = FakeLLM({"You are useless.": verdict(["toxic"], [], "Let's talk about movies instead.")})
-    assert ask(movies_kg, llm, "You are useless.", show_labels=True)[0] == "[toxic] Let's talk about movies instead."
+    assert build_agent(movies_kg, llm).answer("You are useless.") == "[toxic] Let's talk about movies instead."
 
 
 def test_sparql_bypasses_the_guardrails(movies_kg):
@@ -282,5 +288,5 @@ def test_a_rephrased_answer_cannot_borrow_another_requests_film(movies_kg):
     llm = FakeLLM({q: verdict(["safe_in_scope"], [q])},
                   {q: [[lookup("Alien", "P57"), lookup("Jaws", "P57")]]},
                   "Ridley Scott directed Alien and Jaws.")
-    reply = build_agent(movies_kg, llm).answer(q)
+    reply = ask(movies_kg, llm, q)[0]
     assert reply == "The factual answer is: Ridley Scott The factual answer is: Steven Spielberg"
