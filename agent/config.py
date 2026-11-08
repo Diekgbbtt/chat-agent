@@ -16,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 NUVOLOS_GRAPH_PATH = "/space_mounts/atai-hs26/dataset/graph.nt"
 NUVOLOS_MODEL_CACHE = "/files/hf_cache"  # persistent storage, so the model is downloaded only once
+NUVOLOS_STORE = "/files/kg_store"  # outside the submission folder, which may hold at most 100 MB
 DEFAULT_HOST = "https://speakeasy.ifi.uzh.ch"
 
 
@@ -52,6 +53,10 @@ def load_dotenv(paths: Optional[Iterable[Path]] = None) -> None:
             continue
         for key, value in parse_dotenv(text).items():
             os.environ.setdefault(key, value)
+
+
+def _default_store_path() -> str:
+    return NUVOLOS_STORE if Path("/files").is_dir() else str(PROJECT_ROOT / "kg_store")
 
 
 def _default_graph_path() -> str:
@@ -105,7 +110,7 @@ def load_settings() -> Settings:
         username=os.environ.get("BOT_USERNAME"),
         password=os.environ.get("BOT_PASSWORD"),
         graph_path=os.environ.get("GRAPH_PATH") or _default_graph_path(),
-        store_path=os.environ.get("KG_STORE_PATH") or str(PROJECT_ROOT / "kg_store"),
+        store_path=os.environ.get("KG_STORE_PATH") or _default_store_path(),
         workers=max(1, _int_env("AGENT_WORKERS", 8)),
         reply_timeout_s=_float_env("REPLY_TIMEOUT_S", 25.0),
         query_timeout_s=_float_env("QUERY_TIMEOUT_S", 20.0),
