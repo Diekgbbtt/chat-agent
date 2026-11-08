@@ -121,10 +121,11 @@ def _marker_matches_graph(marker: dict, graph_path) -> bool:
     if not isinstance(graph, dict):
         return False
     try:
-        actual = _graph_fingerprint(graph_path)
+        size = Path(graph_path).stat().st_size
     except OSError:
         return False
-    return graph.get("size") == actual["size"] and graph.get("sha256") == actual["sha256"]
+    # The size, not the checksum: hashing the 290 MB graph at every start takes minutes on Nuvolos storage.
+    return graph.get("size") == size
 
 
 def store_is_built(store_path, graph_path=None) -> bool:
